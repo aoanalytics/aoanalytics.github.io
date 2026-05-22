@@ -31,14 +31,12 @@ function wireDiscordLinks() {
   const links = document.querySelectorAll(".discord-link");
   links.forEach((link) => {
     if (DISCORD_INVITE_URL.includes("replace-me")) {
-      link.setAttribute("href", "https://x.com/AO_Analytics");
-      link.setAttribute("target", "_blank");
-      link.setAttribute("rel", "noopener");
-      link.textContent = link.classList.contains("header-action") ? "Invite" : "Request Invite";
+      link.setAttribute("href", "#join");
+      link.removeAttribute("target");
+      link.removeAttribute("rel");
       link.addEventListener("click", (event) => {
-        if (!link.closest(".site-footer")) return;
         event.preventDefault();
-        window.open("https://x.com/AO_Analytics", "_blank", "noopener");
+        document.querySelector("#join")?.scrollIntoView({ behavior: "smooth", block: "center" });
       });
       return;
     }
