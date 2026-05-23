@@ -1,4 +1,4 @@
-const DISCORD_INVITE_URL = "https://discord.com/invite/replace-me";
+const DISCORD_INVITE_URL = "https://whop.com/alpha-omega-analytics/premium-discord-0e-7b63/";
 
 const quizResults = {
   momentum: {
