@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive product simulation of AO Terminal using representative market data for options decision-support workflows.">
+  <meta name="theme-color" content="#07110d">
+  <title>AO Terminal Interactive Demo</title>
+  <link rel="icon" href="../assets/ao-logo-mark.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <section class="investor-banner" aria-label="Demo disclosure and traction">
+    <div class="demo-disclosure">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      <div>
+        <strong>Interactive product simulation using representative market data. Brokerage connections and trade execution are disabled.</strong>
+        <p>The production AO Terminal performs this workflow using live market, options, positioning, news, and account-aware risk data.</p>
+      </div>
+    </div>
+    <p class="traction-strip">Private beta · 20 beta users · 4 paying subscribers</p>
+  </section>
+
+  <header class="app-header">
+    <a class="brand" href="../" aria-label="Return to Alpha and Omega Analytics homepage">
+      <img src="../assets/ao-logo-mark.png" alt="">
+      <span>
+        <strong>AO Terminal</strong>
+        <small>Alpha &amp; Omega Analytics</small>
+      </span>
+    </a>
+
+    <nav class="app-nav" aria-label="Demo navigation">
+      <button class="nav-button active" type="button" data-view-target="today">Today</button>
+      <button class="nav-button" type="button" data-view-target="discover">Discover</button>
+      <button class="nav-button" type="button" data-view-target="trades">My Trades</button>
+    </nav>
+
+    <div class="header-actions">
+      <button class="tour-button" id="openTour" type="button">
+        <span aria-hidden="true">▶</span>
+        60-sec tour
+      </button>
+      <span class="demo-user" title="Simulation profile">Sim</span>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="app-view active" id="view-today" data-view="today">
+      <div class="page-heading">
+        <div>
+          <p class="eyebrow">Wednesday, July 29 · 10:14 AM ET</p>
+          <h1>Your market desk is ready.</h1>
+          <p>This interactive product simulation organizes representative setups, contracts, and risk decisions.</p>
+        </div>
+        <div class="market-state">
+          <span>Simulated market state</span>
+          <strong><i></i> Selectively bullish</strong>
+          <small>Momentum is improving, but not every ticker is ready.</small>
+        </div>
+      </div>
+
+      <section class="panel scanner-panel" aria-labelledby="scanner-title">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">Intraday scanner</span>
+            <h2 id="scanner-title">Representative setups</h2>
+          </div>
+          <div class="legend">
+            <span><i class="green"></i> Bullish</span>
+            <span><i class="amber"></i> Building</span>
+            <span><i class="red"></i> Bearish</span>
+          </div>
+        </div>
+
+        <div class="signal-grid" id="signalGrid">
+          <button class="signal-card selected bullish" type="button" data-ticker="AAPL" aria-pressed="true">
+            <span class="signal-top"><b>AAPL</b><em>Weekly</em></span>
+            <strong>5/5</strong>
+            <span class="signal-state">Bullish</span>
+            <small>Good entry</small>
+          </button>
+          <button class="signal-card building" type="button" data-ticker="QQQ" aria-pressed="false">
+            <span class="signal-top"><b>QQQ</b><em>0DTE</em></span>
+            <strong>4/5</strong>
+            <span class="signal-state">Setup building</span>
+            <small>Waiting for confirmation</small>
+          </button>
+          <button class="signal-card neutral" type="button" data-ticker="SPY" aria-pressed="false">
+            <span class="signal-top"><b>SPY</b><em>0DTE</em></span>
+            <strong>3/5</strong>
+            <span class="signal-state">No trade</span>
+            <small>Mixed conditions</small>
+          </button>
+          <button class="signal-card bearish" type="button" data-ticker="NVDA" aria-pressed="false">
+            <span class="signal-top"><b>NVDA</b><em>Weekly</em></span>
+            <strong>1/5</strong>
+            <span class="signal-state">Bearish</span>
+            <small>Good entry</small>
+          </button>
+        </div>
+      </section>
+
+      <div class="decision-layout">
+        <section class="panel setup-panel" aria-labelledby="setup-title">
+          <div class="setup-header">
+            <div class="ticker-identity">
+              <span class="ticker-logo" id="tickerLogo">A</span>
+              <div>
+                <span class="section-kicker">Selected setup</span>
+                <h2 id="setup-title"><span id="tickerName">AAPL</span> <span id="setupScore">5/5 Bullish</span></h2>
+                <p id="tickerPrice">$229.84 <strong>+1.72%</strong></p>
+              </div>
+            </div>
+            <div class="entry-status positive" id="entryStatus">
+              <span>Simulated AO decision</span>
+              <strong id="entryLabel">Good entry</strong>
+              <small id="entryDetail">Price confirmed above the planned trigger.</small>
+            </div>
+          </div>
+
+          <div class="explanation-block">
+            <span class="section-kicker">Representative rationale</span>
+            <h3 id="setupHeadline">Momentum has confirmed above a key level.</h3>
+            <ul id="reasonList">
+              <li><i>✓</i><span>Price reclaimed the breakout level and held on the retest.</span></li>
+              <li><i>✓</i><span>Options premium remains inside AO’s preferred range.</span></li>
+              <li><i>✓</i><span>The broader technology sector is supporting the move.</span></li>
+            </ul>
+          </div>
+
+          <div class="level-strip">
+            <div>
+              <span>Trigger</span>
+              <strong id="triggerLevel">$228.60</strong>
+            </div>
+            <div>
+              <span>Invalidation</span>
+              <strong id="invalidationLevel">$226.80</strong>
+            </div>
+            <div>
+              <span>First target</span>
+              <strong id="targetLevel">$233.50</strong>
+            </div>
+          </div>
+        </section>
+
+        <aside class="panel contract-panel" aria-labelledby="contract-title">
+          <div class="section-heading compact">
+            <div>
+              <span class="section-kicker">Representative AO contract</span>
+              <h2 id="contract-title">Contract &amp; risk</h2>
+            </div>
+            <span class="quality-badge" id="qualityBadge">Preferred</span>
+          </div>
+
+          <div class="contract-hero">
+            <span id="contractExpiry">Aug 7 · Weekly</span>
+            <strong id="contractName">AAPL $230 Call</strong>
+            <small>Simulated premium <b id="contractPremium">$3.10</b></small>
+          </div>
+
+          <div class="plan-summary">
+            <div><span>Your AO allocation</span><strong>$1,000</strong></div>
+            <div><span>Maximum position</span><strong>$700</strong></div>
+            <div><span>1 contract deploys</span><strong id="capitalDeployed">$310</strong></div>
+            <div><span>Planned stop exposure</span><strong id="stopExposure">$93</strong></div>
+          </div>
+
+          <div class="fit-status" id="fitStatus">
+            <span>✓</span>
+            <p><strong>Fits your plan</strong><small id="fitDetail">Uses 31% of your AO allocation.</small></p>
+          </div>
+
+          <button class="primary-button" id="trackTrade" type="button">Track this plan</button>
+          <p class="manual-note">AO provides decision support. You review and place any order yourself.</p>
+        </aside>
+      </div>
+
+      <div class="bottom-layout">
+        <section class="panel position-preview">
+          <div class="section-heading compact">
+            <div>
+              <span class="section-kicker">Position manager</span>
+              <h2>Know what to do after entry</h2>
+            </div>
+            <button class="text-button" type="button" data-view-target="trades">View trade</button>
+          </div>
+          <div class="position-row">
+            <span class="position-icon">Q</span>
+            <div><strong>QQQ $704 Call</strong><small>1 contract · Entered at $2.41</small></div>
+            <div><span>Simulated premium</span><strong>$3.02</strong></div>
+            <div><span>Return</span><strong class="gain">+25.3%</strong></div>
+            <div class="manager-action"><span>Representative AO guidance</span><strong>Protect gains</strong><small>Move stop to entry.</small></div>
+          </div>
+        </section>
+
+        <section class="panel brief-panel">
+          <span class="section-kicker">Simulated AO morning brief</span>
+          <h2>Representative scenario</h2>
+          <ul>
+            <li><span>10:30 AM</span><p><strong>Fed speaker</strong><small>Expect short volatility bursts.</small></p></li>
+            <li><span>11:00 AM</span><p><strong>Tech leadership</strong><small>Watch whether semiconductors confirm.</small></p></li>
+            <li><span>2:00 PM</span><p><strong>Dealer levels</strong><small>Recheck positioning before final hour.</small></p></li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <section class="app-view" id="view-discover" data-view="discover">
+      <div class="page-heading discover-heading">
+        <div>
+          <p class="eyebrow">AO Analyst simulation</p>
+          <h1>Turn a ticker into one clear decision.</h1>
+          <p>AO synthesizes the setup, contract quality, risk, and next action instead of making you interpret another dense scanner.</p>
+        </div>
+      </div>
+
+      <section class="panel ask-panel">
+        <form id="askForm" class="ask-form">
+          <label for="askInput">Ask about a ticker or setup</label>
+          <div>
+            <input id="askInput" type="text" autocomplete="off" value="Is there a good options setup on NVDA?" aria-describedby="askHint">
+            <button class="primary-button" type="submit">Ask AO</button>
+          </div>
+          <p id="askHint">Try “NVDA”, “QQQ 0DTE”, or “What should I avoid in this scenario?”</p>
+        </form>
+        <div class="quick-prompts" role="group" aria-label="Example questions">
+          <button type="button" data-question="Is there a good options setup on NVDA?">NVDA setup</button>
+          <button type="button" data-question="What is AO seeing in QQQ 0DTE?">QQQ 0DTE</button>
+          <button type="button" data-question="What should I avoid in this scenario?">What to avoid</button>
+        </div>
+      </section>
+
+      <section class="panel analyst-answer" id="analystAnswer" aria-live="polite">
+        <div class="analyst-avatar">AO</div>
+        <div class="answer-content">
+          <span class="section-kicker">AO Analyst</span>
+          <h2>NVDA is a 1/5 bearish setup with a good entry.</h2>
+          <p>Downside momentum is confirmed below the intraday recovery level. The setup remains valid while NVDA stays below $174.20, but premium can move quickly—keep the position small and respect the invalidation.</p>
+          <div class="answer-grid">
+            <div><span>Setup</span><strong>1/5 Bearish</strong></div>
+            <div><span>Contract</span><strong>NVDA $172.50 Put</strong></div>
+            <div><span>Premium</span><strong>$3.65 simulated</strong></div>
+            <div><span>Next action</span><strong>Review trade plan</strong></div>
+          </div>
+          <button class="secondary-button" type="button" data-view-target="today" data-select-ticker="NVDA">Open full setup</button>
+        </div>
+      </section>
+    </section>
+
+    <section class="app-view" id="view-trades" data-view="trades">
+      <div class="page-heading">
+        <div>
+          <p class="eyebrow">Position Manager</p>
+          <h1>Manage the decision—not just the entry.</h1>
+          <p>This simulation keeps the original plan beside a representative position so traders can see how AO supports hold, protect, trim, or exit decisions.</p>
+        </div>
+      </div>
+
+      <section class="panel trade-manager">
+        <div class="trade-title-row">
+          <div class="ticker-identity">
+            <span class="ticker-logo purple">Q</span>
+            <div><span class="section-kicker">Open demo position</span><h2>QQQ $704 Call · 0DTE</h2><p>1 contract · Simulated position</p></div>
+          </div>
+          <div class="open-badge">Simulated</div>
+        </div>
+
+        <div class="trade-metrics">
+          <div><span>Entry</span><strong>$2.41</strong></div>
+          <div><span>Simulated current</span><strong>$3.02</strong></div>
+          <div><span>Position value</span><strong>$302</strong></div>
+          <div><span>Return</span><strong class="gain">+$61 · 25.3%</strong></div>
+        </div>
+
+        <div class="guidance-card">
+          <div class="guidance-icon">↗</div>
+          <div>
+            <span>Representative AO guidance</span>
+            <h3>Protect gains. Move the stop to entry.</h3>
+            <p>The first target is approaching and momentum remains constructive. Protect the original capital while leaving room for continuation.</p>
+          </div>
+          <button class="secondary-button" id="simulateUpdate" type="button">Simulate next update</button>
+        </div>
+
+        <div class="trade-plan-grid">
+          <div><span>Original trigger</span><strong>Above $703.80</strong><small>Confirmed at entry</small></div>
+          <div><span>Current invalidation</span><strong id="managerStop">$2.41 premium</strong><small id="managerStopNote">Raised to breakeven</small></div>
+          <div><span>First target</span><strong>$3.20 premium</strong><small id="targetProgress">77% of the way there</small></div>
+          <div><span>Next decision</span><strong id="nextDecision">Trim near target</strong><small id="nextDecisionNote">Keep the remainder protected</small></div>
+        </div>
+      </section>
+
+      <section class="panel tracked-plan" id="trackedPlan" hidden>
+        <span class="section-kicker">Newly tracked</span>
+        <h2 id="trackedTitle">AAPL $230 Call</h2>
+        <p>The plan was added to this simulation view. In the production AO Terminal, Position Manager can compare a monitored position with its original trigger, invalidation, targets, and premium quality.</p>
+      </section>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p><strong>Demo data is simulated and for product demonstration only.</strong> AO Terminal is decision-support software, not a broker, investment adviser, or automated trading system. Users remain responsible for their trading decisions. Options involve substantial risk.</p>
+    <a href="../">Back to AO Analytics</a>
+  </footer>
+
+  <div class="modal-backdrop active" id="welcomeModal" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+    <div class="welcome-card">
+      <img src="../assets/ao-logo-mark.png" alt="">
+      <span class="demo-pill">Interactive product simulation</span>
+      <h2 id="welcomeTitle">Meet your AI trading desk.</h2>
+      <p>See how AO turns market data into a clear setup, contract, risk plan, and position-management decision—in about 60 seconds.</p>
+      <div class="welcome-points">
+        <span><i>1</i> Choose a setup</span>
+        <span><i>2</i> Understand why</span>
+        <span><i>3</i> Review contract &amp; risk</span>
+        <span><i>4</i> Track the position</span>
+      </div>
+      <button class="primary-button large" id="enterDemo" type="button">Enter interactive simulation</button>
+      <small>Uses representative market data. Brokerage connections and trade execution are disabled.</small>
+    </div>
+  </div>
+
+  <aside class="tour-drawer" id="tourDrawer" aria-label="Guided demo tour" hidden>
+    <div class="tour-head">
+      <div><span>Guided tour</span><strong id="tourCount">1 of 5</strong></div>
+      <button id="closeTour" type="button" aria-label="Close tour">×</button>
+    </div>
+    <div class="tour-progress"><span id="tourProgress"></span></div>
+    <div class="tour-copy">
+      <span id="tourEyebrow">Step 1 · Scan</span>
+      <h2 id="tourTitle">Start with the clearest setup.</h2>
+      <p id="tourText">AO ranks the market from bullish to bearish and tells you whether the entry is ready, building, or a no-trade.</p>
+    </div>
+    <div class="tour-actions">
+      <button class="secondary-button" id="tourBack" type="button" disabled>Back</button>
+      <button class="primary-button" id="tourNext" type="button">Next</button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
