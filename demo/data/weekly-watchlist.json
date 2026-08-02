@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "sessionDate": "2026-07-31",
+  "groups": [
+    {
+      "stableKey":"weekly-bullish","displayOrder":1,"score":5,"label":"5/5 Bullish","tone":"bullish",
+      "items":[
+        {"stableKey":"weekly-googl","displayOrder":1,"ticker":"GOOGL","price":354.20,"changePct":-0.54,"confirmation":85,"entryStatus":"Entry available","contract":{"label":"GOOGL 360C · Aug 7","premium":4.82},"planFit":"Fits demo plan","tradePlan":"TP +30% · SL -30%"},
+        {"stableKey":"weekly-msft","displayOrder":2,"ticker":"MSFT","price":461.85,"changePct":-0.62,"confirmation":85,"entryStatus":"Entry available","contract":{"label":"MSFT 475C · Aug 7","premium":4.30},"planFit":"Fits demo plan","tradePlan":"TP +30% · SL -30%"},
+        {"stableKey":"weekly-pltr","displayOrder":3,"ticker":"PLTR","price":122.76,"changePct":-0.24,"confirmation":85,"entryStatus":"Entry available","contract":{"label":"PLTR 127C · Aug 7","premium":5.35},"planFit":"Fits demo plan","tradePlan":"TP +30% · SL -30%"},
+        {"stableKey":"weekly-wmt","displayOrder":4,"ticker":"WMT","price":111.33,"changePct":0.11,"confirmation":85,"entryStatus":"Entry available","contract":{"label":"WMT 110C · Aug 7","premium":2.27},"planFit":"Fits demo plan","tradePlan":"TP +30% · SL -30%"}
+      ]
+    },
+    {
+      "stableKey":"weekly-building-bull","displayOrder":2,"score":4,"label":"4/5 Bullish Setup Building","tone":"building-bullish",
+      "items":[
+        {"stableKey":"weekly-aaoi","displayOrder":1,"ticker":"AAOI","price":92.80,"changePct":2.99,"confirmation":75,"entryStatus":"Wait for trigger","contract":{"label":"AAOI 100C · Aug 7","premium":7.65},"planFit":"Fits demo plan","tradePlan":"Confirm above trigger"}
+      ]
+    },
+    {
+      "stableKey":"weekly-no-trade","displayOrder":3,"score":3,"label":"3/5 No Trade","tone":"neutral",
+      "items":[
+        {"stableKey":"weekly-amzn","displayOrder":1,"ticker":"AMZN","price":270.50,"changePct":-0.40,"confirmation":50,"entryStatus":"No trade","contract":{"label":"AMZN 270P · Aug 7","premium":6.10},"planFit":"Wait","tradePlan":"Neutral / chop"},
+        {"stableKey":"weekly-ba","displayOrder":2,"ticker":"BA","price":216.00,"changePct":-0.06,"confirmation":50,"entryStatus":"No trade","contract":{"label":"BA 215P · Aug 7","premium":4.55},"planFit":"Wait","tradePlan":"Neutral / chop"},
+        {"stableKey":"weekly-coin","displayOrder":3,"ticker":"COIN","price":145.98,"changePct":-0.19,"confirmation":50,"entryStatus":"No trade","contract":{"label":"COIN 145P · Aug 7","premium":5.90},"planFit":"Wait","tradePlan":"Neutral / chop"},
+        {"stableKey":"weekly-crwd","displayOrder":4,"ticker":"CRWD","price":71.28,"changePct":-0.68,"confirmation":50,"entryStatus":"No trade","contract":{"label":"CRWD 70P · Aug 7","premium":3.25},"planFit":"Wait","tradePlan":"Neutral / chop"}
+      ]
+    },
+    {
+      "stableKey":"weekly-building-bear","displayOrder":4,"score":2,"label":"2/5 Bearish Setup Building","tone":"building-bearish",
+      "items":[
+        {"stableKey":"weekly-amd","displayOrder":1,"ticker":"AMD","price":472.12,"changePct":-0.85,"confirmation":75,"entryStatus":"Breakdown building","contract":{"label":"AMD 452.5P · Aug 7","premium":15.60},"planFit":"Fits demo plan","tradePlan":"TP +30% · SL -30%"},
+        {"stableKey":"weekly-cost","displayOrder":2,"ticker":"COST","price":951.74,"changePct":-0.02,"confirmation":75,"entryStatus":"Breakdown building","contract":{"label":"COST 942.5P · Aug 7","premium":7.55},"planFit":"Fits demo plan","tradePlan":"TP +30% · SL -30%"},
+        {"stableKey":"weekly-jpm","displayOrder":3,"ticker":"JPM","price":350.15,"changePct":-0.47,"confirmation":75,"entryStatus":"Breakdown building","contract":{"label":"JPM 350P · Aug 7","premium":3.18},"planFit":"Fits demo plan","tradePlan":"TP +30% · SL -30%"},
+        {"stableKey":"weekly-meta","displayOrder":4,"ticker":"META","price":553.88,"changePct":-0.51,"confirmation":75,"entryStatus":"Breakdown building","contract":{"label":"META 545P · Aug 7","premium":7.10},"planFit":"Fits demo plan","tradePlan":"TP +30% · SL -30%"}
+      ]
+    },
+    {
+      "stableKey":"weekly-bearish","displayOrder":5,"score":1,"label":"1/5 Bearish","tone":"bearish",
+      "items":[
+        {"stableKey":"weekly-aapl","displayOrder":1,"ticker":"AAPL","price":307.34,"changePct":-7.82,"confirmation":85,"entryStatus":"Bearish confirmed","contract":{"label":"AAPL 307.5P · Aug 7","premium":4.65},"planFit":"Fits demo plan","tradePlan":"TP +30% · SL -30%"},
+        {"stableKey":"weekly-arm","displayOrder":2,"ticker":"ARM","price":234.92,"changePct":-1.99,"confirmation":85,"entryStatus":"Bearish confirmed","contract":{"label":"ARM 225P · Aug 7","premium":6.48},"planFit":"Fits demo plan","tradePlan":"TP +30% · SL -30%"},
+        {"stableKey":"weekly-cat","displayOrder":3,"ticker":"CAT","price":814.21,"changePct":-0.07,"confirmation":85,"entryStatus":"Bearish confirmed","contract":{"label":"CAT 795P · Aug 7","premium":19.92},"planFit":"Fits demo plan","tradePlan":"TP +30% · SL -30%"},
+        {"stableKey":"weekly-gs","displayOrder":4,"ticker":"GS","price":1015.77,"changePct":-0.26,"confirmation":85,"entryStatus":"Bearish confirmed","contract":{"label":"GS 995P · Aug 7","premium":10.25},"planFit":"Fits demo plan","tradePlan":"TP +30% · SL -30%"},
+        {"stableKey":"weekly-mu","displayOrder":5,"ticker":"MU","price":812.50,"changePct":-1.28,"confirmation":85,"entryStatus":"Bearish confirmed","contract":{"label":"MU 792.5P · Aug 7","premium":33.03},"planFit":"Fits demo plan","tradePlan":"TP +30% · SL -30%"}
+      ]
+    }
+  ]
+}

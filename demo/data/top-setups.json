@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "sessionDate": "2026-07-31",
+  "items": [
+    {"stableKey":"top-arm","rank":1,"ticker":"ARM","score":1,"direction":"puts","surface":"Weekly / Swing","contract":"ARM 225P · Aug 7","premium":6.48,"volumeMultiple":4.1,"confirmation":85,"summary":"Heavy put flow with bearish confirmation."},
+    {"stableKey":"top-mu","rank":2,"ticker":"MU","score":1,"direction":"puts","surface":"Weekly / Swing","contract":"MU 792.5P · Aug 7","premium":33.03,"volumeMultiple":3.3,"confirmation":85,"summary":"Bearish momentum aligned with elevated options flow."},
+    {"stableKey":"top-pltr","rank":3,"ticker":"PLTR","score":5,"direction":"calls","surface":"Weekly / Swing","contract":"PLTR 127C · Aug 7","premium":5.35,"volumeMultiple":5.5,"confirmation":85,"summary":"Bullish structure with the strongest relative flow."},
+    {"stableKey":"top-uso","rank":4,"ticker":"USO","score":5,"direction":"calls","surface":"Weekly / Swing","contract":"USO 138C · Aug 7","premium":6.83,"volumeMultiple":2.3,"confirmation":85,"summary":"Energy strength and bullish continuation pressure."},
+    {"stableKey":"top-nvts","rank":5,"ticker":"NVTS","score":1,"direction":"puts","surface":"Weekly / Swing","contract":"NVTS 15P · Aug 7","premium":4.43,"volumeMultiple":2.4,"confirmation":85,"summary":"Downside structure remains intact below resistance."},
+    {"stableKey":"top-amd","rank":6,"ticker":"AMD","score":2,"direction":"puts","surface":"Weekly / Swing","contract":"AMD 452.5P · Aug 7","premium":15.60,"volumeMultiple":3.6,"confirmation":75,"summary":"Bearish setup building; trigger is not fully confirmed."},
+    {"stableKey":"top-spcx","rank":7,"ticker":"SPCX","score":1,"direction":"puts","surface":"Weekly / Swing","contract":"SPCX 100P · Aug 7","premium":10.45,"volumeMultiple":3.4,"confirmation":85,"summary":"Bearish continuation candidate with defined risk."},
+    {"stableKey":"top-ionq","rank":8,"ticker":"IONQ","score":2,"direction":"puts","surface":"Weekly / Swing","contract":"IONQ 35P · Aug 7","premium":3.68,"volumeMultiple":3.3,"confirmation":75,"summary":"Downside setup building beneath the recovery level."},
+    {"stableKey":"top-mrvl","rank":9,"ticker":"MRVL","score":2,"direction":"puts","surface":"Weekly / Swing","contract":"MRVL 175P · Aug 7","premium":15.68,"volumeMultiple":5.2,"confirmation":75,"summary":"Flow is bearish; wait for a clean breakdown."},
+    {"stableKey":"top-aapl","rank":10,"ticker":"AAPL","score":1,"direction":"puts","surface":"Weekly / Swing","contract":"AAPL 307.5P · Aug 7","premium":4.65,"volumeMultiple":4.8,"confirmation":85,"summary":"Large downside move with confirmed bearish structure."}
+  ]
+}

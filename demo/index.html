@@ -1,345 +1,660 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Interactive product simulation of AO Terminal using representative market data for options decision-support workflows.">
-  <meta name="theme-color" content="#07110d">
-  <title>AO Terminal Interactive Demo</title>
-  <link rel="icon" href="../assets/ao-logo-mark.png">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <section class="investor-banner" aria-label="Demo disclosure and traction">
-    <div class="demo-disclosure">
-      <span class="pulse-dot" aria-hidden="true"></span>
-      <div>
-        <strong>Interactive product simulation using representative market data. Brokerage connections and trade execution are disabled.</strong>
-        <p>The production AO Terminal performs this workflow using live market, options, positioning, news, and account-aware risk data.</p>
-      </div>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; worker-src 'none'; media-src 'none'"
+    >
+    <meta
+      name="description"
+      content="A frozen, read-only historical session of the Alpha &amp; Omega Analytics Signal Terminal V48."
+    >
+    <title>AO Analytics — Signal Terminal</title>
+    <link rel="icon" href="../assets/ao-logo-mark.png">
+    <link rel="stylesheet" href="./styles.css?v=20260801-1">
+    <script src="./app.js?v=20260801-1" defer></script>
+  </head>
+  <body>
+    <a class="ao-demo-skip" href="#setup-monitor">Skip to setups</a>
+
+    <aside class="demo-disclosure" aria-label="Investor demo disclosure">
+      <span class="demo-disclosure__label">FROZEN INVESTOR DEMO</span>
+      <strong id="demo-disclosure-text">
+        Frozen historical AO Terminal session captured after market close. Live market updates, brokerage connections, and trade execution are disabled.
+      </strong>
+      <span id="demo-session-date">Session: July 31, 2026 · after market close</span>
+    </aside>
+
+    <div id="loading-state" class="demo-loading" role="status">Loading frozen AO closing session…</div>
+    <div id="load-error" class="demo-load-error" role="alert" hidden>
+      The frozen session could not be loaded. No live-data fallback was attempted.
     </div>
-    <p class="traction-strip">Private beta · 20 beta users · 4 paying subscribers</p>
-  </section>
 
-  <header class="app-header">
-    <a class="brand" href="../" aria-label="Return to Alpha and Omega Analytics homepage">
-      <img src="../assets/ao-logo-mark.png" alt="">
-      <span>
-        <strong>AO Terminal</strong>
-        <small>Alpha &amp; Omega Analytics</small>
-      </span>
-    </a>
-
-    <nav class="app-nav" aria-label="Demo navigation">
-      <button class="nav-button active" type="button" data-view-target="today">Today</button>
-      <button class="nav-button" type="button" data-view-target="discover">Discover</button>
-      <button class="nav-button" type="button" data-view-target="trades">My Trades</button>
-    </nav>
-
-    <div class="header-actions">
-      <button class="tour-button" id="openTour" type="button">
-        <span aria-hidden="true">▶</span>
-        60-sec tour
-      </button>
-      <span class="demo-user" title="Simulation profile">Sim</span>
-    </div>
-  </header>
-
-  <main class="app-shell">
-    <section class="app-view active" id="view-today" data-view="today">
-      <div class="page-heading">
-        <div>
-          <p class="eyebrow">Wednesday, July 29 · 10:14 AM ET</p>
-          <h1>Your market desk is ready.</h1>
-          <p>This interactive product simulation organizes representative setups, contracts, and risk decisions.</p>
-        </div>
-        <div class="market-state">
-          <span>Simulated market state</span>
-          <strong><i></i> Selectively bullish</strong>
-          <small>Momentum is improving, but not every ticker is ready.</small>
-        </div>
-      </div>
-
-      <section class="panel scanner-panel" aria-labelledby="scanner-title">
-        <div class="section-heading">
-          <div>
-            <span class="section-kicker">Intraday scanner</span>
-            <h2 id="scanner-title">Representative setups</h2>
+    <div id="ao-beginner-root" hidden aria-hidden="true" inert>
+      <div class="ao-express-app">
+        <header class="ao-express-header">
+          <a class="ao-express-brand" href="#today" aria-label="AO Terminal Express home">
+            <img src="../assets/ao-logo-mark.png" alt="" width="42" height="42">
+            <span>
+              <strong>Alpha &amp; Omega Analytics</strong>
+              <small>Signal Terminal V48</small>
+            </span>
+          </a>
+          <div class="ao-express-header-status">
+            <span class="ao-express-market-chip">CLOSED · FROZEN SESSION</span>
+            <span class="ao-express-time-chip">JUL 31 · 4:05 PM EDT</span>
+            <button
+              type="button"
+              class="ao-express-mode-toggle"
+              data-mode-toggle
+              role="switch"
+              aria-checked="true"
+              aria-label="Express Mode, simplified view of the same AO intelligence, on"
+            >
+              <span>
+                <strong>Express Mode</strong>
+                <small>Simplified view of the same AO intelligence</small>
+              </span>
+              <span class="ao-mode-track" aria-hidden="true"><span></span></span>
+              <b>ON</b>
+            </button>
           </div>
-          <div class="legend">
-            <span><i class="green"></i> Bullish</span>
-            <span><i class="amber"></i> Building</span>
-            <span><i class="red"></i> Bearish</span>
-          </div>
-        </div>
+        </header>
 
-        <div class="signal-grid" id="signalGrid">
-          <button class="signal-card selected bullish" type="button" data-ticker="AAPL" aria-pressed="true">
-            <span class="signal-top"><b>AAPL</b><em>Weekly</em></span>
-            <strong>5/5</strong>
-            <span class="signal-state">Bullish</span>
-            <small>Good entry</small>
-          </button>
-          <button class="signal-card building" type="button" data-ticker="QQQ" aria-pressed="false">
-            <span class="signal-top"><b>QQQ</b><em>0DTE</em></span>
-            <strong>4/5</strong>
-            <span class="signal-state">Setup building</span>
-            <small>Waiting for confirmation</small>
-          </button>
-          <button class="signal-card neutral" type="button" data-ticker="SPY" aria-pressed="false">
-            <span class="signal-top"><b>SPY</b><em>0DTE</em></span>
-            <strong>3/5</strong>
-            <span class="signal-state">No trade</span>
-            <small>Mixed conditions</small>
-          </button>
-          <button class="signal-card bearish" type="button" data-ticker="NVDA" aria-pressed="false">
-            <span class="signal-top"><b>NVDA</b><em>Weekly</em></span>
-            <strong>1/5</strong>
-            <span class="signal-state">Bearish</span>
-            <small>Good entry</small>
-          </button>
-        </div>
-      </section>
+        <main class="ao-express-shell">
+          <section class="ao-express-hero">
+            <div>
+              <span class="ao-express-eyebrow">Express Mode</span>
+              <h1>AO decisions, made easier to read.</h1>
+              <p>Review the setup, AO’s selected contract, your saved-plan fit, and the exact risk plan in one place.</p>
+            </div>
+            <details class="ao-express-data-status">
+              <summary>Data Status</summary>
+              <dl>
+                <div><dt>Market session</dt><dd>July 31 close</dd></div>
+                <div><dt>AO state</dt><dd>Frozen</dd></div>
+                <div><dt>Market values</dt><dd>Historical close</dd></div>
+                <div><dt>Brokerage</dt><dd>Disconnected</dd></div>
+              </dl>
+            </details>
+          </section>
 
-      <div class="decision-layout">
-        <section class="panel setup-panel" aria-labelledby="setup-title">
-          <div class="setup-header">
-            <div class="ticker-identity">
-              <span class="ticker-logo" id="tickerLogo">A</span>
-              <div>
-                <span class="section-kicker">Selected setup</span>
-                <h2 id="setup-title"><span id="tickerName">AAPL</span> <span id="setupScore">5/5 Bullish</span></h2>
-                <p id="tickerPrice">$229.84 <strong>+1.72%</strong></p>
+          <section class="ao-express-main-decision" aria-labelledby="express-decision-title">
+            <span class="ao-express-eyebrow">Market decision</span>
+            <h2 id="express-decision-title"><span data-selected-ticker>SPY</span> Decision</h2>
+            <article class="ao-express-decision-card">
+              <header>
+                <strong data-selected-score>—</strong>
+                <p data-selected-label>—</p>
+              </header>
+              <div class="ao-express-contract-grid">
+                <div class="ao-express-contract ao-express-contract--primary">
+                  <span>AO Best Contract</span>
+                  <strong data-selected-contract>Loading frozen contract…</strong>
+                  <small><span data-selected-premium>—</span> · Historical demo candidate · No live execution.</small>
+                </div>
               </div>
-            </div>
-            <div class="entry-status positive" id="entryStatus">
-              <span>Simulated AO decision</span>
-              <strong id="entryLabel">Good entry</strong>
-              <small id="entryDetail">Price confirmed above the planned trigger.</small>
-            </div>
-          </div>
+              <div class="ao-express-decision-details">
+                <details>
+                  <summary>Key Levels</summary>
+                  <dl class="ao-express-detail-grid">
+                    <div><dt>Price</dt><dd data-selected-price>—</dd></div>
+                    <div><dt>Support</dt><dd data-selected-pdl>—</dd></div>
+                    <div><dt>Resistance</dt><dd data-selected-pdh>—</dd></div>
+                    <div><dt>Magnet</dt><dd data-selected-magnet>—</dd></div>
+                  </dl>
+                </details>
+                <details>
+                  <summary>Level-by-Level Guide</summary>
+                  <ul class="demo-technical-list" data-selected-technical></ul>
+                </details>
+                <details>
+                  <summary>Trade Plan</summary>
+                  <dl class="ao-express-detail-grid">
+                    <div><dt>Upside trigger</dt><dd data-selected-trigger-up>—</dd></div>
+                    <div><dt>Downside trigger</dt><dd data-selected-trigger-down>—</dd></div>
+                    <div><dt>Plan fit</dt><dd>Illustrative demo plan</dd></div>
+                    <div><dt>Position size</dt><dd>Disabled in investor demo</dd></div>
+                  </dl>
+                  <p class="demo-risk-copy" data-selected-risk>—</p>
+                </details>
+              </div>
+            </article>
+          </section>
 
-          <div class="explanation-block">
-            <span class="section-kicker">Representative rationale</span>
-            <h3 id="setupHeadline">Momentum has confirmed above a key level.</h3>
-            <ul id="reasonList">
-              <li><i>✓</i><span>Price reclaimed the breakout level and held on the retest.</span></li>
-              <li><i>✓</i><span>Options premium remains inside AO’s preferred range.</span></li>
-              <li><i>✓</i><span>The broader technology sector is supporting the move.</span></li>
-            </ul>
-          </div>
+          <section class="ao-express-plan" aria-label="Trading Plan">
+            <div>
+              <strong>Trading Plan</strong>
+              <span>Allocation withheld · Max position withheld · Open positions withheld</span>
+            </div>
+            <button type="button" class="demo-disabled" disabled>Edit plan · Disabled in investor demo</button>
+          </section>
 
-          <div class="level-strip">
-            <div>
-              <span>Trigger</span>
-              <strong id="triggerLevel">$228.60</strong>
+          <section class="ao-express-filter-panel" aria-labelledby="express-filter-title">
+            <header>
+              <div>
+                <span class="ao-express-eyebrow">Presentation filters</span>
+                <h2 id="express-filter-title">Refine this view</h2>
+              </div>
+              <button type="button" data-reset-filters>Reset Filters</button>
+            </header>
+            <div class="ao-express-filter-grid">
+              <fieldset>
+                <legend>Direction</legend>
+                <div class="ao-express-segmented" data-filter-group="direction">
+                  <button type="button" data-filter-value="all" aria-pressed="true">All</button>
+                  <button type="button" data-filter-value="calls" aria-pressed="false">Calls</button>
+                  <button type="button" data-filter-value="puts" aria-pressed="false">Puts</button>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Contract category</legend>
+                <div class="ao-express-segmented ao-express-segmented--wide" data-filter-group="category">
+                  <button type="button" data-filter-value="all" aria-pressed="true">All</button>
+                  <button type="button" data-filter-value="0dte" aria-pressed="false">0DTE</button>
+                  <button type="button" data-filter-value="weekly" aria-pressed="false">Weekly</button>
+                  <button type="button" data-filter-value="multi" aria-pressed="false">Multi-week</button>
+                </div>
+              </fieldset>
+              <fieldset class="ao-express-premium-filter" disabled>
+                <legend>Live selected-contract premium</legend>
+                <label>Minimum $<input type="number" disabled aria-disabled="true"></label>
+                <label>Maximum $<input type="number" disabled aria-disabled="true"></label>
+                <small>Disabled because this snapshot is frozen and cannot screen live premium.</small>
+              </fieldset>
             </div>
-            <div>
-              <span>Invalidation</span>
-              <strong id="invalidationLevel">$226.80</strong>
-            </div>
-            <div>
-              <span>First target</span>
-              <strong id="targetLevel">$233.50</strong>
-            </div>
-          </div>
+          </section>
+
+          <section class="ao-express-pinned" id="express-pinned" hidden aria-labelledby="pinned-title">
+            <header>
+              <span class="ao-express-eyebrow">Pinned in this browser session</span>
+              <h2 id="pinned-title">Pinned Setups</h2>
+            </header>
+            <div class="ao-express-grid" id="pinned-grid"></div>
+          </section>
+
+          <section class="ao-express-juice" id="setup-monitor" tabindex="-1" aria-labelledby="setup-monitor-title">
+            <header>
+              <div>
+                <span class="ao-express-eyebrow">Same AO decisions · frozen view</span>
+                <h2 id="setup-monitor-title">Setup Monitor <small>Up to 10 setups</small></h2>
+              </div>
+              <p id="express-count">—</p>
+            </header>
+              <p class="demo-source-note">Only genuine 1/5 and 5/5 high-conviction closing states are shown. Original live rank was not retained, so this view uses stable terminal universe order and does not invent a rank.</p>
+            <div class="ao-express-grid" id="express-setup-grid"></div>
+            <p class="demo-empty" id="express-empty" hidden>No closing states match these filters.</p>
+          </section>
+        </main>
+
+        <footer class="ao-express-footer">
+          <strong>Educational decision support — not financial advice.</strong>
+          <span>Verify every contract and premium with your broker. AO does not execute trades, and you remain responsible for every decision.</span>
+        </footer>
+      </div>
+    </div>
+
+    <div id="app" hidden aria-hidden="true" inert>
+      <div class="demo-pro-root">
+        <section class="news-ticker" aria-label="Market news">
+          <div class="demo-ticker-label"><span class="demo-live-dot"></span> MARKET NEWS</div>
+          <div class="demo-news-sources">🌍 BBC · 📺 CNBC · 📈 MARKETWATCH · 💹 BLOOMBERG</div>
+          <div class="demo-news-count">Historical feed unavailable</div>
+          <div class="demo-ticker-story">Aligned closing headlines were not retained in the approved session. Live feeds are disabled in the investor demo.</div>
         </section>
 
-        <aside class="panel contract-panel" aria-labelledby="contract-title">
-          <div class="section-heading compact">
-            <div>
-              <span class="section-kicker">Representative AO contract</span>
-              <h2 id="contract-title">Contract &amp; risk</h2>
-            </div>
-            <span class="quality-badge" id="qualityBadge">Preferred</span>
-          </div>
-
-          <div class="contract-hero">
-            <span id="contractExpiry">Aug 7 · Weekly</span>
-            <strong id="contractName">AAPL $230 Call</strong>
-            <small>Simulated premium <b id="contractPremium">$3.10</b></small>
-          </div>
-
-          <div class="plan-summary">
-            <div><span>Your AO allocation</span><strong>$1,000</strong></div>
-            <div><span>Maximum position</span><strong>$700</strong></div>
-            <div><span>1 contract deploys</span><strong id="capitalDeployed">$310</strong></div>
-            <div><span>Planned stop exposure</span><strong id="stopExposure">$93</strong></div>
-          </div>
-
-          <div class="fit-status" id="fitStatus">
-            <span>✓</span>
-            <p><strong>Fits your plan</strong><small id="fitDetail">Uses 31% of your AO allocation.</small></p>
-          </div>
-
-          <button class="primary-button" id="trackTrade" type="button">Track this plan</button>
-          <p class="manual-note">AO provides decision support. You review and place any order yourself.</p>
-        </aside>
-      </div>
-
-      <div class="bottom-layout">
-        <section class="panel position-preview">
-          <div class="section-heading compact">
-            <div>
-              <span class="section-kicker">Position manager</span>
-              <h2>Know what to do after entry</h2>
-            </div>
-            <button class="text-button" type="button" data-view-target="trades">View trade</button>
-          </div>
-          <div class="position-row">
-            <span class="position-icon">Q</span>
-            <div><strong>QQQ $704 Call</strong><small>1 contract · Entered at $2.41</small></div>
-            <div><span>Simulated premium</span><strong>$3.02</strong></div>
-            <div><span>Return</span><strong class="gain">+25.3%</strong></div>
-            <div class="manager-action"><span>Representative AO guidance</span><strong>Protect gains</strong><small>Move stop to entry.</small></div>
-          </div>
+        <section class="sector-strip" aria-label="Sector ribbon">
+          <span>SECTORS</span>
+          <button type="button" disabled>XLK Tech · value withheld</button>
+          <button type="button" disabled>XLF Financials · value withheld</button>
+          <button type="button" disabled>XLE Energy · value withheld</button>
+          <button type="button" disabled>XLV Healthcare · value withheld</button>
+          <button type="button" disabled>XBI Biotech · value withheld</button>
+          <button type="button" disabled>IGV Software ETF · value withheld</button>
         </section>
 
-        <section class="panel brief-panel">
-          <span class="section-kicker">Simulated AO morning brief</span>
-          <h2>Representative scenario</h2>
-          <ul>
-            <li><span>10:30 AM</span><p><strong>Fed speaker</strong><small>Expect short volatility bursts.</small></p></li>
-            <li><span>11:00 AM</span><p><strong>Tech leadership</strong><small>Watch whether semiconductors confirm.</small></p></li>
-            <li><span>2:00 PM</span><p><strong>Dealer levels</strong><small>Recheck positioning before final hour.</small></p></li>
-          </ul>
-        </section>
-      </div>
-    </section>
+        <header class="header">
+          <div class="demo-pro-brand">
+            <img src="../assets/ao-logo-mark.png" alt="" width="38" height="38">
+            <div>
+              <div class="title">ALPHA &amp; OMEGA ANALYTICS <span class="tag tag-live">@AO_Analytics</span></div>
+              <div class="subtitle">SIGNAL TERMINAL V48</div>
+            </div>
+          </div>
+          <div class="demo-pro-actions">
+            <span class="tag tag-sim">FROZEN CLOSE</span>
+            <button type="button" disabled>↺ RESET · Disabled</button>
+            <button type="button" disabled>⚡ UNSTICK · Disabled</button>
+          </div>
+          <div class="demo-pro-controls">
+            <button
+              type="button"
+              class="demo-pro-mode-toggle"
+              data-mode-toggle
+              role="switch"
+              aria-checked="false"
+              aria-label="Express Mode, simplified view of the same AO intelligence, off"
+            >
+              <span>
+                <strong>Express Mode</strong>
+                <small>Simplified view of the same AO intelligence</small>
+              </span>
+              <span class="ao-mode-track" aria-hidden="true"><span></span></span>
+              <b>OFF</b>
+            </button>
+            <span class="demo-market-state">CLOSED · JUL 31</span>
+            <span class="demo-power-state">FROZEN CLOSE</span>
+            <div class="demo-ticker-controls" aria-label="Primary ticker">
+              <button type="button" data-primary-ticker="SPY" aria-pressed="true">SPY</button>
+              <button type="button" data-primary-ticker="QQQ" aria-pressed="false">QQQ</button>
+              <button type="button" data-primary-ticker="IWM" aria-pressed="false">IWM</button>
+              <button type="button" data-primary-ticker="SPX" aria-pressed="false">SPX</button>
+              <button type="button" data-primary-ticker="NDX" aria-pressed="false">NDX</button>
+            </div>
+            <button type="button" disabled aria-label="Alerts disabled">🔔</button>
+            <span class="demo-clock">4:05:00 PM EDT</span>
+          </div>
+        </header>
 
-    <section class="app-view" id="view-discover" data-view="discover">
-      <div class="page-heading discover-heading">
-        <div>
-          <p class="eyebrow">AO Analyst simulation</p>
-          <h1>Turn a ticker into one clear decision.</h1>
-          <p>AO synthesizes the setup, contract quality, risk, and next action instead of making you interpret another dense scanner.</p>
-        </div>
-      </div>
-
-      <section class="panel ask-panel">
-        <form id="askForm" class="ask-form">
-          <label for="askInput">Ask about a ticker or setup</label>
+        <section class="demo-intel-bar">
+          <img src="../assets/ao-logo-banner.png" alt="" width="150" height="50">
           <div>
-            <input id="askInput" type="text" autocomplete="off" value="Is there a good options setup on NVDA?" aria-describedby="askHint">
-            <button class="primary-button" type="submit">Ask AO</button>
+            <strong>SIGNAL INTELLIGENCE</strong>
+            <span>High-probability setup detection · Dealer positioning · Educational analytics only</span>
           </div>
-          <p id="askHint">Try “NVDA”, “QQQ 0DTE”, or “What should I avoid in this scenario?”</p>
+          <button type="button" disabled>Follow @AO_Analytics · Disabled</button>
+        </section>
+
+        <nav class="tab-bar" role="tablist" aria-label="AO Terminal sections">
+          <button type="button" id="pro-tab-signals" class="tab-btn active" data-pro-tab="signals" role="tab" aria-selected="true" aria-controls="pro-panel-signals" tabindex="0">Signals</button>
+          <button type="button" id="pro-tab-setups" class="tab-btn" data-pro-tab="setups" role="tab" aria-selected="false" aria-controls="pro-panel-setups" tabindex="-1">Top Setups</button>
+          <button type="button" id="pro-tab-dealer" class="tab-btn" data-pro-tab="dealer" role="tab" aria-selected="false" aria-controls="pro-panel-dealer" tabindex="-1">Dealer Matrix</button>
+          <button type="button" id="pro-tab-news" class="tab-btn" data-pro-tab="news" role="tab" aria-selected="false" aria-controls="pro-panel-news" tabindex="-1">News &amp; Calendar</button>
+          <button type="button" id="pro-tab-paper" class="tab-btn" data-pro-tab="paper" role="tab" aria-selected="false" aria-controls="pro-panel-paper" tabindex="-1">Paper Trading</button>
+          <button type="button" id="pro-tab-performance" class="tab-btn" data-pro-tab="performance" role="tab" aria-selected="false" aria-controls="pro-panel-performance" tabindex="-1">Performance</button>
+        </nav>
+
+        <section class="daily-pnl" aria-label="Daily profit and loss">
+          <span>DAILY P&amp;L</span>
+          <strong>—</strong>
+          <small>Account data disabled</small>
+          <span class="demo-trade-capacity">Position capacity withheld</span>
+        </section>
+
+        <section class="trading-plan-bar" aria-label="Trading Plan">
+          <div>
+            <strong>Trading Plan</strong>
+            <span>Allocation withheld · Max position withheld · Open positions withheld</span>
+          </div>
+          <button type="button" disabled>Edit plan · Disabled in investor demo</button>
+        </section>
+
+        <main>
+          <section class="pro-tab-panel" id="pro-panel-signals" data-pro-panel="signals" role="tabpanel" aria-labelledby="pro-tab-signals">
+            <div class="grid">
+              <section class="panel main-signal-panel">
+                <div class="signal-main-row">
+                  <div class="signal-primary">
+                    <div class="fs14 text-dim mb4">SETUP MONITOR — <span data-selected-ticker>SPY</span></div>
+                    <div class="demo-main-decision-row">
+                      <strong class="price-big" data-selected-price>—</strong>
+                      <span class="demo-price-change" data-selected-change>—</span>
+                      <span class="score-badge score-3" data-selected-score-badge>—</span>
+                      <span class="signal-badge signal-chop" data-selected-direction>—</span>
+                    </div>
+                    <p class="demo-main-label" data-selected-label>—</p>
+                    <span class="demo-state-pill">FROZEN AO CLOSE</span>
+                  </div>
+                  <aside class="strike-rail">
+                    <div class="section-label">BEST CANDIDATE CONTRACT</div>
+                    <strong class="demo-contract-value" data-selected-contract>UNAVAILABLE</strong>
+                    <p>Readable AO candidate from the frozen historical fixture.</p>
+                    <div class="demo-premium-row">Premium: <b data-selected-premium>—</b></div>
+                    <div class="demo-position-size">
+                      <span>POSITION SIZER</span>
+                      <strong>Disabled in investor demo</strong>
+                    </div>
+                    <div class="demo-action-row">
+                      <button type="button" disabled>SIMULATE · Disabled</button>
+                      <button type="button" id="open-setup-card">📋 Setup Card</button>
+                    </div>
+                  </aside>
+                </div>
+
+                <div class="chart-shell demo-chart-shell" aria-label="Frozen key-level price map">
+                  <div class="demo-chart-grid" aria-hidden="true"></div>
+                  <div>
+                    <strong><span data-selected-ticker>SPX</span> frozen key-level map</strong>
+                    <span>PDL <b data-selected-pdl>—</b> · Magnet <b data-selected-magnet>—</b> · PDH <b data-selected-pdh>—</b></span>
+                  </div>
+                </div>
+
+                <div class="demo-risk-strip">
+                  <span>Upside: <b data-selected-trigger-up>—</b></span>
+                  <span>Downside: <b data-selected-trigger-down>—</b></span>
+                  <span>Historical demo plan</span>
+                  <strong data-selected-risk>—</strong>
+                </div>
+
+                <section class="scanner-shell" aria-labelledby="intraday-title">
+                  <header class="flex-between mb10">
+                    <div>
+                      <div class="section-label">INTRADAY SCANNER</div>
+                      <strong id="intraday-title">0DTE closing states</strong>
+                    </div>
+                    <span class="tag tag-sim">FROZEN</span>
+                  </header>
+                  <div class="zdte-grid" id="pro-intraday-grid"></div>
+                </section>
+              </section>
+
+              <aside class="panel side-rail">
+                <section class="side-decision wait" id="side-decision">
+                  <div class="side-decision-top">
+                    <span class="side-decision-symbol"><span data-selected-ticker>SPY</span> DECISION</span>
+                    <strong class="side-decision-score" data-selected-score-short>—</strong>
+                  </div>
+                  <div class="side-decision-label" data-selected-label>—</div>
+                  <div class="side-kpi-grid">
+                    <div class="side-kpi"><span class="side-kpi-label">CONTRACT</span><strong class="side-kpi-value" data-selected-contract>—</strong></div>
+                    <div class="side-kpi"><span class="side-kpi-label">PREMIUM</span><strong class="side-kpi-value" data-selected-premium>—</strong></div>
+                    <div class="side-kpi"><span class="side-kpi-label">CONFIDENCE</span><strong class="side-kpi-value" data-selected-confidence>—</strong></div>
+                    <div class="side-kpi"><span class="side-kpi-label">LOCATION</span><strong class="side-kpi-value" data-selected-location>—</strong></div>
+                  </div>
+                </section>
+
+                <section class="side-section" id="macro-data">
+                  <div class="side-section-title">MACRO DATA · FROZEN CLOSE</div>
+                </section>
+
+                <section class="side-section">
+                  <div class="side-section-title">KEY LEVELS — <span data-selected-ticker>SPY</span></div>
+                  <div class="macro-row"><span class="macro-label">PDH</span><span class="macro-price" data-selected-pdh>—</span></div>
+                  <div class="macro-row"><span class="macro-label">PDL</span><span class="macro-price" data-selected-pdl>—</span></div>
+                  <div class="macro-row"><span class="macro-label">MAGNET</span><span class="macro-price" data-selected-magnet>—</span></div>
+                </section>
+
+                <section class="side-section">
+                  <div class="side-section-title">DEALER POSITIONING</div>
+                  <p class="demo-side-copy" data-selected-dealer>Unavailable in approved close.</p>
+                </section>
+
+                <section class="side-section">
+                  <div class="side-section-title">NEXT MOVES</div>
+                  <p class="demo-side-copy" data-selected-risk>—</p>
+                </section>
+
+                <section class="side-section">
+                  <div class="side-section-title">MACRO ALERTS</div>
+                  <p class="demo-side-copy">Frozen macro context is shown above. No live alerts are generated.</p>
+                </section>
+              </aside>
+            </div>
+
+            <section class="panel demo-state-scanner" aria-labelledby="closing-states-title">
+              <header class="flex-between">
+                <div>
+                  <div class="section-label">WEEKLY WATCHLIST</div>
+                  <h2 id="closing-states-title">Weekly Options Watchlist</h2>
+                  <p>Stable frozen order with readable AO Best Contracts, confirmation and plan-fit status.</p>
+                </div>
+                <div class="demo-toolbar">
+                  <label>Search <input id="pro-search" type="search" placeholder="Ticker"></label>
+                  <button type="button" data-pro-direction="all" aria-pressed="true">All</button>
+                  <button type="button" data-pro-direction="calls" aria-pressed="false">Calls</button>
+                  <button type="button" data-pro-direction="puts" aria-pressed="false">Puts</button>
+                  <button type="button" data-pro-direction="chop" aria-pressed="false">Wait</button>
+                  <button type="button" disabled>Refresh / Resort · Disabled</button>
+                </div>
+              </header>
+              <div class="table-scroll">
+                <table class="demo-state-table">
+                  <thead>
+                    <tr>
+                      <th>Ticker</th>
+                      <th>AO State</th>
+                      <th>Direction</th>
+                      <th>Confidence</th>
+                      <th>Location</th>
+                      <th>Contract</th>
+                      <th>Technical Read</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pro-state-rows"></tbody>
+                </table>
+              </div>
+              <p class="demo-empty" id="pro-state-empty" hidden>No closing states match this view.</p>
+            </section>
+
+            <section class="demo-pro-lower-grid">
+              <article class="panel">
+                <div class="section-label">THE JUICE</div>
+                <h2>Top 5 setups right now</h2>
+                <p id="juice-summary">Loading approved session coverage…</p>
+                <div id="juice-content" class="demo-juice-list"></div>
+              </article>
+              <article class="panel">
+                <div class="section-label">BIG MOVERS</div>
+                <h2>±3% at the frozen close</h2>
+                <div id="big-movers-content" class="demo-movers-grid"></div>
+              </article>
+              <article class="panel">
+                <div class="section-label">UNUSUAL OPTIONS ACTIVITY</div>
+                <h2>Historical flow unavailable</h2>
+                <p>No aligned, redistribution-cleared UOA snapshot was retained.</p>
+              </article>
+              <article class="panel">
+                <div class="section-label">SCORE CHANGE ALERTS</div>
+                <h2>Closing states only</h2>
+                <p>Intraday score-change history is not inferred from the final close.</p>
+              </article>
+              <article class="panel">
+                <div class="section-label">SIGNAL TRACKER</div>
+                <h2>Read-only session</h2>
+                <p>Position mutation, tracking, and alerts are disabled in the investor demo.</p>
+              </article>
+              <article class="panel">
+                <div class="section-label">MARKET CALENDAR</div>
+                <h2>August event risk</h2>
+                <p>Employment data, ISM and tracked earnings are frozen in News &amp; Calendar.</p>
+              </article>
+            </section>
+
+            <section class="panel demo-position-manager" aria-labelledby="position-manager-title">
+              <header class="flex-between">
+                <div>
+                  <div class="section-label">POSITION MANAGER</div>
+                  <h2 id="position-manager-title">Compare an open option position</h2>
+                  <p>Live position comparison is disabled; example paper positions are available in Paper Trading.</p>
+                </div>
+                <span class="tag tag-sim">READ ONLY</span>
+              </header>
+              <div class="demo-position-form">
+                <label>Ticker<input value="Unavailable" disabled></label>
+                <label>Strike<input value="Unavailable" disabled></label>
+                <label>Type<input value="Unavailable" disabled></label>
+                <label>Expiry<input value="Unavailable" disabled></label>
+                <label>Entry<input value="Unavailable" disabled></label>
+                <label>Size<input value="Unavailable" disabled></label>
+                <button type="button" disabled>Compare · Disabled in investor demo</button>
+                <button type="button" disabled>Clear · Disabled in investor demo</button>
+              </div>
+            </section>
+          </section>
+
+          <section class="pro-tab-panel" id="pro-panel-setups" data-pro-panel="setups" role="tabpanel" aria-labelledby="pro-tab-setups" hidden>
+            <section class="panel demo-route-panel">
+              <header class="demo-page-header flex-between">
+                <div>
+                  <div class="section-label">TOP SETUPS</div>
+                  <h1>Top 10 AO Setups</h1>
+                  <p>Operator view for the strongest frozen setups. Uses AO score, momentum, captured premium and deterministic fixture order.</p>
+                </div>
+                <div class="demo-status-stack">
+                  <span class="tag tag-sim">RANKED FROZEN SNAPSHOT</span>
+                  <small>Updated · July 31 close</small>
+                </div>
+              </header>
+              <div class="demo-top-grid" id="top-setups-grid"></div>
+              <footer class="demo-section-footer">Rank and premiums are frozen demo fixtures. Live quote, chain and execution-safety checks are disabled.</footer>
+            </section>
+          </section>
+
+          <section class="pro-tab-panel" id="pro-panel-dealer" data-pro-panel="dealer" role="tabpanel" aria-labelledby="pro-tab-dealer" hidden>
+            <div class="dealer-matrix-wrap">
+              <header class="demo-page-header">
+                <div class="section-label">DEALER MATRIX</div>
+                <h1>AO Dealer Matrix</h1>
+                <p>Frozen gamma gravity, dealer pressure, and key strike zones around the historical close.</p>
+              </header>
+              <section class="panel demo-dealer-controls">
+                <div>
+                  <span class="section-label">TICKER</span>
+                  <div class="demo-ticker-controls" id="dealer-ticker-controls" aria-label="Dealer ticker"></div>
+                </div>
+                <div>
+                  <span class="section-label">EXPIRY · FROZEN</span>
+                  <div class="demo-ticker-controls" aria-label="Dealer expiry">
+                    <button type="button" disabled>Aug 7</button><button type="button" disabled>Historical close</button>
+                  </div>
+                </div>
+                <span class="tag tag-sim">SESSION · JUL 31 CLOSE</span>
+                <span class="tag tag-sim">CHAIN · FROZEN FIXTURE</span>
+              </section>
+              <div id="dealer-view-content"></div>
+              <details class="panel demo-read-guide">
+                <summary>How to read the AO Dealer Matrix</summary>
+                <div class="demo-guide-grid"><div><strong>What this page is</strong><p>Dealer-positioning decision support.</p></div><div><strong>Status</strong><p>Confirms whether chain context is usable.</p></div><div><strong>Spot</strong><p>Underlying reference at capture.</p></div><div><strong>Gamma Flip</strong><p>Potential dealer-regime boundary.</p></div><div><strong>Net Dealer Regime</strong><p>Directional pressure context.</p></div><div><strong>King Nodes</strong><p>High-priority pressure zones.</p></div><div><strong>Quick AO scan</strong><p>Review direction, location, and chain authority together.</p></div><div><strong>Risk-first execution</strong><p>Verify every live input before any decision.</p></div></div>
+              </details>
+            </div>
+          </section>
+
+          <section class="pro-tab-panel" id="pro-panel-news" data-pro-panel="news" role="tabpanel" aria-labelledby="pro-tab-news" hidden>
+            <div class="demo-news-layout">
+              <article class="panel demo-news-full"><div class="section-label">BREAKING MARKET ALERT</div><p class="demo-unavailable">No aligned approved alert was retained. Live alerts and external links are disabled.</p></article>
+              <article class="panel">
+                <header class="flex-between"><div><div class="section-label">📅 ECONOMIC CALENDAR</div><h2>Next 7 days</h2></div><span class="tag tag-sim">FROZEN</span></header>
+                <div class="table-scroll"><table><thead><tr><th>Date / Time</th><th>Impact</th><th>Event</th><th>Actual</th><th>Forecast</th><th>Previous</th></tr></thead><tbody><tr><td colspan="6">Unavailable in approved closing snapshot</td></tr></tbody></table></div>
+              </article>
+              <article class="panel">
+                <header class="flex-between"><div><div class="section-label">📊 EARNINGS THIS WEEK</div><h2>Watchlist · BMO · AMC</h2></div><span class="tag tag-sim">UNAVAILABLE</span></header>
+                <div class="demo-week-grid"><div><strong>Monday</strong><span>No approved rows</span></div><div><strong>Tuesday</strong><span>No approved rows</span></div><div><strong>Wednesday</strong><span>No approved rows</span></div><div><strong>Thursday</strong><span>No approved rows</span></div><div><strong>Friday</strong><span>No approved rows</span></div></div>
+              </article>
+              <article class="panel demo-news-full">
+                <header class="flex-between"><div><div class="section-label">📰 MARKET NEWS</div><h2>Stories and watchlist relevance</h2></div><span class="tag tag-sim">0 APPROVED STORIES</span></header>
+                <div class="demo-toolbar" aria-label="News sources"><button type="button" disabled>All</button><button type="button" disabled>BBC</button><button type="button" disabled>CNBC</button><button type="button" disabled>MarketWatch</button><button type="button" disabled>Bloomberg</button></div>
+                <p class="demo-unavailable">No aligned, redistribution-cleared historical headlines were retained. No headlines, ticker tags, sentiment, impact, source, or age values were fabricated.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="pro-tab-panel" id="pro-panel-paper" data-pro-panel="paper" role="tabpanel" aria-labelledby="pro-tab-paper" hidden>
+            <section class="daily-pnl demo-paper-loss-tracker">
+              <span>DAILY P&amp;L</span><strong>—</strong><small>Daily loss limit · withheld</small><span class="demo-trade-capacity">○ ○ ○ ○ · trade capacity withheld</span>
+            </section>
+            <header class="demo-page-header flex-between">
+              <div><div class="section-label">PAPER TRADING</div><h1>Paper Trading</h1><p>Simulation history and position review.</p></div>
+              <div class="demo-toolbar"><span>Win Rate · unavailable</span><button type="button" disabled>CSV export</button><button type="button" disabled>Report export</button><button type="button" disabled>Clear All</button></div>
+            </header>
+            <p class="demo-unavailable demo-inline-warning">Brokerage disconnected. Paper-trade creation, updates, closes, exports, and all mutation paths are disabled.</p>
+            <section class="panel">
+              <div class="section-label">OPEN POSITIONS</div>
+              <div class="table-scroll"><table><thead><tr><th>Contract</th><th>Entry Premium</th><th>Current / Estimated</th><th>Unrealized P&amp;L</th><th>Time Open</th><th>Score</th><th>Action</th></tr></thead><tbody><tr><td colspan="6">No approved Position Manager or open-paper-position state was retained</td><td><button type="button" disabled>Close · Disabled</button></td></tr></tbody></table></div>
+            </section>
+            <section class="panel">
+              <div class="section-label">RECENT TRADES</div>
+              <div class="table-scroll"><table><thead><tr><th>Contract</th><th>Entry → Exit Premium</th><th>P&amp;L</th><th>Score</th><th>Status</th><th>Post-trade analysis</th></tr></thead><tbody><tr><td colspan="6">No approved recent-trade history was retained; no outcome or lesson was inferred</td></tr></tbody></table></div>
+            </section>
+          </section>
+
+          <section class="pro-tab-panel" id="pro-panel-performance" data-pro-panel="performance" role="tabpanel" aria-labelledby="pro-tab-performance" hidden>
+            <header class="demo-page-header flex-between">
+              <div><div class="section-label">PERFORMANCE ANALYTICS</div><h1>Performance Analytics</h1><p>Trade-history analytics, score calibration, and personal edge review.</p></div>
+              <button type="button" disabled>Weekly Report CSV ↓ · Disabled</button>
+            </header>
+            <section class="panel">
+              <div class="section-label">SCORING SYSTEM</div>
+              <div class="demo-score-legend"><div><b class="score-badge score-5">5/5</b><span>Breakout Confirmed</span></div><div><b class="score-badge score-4">4/5</b><span>Confirming Breakout</span></div><div><b class="score-badge score-3">3/5</b><span>Chop (No Trade)</span></div><div><b class="score-badge score-2">2/5</b><span>Confirming Breakdown</span></div><div><b class="score-badge score-1">1/5</b><span>Breakdown Confirmed</span></div></div>
+            </section>
+            <div class="demo-performance-grid">
+              <article class="panel"><div class="section-label">WIN RATE BY HOUR (ET)</div><p class="demo-unavailable">Approved trade-history bars unavailable.</p></article>
+              <article class="panel"><div class="section-label">WIN RATE BY SIGNAL SCORE</div><div class="demo-score-cards"><span>5/5 · unavailable</span><span>4/5 · unavailable</span><span>3/5 · unavailable</span><span>2/5 · unavailable</span><span>1/5 · unavailable</span></div></article>
+            </div>
+            <section class="panel">
+              <div class="section-label">EOD TRADE ANALYSIS</div>
+              <div class="demo-eod-grid"><article><h2>Slippage Analysis</h2><p class="demo-unavailable">No approved fills or slippage history.</p></article><article><h2>Optimal Daily Trade Count</h2><p class="demo-unavailable">Insufficient approved trade history.</p></article><article><h2>High-Probability Setup Filter</h2><p class="demo-unavailable">Trade counts, win rates, average P&amp;L, verdicts, and recommendations unavailable.</p></article></div>
+            </section>
+            <section class="panel">
+              <div class="section-label">🧠 YOUR EDGE PROFILE</div>
+              <p>Analyzed trades · unavailable</p>
+              <div class="demo-edge-grid"><article><h2>Win Rate by VIX Direction at Entry</h2><div class="demo-score-cards"><span>Falling · unavailable</span><span>Flat · unavailable</span><span>Rising · unavailable</span></div></article><article><h2>Win Rate by Market Session</h2><div class="demo-score-cards"><span>Power Hour · unavailable</span><span>Chop Zone · unavailable</span><span>Lunch Drift · unavailable</span><span>Institutional · unavailable</span><span>MOC Rush · unavailable</span><span>Other · unavailable</span></div></article></div>
+              <div class="demo-unavailable"><strong>🔍 Your Edge Summary</strong><p>No approved trade-history insight was retained. Event-coverage counts are not presented as performance.</p></div>
+            </section>
+          </section>
+        </main>
+
+        <footer class="demo-pro-footer">
+          <strong>Educational decision support — not financial advice.</strong>
+          <span>AO provides decision support and does not execute trades. Users remain responsible for every trading decision.</span>
+        </footer>
+      </div>
+    </div>
+
+    <div id="modal-root"></div>
+
+    <button class="demo-analyst-launcher" id="analyst-launcher" type="button" aria-haspopup="dialog" aria-controls="analyst-dialog">
+      <span>AO</span><b>AO Analyst</b>
+    </button>
+
+    <dialog class="demo-analyst-dialog" id="analyst-dialog" aria-labelledby="analyst-title">
+      <div class="demo-analyst-shell">
+        <header>
+          <div>
+            <strong id="analyst-title">AO Analyst</strong>
+            <small>Frozen closing-session context</small>
+          </div>
+          <button type="button" id="analyst-close" aria-label="Close AO Analyst">×</button>
+        </header>
+        <p>Reviewing <strong data-selected-ticker>SPY</strong></p>
+        <div class="demo-analyst-response" id="analyst-response" role="status" aria-live="polite">
+          Select a frozen question to review AO’s deterministic explanation.
+        </div>
+        <div class="demo-analyst-prompts">
+          <button type="button" data-chat-intent="setup">What is the setup?</button>
+          <button type="button" data-chat-intent="contract">What contract did AO select?</button>
+          <button type="button" data-chat-intent="risk">What is the risk?</button>
+          <button type="button" data-chat-intent="dealer">Explain dealer positioning</button>
+        </div>
+        <form id="analyst-form">
+          <label>
+            Ask AO Analyst
+            <textarea id="analyst-question" placeholder="Ask about the setup, contract, risk, dealer positioning or macro context."></textarea>
+          </label>
+          <button type="submit">Ask frozen AO Analyst</button>
         </form>
-        <div class="quick-prompts" role="group" aria-label="Example questions">
-          <button type="button" data-question="Is there a good options setup on NVDA?">NVDA setup</button>
-          <button type="button" data-question="What is AO seeing in QQQ 0DTE?">QQQ 0DTE</button>
-          <button type="button" data-question="What should I avoid in this scenario?">What to avoid</button>
-        </div>
-      </section>
-
-      <section class="panel analyst-answer" id="analystAnswer" aria-live="polite">
-        <div class="analyst-avatar">AO</div>
-        <div class="answer-content">
-          <span class="section-kicker">AO Analyst</span>
-          <h2>NVDA is a 1/5 bearish setup with a good entry.</h2>
-          <p>Downside momentum is confirmed below the intraday recovery level. The setup remains valid while NVDA stays below $174.20, but premium can move quickly—keep the position small and respect the invalidation.</p>
-          <div class="answer-grid">
-            <div><span>Setup</span><strong>1/5 Bearish</strong></div>
-            <div><span>Contract</span><strong>NVDA $172.50 Put</strong></div>
-            <div><span>Premium</span><strong>$3.65 simulated</strong></div>
-            <div><span>Next action</span><strong>Review trade plan</strong></div>
-          </div>
-          <button class="secondary-button" type="button" data-view-target="today" data-select-ticker="NVDA">Open full setup</button>
-        </div>
-      </section>
-    </section>
-
-    <section class="app-view" id="view-trades" data-view="trades">
-      <div class="page-heading">
-        <div>
-          <p class="eyebrow">Position Manager</p>
-          <h1>Manage the decision—not just the entry.</h1>
-          <p>This simulation keeps the original plan beside a representative position so traders can see how AO supports hold, protect, trim, or exit decisions.</p>
-        </div>
+        <p class="demo-unavailable">Deterministic local responses only. No API, account access, posting or order execution.</p>
       </div>
+    </dialog>
 
-      <section class="panel trade-manager">
-        <div class="trade-title-row">
-          <div class="ticker-identity">
-            <span class="ticker-logo purple">Q</span>
-            <div><span class="section-kicker">Open demo position</span><h2>QQQ $704 Call · 0DTE</h2><p>1 contract · Simulated position</p></div>
-          </div>
-          <div class="open-badge">Simulated</div>
-        </div>
-
-        <div class="trade-metrics">
-          <div><span>Entry</span><strong>$2.41</strong></div>
-          <div><span>Simulated current</span><strong>$3.02</strong></div>
-          <div><span>Position value</span><strong>$302</strong></div>
-          <div><span>Return</span><strong class="gain">+$61 · 25.3%</strong></div>
-        </div>
-
-        <div class="guidance-card">
-          <div class="guidance-icon">↗</div>
-          <div>
-            <span>Representative AO guidance</span>
-            <h3>Protect gains. Move the stop to entry.</h3>
-            <p>The first target is approaching and momentum remains constructive. Protect the original capital while leaving room for continuation.</p>
-          </div>
-          <button class="secondary-button" id="simulateUpdate" type="button">Simulate next update</button>
-        </div>
-
-        <div class="trade-plan-grid">
-          <div><span>Original trigger</span><strong>Above $703.80</strong><small>Confirmed at entry</small></div>
-          <div><span>Current invalidation</span><strong id="managerStop">$2.41 premium</strong><small id="managerStopNote">Raised to breakeven</small></div>
-          <div><span>First target</span><strong>$3.20 premium</strong><small id="targetProgress">77% of the way there</small></div>
-          <div><span>Next decision</span><strong id="nextDecision">Trim near target</strong><small id="nextDecisionNote">Keep the remainder protected</small></div>
-        </div>
-      </section>
-
-      <section class="panel tracked-plan" id="trackedPlan" hidden>
-        <span class="section-kicker">Newly tracked</span>
-        <h2 id="trackedTitle">AAPL $230 Call</h2>
-        <p>The plan was added to this simulation view. In the production AO Terminal, Position Manager can compare a monitored position with its original trigger, invalidation, targets, and premium quality.</p>
-      </section>
-    </section>
-  </main>
-
-  <footer class="app-footer">
-    <p><strong>Demo data is simulated and for product demonstration only.</strong> AO Terminal is decision-support software, not a broker, investment adviser, or automated trading system. Users remain responsible for their trading decisions. Options involve substantial risk.</p>
-    <a href="../">Back to AO Analytics</a>
-  </footer>
-
-  <div class="modal-backdrop active" id="welcomeModal" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
-    <div class="welcome-card">
-      <img src="../assets/ao-logo-mark.png" alt="">
-      <span class="demo-pill">Interactive product simulation</span>
-      <h2 id="welcomeTitle">Meet your AI trading desk.</h2>
-      <p>See how AO turns market data into a clear setup, contract, risk plan, and position-management decision—in about 60 seconds.</p>
-      <div class="welcome-points">
-        <span><i>1</i> Choose a setup</span>
-        <span><i>2</i> Understand why</span>
-        <span><i>3</i> Review contract &amp; risk</span>
-        <span><i>4</i> Track the position</span>
+    <dialog class="demo-setup-dialog" id="setup-dialog" aria-labelledby="setup-dialog-title">
+      <div>
+        <header>
+          <strong id="setup-dialog-title"><span data-selected-ticker>SPY</span> Setup Card</strong>
+          <button type="button" id="setup-dialog-close" aria-label="Close setup card">×</button>
+        </header>
+        <dl>
+          <div><dt>Closing AO state</dt><dd data-selected-score>—</dd></div>
+          <div><dt>Decision</dt><dd data-selected-label>—</dd></div>
+          <div><dt>Contract</dt><dd data-selected-contract>—</dd></div>
+          <div><dt>Risk</dt><dd data-selected-risk>—</dd></div>
+        </dl>
+        <p>Frozen historical context only. Verify all current inputs independently.</p>
       </div>
-      <button class="primary-button large" id="enterDemo" type="button">Enter interactive simulation</button>
-      <small>Uses representative market data. Brokerage connections and trade execution are disabled.</small>
-    </div>
-  </div>
+    </dialog>
 
-  <aside class="tour-drawer" id="tourDrawer" aria-label="Guided demo tour" hidden>
-    <div class="tour-head">
-      <div><span>Guided tour</span><strong id="tourCount">1 of 5</strong></div>
-      <button id="closeTour" type="button" aria-label="Close tour">×</button>
-    </div>
-    <div class="tour-progress"><span id="tourProgress"></span></div>
-    <div class="tour-copy">
-      <span id="tourEyebrow">Step 1 · Scan</span>
-      <h2 id="tourTitle">Start with the clearest setup.</h2>
-      <p id="tourText">AO ranks the market from bullish to bearish and tells you whether the entry is ready, building, or a no-trade.</p>
-    </div>
-    <div class="tour-actions">
-      <button class="secondary-button" id="tourBack" type="button" disabled>Back</button>
-      <button class="primary-button" id="tourNext" type="button">Next</button>
-    </div>
-  </aside>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js"></script>
-</body>
+    <noscript>This frozen AO Terminal demo requires JavaScript to load its same-origin historical session file.</noscript>
+  </body>
 </html>

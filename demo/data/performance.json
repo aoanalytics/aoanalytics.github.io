@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "sessionDate": "2026-07-31",
+  "status": "placeholder",
+  "title": "Historical-demo placeholder",
+  "disclosure": "Approved historical performance results are not included in this public demo. The production layout is preserved without customer returns, win rates or unsupported claims.",
+  "coverage": [
+    {"stableKey":"coverage-layout","label":"Performance workspace","value":"Layout preview"},
+    {"stableKey":"coverage-scores","label":"AO score calibration","value":"Structure preserved"},
+    {"stableKey":"coverage-history","label":"Approved trade history","value":"Not included"}
+  ],
+  "scoreBands": [
+    {"score":"5/5","label":"Breakout confirmed","value":null},
+    {"score":"4/5","label":"Bullish setup building","value":null},
+    {"score":"3/5","label":"No trade / chop","value":null},
+    {"score":"2/5","label":"Bearish setup building","value":null},
+    {"score":"1/5","label":"Breakdown confirmed","value":null}
+  ]
+}

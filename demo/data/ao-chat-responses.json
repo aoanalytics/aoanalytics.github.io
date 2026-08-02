@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "responses": [
+    {"stableKey":"chat-setup","intent":"setup","label":"What is the setup?","response":"{ticker} is {state} with {confirmation}% confirmation in this frozen close. {technical}."},
+    {"stableKey":"chat-contract","intent":"contract","label":"What contract did AO select?","response":"AO’s frozen demo candidate is {contract} at a captured premium of {premium}. It is read-only and cannot be traded here."},
+    {"stableKey":"chat-risk","intent":"risk","label":"What is the risk?","response":"For {ticker}, watch {triggerUp} above and {triggerDown} below. The contract card uses the displayed demo plan only; live sizing and execution checks are disabled."},
+    {"stableKey":"chat-dealer","intent":"dealer","label":"Explain dealer positioning","response":"{dealerSummary}"},
+    {"stableKey":"chat-macro","intent":"macro","label":"What macro context matters?","response":"The frozen macro panel shows volatility firmer while bonds, metals and bitcoin were softer. This context supports caution, not an executable signal."},
+    {"stableKey":"chat-default","intent":"default","label":"Summarize this ticker","response":"{ticker} is shown from the July 31 frozen AO close. Review its score, confirmation, readable contract, key levels and dealer context together. No live data or brokerage action is available."}
+  ]
+}
