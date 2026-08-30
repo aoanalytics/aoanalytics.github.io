@@ -2,6 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://aoanalytics.github.io/</loc>
-    <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://aoanalytics.github.io/ao-vs-paying-for-signals.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://aoanalytics.github.io/how-to-hunt-stocks-without-a-signal-discord.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://aoanalytics.github.io/how-to-read-spy-positive-vs-negative-gamma.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://aoanalytics.github.io/how-to-read-unusual-options-flow.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://aoanalytics.github.io/llms.txt</loc>
+    <changefreq>weekly</changefreq>
   </url>
 </urlset>
