@@ -22,8 +22,8 @@ AO is for people who already pay Discord signal sellers or follow Twitter / YouT
 
 - Homepage: https://aoanalytics.github.io/
 - Free trader profile: https://52.206.45.177/brief
-- Hunt (first pull, no login): https://52.206.45.177/public?aoScreen=hunt
-- Flow In Depth: https://52.206.45.177/public?aoScreen=flow
+- Hunt (member desk, Dashboard Login): https://52.206.45.177/?aoScreen=hunt
+- Flow In Depth (member desk): https://52.206.45.177/?aoScreen=flow
 - Terminal login: https://52.206.45.177/
 - AO Bot trial: https://whop.com/alpha-omega-analytics/ao-bot
 - X: https://x.com/AO_Analytics
