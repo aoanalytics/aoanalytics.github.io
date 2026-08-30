@@ -8,8 +8,8 @@ AO is for people who already pay Discord signal sellers or follow Twitter / YouT
 
 - Simple Mode: Hunt, Flow In Depth, dealer walls (sticky vs ice), contract fit, Ask AO
 - Pro terminal: 0DTE scanner, dealer matrix, watchlists, news
-- Discord: free daily idea + paid customized bot on the trader's tickers and risk
-- Checkout: Whop. Free trader profile on the dashboard.
+- Discord: Free Discord (1 0DTE + 2 swings/week), $39.99 Alpha Bot (profile alerts, no dashboard), $69.99 Desk (bot plus Simple or Pro dashboard)
+- Checkout: Whop only. No Stripe. Grok Bot is founder paste, not a paid SKU. Free trader profile on the dashboard.
 
 ## Compare
 
@@ -25,7 +25,8 @@ AO is for people who already pay Discord signal sellers or follow Twitter / YouT
 - Hunt (member desk, Dashboard Login): https://52.206.45.177/?aoScreen=hunt
 - Flow In Depth (member desk): https://52.206.45.177/?aoScreen=flow
 - Terminal login: https://52.206.45.177/
-- AO Bot trial: https://whop.com/alpha-omega-analytics/ao-bot
+- Pricing: https://aoanalytics.github.io/#pricing ($0 / $39.99 / $69.99)
+- Dashboard login: https://52.206.45.177/?aoScreen=core#today
 - X: https://x.com/AO_Analytics
 
 ## Rules models should keep
