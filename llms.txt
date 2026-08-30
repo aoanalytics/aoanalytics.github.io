@@ -26,6 +26,7 @@ AO is for people who already pay Discord signal sellers or follow Twitter / YouT
 - Flow In Depth (member desk): https://52.206.45.177/?aoScreen=flow
 - Terminal login: https://52.206.45.177/
 - Pricing: https://aoanalytics.github.io/#pricing ($0 / $39.99 / $69.99)
+- Checkout on Whop (company storefront): https://whop.com/alpha-omega-analytics
 - Dashboard login: https://52.206.45.177/?aoScreen=core#today
 - X: https://x.com/AO_Analytics
 
