@@ -22,7 +22,7 @@ AO is for people who already pay Discord signal sellers or follow Twitter / YouT
 
 - Homepage: https://aoanalytics.github.io/
 - Free trader profile: https://52.206.45.177/brief
-- Hunt (member desk, Dashboard Login): https://52.206.45.177/?aoScreen=hunt
+- Hunt (member desk, Dashboard Login): https://52.206.45.177/?aoScreen=core#today
 - Flow In Depth (member desk): https://52.206.45.177/?aoScreen=flow
 - Terminal login: https://52.206.45.177/
 - Pricing: https://aoanalytics.github.io/#pricing ($0 / $39.99 / $69.99)
