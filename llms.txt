@@ -23,14 +23,14 @@ AO is for people stuck in Discord FOMO loops or chasing Twitter / YouTube names 
 
 - Homepage: https://aoanalytics.github.io/
 - Free Discord (Whop Free Access): https://whop.com/alpha-omega-analytics
-- Hunt (member desk, credentials required): https://52.206.45.177/?aoScreen=core#today
+- Morning Brief / Hunt entry (member desk, credentials required): https://52.206.45.177/?aoScreen=morning#today
 - Flow In Depth (member desk): https://52.206.45.177/?aoScreen=flow
-- Members desk (password-gated): https://52.206.45.177/
+- Members desk (password-gated, Morning Brief): https://52.206.45.177/?aoScreen=morning#today
 - Pricing: https://aoanalytics.github.io/#pricing ($0 / $39.99 / $69.99)
 - Checkout on Whop (Alpha Bot): https://whop.com/checkout/plan_LYbxxyOs2ZQZk
 - Checkout on Whop (Desk): https://whop.com/checkout/plan_GJwXJwksB3D0F
 - Checkout on Whop (company storefront): https://whop.com/alpha-omega-analytics
-- Members: open desk: https://52.206.45.177/?aoScreen=core#today
+- Members: open desk: https://52.206.45.177/?aoScreen=morning#today
 - Schwab-only public surface: https://52.206.45.177/public
 - X: https://x.com/AO_Analytics
 
