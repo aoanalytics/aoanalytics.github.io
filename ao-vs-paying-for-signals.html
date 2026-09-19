@@ -19,21 +19,25 @@
   <link rel="stylesheet" href="/styles.css">
   <style>
     .preview-gallery{max-width:1380px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .preview-gallery figure{margin:0;background:#101315;border:1px solid #2d3235;padding:14px;display:flex;flex-direction:column;gap:12px}
+    .preview-gallery figure{margin:0;background:#0B1712;border:1px solid #203229;padding:14px;display:flex;flex-direction:column;gap:12px}
     .preview-gallery figure.wide{grid-column:1/-1}
-    .preview-gallery img{width:100%;height:auto;display:block;border:1px solid #22292d;background:#080b11}
-    .preview-gallery figcaption{color:#8f9799;font-size:12px;line-height:1.5}
-    .preview-gallery figcaption strong{display:block;color:#eee7d8;font:400 18px Georgia,serif;margin-bottom:4px}
-    .preview-caption-rule{letter-spacing:.08em;text-transform:uppercase;color:#555d60;font-size:8px;display:block;margin-bottom:6px}
+    .preview-gallery img{width:100%;height:auto;display:block;border:1px solid #13231C;background:#050505}
+    .preview-gallery figcaption{color:#7E9487;font-size:12px;line-height:1.5}
+    .preview-gallery figcaption strong{display:block;color:#D7E7DD;font:400 18px Georgia,serif;margin-bottom:4px}
+    .preview-caption-rule{letter-spacing:.08em;text-transform:uppercase;color:#7E9487;font-size:8px;display:block;margin-bottom:6px}
     .pricing-grid-single{grid-template-columns:minmax(0,520px);justify-content:center;max-width:1180px;margin:auto}
-    .example-box{background:#101315;border:1px solid #2d3235;padding:22px 24px;margin:0 0 36px}
-    .example-box>span{letter-spacing:.16em;color:var(--gold);text-transform:uppercase;font-size:9px;font-weight:700}
-    .learn-article h3{margin:28px 0 10px;font:400 22px Georgia,serif;color:#eee7d8}
+    .example-box{background:#0B1712;border:1px solid #203229;padding:22px 24px;margin:0 0 36px}
+    .example-box>span{letter-spacing:.16em;color:var(--accent,#00FF88);text-transform:uppercase;font-size:9px;font-weight:700}
+    .learn-article h3{margin:28px 0 10px;font:400 22px Georgia,serif;color:#D7E7DD}
     .will-not-grid{max-width:1220px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    .will-not-grid div{background:#101315;border:1px solid #2d3235;padding:22px}
-    .will-not-grid strong{display:block;margin:0 0 8px;font:400 18px Georgia,serif;color:#eee7d8}
-    .will-not-grid p{margin:0;color:#8f9799;font-size:13px;line-height:1.65}
+    .will-not-grid div{background:#0B1712;border:1px solid #203229;padding:22px}
+    .will-not-grid strong{display:block;margin:0 0 8px;font:400 18px Georgia,serif;color:#D7E7DD}
+    .will-not-grid p{margin:0;color:#7E9487;font-size:13px;line-height:1.65}
     @media (max-width:1000px){.preview-gallery,.will-not-grid{grid-template-columns:1fr}.preview-gallery figure.wide{grid-column:auto}}
+    /* learn-page accent nudge — neon green desk */
+    .learn-article h1 em{color:var(--accent,#00FF88);font-style:normal}
+    .learn-article .section-kicker{color:var(--gold-light,#6DFFB1)}
+    .learn-cta .button-primary{background:var(--accent,#00FF88);color:#050505}
   </style>
   <script type="application/ld+json">
 {
