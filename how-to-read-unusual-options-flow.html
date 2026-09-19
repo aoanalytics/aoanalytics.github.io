@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +15,17 @@
   <meta name="twitter:description" content="Flow In Depth unmasks a print: both legs, intrinsic vs time, walls, and whether it agrees with the 1–5. Qualifying size only. Flow does not raise a 3 to a 5. Education, not advice.">
   <link rel="icon" href="/ao-logo-small.jpg">
   <link rel="apple-touch-icon" href="/ao-logo-small.jpg">
-  <meta name="color-scheme" content="dark">
+  <meta name="color-scheme" content="dark light">
+  <script>
+  (function () {
+    try {
+      var t = localStorage.getItem('ao-theme');
+      document.documentElement.setAttribute('data-theme', (t === 'light' || t === 'dark') ? t : 'dark');
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+  </script>
   <link rel="stylesheet" href="/styles.css">
   <style>
     .preview-gallery{max-width:1380px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -67,13 +77,14 @@
       <a href="/#pricing">Pricing</a>
     </nav>
     <div class="header-actions">
-      <a class="demo-login" href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">Open Whop</a>
-      <a class="header-cta" href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
+      <button type="button" class="theme-toggle" id="ao-theme-toggle" aria-label="Toggle light and dark mode">Light</button>
+      <a class="demo-login" href="https://52.206.45.177/?aoScreen=morning#today" target="_blank" rel="noreferrer">Login</a>
+      <a class="header-cta" href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">Start $1 free desk trial <span aria-hidden="true">↗</span></a>
     </div>
   </header>
 
   <article class="learn-article">
-    <p class="section-kicker">PROMPT-SHAPED LESSON</p>
+    <p class="section-kicker">Flow</p>
     <h1>How to read unusual options flow <em>(Flow In Depth)</em></h1>
     <p class="learn-lede">A flow screenshot with a premium and a vibe is not a desk. Flow In Depth unmasks a print. Both legs. Intrinsic vs time. Nearby walls. Whether the print agrees with the live 1–5. Qualifying size and quality first. Never invent prints. Flow does not raise a 3 to a 5. Education, not advice.</p>
 
@@ -160,8 +171,8 @@
     </section>
 
     <div class="learn-cta">
-      <a class="button button-primary" href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
-      <a class="button button-secondary" href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">Open Whop</a>
+      <a class="button button-primary" href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">Start $1 free desk trial <span aria-hidden="true">↗</span></a>
+      <a class="button button-secondary" href="https://52.206.45.177/?aoScreen=morning#today" target="_blank" rel="noreferrer">Login</a>
       <a class="button button-secondary" href="/">Home</a>
     </div>
     <p class="learn-foot">Educational analytics. Not financial advice. Options involve substantial risk. Past positioning does not guarantee future price. Waiting is a read, not a miss.</p>
@@ -186,5 +197,26 @@
   <p>Alpha &amp; Omega Analytics provides educational tools and market analysis. Nothing on this site is financial advice. Options involve substantial risk and are not suitable for every investor. Past positioning does not guarantee future price. Waiting is a read, not a miss.</p>
   <small>© 2026 ALPHA &amp; OMEGA ANALYTICS. ALL RIGHTS RESERVED.</small>
 </footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById('ao-theme-toggle');
+  function current() {
+    return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  }
+  function apply(theme) {
+    root.setAttribute('data-theme', theme);
+    try { localStorage.setItem('ao-theme', theme); } catch (e) {}
+    if (btn) btn.textContent = theme === 'light' ? 'Dark' : 'Light';
+  }
+  apply(current());
+  if (btn) {
+    btn.addEventListener('click', function () {
+      apply(current() === 'light' ? 'dark' : 'light');
+    });
+  }
+})();
+</script>
 </body>
 </html>

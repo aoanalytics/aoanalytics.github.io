@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,24 +15,34 @@
   <meta name="twitter:description" content="Hunt. Same 1–5. Waiting is the filter. Education, not advice.">
   <link rel="icon" href="/ao-logo-small.jpg">
   <link rel="apple-touch-icon" href="/ao-logo-small.jpg">
-  <meta name="color-scheme" content="dark">
+  <meta name="color-scheme" content="dark light">
+  <script>
+  (function () {
+    try {
+      var t = localStorage.getItem('ao-theme');
+      document.documentElement.setAttribute('data-theme', (t === 'light' || t === 'dark') ? t : 'dark');
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+  </script>
   <link rel="stylesheet" href="/styles.css">
   <style>
     .preview-gallery{max-width:1380px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .preview-gallery figure{margin:0;background:#0B1712;border:1px solid #203229;padding:14px;display:flex;flex-direction:column;gap:12px}
+    .preview-gallery figure{margin:0;background:var(--panel);border:1px solid var(--line);padding:14px;display:flex;flex-direction:column;gap:12px}
     .preview-gallery figure.wide{grid-column:1/-1}
-    .preview-gallery img{width:100%;height:auto;display:block;border:1px solid #13231C;background:#050505}
-    .preview-gallery figcaption{color:#7E9487;font-size:12px;line-height:1.5}
-    .preview-gallery figcaption strong{display:block;color:#D7E7DD;font:400 18px Georgia,serif;margin-bottom:4px}
-    .preview-caption-rule{letter-spacing:.08em;text-transform:uppercase;color:#7E9487;font-size:8px;display:block;margin-bottom:6px}
+    .preview-gallery img{width:100%;height:auto;display:block;border:1px solid var(--line);background:var(--ink)}
+    .preview-gallery figcaption{color:var(--muted);font-size:12px;line-height:1.5}
+    .preview-gallery figcaption strong{display:block;color:var(--heading);font:400 18px Georgia,serif;margin-bottom:4px}
+    .preview-caption-rule{letter-spacing:.06em;color:var(--muted);font-size:9px;display:block;margin-bottom:6px}
     .pricing-grid-single{grid-template-columns:minmax(0,520px);justify-content:center;max-width:1180px;margin:auto}
-    .example-box{background:#0B1712;border:1px solid #203229;padding:22px 24px;margin:0 0 36px}
-    .example-box>span{letter-spacing:.16em;color:var(--accent,#00FF88);text-transform:uppercase;font-size:9px;font-weight:700}
-    .learn-article h3{margin:28px 0 10px;font:400 22px Georgia,serif;color:#D7E7DD}
+    .example-box{background:var(--panel);border:1px solid var(--line);padding:22px 24px;margin:0 0 36px}
+    .example-box>span{letter-spacing:.08em;color:var(--accent);font-size:10px;font-weight:700}
+    .learn-article h3{margin:28px 0 10px;font:400 22px Georgia,serif;color:var(--heading)}
     .will-not-grid{max-width:1220px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    .will-not-grid div{background:#0B1712;border:1px solid #203229;padding:22px}
-    .will-not-grid strong{display:block;margin:0 0 8px;font:400 18px Georgia,serif;color:#D7E7DD}
-    .will-not-grid p{margin:0;color:#7E9487;font-size:13px;line-height:1.65}
+    .will-not-grid div{background:var(--panel);border:1px solid var(--line);padding:22px}
+    .will-not-grid strong{display:block;margin:0 0 8px;font:400 18px Georgia,serif;color:var(--heading)}
+    .will-not-grid p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
     @media (max-width:1000px){.preview-gallery,.will-not-grid,.desk-principles-grid,.anti-pattern-strip{grid-template-columns:1fr}.preview-gallery figure.wide{grid-column:auto}}
   </style>
 </head>
@@ -49,17 +59,18 @@
       <a href="/#pricing">Pricing</a>
     </nav>
     <div class="header-actions">
-      <a class="demo-login" href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">Open Whop</a>
-      <a class="header-cta" href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
+      <button type="button" class="theme-toggle" id="ao-theme-toggle" aria-label="Toggle light and dark mode">Light</button>
+      <a class="demo-login" href="https://52.206.45.177/?aoScreen=morning#today" target="_blank" rel="noreferrer">Login</a>
+      <a class="header-cta" href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">Start $1 free desk trial <span aria-hidden="true">↗</span></a>
     </div>
   </header>
 
   <section class="hero" id="top">
-    <div class="eyebrow"><i></i> EDUCATION DESK // YOUR TICKERS</div>
-    <h1>Read the tape.<br/><span class="kinetic-rule">Wait for the read.</span></h1>
+    <div class="eyebrow">Education desk · your tickers</div>
+    <h1>Read the tape.<br/><span class="accent-line">Wait for the read.</span></h1>
     <p class="hero-copy">AO is a customized watchlist desk for options traders. Hunt, read the same 1–5, unmask the structure, then decide. No signal lottery. Education, not advice. <span style="color:var(--muted)">Stop waiting for the signal</span> — waiting is the filter.</p>
     <div class="hero-actions">
-      <a class="button button-primary" href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
+      <a class="button button-primary" href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">Start $1 free desk trial <span aria-hidden="true">↗</span></a>
       <a class="button button-secondary" href="#previews">See product previews</a>
     </div>
     <div class="trust-line">
@@ -70,62 +81,62 @@
     <div class="dashboard-stage">
       <div class="stage-glow"></div>
       <figure style="margin:0">
-        <img src="/images/previews/simple-desktop-dark.png" alt="AO Simple Mode desk preview" width="1600" height="900" style="width:100%;height:auto;display:block;border:1px solid #203229;background:#050505"/>
+        <img src="/images/previews/simple-desktop-dark.png" alt="AO Simple Mode desk preview" width="1600" height="900" style="width:100%;height:auto;display:block;border:1px solid var(--line);background:var(--ink)"/>
         <figcaption class="preview-caption-rule" style="text-align:center;margin-top:14px;letter-spacing:.08em">Product preview · sample data.</figcaption>
       </figure>
     </div>
   </section>
 
   <section class="proof-strip" aria-label="Customized watchlist horizons">
-    <div><strong>0DTE</strong><span>SAME-DAY TAPE — COVERED</span></div>
-    <div><strong>WEEKLIES</strong><span>MOMENTUM — COVERED</span></div>
-    <div><strong>MONTHLIES</strong><span>THAT DEVELOP — COVERED</span></div>
-    <div><strong>LEAPS</strong><span>LONG-DATED — COVERED</span></div>
+    <div><strong>0DTE</strong><span>Same-day tape — covered</span></div>
+    <div><strong>Weeklies</strong><span>Momentum — covered</span></div>
+    <div><strong>Monthlies</strong><span>That develop — covered</span></div>
+    <div><strong>LEAPS</strong><span>Long-dated — covered</span></div>
   </section>
 
 
   <section class="desk-principles" aria-labelledby="desk-principles-title">
-    <span class="section-kicker">THE AO DESK</span>
+    <span class="section-kicker">The AO desk</span>
     <h2 id="desk-principles-title">A read is not a race.</h2>
     <div class="desk-principles-grid">
-      <article><span>01 // YOUR BOOK</span><h3>Hunt</h3><p>Start with the tickers and horizons you actually follow.</p></article>
-      <article><span>02 // WAITING FILTER</span><h3>Read the 1–5</h3><p>Location is information. A plan needs agreement.</p></article>
-      <article><span>03 // EXPLAINED TAPE</span><h3>Unmask, then decide</h3><p>Inspect flow, walls, regime, and invalidation before acting.</p></article>
+      <article><span>01 · Your book</span><h3>Hunt</h3><p>Start with the tickers and horizons you actually follow.</p></article>
+      <article><span>02 · Waiting filter</span><h3>Read the 1–5</h3><p>Location is information. A plan needs agreement.</p></article>
+      <article><span>03 · Explained tape</span><h3>Unmask, then decide</h3><p>Inspect flow, walls, regime, and invalidation before acting.</p></article>
     </div>
   </section>
 
   <section class="learn-strip watchlist-strip" aria-label="Learn the desk">
-    <a href="/ao-vs-paying-for-signals.html"><span>COMPARISON</span><strong>AO vs paying for signals</strong><small>Stop buying FOMO. Build a desk on YOUR tickers.</small></a>
-    <a href="/how-to-hunt-stocks-without-a-signal-discord.html"><span>PROMPT-SHAPED LESSON</span><strong>How to Hunt</strong><small>Hunt is the map. Same 1–5. Waiting is the filter.</small></a>
+    <a href="/ao-vs-paying-for-signals.html"><span>Comparison</span><strong>AO vs paying for signals</strong><small>Stop buying FOMO. Build a desk on YOUR tickers.</small></a>
+    <a href="/how-to-hunt-stocks-without-a-signal-discord.html"><span>Lesson</span><strong>How to Hunt</strong><small>Hunt is the map. Same 1–5. Waiting is the filter.</small></a>
   </section>
   <section class="learn-strip" aria-label="More lessons" style="margin-top:12px">
-    <a href="/how-to-read-spy-positive-vs-negative-gamma.html"><span>PROMPT-SHAPED LESSON</span><strong>Sticky vs ice gamma</strong><small>Positive gamma fades. Negative gamma chases.</small></a>
-    <a href="/how-to-read-unusual-options-flow.html"><span>PROMPT-SHAPED LESSON</span><strong>How to read unusual flow</strong><small>Flow In Depth unmasks a print. It does not raise a 3 to a 5.</small></a>
+    <a href="/how-to-read-spy-positive-vs-negative-gamma.html"><span>Lesson</span><strong>Sticky vs ice gamma</strong><small>Positive gamma fades. Negative gamma chases.</small></a>
+    <a href="/how-to-read-unusual-options-flow.html"><span>Lesson</span><strong>How to read unusual flow</strong><small>Flow In Depth unmasks a print. It does not raise a 3 to a 5.</small></a>
   </section>
 
   <section class="workflow-section" id="workflow">
     <div class="section-intro">
       <div>
-        <span class="section-kicker">HOW IT WORKS</span>
+        <span class="section-kicker">How it works</span>
         <h2>Hunt. Read the 1–5.<br/>Unmask, then decide.</h2>
       </div>
       <p>Three steps. Same house rules on Simple and Pro. AO explains the tape. You decide. AO does not place the trade.</p>
     </div>
     <div class="workflow-grid workflow-grid-three">
       <article class="workflow-card">
-        <div class="workflow-meta"><span>01</span><small>HUNT</small></div>
-        <div class="workflow-visual" aria-hidden="true"><div class="scan-list"><div><strong>YOUR BOOK</strong><span>WATCHLIST</span><b>MAP</b></div><div><strong>HOT TAPE</strong><span>LOCATION</span><b>≠ SCORE</b></div><div><strong>WAIT</strong><span>DEFAULT</span><b>FILTER</b></div></div></div>
+        <div class="workflow-meta"><span>01</span><small>Hunt</small></div>
+        <div class="workflow-visual" aria-hidden="true"><div class="scan-list"><div><strong>Your book</strong><span>Watchlist</span><b>Map</b></div><div><strong>Hot tape</strong><span>Location</span><b>≠ score</b></div><div><strong>Wait</strong><span>Default</span><b>Filter</b></div></div></div>
         <h3>Hunt</h3>
         <p>Open the member desk. See where the tape is hot on YOUR watchlist. Location is not a score.</p>
       </article>
       <article class="workflow-card">
         <div class="workflow-meta"><span>02</span><small>1–5</small></div>
-        <div class="workflow-visual" aria-hidden="true"><div class="scan-list"><div><strong>5/5</strong><span>BREAKOUT</span><b>PLAN</b></div><div><strong>1/5</strong><span>BREAKDOWN</span><b>PLAN</b></div><div><strong>2–4</strong><span>WAITING</span><b>FILTER</b></div></div></div>
+        <div class="workflow-visual" aria-hidden="true"><div class="scan-list"><div><strong>5/5</strong><span>Breakout</span><b>Plan</b></div><div><strong>1/5</strong><span>Breakdown</span><b>Plan</b></div><div><strong>2–4</strong><span>Waiting</span><b>Filter</b></div></div></div>
         <h3>Read the 1–5</h3>
         <p>Same score for a first tape and a tenth. AO only publishes a stock plan on 5/5 Breakout and 1/5 Breakdown. Waiting is the filter.</p>
       </article>
       <article class="workflow-card">
-        <div class="workflow-meta"><span>03</span><small>UNMASK</small></div>
+        <div class="workflow-meta"><span>03</span><small>Unmask</small></div>
         <div class="workflow-visual" aria-hidden="true"><div class="analyst-card"><p>Flow In Depth · both legs · walls · agree with 1–5?</p><span>Sticky vs ice for SPY regime. You still decide.</span></div></div>
         <h3>Unmask, then decide</h3>
         <p>Flow In Depth for qualifying prints. Sticky vs ice for SPY gamma regime. AO explains the tape. You decide.</p>
@@ -136,44 +147,44 @@
   <section class="product-section" id="previews">
     <div class="section-intro product-intro">
       <div>
-        <span class="section-kicker">SIMPLE VS PRO</span>
+        <span class="section-kicker">Simple vs Pro</span>
         <h2>Same desk language.<br/>More depth when you want it.</h2>
       </div>
       <p>Every screenshot below is a product preview with sample data — never live P&amp;L or guaranteed results.</p>
     </div>
     <div class="preview-gallery">
       <figure>
-        <span class="preview-label">SAMPLE DATA // DESK VIEW</span>
+        <span class="preview-label">Sample data · desk view</span>
         <img src="/images/previews/simple-desktop-dark.png" alt="Simple Mode desktop dark preview" width="1600" height="900"/>
         <figcaption><strong>Simple Mode · dark</strong><span class="preview-caption-rule">Product preview · sample data.</span> Hunt + 1–5 + Morning Brief in desk English. Fast first pass. Waiting filter visible.</figcaption>
       </figure>
       <figure>
-        <span class="preview-label">SAMPLE DATA // DESK VIEW</span>
+        <span class="preview-label">Sample data · desk view</span>
         <img src="/images/previews/simple-desktop-light.png" alt="Simple Mode desktop light preview" width="1600" height="900"/>
         <figcaption><strong>Simple Mode · light</strong><span class="preview-caption-rule">Product preview · sample data.</span> Same board language in light theme for traders who prefer a brighter pass.</figcaption>
       </figure>
       <figure>
-        <span class="preview-label">SAMPLE DATA // MORNING BRIEF</span>
+        <span class="preview-label">Sample data · Morning Brief</span>
         <img src="/images/previews/morning-brief-desktop-dark.png" alt="Morning Brief desktop dark preview" width="1600" height="900"/>
         <figcaption><strong>Morning Brief</strong><span class="preview-caption-rule">Product preview · sample data.</span> Session context before the Hunt map. Education, not advice.</figcaption>
       </figure>
       <figure>
-        <span class="preview-label">SAMPLE DATA // TOP SETUPS</span>
+        <span class="preview-label">Sample data · top setups</span>
         <img src="/images/previews/top-setups-desktop-dark.png" alt="Top setups desktop dark preview" width="1600" height="900"/>
         <figcaption><strong>Top setups</strong><span class="preview-caption-rule">Product preview · sample data.</span> Same 1–5 language across YOUR book. Plans only on 5/5 Breakout and 1/5 Breakdown.</figcaption>
       </figure>
       <figure>
-        <span class="preview-label">SAMPLE DATA // FLOW IN DEPTH</span>
+        <span class="preview-label">Sample data · Flow In Depth</span>
         <img src="/images/previews/flow-desktop-dark.png" alt="Flow In Depth desktop dark preview" width="1600" height="900"/>
         <figcaption><strong>Flow In Depth</strong><span class="preview-caption-rule">Product preview · sample data.</span> Both legs, intrinsic vs time, walls, agreement with the 1–5. Flow does not raise a 3 to a 5.</figcaption>
       </figure>
       <figure>
-        <span class="preview-label">SAMPLE DATA // DEALER MAP</span>
+        <span class="preview-label">Sample data · dealer map</span>
         <img src="/images/previews/dealer-desktop-dark.png" alt="Dealer map desktop dark preview" width="1600" height="900"/>
         <figcaption><strong>Dealer map · sticky vs ice</strong><span class="preview-caption-rule">Product preview · sample data.</span> Regime first. Walls second. Event days lead with the event.</figcaption>
       </figure>
       <figure class="wide">
-        <span class="preview-label">SAMPLE DATA // PHONE DESK</span>
+        <span class="preview-label">Sample data · phone desk</span>
         <img src="/images/previews/simple-phone-dark.png" alt="Simple Mode phone dark preview" width="900" height="1600" style="max-width:420px;margin:0 auto"/>
         <figcaption><strong>Phone · Simple Mode</strong><span class="preview-caption-rule">Product preview · sample data.</span> Desk English on a small screen. Same house rules as desktop.</figcaption>
       </figure>
@@ -184,15 +195,15 @@
   <section class="workflow-section" style="padding-top:40px" id="house-rules" aria-labelledby="house-rules-title">
     <div class="section-intro">
       <div>
-        <span class="section-kicker">HOUSE RULES</span>
+        <span class="section-kicker">House rules</span>
         <h2 id="house-rules-title">What you will not see.</h2>
       </div>
       <p>These rules stay on the homepage because they are the product. Education, not advice.</p>
     </div>
     <div class="anti-pattern-strip" aria-label="Anti-patterns">
-      <div><strong>NO DUMP</strong><p>Do not dump every print. Qualifying size and quality first.</p></div>
-      <div><strong>NO FLOW OVERRIDE</strong><p>Do not raise a 1–5 because flow looks exciting.</p></div>
-      <div><strong>NO FOMO</strong><p>Primary offer is $1 trial → $50/mo Desk — not a signal lottery.</p></div>
+      <div><strong>No dump</strong><p>Do not dump every print. Qualifying size and quality first.</p></div>
+      <div><strong>No flow override</strong><p>Do not raise a 1–5 because flow looks exciting.</p></div>
+      <div><strong>No FOMO</strong><p>Primary offer is $1 trial → $50/mo Desk — not a signal lottery.</p></div>
     </div>
     <div class="will-not-grid">
       <div><strong>No invented prints</strong><p>Do not invent prints or named structures from a chain snapshot.</p></div>
@@ -203,19 +214,19 @@
 
   <section class="pricing-section" id="pricing">
     <div class="pricing-heading">
-      <span class="section-kicker">PRICING</span>
+      <span class="section-kicker">Pricing</span>
       <h2>$1 to try the desk.<br/>Then $50/month.</h2>
       <p>Primary path: $1 for a 30-day desk trial, then $50/month Desk. Live Whop checkout. Educational analytics, not trade advice.</p>
     </div>
     <div class="pricing-grid pricing-grid-single">
       <article class="pricing-card featured">
-        <div class="popular">PRIMARY PATH</div>
+        <div class="popular">Primary path</div>
         <div class="plan-top">
           <span>Desk</span>
           <p>$1 unlocks thirty days of full Desk access so you can run Hunt, the 1–5, Morning Brief, Flow In Depth, and Simple or Pro screens on YOUR book. Then $50/month continues Desk access.</p>
         </div>
-        <div class="price"><strong>$1</strong><span>30-DAY TRIAL<br/>THEN $50 / MO</span></div>
-        <a class="button button-primary" href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
+        <div class="price"><strong>$1</strong><span>30-day trial<br/>then $50 / mo</span></div>
+        <a class="button button-primary" href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">Start $1 free desk trial <span aria-hidden="true">↗</span></a>
         <span class="pricing-edu">Education, not advice</span>
         <ul>
           <li><span class="check-icon">✓</span> Full Desk access for 30 days</li>
@@ -232,7 +243,7 @@
   <section class="control-section">
     <div class="control-orbit" aria-hidden="true"><span>AO</span></div>
     <div class="control-copy">
-      <span class="section-kicker">BUILT AROUND YOUR CONTROL</span>
+      <span class="section-kicker">Built around your control</span>
       <h2>A&amp;O explains the market.<br/><em>You make the trade.</em></h2>
     </div>
     <div class="control-points">
@@ -245,7 +256,7 @@
 
   <section class="faq-section" id="faq" aria-labelledby="faq-title">
     <div class="faq-heading">
-      <span class="section-kicker">QUESTIONS, ANSWERED</span>
+      <span class="section-kicker">Questions</span>
       <h2 id="faq-title">Frequently asked<br/>questions.</h2>
       <p>Primary path: $1 for a 30-day desk trial, then $50/month Desk. Education, not advice.</p>
     </div>
@@ -278,11 +289,11 @@
   </section>
 
   <section class="final-cta">
-    <span class="section-kicker">BUILD THE DESK</span>
+    <span class="section-kicker">Build the desk</span>
     <h2>Bring your tickers.<br/><em>Keep your decision.</em></h2>
     <p>Hunt the tape, apply the filter, and learn the read. AO explains; you decide. Education, not advice.</p>
     <div class="hero-actions">
-      <a class="button button-primary" href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
+      <a class="button button-primary" href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">Start $1 free desk trial <span aria-hidden="true">↗</span></a>
       <a class="button button-secondary" href="/ao-vs-paying-for-signals.html">AO vs signals</a>
     </div>
   </section>
@@ -304,8 +315,29 @@
     <a href="https://www.linkedin.com/company/alpha-omega-analytics-llc" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
   </div>
   <p>Alpha &amp; Omega Analytics provides educational tools and market analysis. Nothing on this site is financial advice. Options involve substantial risk and are not suitable for every investor. Past positioning does not guarantee future price. Waiting is a read, not a miss.</p>
-  <small>© 2026 ALPHA &amp; OMEGA ANALYTICS. ALL RIGHTS RESERVED.</small>
+  <small>© 2026 Alpha &amp; Omega Analytics. All rights reserved.</small>
 </footer>
 </main>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById('ao-theme-toggle');
+  function current() {
+    return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  }
+  function apply(theme) {
+    root.setAttribute('data-theme', theme);
+    try { localStorage.setItem('ao-theme', theme); } catch (e) {}
+    if (btn) btn.textContent = theme === 'light' ? 'Dark' : 'Light';
+  }
+  apply(current());
+  if (btn) {
+    btn.addEventListener('click', function () {
+      apply(current() === 'light' ? 'dark' : 'light');
+    });
+  }
+})();
+</script>
 </body>
 </html>
