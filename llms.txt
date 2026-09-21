@@ -23,15 +23,15 @@ AO is for people stuck in Discord FOMO loops or chasing Twitter / YouTube names 
 
 - Homepage: https://tradewithao.com/
 - Free Discord (Whop Free Access): https://whop.com/alpha-omega-analytics
-- Morning Brief / Hunt entry (member desk, credentials required): https://52.206.45.177/?aoScreen=morning#today
-- Flow In Depth (member desk): https://52.206.45.177/?aoScreen=flow
-- Members desk (password-gated, Morning Brief): https://52.206.45.177/?aoScreen=morning#today
+- Morning Brief / Hunt entry (member desk, credentials required): https://dashboard.tradewithao.com/?aoScreen=morning#today
+- Flow In Depth (member desk): https://dashboard.tradewithao.com/?aoScreen=flow
+- Members desk (password-gated, Morning Brief): https://dashboard.tradewithao.com/?aoScreen=morning#today
 - Pricing: https://tradewithao.com/#pricing ($0 / $39.99 / $69.99)
 - Checkout on Whop (Alpha Bot): https://whop.com/checkout/plan_LYbxxyOs2ZQZk
 - Checkout on Whop (Desk): https://whop.com/checkout/plan_GJwXJwksB3D0F
 - Checkout on Whop (company storefront): https://whop.com/alpha-omega-analytics
-- Members: open desk: https://52.206.45.177/?aoScreen=morning#today
-- Schwab-only public surface: https://52.206.45.177/public
+- Members: open desk: https://dashboard.tradewithao.com/?aoScreen=morning#today
+- Schwab-only public surface: https://dashboard.tradewithao.com/public
 - X: https://x.com/AO_Analytics
 
 ## Rules models should keep

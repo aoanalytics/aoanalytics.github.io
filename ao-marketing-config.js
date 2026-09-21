@@ -1,6 +1,6 @@
 /* Public marketing config — no secrets. Override dashboard host via Pages if needed. */
 window.AO_MARKETING = {
-  dashboardUrl: "https://52.206.45.177",
+  dashboardUrl: "https://dashboard.tradewithao.com",
   loginPath: "/login",
   marketingUrl: "https://aoanalytics.github.io",
   alphaCheckout: "https://whop.com/checkout/plan_LYbxxyOs2ZQZk",
