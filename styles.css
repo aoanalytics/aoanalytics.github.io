@@ -138,3 +138,25 @@ html[data-theme="light"] .faq-section{background:linear-gradient(var(--surface),
   .header-cta{display:none}
   .theme-toggle,.demo-login{min-height:32px;padding:0 10px;font-size:9px}
 }
+
+/* ── De-slop pass 2026-09-23 ──────────────────────────────────────────────
+   Quieter marketing surface next to Jarvis/Skylit: no ambient glow or grid, muted
+   institutional green for accents, bright #00FF88 kept on the primary CTA only,
+   no hover lift, plain-text trust line and pricing list. Live Desk UI is unaffected. */
+:root,html[data-theme="dark"]{--accent:#1FC77A;--gold:#1FC77A;--gold-light:#5FD9A0;--green:#1FC77A;--hero-grad:linear-gradient(#050505,#070A08 80%)}
+.hero:before,html[data-theme="light"] .hero:before{display:none}
+.stage-glow{display:none}
+.product-section{background:#0b0d0e}
+html[data-theme="light"] .product-section{background:var(--ink)}
+.final-cta{background:var(--ink)}
+.demo-section{background:#0d1011}
+.eyebrow i,.market-state i,.live-badge i{box-shadow:none}
+.button-primary{background:#00FF88;color:#050505}
+html[data-theme="light"] .button-primary{background:#00C96A;color:#050505}
+.button-primary:hover{background:#3CFFA3;transform:none}
+.button-light:hover,.button-gold-outline:hover,.workflow-card:hover,.desk-principles-grid article:hover{transform:none}
+.terminal-shot:hover img{transform:none}
+.dashboard-shell,.discord-proof,.discord-window,.demo-terminal-card{box-shadow:0 20px 60px #00000080}
+.trust-line{display:block;text-transform:none;letter-spacing:.02em;font-size:13px;color:var(--muted);margin:25px auto 49px;max-width:640px}
+.pricing-card li{padding-left:14px;position:relative}
+.pricing-card li:before{content:"";position:absolute;left:0;top:50%;width:6px;height:1px;background:var(--muted)}
