@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Alpha &amp; Omega Analytics | Dealers have to hedge. AO shows you where.</title>
+  <title>Alpha &amp; Omega Analytics | Same tickers. Same tape. Why wait for an alert?</title>
   <meta name="description" content="AO reads dealer positioning, options flow and the live tape on your tickers, then gives you one plain-English read: lean calls, lean puts, or wait. 0DTE to LEAPS. $1 for 30 days. Education, not advice.">
   <link rel="canonical" href="https://tradewithao.com/">
-  <meta property="og:title" content="Dealers have to hedge. AO shows you where.">
+  <meta property="og:title" content="Same tickers. Same tape. Why wait for an alert?">
   <meta property="og:description" content="Dealer walls, options flow and the live tape on your tickers, turned into one plain-English read. Try the Desk for $1.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tradewithao.com/">
@@ -16,7 +16,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@AO_Analytics">
   <meta name="twitter:image" content="https://tradewithao.com/og-branded.png">
-  <meta name="twitter:title" content="Dealers have to hedge. AO shows you where.">
+  <meta name="twitter:title" content="Same tickers. Same tape. Why wait for an alert?">
   <meta name="twitter:description" content="One plain-English read per ticker: lean calls, lean puts, or wait. Education, not advice.">
   <link rel="icon" href="/ao-logo-small.jpg">
   <link rel="apple-touch-icon" href="/ao-logo-small.jpg">
@@ -42,9 +42,10 @@
     <a class="logo" href="/" aria-label="Alpha and Omega Analytics home"><img src="/ao-logo-small.jpg" alt="" width="30" height="30">ALPHA &amp; OMEGA</a>
     <nav class="nav" aria-label="Primary">
       <a href="#desk">The Desk</a>
-      <a href="#dealer">Dealer Map</a>
+      <a href="#dealer">Dealer Heatmap</a>
+      <a href="#tide">Market Tide</a>
       <a href="#flow">Alpha Flow</a>
-      <a href="#ask">Ask AO</a>
+      <a href="#ask">Ask A&amp;O</a>
       <a href="#api">API + MCP<span class="beta">BETA</span></a>
       <a href="#pricing">Pricing</a>
     </nav>
@@ -60,8 +61,8 @@
   <section class="hero">
     <div class="wrap">
       <span class="kick"><i></i>Options analytics for 0DTE through LEAPS</span>
-      <h1>Dealers have to hedge. <span>AO shows you where.</span></h1>
-      <p class="sub">AO reads dealer positioning, options flow and the live tape on <b>your</b> tickers, then gives you one plain-English read: <b>lean calls, lean puts, or wait.</b> Before you click buy.</p>
+      <h1>Same tickers. Same tape. <span>Why wait for an alert?</span></h1>
+      <p class="sub">Everyone trades SPY, QQQ, NVDA and TSLA. The alert room sees the same chart you do, just later. AO shows you where dealers have to hedge, which way the premium is flowing, and one plain-English read on <b>your</b> tickers: <b>lean calls, lean puts, or wait.</b></p>
       <div class="cta-row">
         <a class="btn btn-pri" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Try the Desk for $1 <span aria-hidden="true">→</span></a>
         <a class="btn btn-sec" href="#desk">See the desk</a>
@@ -111,13 +112,13 @@
 
       <div class="prod rev rv" id="dealer">
         <div class="txt">
-          <span class="name"><i>⊞</i>Dealer Map</span>
-          <h3>Know where dealers cushion dips and where moves speed up.</h3>
-          <p>Put wall, call wall and the gamma flip for SPY, SPX, QQQ, NDX and IWM, with the plain-English read under each one.</p>
+          <span class="name"><i>▥</i>Dealer Heatmap</span>
+          <h3>Every strike, every expiry. And the one that matters most.</h3>
+          <p>Net dealer gamma by strike and expiration for SPX, SPY, QQQ, IWM, NDX and any stock, with the King node starred and the floor and ceiling marked.</p>
           <ul>
-            <li>Floors and ceilings for the session, before the bell.</li>
-            <li>Bottom and top snipes: price on a dealer level while VIX turns.</li>
-            <li>GEX, VEX and heat by strike and expiry on the Pro screens.</li>
+            <li>Game Plan: the switch zone, call walls, put walls, and a bull, base and bear path built only from the board.</li>
+            <li>Velocity shows which levels are building and which are melting.</li>
+            <li>Trinity puts SPX, SPY and QQQ side by side. Do they agree?</li>
           </ul>
         </div>
         <div class="shot"><img src="/images/live/dealer-map-dark.webp" alt="Dealer positioning for SPY, SPX, QQQ, NDX and IWM" width="872" height="460" loading="lazy"></div>
@@ -137,7 +138,26 @@
         <div class="shot"><img src="/images/live/flow-meta-table-light.webp" alt="Alpha Flow table for META with premium, size, side and mood" width="1800" height="941" loading="lazy"></div>
       </div>
 
-      <div class="prod rev rv" id="pane">
+      <div class="prod rev rv" id="tide">
+        <div class="txt">
+          <span class="name"><i>≈</i>Market Tide</span>
+          <h3>Is money leaning into calls or puts right now?</h3>
+          <p>Net call premium against net put premium through the session, across the names AO watches, with spikes and drops called out the moment they happen.</p>
+          <ul>
+            <li>Ask side minus bid side, in five minute buckets.</li>
+            <li>A put premium spike shows up before the headline does.</li>
+            <li>Honest about coverage: it says which tickers and how many contracts it saw.</li>
+          </ul>
+        </div>
+        <div class="ask" aria-label="What Market Tide shows">
+          <div class="q">Cumulative net call and put premium, 9:30 to 4:00</div>
+          <div class="q">Call spike, call drop, put spike, put drop, time stamped</div>
+          <div class="q">ALL, or one name: SPY, QQQ, SPX, IWM, NVDA, TSLA</div>
+          <small>Estimated from live chain snapshots. Education only.</small>
+        </div>
+      </div>
+
+      <div class="prod rv" id="pane">
         <div class="txt">
           <span class="name"><i>◈</i>The Pane</span>
           <h3>Click a ticker. Get three ranked contracts and a plan.</h3>
@@ -151,23 +171,24 @@
         <div class="shot tall"><img src="/images/live/pane-tsla-dark.webp" alt="TSLA pane with three ranked weekly contracts, entry range, take profit and stop" width="1080" height="1441" loading="lazy"></div>
       </div>
 
-      <div class="prod rv" id="ask">
+      <div class="prod rev rv" id="ask">
         <div class="txt">
-          <span class="name"><i>✦</i>Ask AO</span>
-          <h3>An analyst that answers from the live desk.</h3>
-          <p>Ask why a ticker is no edge, where today's floor is, or whether a name is stretched. Ask AO answers from the same numbers on your screen, not from a guess.</p>
+          <span class="name"><i>✦</i>Ask A&amp;O</span>
+          <h3>One question, from the screen you're already on.</h3>
+          <p>Ask where a ticker turns, what has to break, or whether the indexes agree. Ask A&amp;O answers from the live desk and shows you where every number came from.</p>
           <ul>
-            <li>Questions built from what is on screen right now.</li>
-            <li>Manage a tracked position in plain English.</li>
-            <li>Education only. It never places a trade.</li>
+            <li>Slash commands: /levels, /plan, /tide, /flow, /trinity.</li>
+            <li>Pick Scalp, Day, Swing or Position. The answer fits the horizon.</li>
+            <li>Every answer links its source. Education only. It never places a trade.</li>
           </ul>
         </div>
-        <div class="ask" aria-label="Example questions for Ask AO">
+        <div class="ask" aria-label="Example questions for Ask A&amp;O">
           <div class="q">Why is SPY no edge right now, and what would change that?</div>
           <div class="q">Checks the walls, the flip, the tape and the session window first.</div>
           <div class="q">Is MU near a swing buy zone or stretched?</div>
           <div class="q">Reads the weekly 21 EMA, the 50-day and the distance from it.</div>
-          <div class="q">Where is the SPY dealer floor and ceiling today?</div>
+          <div class="q">/plan SPX</div>
+          <div class="q">Bull, base and bear from the dealer board, with the source.</div>
           <small>Example questions. Answers come from the live desk.</small>
         </div>
       </div>
@@ -256,10 +277,10 @@
           <div class="amt"><b>$1</b><span>for 30 days, then $50 / month</span></div>
           <ul>
             <li>Index setups, your watchlist and the Top 10</li>
-            <li>Dealer Map, Index Heat and IV Desk</li>
+            <li>Dealer Heatmap, Game Plan, Market Tide, Index Heat and IV Desk</li>
             <li>Alpha Flow with bought or sold reads</li>
             <li>The Pane with exact contracts and a plan</li>
-            <li>Ask AO, Post Studio, Simple and Pro screens</li>
+            <li>Ask A&amp;O, Learn hub, Community chat, Simple and Pro screens</li>
           </ul>
           <a class="btn btn-pri" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Try the Desk for $1 <span aria-hidden="true">→</span></a>
         </div>
@@ -277,7 +298,8 @@
     <div class="wrap">
       <div class="head rv">
         <span class="eyebrow">Learn the read</span>
-        <h2 class="h">Free lessons.</h2>
+        <h2 class="h">Free lessons. And a Learn hub inside the desk.</h2>
+        <p class="lead">Eight short tracks inside the desk: index tiles, Dealer Heatmap, Game Plan, Market Tide, Alpha Flow, Ask A&amp;O and Alpha Performance. Read one, open the tool, see it on live data. Members also get a Community chat to talk levels with the room.</p>
       </div>
       <div class="learn rv">
         <a href="/how-to-read-spy-positive-vs-negative-gamma.html"><span>Lesson</span><b>Positive vs negative gamma</b><small>Why SPY pins on some days and runs on others.</small></a>
@@ -296,6 +318,7 @@
         <details><summary>Is this financial advice?</summary><p>No. AO is educational analytics. Nothing here is a recommendation to buy or sell. Options involve substantial risk. The model score measures how well a setup fits AO's rules, not the odds of profit.</p></details>
         <details><summary>Does AO place trades for me?</summary><p>No. AO never touches your brokerage account and never places trades. You decide, you verify prices with your broker, and you manage your own risk.</p></details>
         <details><summary>What does the $1 include?</summary><p>Thirty days of the full desk, then $50 a month on Whop.</p></details>
+        <details><summary>Why not just join an alert room?</summary><p>An alert is someone else's read, delivered after they took it. AO shows you the same dealer levels, flow and tape they look at, on your tickers, while it is happening. You keep the decision.</p></details>
         <details><summary>When does the API and MCP beta open?</summary><p>Waitlist members get access first. Join above and we'll email you when your seat is ready.</p></details>
       </div>
     </div>
