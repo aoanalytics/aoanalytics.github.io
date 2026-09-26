@@ -28,12 +28,14 @@
       var t = localStorage.getItem('ao-theme');
       document.documentElement.setAttribute('data-theme', (t === 'light' || t === 'dark') ? t : 'dark');
     } catch (e) { document.documentElement.setAttribute('data-theme', 'dark'); }
+    try { if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion'); } catch (e) {}
   })();
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/site-v2.css?v=20260924">
+  <link rel="stylesheet" href="/motion.css?v=20260925">
 </head>
 <body>
 
@@ -65,18 +67,32 @@
       <p class="sub">Everyone trades SPY, QQQ, NVDA and TSLA. The alert room sees the same chart you do, just later. AO shows you where dealers have to hedge, which way the premium is flowing, and one plain-English read on <b>your</b> tickers: <b>lean calls, lean puts, or wait.</b></p>
       <div class="cta-row">
         <a class="btn btn-pri" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Try the Desk for $1 <span aria-hidden="true">→</span></a>
-        <a class="btn btn-sec" href="#desk">See the desk</a>
+        <button type="button" class="btn btn-sec" id="demo-open" aria-haspopup="dialog"><span class="play-i" aria-hidden="true"></span>Watch the demo</button>
       </div>
       <p class="fine">$1 for 30 days, then $50 a month. Billing on Whop. <a href="https://whop.com/alpha-omega-analytics/products/signal-terminal-free/" target="_blank" rel="noreferrer">Free access</a> if you want to look first. Education, not advice.</p>
 
-      <div class="stage rv">
-        <div class="frame">
-          <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
-          <img src="/images/live/hero-desk.webp" alt="AO Desk: Top 10 setups with model scores, dealer levels and unusual options flow" width="1800" height="925" fetchpriority="high">
+      <div class="stage rv" data-scene="0">
+        <div class="frame tour" id="tour">
+          <div class="tour-bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <div class="tour-tabs" role="tablist" aria-label="Product tour">
+              <button type="button" class="tt" role="tab" id="tt-0" aria-controls="tp-0" aria-selected="true">The Desk<span class="pg" aria-hidden="true"><i></i></span></button>
+              <button type="button" class="tt" role="tab" id="tt-1" aria-controls="tp-1" aria-selected="false" tabindex="-1">Dealer Heatmap<span class="pg" aria-hidden="true"><i></i></span></button>
+              <button type="button" class="tt" role="tab" id="tt-2" aria-controls="tp-2" aria-selected="false" tabindex="-1">Game Plan<span class="pg" aria-hidden="true"><i></i></span></button>
+              <button type="button" class="tt" role="tab" id="tt-3" aria-controls="tp-3" aria-selected="false" tabindex="-1">Alpha Flow<span class="pg" aria-hidden="true"><i></i></span></button>
+              <button type="button" class="tt" role="tab" id="tt-4" aria-controls="tp-4" aria-selected="false" tabindex="-1">Ask A&amp;O<span class="pg" aria-hidden="true"><i></i></span></button>
+            </div>
+            <button type="button" class="tour-ctl" id="tour-ctl" aria-label="Pause tour" aria-pressed="false" hidden><svg class="i-pause" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 3h3v10H4zM9 3h3v10H9z" fill="currentColor"/></svg><svg class="i-play" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 3l8 5-8 5z" fill="currentColor"/></svg></button>
+          </div>
+          <div class="tour-view">
+            <div class="tp tp-desk on" role="tabpanel" id="tp-0" aria-labelledby="tt-0">
+              <img src="/images/live/hero-desk.webp" alt="AO Desk: Top 10 setups with model scores, dealer levels and unusual options flow" width="1800" height="925" fetchpriority="high">
+            </div>
+          </div>
         </div>
         <div class="float f1" aria-hidden="true"><em>Every tile explains itself</em><span class="tag y">NO EDGE</span>Mid-range between the put wall and the call wall. No edge until one breaks.</div>
         <div class="float f2" aria-hidden="true"><em>Flow in plain English</em><span class="tag g">BOUGHT</span><b>$17.8M</b> of META calls at the ask, likely new positions.</div>
-        <p class="caption">The live desk on Sep 23, 2026. Real reads, not a mockup. Values change in real time.</p>
+        <p class="caption" id="tour-cap">The live desk on Sep 23, 2026. Real reads, not a mockup. Values change in real time.</p>
       </div>
 
       <div class="strip rv">
@@ -202,12 +218,14 @@
         <h2 class="h">Four checks. One line you can trust.</h2>
         <p class="lead">Every read has to pass the same checks, in the same order, on every ticker.</p>
       </div>
+      <div class="story" id="story">
       <div class="steps rv">
         <div class="step"><span>01</span><b>Level</b><p>Dealer walls, the gamma flip, key levels and the opening range.</p></div>
         <div class="step"><span>02</span><b>Tape</b><p>Trend, VWAP and whether the last bars hold or reject the level.</p></div>
         <div class="step"><span>03</span><b>Flow</b><p>Big prints, bought or sold, opening or closing.</p></div>
         <div class="step"><span>04</span><b>Session</b><p>Opening 15, the 10:40 algo window, midday chop, power hour.</p></div>
         <div class="step out"><span>=</span><b>One read</b><p>Lean calls, lean puts, or wait, with the reason written out.</p></div>
+      </div>
       </div>
       <div class="readline rv"><span class="tag g">CALLS LEAN</span><span class="t">SPX</span><span>Bottom snipe. Holding the put wall as VIX rolls over from its high.</span><small>Example of the read format</small></div>
     </div>
@@ -355,6 +373,14 @@
   </div>
 </footer>
 
+<dialog class="vdlg" id="demo-dlg" aria-labelledby="demo-title">
+  <div class="vdlg-in">
+    <div class="vdlg-hd"><b id="demo-title">The A&amp;O desk in 40 seconds</b><button type="button" class="vdlg-x" id="demo-close" aria-label="Close video">×</button></div>
+    <video controls playsinline preload="none" poster="/videos/ao-demo-poster.jpg" width="1920" height="1080"><source src="/videos/ao-demo.mp4" type="video/mp4">Your browser can't play this video.</video>
+    <p class="vdlg-note">Real desk data from the Sep 25, 2026 close. Education, not advice.</p>
+  </div>
+</dialog>
+
 <script>
 (function () {
   var root = document.documentElement, btn = document.getElementById('ao-theme-toggle');
@@ -401,5 +427,6 @@
   });
 })();
 </script>
+<script src="/motion.js?v=20260925" defer></script>
 </body>
 </html>
