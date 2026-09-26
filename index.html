@@ -3,347 +3,430 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Alpha &amp; Omega Analytics | Stop waiting for the signal</title>
-  <meta name="description" content="Customized watchlist desk for YOUR tickers. Hunt, same 1–5, Flow In Depth, sticky vs ice. $1 for a 30-day desk trial, then $50/month Desk. Education, not advice.">
+  <title>Alpha &amp; Omega Analytics | Same tickers. Same tape. Why wait for an alert?</title>
+  <meta name="description" content="AO reads dealer positioning, options flow and the live tape on your tickers, then gives you one plain-English read: lean calls, lean puts, or wait. 0DTE to LEAPS. $1 for 30 days. Education, not advice.">
   <link rel="canonical" href="https://tradewithao.com/">
-  <meta property="og:title" content="Stop waiting for the signal. Stop missing alpha.">
-  <meta property="og:description" content="Customized watchlist desk for YOUR tickers across 0DTE through LEAPS. $1 for a 30-day desk trial, then $50/month Desk.">
+  <meta property="og:title" content="Same tickers. Same tape. Why wait for an alert?">
+  <meta property="og:description" content="Dealer walls, options flow and the live tape on your tickers, turned into one plain-English read. Try the Desk for $1.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tradewithao.com/">
   <meta property="og:image" content="https://tradewithao.com/og-branded.png">
   <meta property="og:image:width" content="1731">
   <meta property="og:image:height" content="909">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@AO_Analytics">
   <meta name="twitter:image" content="https://tradewithao.com/og-branded.png">
-  <meta name="twitter:title" content="Alpha &amp; Omega Analytics">
-  <meta name="twitter:description" content="Hunt. Same 1–5. Waiting is the filter. Education, not advice.">
+  <meta name="twitter:title" content="Same tickers. Same tape. Why wait for an alert?">
+  <meta name="twitter:description" content="One plain-English read per ticker: lean calls, lean puts, or wait. Education, not advice.">
   <link rel="icon" href="/ao-logo-small.jpg">
   <link rel="apple-touch-icon" href="/ao-logo-small.jpg">
   <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#06080b">
   <script>
   (function () {
     try {
       var t = localStorage.getItem('ao-theme');
       document.documentElement.setAttribute('data-theme', (t === 'light' || t === 'dark') ? t : 'dark');
-    } catch (e) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
+    } catch (e) { document.documentElement.setAttribute('data-theme', 'dark'); }
+    try { if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion'); } catch (e) {}
   })();
   </script>
-  <link rel="stylesheet" href="/styles.css">
-  <style>
-    .preview-gallery{max-width:1380px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .preview-gallery figure{margin:0;background:var(--panel);border:1px solid var(--line);padding:14px;display:flex;flex-direction:column;gap:12px}
-    .preview-gallery figure.wide{grid-column:1/-1}
-    .preview-gallery img{width:100%;height:auto;display:block;border:1px solid var(--line);background:var(--ink)}
-    .preview-gallery figcaption{color:var(--muted);font-size:12px;line-height:1.5}
-    .preview-gallery figcaption strong{display:block;color:var(--heading);font:400 18px Georgia,serif;margin-bottom:4px}
-    .preview-caption-rule{letter-spacing:.06em;color:var(--muted);font-size:9px;display:block;margin-bottom:6px}
-    .pricing-grid-single{grid-template-columns:minmax(0,520px);justify-content:center;max-width:1180px;margin:auto}
-    .example-box{background:var(--panel);border:1px solid var(--line);padding:22px 24px;margin:0 0 36px}
-    .example-box>span{letter-spacing:.08em;color:var(--accent);font-size:10px;font-weight:700}
-    .learn-article h3{margin:28px 0 10px;font:400 22px Georgia,serif;color:var(--heading)}
-    .will-not-grid{max-width:1220px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    .will-not-grid div{background:var(--panel);border:1px solid var(--line);padding:22px}
-    .will-not-grid strong{display:block;margin:0 0 8px;font:400 18px Georgia,serif;color:var(--heading)}
-    .will-not-grid p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
-    @media (max-width:1000px){.preview-gallery,.will-not-grid,.desk-principles-grid,.anti-pattern-strip{grid-template-columns:1fr}.preview-gallery figure.wide{grid-column:auto}}
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site-v2.css?v=20260924">
+  <link rel="stylesheet" href="/motion.css?v=20260925">
 </head>
 <body>
-<main>
-  <header class="site-header">
-    <a class="brand" href="/" aria-label="Alpha and Omega Analytics home"><img class="brand-logo" src="/ao-logo-wide.jpg" alt="Alpha &amp; Omega Analytics" width="1500" height="500"/></a>
-    <nav aria-label="Primary navigation">
-      <a href="/#workflow">How it works</a>
-      <a href="/ao-vs-paying-for-signals.html">AO vs signals</a>
-      <a href="/how-to-hunt-stocks-without-a-signal-discord.html">How to Hunt</a>
-      <a href="/how-to-read-spy-positive-vs-negative-gamma.html">How to read gamma</a>
-      <a href="/how-to-read-unusual-options-flow.html">How to read flow</a>
-      <a href="/#pricing">Pricing</a>
+
+<header class="hdr">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Alpha and Omega Analytics home"><img src="/ao-logo-small.jpg" alt="" width="30" height="30">ALPHA &amp; OMEGA</a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#desk">The Desk</a>
+      <a href="#dealer">Dealer Heatmap</a>
+      <a href="#tide">Market Tide</a>
+      <a href="#flow">Alpha Flow</a>
+      <a href="#ask">Ask A&amp;O</a>
+      <a href="#api">API + MCP<span class="beta">BETA</span></a>
+      <a href="#pricing">Pricing</a>
     </nav>
-    <div class="header-actions">
-      <button type="button" class="theme-toggle" id="ao-theme-toggle" aria-label="Toggle light and dark mode">Light</button>
-      <a class="demo-login" href="https://dashboard.tradewithao.com/?aoScreen=morning#today" target="_blank" rel="noreferrer">Login</a>
-      <a class="header-cta" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
+    <div class="hdr-act">
+      <button type="button" class="btn btn-ghost btn-sm hide-sm" id="ao-theme-toggle" aria-label="Toggle light and dark mode">Light</button>
+      <a class="btn btn-sec btn-sm hide-sm" href="https://dashboard.tradewithao.com/?aoScreen=morning#today" target="_blank" rel="noreferrer">Log in</a>
+      <a class="btn btn-pri btn-sm" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Try the Desk for $1</a>
     </div>
-  </header>
+  </div>
+</header>
 
-  <section class="hero" id="top">
-    <div class="eyebrow">Education desk · your tickers</div>
-    <h1>Read the tape.<br/><span class="accent-line">Wait for the read.</span></h1>
-    <p class="hero-copy hero-plain" style="font-size:1.12em;color:var(--text,#E8F3EC);margin-bottom:10px">See which of your tickers are worth trading today, which strike to use, and when to sit out. All before the bell.</p>
-    <p class="hero-copy">AO is a customized watchlist desk for options traders. Hunt, read the same 1–5, unmask the structure, then decide. No signal lottery. Education, not advice. <span style="color:var(--muted)">Stop waiting for the signal.</span> Waiting is the filter.</p>
-    <div class="hero-actions">
-      <a class="button button-primary" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
-      <a class="button button-secondary" href="#previews">See product previews</a>
-    </div>
-    <p class="hero-free" style="margin:14px 0 0;font-size:14px;color:var(--muted,#7E9487)">Not ready? <a href="https://whop.com/alpha-omega-analytics/products/signal-terminal-free/" target="_blank" rel="noreferrer" style="color:var(--accent,#00FF88)">Start with free access on Whop</a>. No card needed.</p>
-    <p class="trust-line">Your tickers, from 0DTE through LEAPS. $1 for 30 days, then $50 a month.</p>
-    <div class="dashboard-stage">
-      <div class="stage-glow"></div>
-      <figure style="margin:0">
-        <img src="/images/previews/simple-desktop-dark.webp" alt="AO Simple Mode desk preview" width="1600" height="900" style="width:100%;height:auto;display:block;border:1px solid var(--line);background:var(--ink)"/>
-        <figcaption class="preview-caption-rule" style="text-align:center;margin-top:14px;letter-spacing:.08em">Product preview · sample data.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="proof-strip" aria-label="Customized watchlist horizons">
-    <div><strong>0DTE</strong><span>Same-day tape</span></div>
-    <div><strong>Weeklies</strong><span>Momentum plays</span></div>
-    <div><strong>Monthlies</strong><span>Setups that need time</span></div>
-    <div><strong>LEAPS</strong><span>Long-dated positions</span></div>
-  </section>
-
-
-  <section class="desk-principles" aria-labelledby="desk-principles-title">
-    <span class="section-kicker">The AO desk</span>
-    <h2 id="desk-principles-title">The read comes before the trade.</h2>
-    <div class="desk-principles-grid">
-      <article><span>01 · Your book</span><h3>Hunt</h3><p>Start with the tickers and horizons you actually follow.</p></article>
-      <article><span>02 · Waiting filter</span><h3>Read the 1–5</h3><p>Location is information. A plan needs agreement.</p></article>
-      <article><span>03 · Explained tape</span><h3>Unmask, then decide</h3><p>Inspect flow, walls, regime, and invalidation before acting.</p></article>
-    </div>
-  </section>
-
-  <section class="learn-strip watchlist-strip" aria-label="Learn the desk">
-    <a href="/ao-vs-paying-for-signals.html"><span>Comparison</span><strong>AO vs paying for signals</strong><small>Stop buying FOMO. Build a desk on YOUR tickers.</small></a>
-    <a href="/how-to-hunt-stocks-without-a-signal-discord.html"><span>Lesson</span><strong>How to Hunt</strong><small>Hunt is the map. Same 1–5. Waiting is the filter.</small></a>
-  </section>
-  <section class="learn-strip" aria-label="More lessons" style="margin-top:12px">
-    <a href="/how-to-read-spy-positive-vs-negative-gamma.html"><span>Lesson</span><strong>Sticky vs ice gamma</strong><small>Positive gamma fades. Negative gamma chases.</small></a>
-    <a href="/how-to-read-unusual-options-flow.html"><span>Lesson</span><strong>How to read unusual flow</strong><small>Flow In Depth unmasks a print. It does not raise a 3 to a 5.</small></a>
-  </section>
-
-  <section class="workflow-section" id="workflow">
-    <div class="section-intro">
-      <div>
-        <span class="section-kicker">How it works</span>
-        <h2>Hunt. Read the 1–5.<br/>Unmask, then decide.</h2>
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <span class="kick"><i></i>Options analytics for 0DTE through LEAPS</span>
+      <h1>Same tickers. Same tape. <span>Why wait for an alert?</span></h1>
+      <p class="sub">Everyone trades SPY, QQQ, NVDA and TSLA. The alert room sees the same chart you do, just later. AO shows you where dealers have to hedge, which way the premium is flowing, and one plain-English read on <b>your</b> tickers: <b>lean calls, lean puts, or wait.</b></p>
+      <div class="cta-row">
+        <a class="btn btn-pri" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Try the Desk for $1 <span aria-hidden="true">→</span></a>
+        <button type="button" class="btn btn-sec" id="demo-open" aria-haspopup="dialog"><span class="play-i" aria-hidden="true"></span>Watch the demo</button>
       </div>
-      <p>Three steps. Same house rules on Simple and Pro. AO explains the tape. You decide. AO does not place the trade.</p>
-    </div>
-    <div class="workflow-grid workflow-grid-three">
-      <article class="workflow-card">
-        <div class="workflow-meta"><span>01</span><small>Hunt</small></div>
-        <div class="workflow-visual" aria-hidden="true"><div class="scan-list"><div><strong>Your book</strong><span>Watchlist</span><b>Map</b></div><div><strong>Hot tape</strong><span>Location</span><b>Look</b></div><div><strong>Wait</strong><span>Default</span><b>Filter</b></div></div></div>
-        <h3>Hunt</h3>
-        <p>Open the member desk. See where the tape is hot on YOUR watchlist. Hot tape shows you where to look. The 1–5 tells you whether to act.</p>
-      </article>
-      <article class="workflow-card">
-        <div class="workflow-meta"><span>02</span><small>1–5</small></div>
-        <div class="workflow-visual" aria-hidden="true"><div class="scan-list"><div><strong>5/5</strong><span>Breakout</span><b>Plan</b></div><div><strong>1/5</strong><span>Breakdown</span><b>Plan</b></div><div><strong>2–4</strong><span>Waiting</span><b>Filter</b></div></div></div>
-        <h3>Read the 1–5</h3>
-        <p>Same score for a first tape and a tenth. AO only publishes a stock plan on 5/5 Breakout and 1/5 Breakdown. Waiting is the filter.</p>
-      </article>
-      <article class="workflow-card">
-        <div class="workflow-meta"><span>03</span><small>Unmask</small></div>
-        <div class="workflow-visual" aria-hidden="true"><div class="analyst-card"><p>Flow In Depth · both legs · walls · agree with 1–5?</p><span>Sticky vs ice for SPY regime. You still decide.</span></div></div>
-        <h3>Unmask, then decide</h3>
-        <p>Flow In Depth for qualifying prints. Sticky vs ice for SPY gamma regime. AO explains the tape. You decide.</p>
-      </article>
-    </div>
-  </section>
+      <p class="fine">$1 for 30 days, then $50 a month. Billing on Whop. <a href="https://whop.com/alpha-omega-analytics/products/signal-terminal-free/" target="_blank" rel="noreferrer">Free access</a> if you want to look first. Education, not advice.</p>
 
-  <section class="product-section" id="previews">
-    <div class="section-intro product-intro">
-      <div>
-        <span class="section-kicker">Simple vs Pro</span>
-        <h2>Same desk language.<br/>More depth when you want it.</h2>
-      </div>
-      <p>Every screenshot below is a product preview with sample data. None of it is live P&amp;L or a promised result. The new Simple mode layout is rolling out to members now; some screens shown here are still being finished.</p>
-    </div>
-    <div class="preview-gallery">
-      <figure>
-        <span class="preview-label">Sample data · desk view</span>
-        <img src="/images/previews/simple-desktop-dark.webp" alt="Simple Mode desktop dark preview" width="1600" height="900"/>
-        <figcaption><strong>Simple Mode · dark</strong><span class="preview-caption-rule">Product preview · sample data.</span> Hunt + 1–5 + Morning Brief in desk English. Fast first pass. Waiting filter visible.</figcaption>
-      </figure>
-      <figure>
-        <span class="preview-label">Sample data · desk view</span>
-        <img src="/images/previews/simple-desktop-light.webp" alt="Simple Mode desktop light preview" width="1600" height="900"/>
-        <figcaption><strong>Simple Mode · light</strong><span class="preview-caption-rule">Product preview · sample data.</span> Same board language in light theme for traders who prefer a brighter pass.</figcaption>
-      </figure>
-      <figure>
-        <span class="preview-label">Sample data · Morning Brief</span>
-        <img src="/images/previews/morning-brief-desktop-dark.webp" alt="Morning Brief desktop dark preview" width="1600" height="900"/>
-        <figcaption><strong>Morning Brief</strong><span class="preview-caption-rule">Product preview · sample data.</span> Session context before the Hunt map. Education, not advice.</figcaption>
-      </figure>
-      <figure>
-        <span class="preview-label">Sample data · top setups</span>
-        <img src="/images/previews/top-setups-desktop-dark.webp" alt="Top setups desktop dark preview" width="1600" height="900"/>
-        <figcaption><strong>Top setups</strong><span class="preview-caption-rule">Product preview · sample data.</span> Same 1–5 language across YOUR book. Plans only on 5/5 Breakout and 1/5 Breakdown.</figcaption>
-      </figure>
-      <figure>
-        <span class="preview-label">Sample data · Flow In Depth</span>
-        <img src="/images/previews/flow-desktop-dark.webp" alt="Flow In Depth desktop dark preview" width="1600" height="900"/>
-        <figcaption><strong>Flow In Depth</strong><span class="preview-caption-rule">Product preview · sample data.</span> Both legs, intrinsic vs time, walls, agreement with the 1–5. Flow does not raise a 3 to a 5.</figcaption>
-      </figure>
-      <figure>
-        <span class="preview-label">Sample data · dealer map</span>
-        <img src="/images/previews/dealer-desktop-dark.webp" alt="Dealer map desktop dark preview" width="1600" height="900"/>
-        <figcaption><strong>Dealer map · sticky vs ice</strong><span class="preview-caption-rule">Product preview · sample data.</span> Regime first. Walls second. Event days lead with the event.</figcaption>
-      </figure>
-      <figure class="wide">
-        <span class="preview-label">Sample data · phone desk</span>
-        <img src="/images/previews/simple-phone-dark.webp" alt="Simple Mode phone dark preview" width="900" height="1600" style="max-width:420px;margin:0 auto"/>
-        <figcaption><strong>Phone · Simple Mode</strong><span class="preview-caption-rule">Product preview · sample data.</span> Desk English on a small screen. Same house rules as desktop.</figcaption>
-      </figure>
-    </div>
-    <p class="product-note">Product preview · sample data. Market values and contract examples change in real time. Education, not advice.</p>
-  </section>
-
-  <section class="workflow-section" style="padding-top:40px" id="house-rules" aria-labelledby="house-rules-title">
-    <div class="section-intro">
-      <div>
-        <span class="section-kicker">House rules</span>
-        <h2 id="house-rules-title">What you will not see.</h2>
-      </div>
-      <p>These rules stay on the homepage because they are the product. Education, not advice.</p>
-    </div>
-    <div class="anti-pattern-strip" aria-label="Anti-patterns">
-      <div><strong>No dump</strong><p>Do not dump every print. Qualifying size and quality first.</p></div>
-      <div><strong>No flow override</strong><p>Do not raise a 1–5 because flow looks exciting.</p></div>
-      <div><strong>No FOMO</strong><p>One offer: $1 for 30 days, then $50 a month. No signal lottery.</p></div>
-    </div>
-    <div class="will-not-grid">
-      <div><strong>No invented prints</strong><p>Do not invent prints or named structures from a chain snapshot.</p></div>
-      <div><strong>No custody</strong><p>Do not trade your account. Whop is billing. Your broker is the account.</p></div>
-      <div><strong>No guarantees</strong><p>Do not promise performance claims, P&amp;L targets, or guaranteed outcomes.</p></div>
-    </div>
-  </section>
-
-  <section class="pricing-section" id="pricing">
-    <div class="pricing-heading">
-      <span class="section-kicker">Pricing</span>
-      <h2>$1 to try the desk.<br/>Then $50/month.</h2>
-      <p>Primary path: $1 for a 30-day desk trial, then $50/month Desk. Live Whop checkout. Educational analytics, not trade advice.</p>
-    </div>
-    <div class="pricing-grid pricing-grid-single">
-      <article class="pricing-card featured">
-        <div class="popular">Primary path</div>
-        <div class="plan-top">
-          <span>Desk</span>
-          <p>$1 unlocks thirty days of full Desk access so you can run Hunt, the 1–5, Morning Brief, Flow In Depth, and Simple or Pro screens on YOUR book. Then $50/month continues Desk access.</p>
+      <div class="stage rv" data-scene="0">
+        <div class="frame tour" id="tour">
+          <div class="tour-bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <div class="tour-tabs" role="tablist" aria-label="Product tour">
+              <button type="button" class="tt" role="tab" id="tt-0" aria-controls="tp-0" aria-selected="true">The Desk<span class="pg" aria-hidden="true"><i></i></span></button>
+              <button type="button" class="tt" role="tab" id="tt-1" aria-controls="tp-1" aria-selected="false" tabindex="-1">Dealer Heatmap<span class="pg" aria-hidden="true"><i></i></span></button>
+              <button type="button" class="tt" role="tab" id="tt-2" aria-controls="tp-2" aria-selected="false" tabindex="-1">Game Plan<span class="pg" aria-hidden="true"><i></i></span></button>
+              <button type="button" class="tt" role="tab" id="tt-3" aria-controls="tp-3" aria-selected="false" tabindex="-1">Alpha Flow<span class="pg" aria-hidden="true"><i></i></span></button>
+              <button type="button" class="tt" role="tab" id="tt-4" aria-controls="tp-4" aria-selected="false" tabindex="-1">Ask A&amp;O<span class="pg" aria-hidden="true"><i></i></span></button>
+            </div>
+            <button type="button" class="tour-ctl" id="tour-ctl" aria-label="Pause tour" aria-pressed="false" hidden><svg class="i-pause" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 3h3v10H4zM9 3h3v10H9z" fill="currentColor"/></svg><svg class="i-play" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 3l8 5-8 5z" fill="currentColor"/></svg></button>
+          </div>
+          <div class="tour-view">
+            <div class="tp tp-desk on" role="tabpanel" id="tp-0" aria-labelledby="tt-0">
+              <img src="/images/live/hero-desk.webp" alt="AO Desk: Top 10 setups with model scores, dealer levels and unusual options flow" width="1800" height="925" fetchpriority="high">
+            </div>
+          </div>
         </div>
-        <div class="price"><strong>$1</strong><span>30-day trial<br/>then $50 / mo</span></div>
-        <a class="button button-primary" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
-        <span class="pricing-edu">Education, not advice</span>
-        <ul>
-          <li>Full Desk access for 30 days</li>
-          <li>Hunt, the 1–5 and the Morning Brief</li>
-          <li>Flow In Depth and sticky vs ice gamma</li>
-          <li>Simple or Pro screens</li>
-          <li>Then $50 a month on Whop</li>
-        </ul>
-      </article>
-    </div>
-    <p class="beta-note" style="margin-bottom:8px">Want to look around first? <a href="https://whop.com/alpha-omega-analytics/products/signal-terminal-free/" target="_blank" rel="noreferrer">Free access</a> is on Whop too.</p>
-    <p class="beta-note">Checkout lives at <a href="https://whop.com/alpha-omega-analytics" target="_blank" rel="noreferrer">whop.com/alpha-omega-analytics</a>. Free Discord may appear on Whop as an optional community on-ramp. It is not the primary offer. Whop is billing. Your broker is the account. Education, not advice.</p>
-  </section>
+        <div class="float f1" aria-hidden="true"><em>Every tile explains itself</em><span class="tag y">NO EDGE</span>Mid-range between the put wall and the call wall. No edge until one breaks.</div>
+        <div class="float f2" aria-hidden="true"><em>Flow in plain English</em><span class="tag g">BOUGHT</span><b>$17.8M</b> of META calls at the ask, likely new positions.</div>
+        <p class="caption" id="tour-cap">The live desk on Sep 23, 2026. Real reads, not a mockup. Values change in real time.</p>
+      </div>
 
-  <section class="control-section">
-    <div class="control-orbit" aria-hidden="true"><span>AO</span></div>
-    <div class="control-copy">
-      <span class="section-kicker">Built around your control</span>
-      <h2>A&amp;O explains the market.<br/><em>You make the trade.</em></h2>
-    </div>
-    <div class="control-points">
-      <div><span>01</span><strong>Your broker</strong><p>Whop is billing. Discord and the dashboard stay tied to that seat. AO never takes custody of your funds.</p></div>
-      <div><span>02</span><strong>Your risk plan</strong><p>See the thesis, contract fit, and invalidation before you act.</p></div>
-      <div><span>03</span><strong>Your decision</strong><p>AO provides analysis and tools. It does not give financial advice or promise outcomes.</p></div>
+      <div class="strip rv">
+        <div><b>0DTE &amp; 1DTE</b><span>SPX, SPY, QQQ, IWM same-day tape</span></div>
+        <div><b>Weeklies</b><span>This Friday, exact contract</span></div>
+        <div><b>Monthlies</b><span>Setups that need time</span></div>
+        <div><b>LEAPS &amp; shares</b><span>Swing checklist, buy and trim zones</span></div>
+      </div>
     </div>
   </section>
 
+  <section class="sec" id="desk">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">The platform</span>
+        <h2 class="h">Everything you used five tabs for. One desk.</h2>
+        <p class="lead">Dealer walls, flow, the tape and the contract, all on the same screen and all speaking the same language.</p>
+      </div>
 
-  <section class="faq-section" id="faq" aria-labelledby="faq-title">
-    <div class="faq-heading">
-      <span class="section-kicker">Questions</span>
-      <h2 id="faq-title">Frequently asked<br/>questions.</h2>
-      <p>Primary path: $1 for a 30-day desk trial, then $50/month Desk. Education, not advice.</p>
-    </div>
-    <div class="faq-grid">
-      <details open>
-        <summary>What is AO?<span aria-hidden="true">+</span></summary>
-        <p>A customized watchlist desk for options traders. Hunt for where the tape is hot, same 1–5 across YOUR tickers from 0DTE through LEAPS, Flow In Depth for qualifying prints, and sticky vs ice for SPY gamma regime. AO explains the tape. You decide.</p>
-      </details>
-      <details>
-        <summary>How is AO different from a signal Discord?<span aria-hidden="true">+</span></summary>
-        <p>A signal chat sells names and FOMO. AO is the desk on YOUR book. Read the comparison: <a href="/ao-vs-paying-for-signals.html">AO vs paying for a signal Discord</a>.</p>
-      </details>
-      <details>
-        <summary>What does the $1 trial include?<span aria-hidden="true">+</span></summary>
-        <p>Thirty days of full Desk access so you can test Hunt, the 1–5, Morning Brief, Flow In Depth, and Simple or Pro screens against YOUR watchlist before the $50/month Desk continues.</p>
-      </details>
-      <details>
-        <summary>Does AO place trades for me?<span aria-hidden="true">+</span></summary>
-        <p>No. AO provides educational analytics and decision-support tools. You remain responsible for verification, risk, broker actions, and every trading decision.</p>
-      </details>
-      <details>
-        <summary>Is AO financial advice?<span aria-hidden="true">+</span></summary>
-        <p>No. AO is an educational publisher. Nothing here is a recommendation to buy or sell. Options involve substantial risk.</p>
-      </details>
-      <details>
-        <summary>Can flow raise a 3 to a 5?<span aria-hidden="true">+</span></summary>
-        <p>No. Flow does not raise a 3 to a 5. Agreement matters. Disagreement means wait.</p>
-      </details>
+      <div class="prod rv">
+        <div class="txt">
+          <span class="name"><i>◎</i>The Desk</span>
+          <h3>A score, a direction and a reason. For every ticker.</h3>
+          <p>Index setups, your watchlist and the Top 10 across the board. Each one gets a 0 to 100 model score and a one-line reason you can actually read.</p>
+          <ul>
+            <li>Lean calls, lean puts, or wait. Never a guess dressed up as a signal.</li>
+            <li>Freshness dot on every tile, so you know the read is live.</li>
+            <li>No entries 9:30 to 9:45. The desk says Paused until IV settles.</li>
+          </ul>
+        </div>
+        <div class="shot"><img src="/images/live/top-setups-light.webp" alt="Top Setups screen with ranked setups and model scores" width="1800" height="941" loading="lazy"></div>
+      </div>
+
+      <div class="prod rev rv" id="dealer">
+        <div class="txt">
+          <span class="name"><i>▥</i>Dealer Heatmap</span>
+          <h3>Every strike, every expiry. And the one that matters most.</h3>
+          <p>Net dealer gamma by strike and expiration for SPX, SPY, QQQ, IWM, NDX and any stock, with the King node starred and the floor and ceiling marked.</p>
+          <ul>
+            <li>Game Plan: the switch zone, call walls, put walls, and a bull, base and bear path built only from the board.</li>
+            <li>Velocity shows which levels are building and which are melting.</li>
+            <li>Trinity puts SPX, SPY and QQQ side by side. Do they agree?</li>
+          </ul>
+        </div>
+        <div class="shot"><img src="/images/live/dealer-map-dark.webp" alt="Dealer positioning for SPY, SPX, QQQ, NDX and IWM" width="872" height="460" loading="lazy"></div>
+      </div>
+
+      <div class="prod rv" id="flow">
+        <div class="txt">
+          <span class="name"><i>≋</i>Alpha Flow</span>
+          <h3>Big money, translated. Bought or sold, opening or closing.</h3>
+          <p>Unusual options flow with the part most feeds skip: which side of the trade it was, and what that means for direction.</p>
+          <ul>
+            <li>Sold puts read bullish. Sold calls read bearish.</li>
+            <li>Prints carry the real time window they happened in.</li>
+            <li>One click to a clean X post of any print.</li>
+          </ul>
+        </div>
+        <div class="shot"><img src="/images/live/flow-meta-table-light.webp" alt="Alpha Flow table for META with premium, size, side and mood" width="1800" height="941" loading="lazy"></div>
+      </div>
+
+      <div class="prod rev rv" id="tide">
+        <div class="txt">
+          <span class="name"><i>≈</i>Market Tide</span>
+          <h3>Is money leaning into calls or puts right now?</h3>
+          <p>Net call premium against net put premium through the session, across the names AO watches, with spikes and drops called out the moment they happen.</p>
+          <ul>
+            <li>Ask side minus bid side, in five minute buckets.</li>
+            <li>A put premium spike shows up before the headline does.</li>
+            <li>Honest about coverage: it says which tickers and how many contracts it saw.</li>
+          </ul>
+        </div>
+        <div class="ask" aria-label="What Market Tide shows">
+          <div class="q">Cumulative net call and put premium, 9:30 to 4:00</div>
+          <div class="q">Call spike, call drop, put spike, put drop, time stamped</div>
+          <div class="q">ALL, or one name: SPY, QQQ, SPX, IWM, NVDA, TSLA</div>
+          <small>Estimated from live chain snapshots. Education only.</small>
+        </div>
+      </div>
+
+      <div class="prod rv" id="pane">
+        <div class="txt">
+          <span class="name"><i>◈</i>The Pane</span>
+          <h3>Click a ticker. Get three ranked contracts and a plan.</h3>
+          <p>In the money, at the money and out of the money, each scored, with the price the model found, a valid entry range, take profit and stop.</p>
+          <ul>
+            <li>Weekly means this Friday. Monthly means the monthly. Always the exact contract.</li>
+            <li>Roll up and roll down notes when the strike moves.</li>
+            <li>Swing checklist: weekly 21 EMA, 50-day, 200-day, buy and trim zones.</li>
+          </ul>
+        </div>
+        <div class="shot tall"><img src="/images/live/pane-tsla-dark.webp" alt="TSLA pane with three ranked weekly contracts, entry range, take profit and stop" width="1080" height="1441" loading="lazy"></div>
+      </div>
+
+      <div class="prod rev rv" id="ask">
+        <div class="txt">
+          <span class="name"><i>✦</i>Ask A&amp;O</span>
+          <h3>One question, from the screen you're already on.</h3>
+          <p>Ask where a ticker turns, what has to break, or whether the indexes agree. Ask A&amp;O answers from the live desk and shows you where every number came from.</p>
+          <ul>
+            <li>Slash commands: /levels, /plan, /tide, /flow, /trinity.</li>
+            <li>Pick Scalp, Day, Swing or Position. The answer fits the horizon.</li>
+            <li>Every answer links its source. Education only. It never places a trade.</li>
+          </ul>
+        </div>
+        <div class="ask" aria-label="Example questions for Ask A&amp;O">
+          <div class="q">Why is SPY no edge right now, and what would change that?</div>
+          <div class="q">Checks the walls, the flip, the tape and the session window first.</div>
+          <div class="q">Is MU near a swing buy zone or stretched?</div>
+          <div class="q">Reads the weekly 21 EMA, the 50-day and the distance from it.</div>
+          <div class="q">/plan SPX</div>
+          <div class="q">Bull, base and bear from the dealer board, with the source.</div>
+          <small>Example questions. Answers come from the live desk.</small>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="final-cta">
-    <span class="section-kicker">Build the desk</span>
-    <h2>Bring your tickers.<br/><em>Keep your decision.</em></h2>
-    <p>Hunt the tape, apply the filter, and learn the read. AO explains; you decide. Education, not advice.</p>
-    <div class="hero-actions">
-      <a class="button button-primary" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
-      <a class="button button-secondary" href="/ao-vs-paying-for-signals.html">AO vs signals</a>
+  <section class="sec" id="how">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">How a read is built</span>
+        <h2 class="h">Four checks. One line you can trust.</h2>
+        <p class="lead">Every read has to pass the same checks, in the same order, on every ticker.</p>
+      </div>
+      <div class="story" id="story">
+      <div class="steps rv">
+        <div class="step"><span>01</span><b>Level</b><p>Dealer walls, the gamma flip, key levels and the opening range.</p></div>
+        <div class="step"><span>02</span><b>Tape</b><p>Trend, VWAP and whether the last bars hold or reject the level.</p></div>
+        <div class="step"><span>03</span><b>Flow</b><p>Big prints, bought or sold, opening or closing.</p></div>
+        <div class="step"><span>04</span><b>Session</b><p>Opening 15, the 10:40 algo window, midday chop, power hour.</p></div>
+        <div class="step out"><span>=</span><b>One read</b><p>Lean calls, lean puts, or wait, with the reason written out.</p></div>
+      </div>
+      </div>
+      <div class="readline rv"><span class="tag g">CALLS LEAN</span><span class="t">SPX</span><span>Bottom snipe. Holding the put wall as VIX rolls over from its high.</span><small>Example of the read format</small></div>
     </div>
   </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">House rules</span>
+        <h2 class="h">Waiting is a position.</h2>
+        <p class="lead">The desk is built to keep you out of bad trades as much as to find good ones.</p>
+      </div>
+      <div class="rules rv">
+        <div class="rule"><b>No first-15 entries</b><p>IV is wild from 9:30 to 9:45. The desk pauses and tells you when reads unlock.</p></div>
+        <div class="rule"><b>No edge is an answer</b><p>When the read is mid-range, the tile says so and tells you what would change it.</p></div>
+        <div class="rule"><b>Flow never overrides structure</b><p>A big print is evidence. It does not turn a wait into a buy.</p></div>
+        <div class="rule"><b>You decide</b><p>AO never touches your account, never places trades and never promises outcomes.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="api">
+    <div class="wrap">
+      <div class="api rv">
+        <div>
+          <span class="badge">BETA · WAITLIST</span>
+          <h2 class="h" style="margin-top:14px">AO API and MCP.</h2>
+          <p class="lead">Plug AO's reads into Claude, ChatGPT, Cursor or your own bot. Ask your AI where the SPY floor is and get the answer from AO's live desk.</p>
+          <div class="code" aria-label="Planned MCP tools"><span class="c"># planned read-only tools</span>
+<span class="k">get_desk_read</span>(<span class="s">"TSLA"</span>)      <span class="c"># score, direction, reason</span>
+<span class="k">get_index_setups</span>()         <span class="c"># SPY SPX QQQ NDX IWM</span>
+<span class="k">get_dealer_levels</span>(<span class="s">"SPY"</span>)  <span class="c"># walls, flip, floor, ceiling</span>
+<span class="k">get_top_flow</span>(<span class="s">"META"</span>)       <span class="c"># biggest prints, bought or sold</span>
+<span class="k">get_scan_summary</span>()         <span class="c"># how the board leans</span></div>
+          <p class="fine" style="text-align:left">AO's own analytics: scores, levels, reasons and flow summaries. Beta opens to the waitlist first.</p>
+        </div>
+        <form class="form" id="waitlist" novalidate>
+          <label for="wl-email">Email</label>
+          <input id="wl-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          <label for="wl-use">What would you connect?</label>
+          <select id="wl-use" name="use">
+            <option value="Claude or ChatGPT (MCP)">Claude or ChatGPT (MCP)</option>
+            <option value="Cursor or a coding agent">Cursor or a coding agent</option>
+            <option value="My own trading bot">My own trading bot</option>
+            <option value="Sheets or dashboards">Sheets or dashboards</option>
+            <option value="Other">Other</option>
+          </select>
+          <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn-pri" type="submit" id="wl-btn">Join the waitlist</button>
+          <p class="msg" id="wl-msg" role="status" aria-live="polite"></p>
+          <small>We only use your email for the API and MCP beta. No spam, no selling it.</small>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="pricing">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">Pricing</span>
+        <h2 class="h">$1 to try it. Then $50 a month.</h2>
+        <p class="lead">One plan. Full desk. No signal lottery, no upsell ladder.</p>
+      </div>
+      <div class="price-wrap rv">
+        <div class="pcard main">
+          <h3>The Desk</h3>
+          <div class="amt"><b>$1</b><span>for 30 days, then $50 / month</span></div>
+          <ul>
+            <li>Index setups, your watchlist and the Top 10</li>
+            <li>Dealer Heatmap, Game Plan, Market Tide, Index Heat and IV Desk</li>
+            <li>Alpha Flow with bought or sold reads</li>
+            <li>The Pane with exact contracts and a plan</li>
+            <li>Ask A&amp;O, Learn hub, Community chat, Simple and Pro screens</li>
+          </ul>
+          <a class="btn btn-pri" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Try the Desk for $1 <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="pcard">
+          <h3>Look around first</h3>
+          <p>Free access on Whop shows you the desk language before you pay anything. No card needed.</p>
+          <p style="margin-top:18px"><a class="btn btn-sec" href="https://whop.com/alpha-omega-analytics/products/signal-terminal-free/" target="_blank" rel="noreferrer">Get free access</a></p>
+          <p style="margin-top:22px;font-size:.88rem">Billing runs on Whop. Your broker is your account. AO is educational analytics, not a broker-dealer or investment advisor.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">Learn the read</span>
+        <h2 class="h">Free lessons. And a Learn hub inside the desk.</h2>
+        <p class="lead">Eight short tracks inside the desk: index tiles, Dealer Heatmap, Game Plan, Market Tide, Alpha Flow, Ask A&amp;O and Alpha Performance. Read one, open the tool, see it on live data. Members also get a Community chat to talk levels with the room.</p>
+      </div>
+      <div class="learn rv">
+        <a href="/how-to-read-spy-positive-vs-negative-gamma.html"><span>Lesson</span><b>Positive vs negative gamma</b><small>Why SPY pins on some days and runs on others.</small></a>
+        <a href="/how-to-read-unusual-options-flow.html"><span>Lesson</span><b>How to read unusual flow</b><small>Bought vs sold, and why a print is not a signal.</small></a>
+        <a href="/how-to-hunt-stocks-without-a-signal-discord.html"><span>Lesson</span><b>Hunt without a signal room</b><small>Build your own read on your own tickers.</small></a>
+        <a href="/ao-vs-paying-for-signals.html"><span>Compare</span><b>AO vs paying for signals</b><small>What you get from a desk that a chat can't give you.</small></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="faq">
+    <div class="wrap">
+      <div class="head rv"><span class="eyebrow">Questions</span><h2 class="h">Straight answers.</h2></div>
+      <div class="faq rv">
+        <details open><summary>What is AO?</summary><p>An options analytics desk. It reads dealer positioning, options flow and the live tape on your tickers, then gives each one a model score and a plain-English read: lean calls, lean puts, or wait.</p></details>
+        <details><summary>Is this financial advice?</summary><p>No. AO is educational analytics. Nothing here is a recommendation to buy or sell. Options involve substantial risk. The model score measures how well a setup fits AO's rules, not the odds of profit.</p></details>
+        <details><summary>Does AO place trades for me?</summary><p>No. AO never touches your brokerage account and never places trades. You decide, you verify prices with your broker, and you manage your own risk.</p></details>
+        <details><summary>What does the $1 include?</summary><p>Thirty days of the full desk, then $50 a month on Whop.</p></details>
+        <details><summary>Why not just join an alert room?</summary><p>An alert is someone else's read, delivered after they took it. AO shows you the same dealer levels, flow and tape they look at, on your tickers, while it is happening. You keep the decision.</p></details>
+        <details><summary>When does the API and MCP beta open?</summary><p>Waitlist members get access first. Join above and we'll email you when your seat is ready.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="final rv">
+      <h2>Stop guessing where the walls are.</h2>
+      <p>Bring your tickers. Get the read. Keep the decision.</p>
+      <div class="cta-row">
+        <a class="btn btn-pri" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Try the Desk for $1 <span aria-hidden="true">→</span></a>
+        <a class="btn btn-sec" href="#api">Join the API waitlist</a>
+      </div>
+    </section>
+  </div>
+</main>
 
 <footer>
-  <div class="brand footer-brand"><img class="brand-logo" src="/ao-logo-wide.jpg" alt="Alpha &amp; Omega Analytics" width="1500" height="500"/></div>
-  <div class="footer-links">
-    <a href="/">Home</a>
-    <a href="/#workflow">How it works</a>
-    <a href="/ao-vs-paying-for-signals.html">AO vs signals</a>
-    <a href="/how-to-hunt-stocks-without-a-signal-discord.html">How to Hunt</a>
-    <a href="/how-to-read-spy-positive-vs-negative-gamma.html">How to read gamma</a>
-    <a href="/how-to-read-unusual-options-flow.html">How to read flow</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/terms.html">Terms</a>
-    <a href="/privacy.html">Privacy</a>
-    <a href="/risk.html">Risk disclosure</a>
+  <div class="wrap">
+    <div class="cols">
+      <a class="logo" href="/"><img src="/ao-logo-small.jpg" alt="" width="30" height="30">ALPHA &amp; OMEGA</a>
+      <nav aria-label="Footer">
+        <a href="#desk">The Desk</a><a href="#pricing">Pricing</a><a href="#api">API + MCP</a>
+        <a href="/ao-vs-paying-for-signals.html">AO vs signals</a>
+        <a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/risk.html">Risk disclosure</a>
+      </nav>
+      <div class="soc">
+        <a href="https://x.com/AO_Analytics" target="_blank" rel="noreferrer">X</a>
+        <a href="https://www.tiktok.com/@ao_analytics" target="_blank" rel="noreferrer">TikTok</a>
+        <a href="https://www.linkedin.com/company/alpha-omega-analytics-llc" target="_blank" rel="noreferrer">LinkedIn</a>
+      </div>
+    </div>
+    <p class="legal">Alpha &amp; Omega Analytics provides educational tools and market analysis. Nothing on this site is financial advice. A&amp;O is not a broker-dealer or investment advisor. Options involve substantial risk and are not suitable for every investor. Screens show real desk reads at the time captured; values change in real time and past positioning does not guarantee future price. © 2026 Alpha &amp; Omega Analytics.</p>
   </div>
-  <div class="social-links" aria-label="Alpha &amp; Omega Analytics social">
-    <a href="https://x.com/AO_Analytics" target="_blank" rel="noreferrer">X · @AO_Analytics <span aria-hidden="true">↗</span></a>
-    <a href="https://www.tiktok.com/@ao_analytics" target="_blank" rel="noreferrer">TikTok · @AO_Analytics <span aria-hidden="true">↗</span></a>
-    <a href="https://www.linkedin.com/company/alpha-omega-analytics-llc" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
-  </div>
-  <p>Alpha &amp; Omega Analytics provides educational tools and market analysis. Nothing on this site is financial advice. Options involve substantial risk and are not suitable for every investor. Past positioning does not guarantee future price. Sitting out is a decision too.</p>
-  <small>© 2026 Alpha &amp; Omega Analytics. All rights reserved.</small>
 </footer>
-</main>
+
+<dialog class="vdlg" id="demo-dlg" aria-labelledby="demo-title">
+  <div class="vdlg-in">
+    <div class="vdlg-hd"><b id="demo-title">The A&amp;O desk in 40 seconds</b><button type="button" class="vdlg-x" id="demo-close" aria-label="Close video">×</button></div>
+    <video controls playsinline preload="none" poster="/videos/ao-demo-poster.jpg" width="1920" height="1080"><source src="/videos/ao-demo.mp4" type="video/mp4">Your browser can't play this video.</video>
+    <p class="vdlg-note">Real desk data from the Sep 25, 2026 close. Education, not advice.</p>
+  </div>
+</dialog>
 
 <script>
 (function () {
-  var root = document.documentElement;
-  var btn = document.getElementById('ao-theme-toggle');
-  function current() {
-    return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-  }
-  function apply(theme) {
-    root.setAttribute('data-theme', theme);
-    try { localStorage.setItem('ao-theme', theme); } catch (e) {}
-    if (btn) btn.textContent = theme === 'light' ? 'Dark' : 'Light';
-  }
-  apply(current());
-  if (btn) {
-    btn.addEventListener('click', function () {
-      apply(current() === 'light' ? 'dark' : 'light');
+  var root = document.documentElement, btn = document.getElementById('ao-theme-toggle');
+  function cur() { return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; }
+  function apply(t) { root.setAttribute('data-theme', t); try { localStorage.setItem('ao-theme', t); } catch (e) {} if (btn) btn.textContent = t === 'light' ? 'Dark' : 'Light'; }
+  apply(cur());
+  if (btn) btn.addEventListener('click', function () { apply(cur() === 'light' ? 'dark' : 'light'); });
+
+  // reveal on scroll
+  var els = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  } else { els.forEach(function (el) { el.classList.add('in'); }); }
+
+  // waitlist → Supabase (insert-only table; the public key cannot read the list)
+  var SB = 'https://kolvaqpoufznqswlfofp.supabase.co/rest/v1/ao_waitlist';
+  var KEY = 'sb_publishable_zoJY6MXoYE1YVJZuR5NpPQ_FYN08tEI';
+  var form = document.getElementById('waitlist');
+  if (!form) return;
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var msg = document.getElementById('wl-msg'), b = document.getElementById('wl-btn');
+    var email = String(form.email.value || '').trim();
+    if (form.company.value) return;
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { msg.className = 'msg err'; msg.textContent = 'Enter a valid email.'; return; }
+    b.disabled = true; b.textContent = 'Joining…'; msg.className = 'msg'; msg.textContent = '';
+    var src = 'site';
+    try { var u = new URLSearchParams(location.search); src = (u.get('utm_source') || 'site') + (u.get('utm_campaign') ? '/' + u.get('utm_campaign') : ''); } catch (e) {}
+    fetch(SB, {
+      method: 'POST',
+      headers: { 'apikey': KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ email: email, interest: 'api_mcp', use_case: form.use.value, source: src.slice(0, 120) })
+    }).then(function (r) {
+      if (r.status === 201 || r.status === 409) {
+        msg.className = 'msg ok';
+        msg.textContent = r.status === 409 ? "You're already on the list. We'll email you." : "You're on the list. We'll email you when the beta opens.";
+        form.reset(); b.textContent = 'Joined';
+      } else { throw new Error(String(r.status)); }
+    }).catch(function () {
+      msg.className = 'msg err'; msg.textContent = 'Something went wrong. Try again in a minute.';
+      b.disabled = false; b.textContent = 'Join the waitlist';
     });
-  }
+  });
 })();
 </script>
+<script src="/motion.js?v=20260925" defer></script>
 </body>
 </html>
