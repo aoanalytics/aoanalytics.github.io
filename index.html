@@ -1,432 +1,575 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Alpha &amp; Omega Analytics | Same tickers. Same tape. Why wait for an alert?</title>
-  <meta name="description" content="AO reads dealer positioning, options flow and the live tape on your tickers, then gives you one plain-English read: lean calls, lean puts, or wait. 0DTE to LEAPS. $1 for 30 days. Education, not advice.">
-  <link rel="canonical" href="https://tradewithao.com/">
-  <meta property="og:title" content="Same tickers. Same tape. Why wait for an alert?">
-  <meta property="og:description" content="Dealer walls, options flow and the live tape on your tickers, turned into one plain-English read. Try the Desk for $1.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://tradewithao.com/">
-  <meta property="og:image" content="https://tradewithao.com/og-branded.png">
-  <meta property="og:image:width" content="1731">
-  <meta property="og:image:height" content="909">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@AO_Analytics">
-  <meta name="twitter:image" content="https://tradewithao.com/og-branded.png">
-  <meta name="twitter:title" content="Same tickers. Same tape. Why wait for an alert?">
-  <meta name="twitter:description" content="One plain-English read per ticker: lean calls, lean puts, or wait. Education, not advice.">
-  <link rel="icon" href="/ao-logo-small.jpg">
-  <link rel="apple-touch-icon" href="/ao-logo-small.jpg">
-  <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" content="#06080b">
-  <script>
-  (function () {
-    try {
-      var t = localStorage.getItem('ao-theme');
-      document.documentElement.setAttribute('data-theme', (t === 'light' || t === 'dark') ? t : 'dark');
-    } catch (e) { document.documentElement.setAttribute('data-theme', 'dark'); }
-    try { if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion'); } catch (e) {}
-  })();
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/site-v2.css?v=20260924">
-  <link rel="stylesheet" href="/motion.css?v=20260925">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alpha &amp; Omega Analytics</title>
+<meta name="description" content="The options desk built around your plan. Set your budget and price range once. See which of your tickers are worth trading, strikes in your range, dealer levels and whale flow on one screen. $1 for 30 days, then $50/month. Education, not advice.">
+<link rel="canonical" href="https://tradewithao.com/">
+<meta property="og:title" content="The options desk built around your plan. No signals. No lottos.">
+<meta property="og:description" content="Your budget, your price range, your strikes. Dealer levels and whale flow explained in plain English. $1 for 30 days, then $50/month.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tradewithao.com/">
+<meta property="og:image" content="https://tradewithao.com/og-branded.png">
+<meta property="og:image:width" content="1731">
+<meta property="og:image:height" content="909">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@AO_Analytics">
+<meta name="twitter:title" content="Alpha &amp; Omega Analytics">
+<meta name="twitter:description" content="The options desk built around your plan. No signals. No lottos.">
+<meta name="twitter:image" content="https://tradewithao.com/og-branded.png">
+<link rel="icon" href="ao-logo-small.jpg">
+<link rel="apple-touch-icon" href="ao-logo-small.jpg">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0d0f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Cinzel:wght@500;600&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Alpha & Omega marketing site v3. One committed look: carbon and silver, like the logo.
+   Jade = action and "in your range". Brass = rules and the no-lotto floor. Red = bearish only. */
+:root {
+  color-scheme: dark;
+  --carbon: #0b0d0f;
+  --carbon-2: #0f1215;
+  --graphite: #151a1e;
+  --graphite-2: #1b2126;
+  --line: rgba(206, 220, 230, .11);
+  --line-2: rgba(206, 220, 230, .2);
+  --silver: #dde3e8;
+  --silver-hi: #f4f7f9;
+  --muted: #919ca6;
+  --jade: #3ad08e;
+  --jade-ink: #07120d;
+  --jade-soft: rgba(58, 208, 142, .12);
+  --brass: #d8b460;
+  --brass-soft: rgba(216, 180, 96, .12);
+  --red: #f0566c;
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --brand: "Cinzel", "Trajan Pro", Georgia, serif;
+  --wrap: 1180px;
+  --gutter: clamp(16px, 4vw, 40px);
+}
+* { box-sizing: border-box; }
+html { background: var(--carbon); scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--carbon); color: var(--silver);
+  font: 400 17px/1.6 var(--body); -webkit-font-smoothing: antialiased;
+  padding-inline: var(--gutter);
+}
+img, video { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--display); color: var(--silver-hi); text-wrap: balance; margin: 0; letter-spacing: -.02em; }
+p { margin: 0; }
+.wrap { max-width: var(--wrap); margin-inline: auto; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.eyebrow { font: 600 12px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--jade); }
+.eyebrow.brass { color: var(--brass); }
+:focus-visible { outline: 2px solid var(--jade); outline-offset: 3px; border-radius: 6px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -999px; top: 8px; padding: 8px 12px; background: var(--silver-hi); color: var(--carbon); border-radius: 8px; z-index: 50; }
+.skip:focus { left: 16px; }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 12px;
+  font: 700 16px/1 var(--body); text-decoration: none; border: 1px solid transparent; cursor: pointer; transition: transform .15s ease, background .15s ease, border-color .15s ease; }
+.btn-primary { background: var(--jade); color: var(--jade-ink); }
+.btn-primary:hover { background: #52dca0; transform: translateY(-1px); }
+.btn-ghost { border-color: var(--line-2); color: var(--silver-hi); background: transparent; }
+.btn-ghost:hover { border-color: var(--silver); }
+.btn-sm { min-height: 40px; padding: 0 16px; font-size: 14px; border-radius: 10px; }
+
+/* header */
+.site-head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; margin-inline: calc(var(--gutter) * -1); padding: 12px var(--gutter);
+  background: rgba(11, 13, 15, .86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--silver-hi); }
+.brand img { width: 34px; height: 34px; border-radius: 8px; }
+.brand span { font: 600 17px/1 var(--brand); letter-spacing: .08em; white-space: nowrap; }
+.nav { display: flex; gap: 22px; margin-left: auto; align-items: center; }
+.nav a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: 15px; }
+.nav a:hover { color: var(--silver-hi); }
+.head-cta { display: flex; gap: 10px; align-items: center; }
+@media (max-width: 860px) { .nav { display: none; } .head-cta { margin-left: auto; } }
+@media (max-width: 420px) { .brand span { display: none; } .head-cta .login { display: none; } }
+
+/* sections */
+section { padding-block: clamp(64px, 9vw, 112px); border-top: 1px solid var(--line); }
+section.first { border-top: 0; }
+.sec-head { display: grid; gap: 14px; max-width: 760px; margin-bottom: 40px; }
+.sec-head h2 { font-size: clamp(32px, 4.6vw, 52px); line-height: 1.04; font-weight: 800; }
+.sec-head p { color: var(--muted); font-size: 18px; max-width: 62ch; }
+
+/* hero */
+.hero { padding-block: clamp(48px, 7vw, 88px) clamp(56px, 8vw, 96px); }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(32px, 5vw, 64px); align-items: center; }
+.hero h1 { font-size: clamp(42px, 6.4vw, 78px); line-height: .98; font-weight: 800; margin-top: 18px; }
+.hero h1 .quiet { display: block; color: var(--muted); font-weight: 700; margin-top: 10px; font-size: .62em; letter-spacing: -.01em; }
+.hero .lede { margin-top: 22px; font-size: 19px; color: var(--silver); max-width: 34em; }
+.hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.hero .fine { margin-top: 14px; font-size: 14px; color: var(--muted); }
+.hero .fine a { color: var(--silver); }
+@media (max-width: 940px) { .hero .wrap { grid-template-columns: 1fr; } }
+
+/* hero desk card: the signature element. Your price range filters the strikes. */
+.desk { position: relative; border-radius: 20px; border: 1px solid var(--line-2); background: linear-gradient(180deg, var(--graphite) 0%, var(--carbon-2) 100%);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 255, 255, .04); padding: 20px; display: grid; gap: 14px; }
+.desk-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.desk-tk { display: flex; align-items: baseline; gap: 10px; }
+.desk-tk b { font: 800 26px/1 var(--display); color: var(--silver-hi); }
+.desk-tk span { font: 600 15px/1 var(--mono); color: var(--muted); }
+.tag { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; font: 600 11.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; border: 1px solid var(--line-2); color: var(--muted); white-space: nowrap; }
+.tag.sample { color: var(--brass); border-color: rgba(216, 180, 96, .45); }
+.plan-row { display: grid; gap: 10px; padding: 14px; border-radius: 14px; background: rgba(255, 255, 255, .025); border: 1px solid var(--line); }
+.plan-row .lbl { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--muted); }
+.plan-row .lbl b { color: var(--silver-hi); font-family: var(--mono); font-weight: 600; }
+.rail { position: relative; height: 50px; }
+.rail .track { position: absolute; left: 0; right: 0; top: 24px; height: 4px; border-radius: 4px; background: rgba(206, 220, 230, .12); }
+.rail .band { position: absolute; top: 20px; height: 12px; border-radius: 6px; background: var(--jade-soft); border: 1px solid rgba(58, 208, 142, .55); }
+.rail .floor { position: absolute; top: 14px; width: 2px; height: 24px; background: var(--brass); }
+.rail .floor i { position: absolute; top: -14px; right: 6px; font: 600 10.5px/1 var(--mono); color: var(--brass); font-style: normal; white-space: nowrap; }
+.rail .tick { position: absolute; top: 40px; transform: translateX(-50%); font: 500 10.5px/1 var(--mono); color: var(--muted); }
+.strikes { display: grid; gap: 8px; }
+.strike { display: grid; grid-template-columns: 58px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 12px;
+  border: 1px solid var(--line); background: var(--graphite-2); transition: opacity .6s ease, filter .6s ease; }
+.strike .m { font: 600 12px/1 var(--mono); letter-spacing: .08em; color: var(--muted); }
+.strike .c { font: 600 15px/1.2 var(--mono); color: var(--silver-hi); }
+.strike .c small { display: block; margin-top: 4px; font: 500 12px/1.3 var(--body); color: var(--muted); }
+.strike .p { font: 600 17px/1 var(--mono); color: var(--silver-hi); text-align: right; }
+.strike .p small { display: block; margin-top: 5px; font: 600 10.5px/1 var(--mono); letter-spacing: .06em; color: var(--jade); }
+.strike.is-in { border-color: rgba(58, 208, 142, .4); }
+.strike.is-out { opacity: .45; }
+.strike.is-out .p small { color: var(--brass); }
+.strike.is-out .c { text-decoration: line-through; text-decoration-color: rgba(216, 180, 96, .7); }
+.facts { display: flex; flex-wrap: wrap; gap: 6px; }
+.facts span { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255, 255, 255, .02); font: 500 12px/1.2 var(--mono); color: var(--silver); white-space: nowrap; }
+.facts span.flow { border-color: rgba(216, 180, 96, .45); color: var(--brass); }
+.checked { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--jade-soft); color: var(--silver-hi); font-size: 14px; font-weight: 600; }
+.checked i { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--jade); color: var(--jade-ink); font-style: normal; font-weight: 800; font-size: 13px; flex: none; }
+.desk-note { font-size: 12px; color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) {
+  .js .desk .strike.is-out { animation: filterOut 1.1s ease .7s both; }
+  @keyframes filterOut { from { opacity: 1; } to { opacity: .45; } }
+}
+
+/* proof strip */
+.proof { padding-block: 22px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); background: var(--carbon-2); }
+.proof ul { list-style: none; margin: 0 auto; padding: 0; max-width: var(--wrap); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.proof li { display: grid; gap: 2px; }
+.proof b { font: 700 15px/1.3 var(--body); color: var(--silver-hi); }
+.proof span { font-size: 13.5px; color: var(--muted); }
+@media (max-width: 860px) { .proof ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* the ping timeline */
+.ping { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-left: 1px solid var(--line-2); }
+.timeline li { position: relative; padding: 0 0 26px 26px; display: grid; gap: 4px; }
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li::before { content: ""; position: absolute; left: -5px; top: 7px; width: 9px; height: 9px; border-radius: 50%; background: var(--red); }
+.timeline .t { font: 600 14px/1 var(--mono); color: var(--red); }
+.timeline b { color: var(--silver-hi); font-size: 18px; }
+.timeline span { color: var(--muted); }
+.answer { padding: 28px; border-radius: 18px; border: 1px solid rgba(58, 208, 142, .35); background: linear-gradient(180deg, rgba(58, 208, 142, .07), transparent 70%); display: grid; gap: 14px; }
+.answer h3 { font-size: 28px; line-height: 1.1; }
+.answer ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.answer li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; color: var(--silver); }
+.answer li::before { content: "✓"; color: var(--jade); font-weight: 800; }
+@media (max-width: 860px) { .ping { grid-template-columns: 1fr; } }
+
+/* steps (a real sequence, so numbered) */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: step; }
+.steps li { counter-increment: step; padding: 26px; border-radius: 18px; background: var(--graphite); border: 1px solid var(--line); display: grid; gap: 12px; align-content: start; }
+.steps li::before { content: "Step " counter(step); font: 600 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--jade); }
+.steps h3 { font-size: 24px; line-height: 1.15; }
+.steps p { color: var(--muted); }
+.steps .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.steps .chips span { padding: 4px 9px; border-radius: 8px; background: var(--graphite-2); border: 1px solid var(--line); font: 500 12px/1.3 var(--mono); color: var(--silver); }
+@media (max-width: 900px) { .steps { grid-template-columns: 1fr; } }
+
+/* tour */
+.tour { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.tour figure { margin: 0; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); background: var(--graphite); display: flex; flex-direction: column; }
+.tour figure.video { grid-column: 1 / -1; }
+.tour figure:not(.video) img { aspect-ratio: 16 / 9; object-fit: cover; object-position: top; }
+.tour video, .tour img { width: 100%; height: auto; background: var(--carbon); }
+.tour figcaption { padding: 14px 18px; display: grid; gap: 2px; border-top: 1px solid var(--line); }
+.tour figcaption b { color: var(--silver-hi); font-weight: 600; }
+.tour figcaption span { color: var(--muted); font-size: 14px; }
+.tour .row2 { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 900px) { .tour, .tour .row2 { grid-template-columns: 1fr; } }
+
+/* house rules */
+.rules { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+.rules div { padding: 26px 22px; display: grid; gap: 10px; align-content: start; border-left: 1px solid var(--line); background: var(--carbon-2); }
+.rules div:first-child { border-left: 0; }
+.rules b { font: 600 13px/1 var(--mono); color: var(--brass); letter-spacing: .04em; }
+.rules h3 { font-size: 21px; line-height: 1.2; }
+.rules p { color: var(--muted); font-size: 15.5px; }
+@media (max-width: 900px) { .rules { grid-template-columns: 1fr 1fr; } .rules div:nth-child(3) { border-left: 0; } .rules div:nth-child(n+3) { border-top: 1px solid var(--line); } }
+@media (max-width: 520px) { .rules { grid-template-columns: 1fr; } .rules div { border-left: 0; } .rules div + div { border-top: 1px solid var(--line); } }
+
+/* founder */
+.founder { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.founder .quote { font: 700 clamp(26px, 3.4vw, 38px)/1.15 var(--display); color: var(--silver-hi); letter-spacing: -.015em; }
+.founder .body { display: grid; gap: 16px; color: var(--silver); }
+.founder .body p { max-width: 62ch; }
+.people { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 6px; }
+.person { display: flex; align-items: center; gap: 12px; }
+.person .av { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--graphite-2); border: 1px solid var(--line-2); font: 600 16px/1 var(--brand); color: var(--silver-hi); }
+.person b { display: block; color: var(--silver-hi); }
+.person span { font-size: 14px; color: var(--muted); }
+@media (max-width: 860px) { .founder { grid-template-columns: 1fr; } }
+
+/* compare */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 18px; }
+table { width: 100%; border-collapse: collapse; min-width: 640px; }
+th, td { text-align: left; padding: 16px 18px; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 15.5px; }
+tr:last-child td { border-bottom: 0; }
+thead th { font: 600 12.5px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: var(--carbon-2); }
+thead th.us { color: var(--jade); }
+tbody th { color: var(--silver-hi); font-weight: 600; width: 22%; }
+td { color: var(--muted); }
+td.us { color: var(--silver-hi); background: rgba(58, 208, 142, .05); }
+
+/* pricing */
+.price { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 48px); align-items: center; }
+.price-card { padding: clamp(24px, 4vw, 36px); border-radius: 22px; border: 1px solid rgba(58, 208, 142, .45); background: linear-gradient(180deg, var(--graphite), var(--carbon-2)); display: grid; gap: 18px; }
+.price-card .amt { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.price-card .amt b { font: 800 64px/1 var(--display); color: var(--silver-hi); letter-spacing: -.03em; }
+.price-card .amt span { color: var(--silver); font-size: 18px; }
+.price-card ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 9px; }
+.price-card li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; }
+.price-card li::before { content: "✓"; color: var(--jade); font-weight: 800; }
+.price-card .fine { font-size: 14px; color: var(--muted); }
+.price-card .fine a { color: var(--silver); }
+@media (max-width: 860px) { .price { grid-template-columns: 1fr; } }
+
+/* faq */
+.faq { display: grid; gap: 10px; max-width: 860px; }
+.faq details { border: 1px solid var(--line); border-radius: 14px; background: var(--carbon-2); }
+.faq summary { cursor: pointer; padding: 18px 20px; font-weight: 600; color: var(--silver-hi); list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font: 500 20px/1 var(--mono); color: var(--muted); }
+.faq details[open] summary::after { content: "−"; }
+.faq details p { padding: 0 20px 18px; color: var(--muted); max-width: 70ch; }
+
+/* final cta + footer */
+.final { text-align: left; }
+.final .wrap { display: grid; gap: 22px; justify-items: start; }
+.final h2 { font-size: clamp(36px, 5.6vw, 68px); line-height: 1; font-weight: 800; max-width: 16ch; }
+.final p { color: var(--muted); font-size: 18px; }
+footer { padding-block: 44px 56px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+footer .wrap { display: grid; gap: 22px; }
+.foot-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+.foot-links a { color: var(--silver); text-decoration: none; }
+.foot-links a:hover { color: var(--silver-hi); text-decoration: underline; }
+.disclaim { max-width: 90ch; line-height: 1.65; }
+</style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<header class="hdr">
+<header class="site-head">
   <div class="wrap">
-    <a class="logo" href="/" aria-label="Alpha and Omega Analytics home"><img src="/ao-logo-small.jpg" alt="" width="30" height="30">ALPHA &amp; OMEGA</a>
+    <a class="brand" href="./" aria-label="Alpha and Omega Analytics home"><img src="ao-logo-small.jpg" alt="" width="34" height="34"><span>ALPHA &amp; OMEGA</span></a>
     <nav class="nav" aria-label="Primary">
-      <a href="#desk">The Desk</a>
-      <a href="#dealer">Dealer Heatmap</a>
-      <a href="#tide">Market Tide</a>
-      <a href="#flow">Alpha Flow</a>
-      <a href="#ask">Ask A&amp;O</a>
-      <a href="#api">API + MCP<span class="beta">BETA</span></a>
+      <a href="#how">How it works</a>
+      <a href="#tour">The desk</a>
       <a href="#pricing">Pricing</a>
+      <a href="#guides">Guides</a>
     </nav>
-    <div class="hdr-act">
-      <button type="button" class="btn btn-ghost btn-sm hide-sm" id="ao-theme-toggle" aria-label="Toggle light and dark mode">Light</button>
-      <a class="btn btn-sec btn-sm hide-sm" href="https://dashboard.tradewithao.com/?aoScreen=morning#today" target="_blank" rel="noreferrer">Log in</a>
-      <a class="btn btn-pri btn-sm" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Try the Desk for $1</a>
+    <div class="head-cta">
+      <a class="btn btn-ghost btn-sm login" data-ao-login href="https://dashboard.tradewithao.com/login">Log in</a>
+      <a class="btn btn-primary btn-sm" data-ao-desk-checkout href="https://whop.com/checkout/plan_GJwXJwksB3D0F">Start for $1</a>
     </div>
   </div>
 </header>
 
-<main>
-  <section class="hero">
+<main id="main">
+  <!-- HERO -->
+  <section class="hero first">
     <div class="wrap">
-      <span class="kick"><i></i>Options analytics for 0DTE through LEAPS</span>
-      <h1>Same tickers. Same tape. <span>Why wait for an alert?</span></h1>
-      <p class="sub">Everyone trades SPY, QQQ, NVDA and TSLA. The alert room sees the same chart you do, just later. AO shows you where dealers have to hedge, which way the premium is flowing, and one plain-English read on <b>your</b> tickers: <b>lean calls, lean puts, or wait.</b></p>
-      <div class="cta-row">
-        <a class="btn btn-pri" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Try the Desk for $1 <span aria-hidden="true">→</span></a>
-        <button type="button" class="btn btn-sec" id="demo-open" aria-haspopup="dialog"><span class="play-i" aria-hidden="true"></span>Watch the demo</button>
+      <div>
+        <p class="eyebrow">For options traders done chasing Discord alerts</p>
+        <h1>The options desk built around your plan.<span class="quiet">No signals. No lottos.</span></h1>
+        <p class="lede">Set your budget and price range once. A&amp;O shows which of your tickers are worth trading today, the strikes that fit your range, dealer levels and whale flow on one screen. It also tells you when to sit out.</p>
+        <div class="ctas">
+          <a class="btn btn-primary" data-ao-desk-checkout href="https://whop.com/checkout/plan_GJwXJwksB3D0F">Start for $1</a>
+          <a class="btn btn-ghost" href="#tour">Watch the 42-second tour</a>
+        </div>
+        <p class="fine">30 days for $1, then $50/month. Cancel in one click on Whop. <a data-ao-free href="https://whop.com/alpha-omega-analytics">Or start free.</a></p>
       </div>
-      <p class="fine">$1 for 30 days, then $50 a month. Billing on Whop. <a href="https://whop.com/alpha-omega-analytics/products/signal-terminal-free/" target="_blank" rel="noreferrer">Free access</a> if you want to look first. Education, not advice.</p>
 
-      <div class="stage rv" data-scene="0">
-        <div class="frame tour" id="tour">
-          <div class="tour-bar">
-            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <div class="tour-tabs" role="tablist" aria-label="Product tour">
-              <button type="button" class="tt" role="tab" id="tt-0" aria-controls="tp-0" aria-selected="true">The Desk<span class="pg" aria-hidden="true"><i></i></span></button>
-              <button type="button" class="tt" role="tab" id="tt-1" aria-controls="tp-1" aria-selected="false" tabindex="-1">Dealer Heatmap<span class="pg" aria-hidden="true"><i></i></span></button>
-              <button type="button" class="tt" role="tab" id="tt-2" aria-controls="tp-2" aria-selected="false" tabindex="-1">Game Plan<span class="pg" aria-hidden="true"><i></i></span></button>
-              <button type="button" class="tt" role="tab" id="tt-3" aria-controls="tp-3" aria-selected="false" tabindex="-1">Alpha Flow<span class="pg" aria-hidden="true"><i></i></span></button>
-              <button type="button" class="tt" role="tab" id="tt-4" aria-controls="tp-4" aria-selected="false" tabindex="-1">Ask A&amp;O<span class="pg" aria-hidden="true"><i></i></span></button>
-            </div>
-            <button type="button" class="tour-ctl" id="tour-ctl" aria-label="Pause tour" aria-pressed="false" hidden><svg class="i-pause" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 3h3v10H4zM9 3h3v10H9z" fill="currentColor"/></svg><svg class="i-play" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 3l8 5-8 5z" fill="currentColor"/></svg></button>
+      <div class="desk" aria-label="Sample: how your plan filters a ticker">
+        <div class="desk-top">
+          <div class="desk-tk"><b>TSLA</b><span>1DTE calls</span></div>
+          <span class="tag sample">Sample card</span>
+        </div>
+        <div class="plan-row">
+          <div class="lbl"><span>Your price range</span><b>$3.00 to $5.00 a contract</b></div>
+          <div class="rail" aria-hidden="true">
+            <div class="track"></div>
+            <div class="floor" style="left:18.75%"><i>$2.50 floor</i></div>
+            <div class="band" style="left:25%;width:25%"></div>
+            <span class="tick" style="left:0%">$1</span>
+            <span class="tick" style="left:25%">$3</span>
+            <span class="tick" style="left:50%">$5</span>
+            <span class="tick" style="left:100%;transform:translateX(-100%)">$9</span>
           </div>
-          <div class="tour-view">
-            <div class="tp tp-desk on" role="tabpanel" id="tp-0" aria-labelledby="tt-0">
-              <img src="/images/live/hero-desk.webp" alt="AO Desk: Top 10 setups with model scores, dealer levels and unusual options flow" width="1800" height="925" fetchpriority="high">
-            </div>
-          </div>
         </div>
-        <div class="float f1" aria-hidden="true"><em>Every tile explains itself</em><span class="tag y">NO EDGE</span>Mid-range between the put wall and the call wall. No edge until one breaks.</div>
-        <div class="float f2" aria-hidden="true"><em>Flow in plain English</em><span class="tag g">BOUGHT</span><b>$17.8M</b> of META calls at the ask, likely new positions.</div>
-        <p class="caption" id="tour-cap">The live desk on Sep 23, 2026. Real reads, not a mockup. Values change in real time.</p>
-      </div>
-
-      <div class="strip rv">
-        <div><b>0DTE &amp; 1DTE</b><span>SPX, SPY, QQQ, IWM same-day tape</span></div>
-        <div><b>Weeklies</b><span>This Friday, exact contract</span></div>
-        <div><b>Monthlies</b><span>Setups that need time</span></div>
-        <div><b>LEAPS &amp; shares</b><span>Swing checklist, buy and trim zones</span></div>
+        <div class="strikes">
+          <div class="strike is-out"><span class="m">ITM</span><span class="c">TSLA 365C<small>Above your range</small></span><span class="p">$8.40<small>HIDDEN</small></span></div>
+          <div class="strike is-in"><span class="m">ATM</span><span class="c">TSLA 372.5C<small>In your range</small></span><span class="p">$4.20<small>FITS</small></span></div>
+          <div class="strike is-in"><span class="m">OTM</span><span class="c">TSLA 377.5C<small>In your range</small></span><span class="p">$3.10<small>FITS</small></span></div>
+          <div class="strike is-out"><span class="m">OTM</span><span class="c">TSLA 390C<small>Under the $2.50 floor</small></span><span class="p">$0.85<small>NO LOTTOS</small></span></div>
+        </div>
+        <div class="facts" aria-label="Facts on the ATM contract">
+          <span class="flow">$2.1M flow today · bought</span><span>Delta 0.52</span><span>Theta −$18/day</span><span>OI 12.4K</span>
+        </div>
+        <div class="checked"><i>✓</i>Journal: followed all 6 of your rules</div>
+        <p class="desk-note">Illustrative numbers. You pick the strike. A&amp;O never picks for you.</p>
       </div>
     </div>
   </section>
 
-  <section class="sec" id="desk">
-    <div class="wrap">
-      <div class="head rv">
-        <span class="eyebrow">The platform</span>
-        <h2 class="h">Everything you used five tabs for. One desk.</h2>
-        <p class="lead">Dealer walls, flow, the tape and the contract, all on the same screen and all speaking the same language.</p>
-      </div>
-
-      <div class="prod rv">
-        <div class="txt">
-          <span class="name"><i>◎</i>The Desk</span>
-          <h3>A score, a direction and a reason. For every ticker.</h3>
-          <p>Index setups, your watchlist and the Top 10 across the board. Each one gets a 0 to 100 model score and a one-line reason you can actually read.</p>
-          <ul>
-            <li>Lean calls, lean puts, or wait. Never a guess dressed up as a signal.</li>
-            <li>Freshness dot on every tile, so you know the read is live.</li>
-            <li>No entries 9:30 to 9:45. The desk says Paused until IV settles.</li>
-          </ul>
-        </div>
-        <div class="shot"><img src="/images/live/top-setups-light.webp" alt="Top Setups screen with ranked setups and model scores" width="1800" height="941" loading="lazy"></div>
-      </div>
-
-      <div class="prod rev rv" id="dealer">
-        <div class="txt">
-          <span class="name"><i>▥</i>Dealer Heatmap</span>
-          <h3>Every strike, every expiry. And the one that matters most.</h3>
-          <p>Net dealer gamma by strike and expiration for SPX, SPY, QQQ, IWM, NDX and any stock, with the King node starred and the floor and ceiling marked.</p>
-          <ul>
-            <li>Game Plan: the switch zone, call walls, put walls, and a bull, base and bear path built only from the board.</li>
-            <li>Velocity shows which levels are building and which are melting.</li>
-            <li>Trinity puts SPX, SPY and QQQ side by side. Do they agree?</li>
-          </ul>
-        </div>
-        <div class="shot"><img src="/images/live/dealer-map-dark.webp" alt="Dealer positioning for SPY, SPX, QQQ, NDX and IWM" width="872" height="460" loading="lazy"></div>
-      </div>
-
-      <div class="prod rv" id="flow">
-        <div class="txt">
-          <span class="name"><i>≋</i>Alpha Flow</span>
-          <h3>Big money, translated. Bought or sold, opening or closing.</h3>
-          <p>Unusual options flow with the part most feeds skip: which side of the trade it was, and what that means for direction.</p>
-          <ul>
-            <li>Sold puts read bullish. Sold calls read bearish.</li>
-            <li>Prints carry the real time window they happened in.</li>
-            <li>One click to a clean X post of any print.</li>
-          </ul>
-        </div>
-        <div class="shot"><img src="/images/live/flow-meta-table-light.webp" alt="Alpha Flow table for META with premium, size, side and mood" width="1800" height="941" loading="lazy"></div>
-      </div>
-
-      <div class="prod rev rv" id="tide">
-        <div class="txt">
-          <span class="name"><i>≈</i>Market Tide</span>
-          <h3>Is money leaning into calls or puts right now?</h3>
-          <p>Net call premium against net put premium through the session, across the names AO watches, with spikes and drops called out the moment they happen.</p>
-          <ul>
-            <li>Ask side minus bid side, in five minute buckets.</li>
-            <li>A put premium spike shows up before the headline does.</li>
-            <li>Honest about coverage: it says which tickers and how many contracts it saw.</li>
-          </ul>
-        </div>
-        <div class="ask" aria-label="What Market Tide shows">
-          <div class="q">Cumulative net call and put premium, 9:30 to 4:00</div>
-          <div class="q">Call spike, call drop, put spike, put drop, time stamped</div>
-          <div class="q">ALL, or one name: SPY, QQQ, SPX, IWM, NVDA, TSLA</div>
-          <small>Estimated from live chain snapshots. Education only.</small>
-        </div>
-      </div>
-
-      <div class="prod rv" id="pane">
-        <div class="txt">
-          <span class="name"><i>◈</i>The Pane</span>
-          <h3>Click a ticker. Get three ranked contracts and a plan.</h3>
-          <p>In the money, at the money and out of the money, each scored, with the price the model found, a valid entry range, take profit and stop.</p>
-          <ul>
-            <li>Weekly means this Friday. Monthly means the monthly. Always the exact contract.</li>
-            <li>Roll up and roll down notes when the strike moves.</li>
-            <li>Swing checklist: weekly 21 EMA, 50-day, 200-day, buy and trim zones.</li>
-          </ul>
-        </div>
-        <div class="shot tall"><img src="/images/live/pane-tsla-dark.webp" alt="TSLA pane with three ranked weekly contracts, entry range, take profit and stop" width="1080" height="1441" loading="lazy"></div>
-      </div>
-
-      <div class="prod rev rv" id="ask">
-        <div class="txt">
-          <span class="name"><i>✦</i>Ask A&amp;O</span>
-          <h3>One question, from the screen you're already on.</h3>
-          <p>Ask where a ticker turns, what has to break, or whether the indexes agree. Ask A&amp;O answers from the live desk and shows you where every number came from.</p>
-          <ul>
-            <li>Slash commands: /levels, /plan, /tide, /flow, /trinity.</li>
-            <li>Pick Scalp, Day, Swing or Position. The answer fits the horizon.</li>
-            <li>Every answer links its source. Education only. It never places a trade.</li>
-          </ul>
-        </div>
-        <div class="ask" aria-label="Example questions for Ask A&amp;O">
-          <div class="q">Why is SPY no edge right now, and what would change that?</div>
-          <div class="q">Checks the walls, the flip, the tape and the session window first.</div>
-          <div class="q">Is MU near a swing buy zone or stretched?</div>
-          <div class="q">Reads the weekly 21 EMA, the 50-day and the distance from it.</div>
-          <div class="q">/plan SPX</div>
-          <div class="q">Bull, base and bear from the dealer board, with the source.</div>
-          <small>Example questions. Answers come from the live desk.</small>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="how">
-    <div class="wrap">
-      <div class="head rv">
-        <span class="eyebrow">How a read is built</span>
-        <h2 class="h">Four checks. One line you can trust.</h2>
-        <p class="lead">Every read has to pass the same checks, in the same order, on every ticker.</p>
-      </div>
-      <div class="story" id="story">
-      <div class="steps rv">
-        <div class="step"><span>01</span><b>Level</b><p>Dealer walls, the gamma flip, key levels and the opening range.</p></div>
-        <div class="step"><span>02</span><b>Tape</b><p>Trend, VWAP and whether the last bars hold or reject the level.</p></div>
-        <div class="step"><span>03</span><b>Flow</b><p>Big prints, bought or sold, opening or closing.</p></div>
-        <div class="step"><span>04</span><b>Session</b><p>Opening 15, the 10:40 algo window, midday chop, power hour.</p></div>
-        <div class="step out"><span>=</span><b>One read</b><p>Lean calls, lean puts, or wait, with the reason written out.</p></div>
-      </div>
-      </div>
-      <div class="readline rv"><span class="tag g">CALLS LEAN</span><span class="t">SPX</span><span>Bottom snipe. Holding the put wall as VIX rolls over from its high.</span><small>Example of the read format</small></div>
-    </div>
-  </section>
-
-  <section class="sec">
-    <div class="wrap">
-      <div class="head rv">
-        <span class="eyebrow">House rules</span>
-        <h2 class="h">Waiting is a position.</h2>
-        <p class="lead">The desk is built to keep you out of bad trades as much as to find good ones.</p>
-      </div>
-      <div class="rules rv">
-        <div class="rule"><b>No first-15 entries</b><p>IV is wild from 9:30 to 9:45. The desk pauses and tells you when reads unlock.</p></div>
-        <div class="rule"><b>No edge is an answer</b><p>When the read is mid-range, the tile says so and tells you what would change it.</p></div>
-        <div class="rule"><b>Flow never overrides structure</b><p>A big print is evidence. It does not turn a wait into a buy.</p></div>
-        <div class="rule"><b>You decide</b><p>AO never touches your account, never places trades and never promises outcomes.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="api">
-    <div class="wrap">
-      <div class="api rv">
-        <div>
-          <span class="badge">BETA · WAITLIST</span>
-          <h2 class="h" style="margin-top:14px">AO API and MCP.</h2>
-          <p class="lead">Plug AO's reads into Claude, ChatGPT, Cursor or your own bot. Ask your AI where the SPY floor is and get the answer from AO's live desk.</p>
-          <div class="code" aria-label="Planned MCP tools"><span class="c"># planned read-only tools</span>
-<span class="k">get_desk_read</span>(<span class="s">"TSLA"</span>)      <span class="c"># score, direction, reason</span>
-<span class="k">get_index_setups</span>()         <span class="c"># SPY SPX QQQ NDX IWM</span>
-<span class="k">get_dealer_levels</span>(<span class="s">"SPY"</span>)  <span class="c"># walls, flip, floor, ceiling</span>
-<span class="k">get_top_flow</span>(<span class="s">"META"</span>)       <span class="c"># biggest prints, bought or sold</span>
-<span class="k">get_scan_summary</span>()         <span class="c"># how the board leans</span></div>
-          <p class="fine" style="text-align:left">AO's own analytics: scores, levels, reasons and flow summaries. Beta opens to the waitlist first.</p>
-        </div>
-        <form class="form" id="waitlist" novalidate>
-          <label for="wl-email">Email</label>
-          <input id="wl-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-          <label for="wl-use">What would you connect?</label>
-          <select id="wl-use" name="use">
-            <option value="Claude or ChatGPT (MCP)">Claude or ChatGPT (MCP)</option>
-            <option value="Cursor or a coding agent">Cursor or a coding agent</option>
-            <option value="My own trading bot">My own trading bot</option>
-            <option value="Sheets or dashboards">Sheets or dashboards</option>
-            <option value="Other">Other</option>
-          </select>
-          <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button class="btn btn-pri" type="submit" id="wl-btn">Join the waitlist</button>
-          <p class="msg" id="wl-msg" role="status" aria-live="polite"></p>
-          <small>We only use your email for the API and MCP beta. No spam, no selling it.</small>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="pricing">
-    <div class="wrap">
-      <div class="head rv">
-        <span class="eyebrow">Pricing</span>
-        <h2 class="h">$1 to try it. Then $50 a month.</h2>
-        <p class="lead">One plan. Full desk. No signal lottery, no upsell ladder.</p>
-      </div>
-      <div class="price-wrap rv">
-        <div class="pcard main">
-          <h3>The Desk</h3>
-          <div class="amt"><b>$1</b><span>for 30 days, then $50 / month</span></div>
-          <ul>
-            <li>Index setups, your watchlist and the Top 10</li>
-            <li>Dealer Heatmap, Game Plan, Market Tide, Index Heat and IV Desk</li>
-            <li>Alpha Flow with bought or sold reads</li>
-            <li>The Pane with exact contracts and a plan</li>
-            <li>Ask A&amp;O, Learn hub, Community chat, Simple and Pro screens</li>
-          </ul>
-          <a class="btn btn-pri" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Try the Desk for $1 <span aria-hidden="true">→</span></a>
-        </div>
-        <div class="pcard">
-          <h3>Look around first</h3>
-          <p>Free access on Whop shows you the desk language before you pay anything. No card needed.</p>
-          <p style="margin-top:18px"><a class="btn btn-sec" href="https://whop.com/alpha-omega-analytics/products/signal-terminal-free/" target="_blank" rel="noreferrer">Get free access</a></p>
-          <p style="margin-top:22px;font-size:.88rem">Billing runs on Whop. Your broker is your account. AO is educational analytics, not a broker-dealer or investment advisor.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec">
-    <div class="wrap">
-      <div class="head rv">
-        <span class="eyebrow">Learn the read</span>
-        <h2 class="h">Free lessons. And a Learn hub inside the desk.</h2>
-        <p class="lead">Eight short tracks inside the desk: index tiles, Dealer Heatmap, Game Plan, Market Tide, Alpha Flow, Ask A&amp;O and Alpha Performance. Read one, open the tool, see it on live data. Members also get a Community chat to talk levels with the room.</p>
-      </div>
-      <div class="learn rv">
-        <a href="/how-to-read-spy-positive-vs-negative-gamma.html"><span>Lesson</span><b>Positive vs negative gamma</b><small>Why SPY pins on some days and runs on others.</small></a>
-        <a href="/how-to-read-unusual-options-flow.html"><span>Lesson</span><b>How to read unusual flow</b><small>Bought vs sold, and why a print is not a signal.</small></a>
-        <a href="/how-to-hunt-stocks-without-a-signal-discord.html"><span>Lesson</span><b>Hunt without a signal room</b><small>Build your own read on your own tickers.</small></a>
-        <a href="/ao-vs-paying-for-signals.html"><span>Compare</span><b>AO vs paying for signals</b><small>What you get from a desk that a chat can't give you.</small></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="faq">
-    <div class="wrap">
-      <div class="head rv"><span class="eyebrow">Questions</span><h2 class="h">Straight answers.</h2></div>
-      <div class="faq rv">
-        <details open><summary>What is AO?</summary><p>An options analytics desk. It reads dealer positioning, options flow and the live tape on your tickers, then gives each one a model score and a plain-English read: lean calls, lean puts, or wait.</p></details>
-        <details><summary>Is this financial advice?</summary><p>No. AO is educational analytics. Nothing here is a recommendation to buy or sell. Options involve substantial risk. The model score measures how well a setup fits AO's rules, not the odds of profit.</p></details>
-        <details><summary>Does AO place trades for me?</summary><p>No. AO never touches your brokerage account and never places trades. You decide, you verify prices with your broker, and you manage your own risk.</p></details>
-        <details><summary>What does the $1 include?</summary><p>Thirty days of the full desk, then $50 a month on Whop.</p></details>
-        <details><summary>Why not just join an alert room?</summary><p>An alert is someone else's read, delivered after they took it. AO shows you the same dealer levels, flow and tape they look at, on your tickers, while it is happening. You keep the decision.</p></details>
-        <details><summary>When does the API and MCP beta open?</summary><p>Waitlist members get access first. Join above and we'll email you when your seat is ready.</p></details>
-      </div>
-    </div>
-  </section>
-
-  <div class="wrap">
-    <section class="final rv">
-      <h2>Stop guessing where the walls are.</h2>
-      <p>Bring your tickers. Get the read. Keep the decision.</p>
-      <div class="cta-row">
-        <a class="btn btn-pri" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Try the Desk for $1 <span aria-hidden="true">→</span></a>
-        <a class="btn btn-sec" href="#api">Join the API waitlist</a>
-      </div>
-    </section>
+  <!-- PROOF (facts only; add Whop reviews here once members approve their quotes) -->
+  <div class="proof" role="region" aria-label="Why trust A&amp;O">
+    <ul>
+      <li><b>Built by a trader since 16</b><span>Not a marketer. Traded options for years before building this.</span></li>
+      <li><b>Live Schwab market data</b><span>Real chains and greeks, scanned all session.</span></li>
+      <li><b>Your broker keeps your money</b><span>A&amp;O never places trades or holds funds.</span></li>
+      <li><b>Cancel in one click</b><span>Billing runs through Whop. No contracts.</span></li>
+    </ul>
   </div>
+
+  <!-- THE PING -->
+  <section id="why">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Why a desk</p>
+        <h2>Signal rooms sell you a ping.</h2>
+        <p>Most paid rooms run the same morning. The call lands, everyone piles in, and you are the last fill with no plan for what comes next.</p>
+      </div>
+      <div class="ping">
+        <ol class="timeline" aria-label="A typical signal-room morning">
+          <li><span class="t">9:31 ET</span><b>The alert fires.</b><span>Implied volatility is still inflated from the open.</span></li>
+          <li><span class="t">9:33 ET</span><b>You chase the fill.</b><span>The contract is already up. You pay the worst price of the morning.</span></li>
+          <li><span class="t">9:52 ET</span><b>It reverses.</b><span>No level, no stop, no idea why it moved. You wait for the next ping.</span></li>
+        </ol>
+        <div class="answer">
+          <h3>A&amp;O gives you the desk instead.</h3>
+          <ul>
+            <li>The level, the flow and the reason on one screen, before the bell.</li>
+            <li>A 9:45 rule: no entries while the open is still pricing in.</li>
+            <li>Only contracts inside your budget and price range.</li>
+            <li>A journal that checks every trade against your own rules.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">How it works</p>
+        <h2>Three steps. Your rules the whole way.</h2>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Set your plan</h3>
+          <p>Tell the desk your goal, budget range, price per contract, the styles you trade and your stop. Two minutes, once.</p>
+          <div class="chips"><span>Budget $500 to $1,000</span><span>$3 to $5 a contract</span><span>1DTE · Weekly</span></div>
+        </li>
+        <li>
+          <h3>See what is worth trading</h3>
+          <p>Your tickers ranked with a 1 to 5 read and the reason. Open one and pick ITM, ATM or OTM, only from strikes that fit your range.</p>
+          <div class="chips"><span>Model score + why</span><span>Put wall · flip · call wall</span><span>Whale flow</span></div>
+        </li>
+        <li>
+          <h3>Check every trade</h3>
+          <p>Track a trade and the journal says which of your rules it followed or broke: price, budget, max loss, the first 15 minutes, trades per day.</p>
+          <div class="chips"><span>Followed 6 of 6</span><span>Most broken rule</span></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- TOUR -->
+  <section id="tour">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">The desk</p>
+        <h2>One screen instead of five tabs.</h2>
+        <p>Dealer positioning, options flow, setups and your journal. Everything explained in plain English, with the numbers behind it.</p>
+      </div>
+      <div class="tour">
+        <figure class="video">
+          <video controls preload="none" playsinline poster="videos/ao-demo-poster.jpg" width="1920" height="1080">
+            <source src="videos/ao-demo.mp4" type="video/mp4">
+          </video>
+          <figcaption><b>42-second tour</b><span>Dealer heatmap, setups, flow and the ticker pane, recorded on the live desk.</span></figcaption>
+        </figure>
+        <figure>
+          <img src="images/live/dealer-map-dark.webp" alt="Dealer map showing put wall, flip and call wall for an index" width="872" height="460" loading="lazy">
+          <figcaption><b>Dealer map</b><span>Where dealers may pin price or push it faster.</span></figcaption>
+        </figure>
+        <figure>
+          <img src="images/live/pane-tsla-dark.webp" alt="Ticker pane for TSLA with style tabs and contracts" width="1080" height="1441" loading="lazy">
+          <figcaption><b>Ticker pane</b><span>Every style from 0DTE to LEAPS, with the reason and the invalidation.</span></figcaption>
+        </figure>
+        <div class="row2">
+          <figure>
+            <img src="images/live/hero-desk.webp" alt="Top setups board next to unusual options flow" width="1800" height="924" loading="lazy">
+            <figcaption><b>Setups and flow</b><span>Ranked setups beside the biggest prints, tagged bullish or bearish.</span></figcaption>
+          </figure>
+          <figure>
+            <img src="images/live/flow-meta-table-light.webp" alt="Alpha Flow table in light mode" width="1800" height="941" loading="lazy">
+            <figcaption><b>Alpha Flow</b><span>Who took which side, spreads paired, bought at the ask vs sold at the bid.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOUSE RULES -->
+  <section id="rules">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow brass">House rules</p>
+        <h2>Options as a tool to grow a portfolio. Not lottery tickets.</h2>
+      </div>
+      <div class="rules">
+        <div><b>$2.50 floor</b><h3>No lottos</h3><p>Nothing under $2.50 a contract shows up. Cheap far OTM contracts are how most accounts bleed out.</p></div>
+        <div><b>ITM · ATM · OTM</b><h3>You pick the strike</h3><p>The desk shows the choices that fit your plan. It never tells you which one to buy.</p></div>
+        <div><b>No hype</b><h3>No win-rate banners</h3><p>We show you whether you followed your plan, not screenshots of someone else's best day.</p></div>
+        <div><b>Read only</b><h3>Your broker, your click</h3><p>A&amp;O never places trades or touches your money. You trade where you already trade.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDER -->
+  <section id="founder">
+    <div class="wrap founder">
+      <p class="quote">“I got tired of switching between five tools and a Discord every morning. So I built one desk.”</p>
+      <div class="body">
+        <p class="eyebrow">Who built it</p>
+        <p>Ricky started trading options at 16. Every morning meant Unusual Whales, a dealer positioning tool, TradingView, Twitter and a brokerage app, all open at once, with signal rooms pinging on top.</p>
+        <p>Over a year he built the scoring model, dealer flow, heatmaps, GEX and VEX, and options flow into one screen. The rule he trades by is on the desk for everyone: wait for 9:45, trade the level, one trade at a time.</p>
+        <div class="people">
+          <div class="person"><span class="av">PK</span><div><b>Pavan “Ricky” Kumar</b><span>Founder</span></div></div>
+          <div class="person"><span class="av">RK</span><div><b>Rekha Khaliq</b><span>Co-founder</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section id="compare">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Compare</p>
+        <h2>What you are actually paying for.</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col"><span class="sr">Question</span></th><th scope="col" class="us">A&amp;O Desk</th><th scope="col">Signal rooms</th><th scope="col">Raw flow tools</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">What you get</th><td class="us">A desk built around your plan</td><td>Pings in a Discord</td><td>A tape of every print</td></tr>
+            <tr><th scope="row">Explains why</th><td class="us">Level, flow and invalidation on every setup</td><td>Sometimes, after the fact</td><td>You work it out</td></tr>
+            <tr><th scope="row">Fits your budget</th><td class="us">Only contracts in your price range</td><td>Same call for everyone</td><td>No</td></tr>
+            <tr><th scope="row">Lotto contracts</th><td class="us">Hidden under $2.50</td><td>Common</td><td>Shown</td></tr>
+            <tr><th scope="row">Checks your trades</th><td class="us">Journal grades each trade on your rules</td><td>Screenshots of wins</td><td>No</td></tr>
+            <tr><th scope="row">Price</th><td class="us">$1 for 30 days, then $50/mo</td><td>Often $100 to $700/mo</td><td>About $50 to $150/mo</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="wrap price">
+      <div class="sec-head" style="margin:0">
+        <p class="eyebrow">Pricing</p>
+        <h2>One desk. One price.</h2>
+        <p>Try the full desk for 30 days for a dollar. If it does not change how you trade, cancel in one click.</p>
+      </div>
+      <div class="price-card">
+        <div class="amt"><b>$1</b><span>for 30 days, then $50/month</span></div>
+        <ul>
+          <li>Your Plan: budget, price range, styles and stop rules</li>
+          <li>Setups on your tickers with the reason and the invalidation</li>
+          <li>Dealer map, heatmap, GEX, VEX and DEX in plain English</li>
+          <li>Alpha Flow: whale prints, spreads, bullish or bearish</li>
+          <li>Journal that checks every trade against your rules</li>
+          <li>Ask A&amp;O and the members' community chat</li>
+        </ul>
+        <a class="btn btn-primary" data-ao-desk-checkout href="https://whop.com/checkout/plan_GJwXJwksB3D0F">Start for $1</a>
+        <p class="fine">Billed through Whop. Cancel anytime. <a data-ao-free href="https://whop.com/alpha-omega-analytics">Free access</a> is also available with delayed data.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Questions</p><h2>Before you start.</h2></div>
+      <div class="faq">
+        <details><summary>Is this a signal service?</summary><p>No. A&amp;O does not send buy or sell alerts. The desk shows you the levels, the flow and the reason for each setup, filtered to your plan, and you decide. It is an education tool, not financial advice.</p></details>
+        <details><summary>Does A&amp;O place trades or hold my money?</summary><p>No. You trade in your own brokerage account. If you connect a broker, the connection is read only, so you can see your positions next to the desk.</p></details>
+        <details><summary>Where does the data come from?</summary><p>Live options chains and greeks from Schwab market data, scanned through the session. Dealer levels and flow are computed from that data on our servers.</p></details>
+        <details><summary>I am new to options. Is it too much?</summary><p>Simple mode shows one answer per ticker in plain English. Your Plan keeps you inside a budget and a price range, and the Learn hub explains every term on the screen.</p></details>
+        <details><summary>How do I cancel?</summary><p>Billing runs through Whop. Cancel from your Whop account in one click, any time. No contract.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <div class="wrap">
+      <h2>Bring your tickers. Keep your decision.</h2>
+      <p>$1 for 30 days, then $50/month. Cancel in one click.</p>
+      <a class="btn btn-primary" data-ao-desk-checkout href="https://whop.com/checkout/plan_GJwXJwksB3D0F">Start for $1</a>
+    </div>
+  </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <div class="cols">
-      <a class="logo" href="/"><img src="/ao-logo-small.jpg" alt="" width="30" height="30">ALPHA &amp; OMEGA</a>
-      <nav aria-label="Footer">
-        <a href="#desk">The Desk</a><a href="#pricing">Pricing</a><a href="#api">API + MCP</a>
-        <a href="/ao-vs-paying-for-signals.html">AO vs signals</a>
-        <a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/risk.html">Risk disclosure</a>
-      </nav>
-      <div class="soc">
-        <a href="https://x.com/AO_Analytics" target="_blank" rel="noreferrer">X</a>
-        <a href="https://www.tiktok.com/@ao_analytics" target="_blank" rel="noreferrer">TikTok</a>
-        <a href="https://www.linkedin.com/company/alpha-omega-analytics-llc" target="_blank" rel="noreferrer">LinkedIn</a>
+    <div class="foot-top">
+      <a class="brand" href="./"><img src="ao-logo-small.jpg" alt="" width="34" height="34"><span>ALPHA &amp; OMEGA</span></a>
+      <div class="foot-links" id="guides" aria-label="Guides and legal">
+        <a href="how-to-read-spy-positive-vs-negative-gamma.html">How to read gamma</a>
+        <a href="how-to-read-unusual-options-flow.html">How to read flow</a>
+        <a href="how-to-hunt-stocks-without-a-signal-discord.html">Trading without a signal Discord</a>
+        <a href="ao-vs-paying-for-signals.html">A&amp;O vs paying for signals</a>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="risk.html">Risk disclosure</a>
+      </div>
+      <div class="foot-links">
+        <a href="https://x.com/AO_Analytics" target="_blank" rel="noreferrer">X @AO_Analytics</a>
+        <a href="https://www.tiktok.com/@ao_analytics" target="_blank" rel="noreferrer">TikTok @ao_analytics</a>
       </div>
     </div>
-    <p class="legal">Alpha &amp; Omega Analytics provides educational tools and market analysis. Nothing on this site is financial advice. A&amp;O is not a broker-dealer or investment advisor. Options involve substantial risk and are not suitable for every investor. Screens show real desk reads at the time captured; values change in real time and past positioning does not guarantee future price. © 2026 Alpha &amp; Omega Analytics.</p>
+    <p class="disclaim">Alpha &amp; Omega Analytics provides educational tools and market analysis. Nothing on this site is financial advice. Options involve substantial risk and are not suitable for every investor. Past positioning does not guarantee future price. Sample cards use illustrative numbers.</p>
+    <small>© 2026 Alpha &amp; Omega Analytics. All rights reserved.</small>
   </div>
 </footer>
 
-<dialog class="vdlg" id="demo-dlg" aria-labelledby="demo-title">
-  <div class="vdlg-in">
-    <div class="vdlg-hd"><b id="demo-title">The A&amp;O desk in 40 seconds</b><button type="button" class="vdlg-x" id="demo-close" aria-label="Close video">×</button></div>
-    <video controls playsinline preload="none" poster="/videos/ao-demo-poster.jpg" width="1920" height="1080"><source src="/videos/ao-demo.mp4" type="video/mp4">Your browser can't play this video.</video>
-    <p class="vdlg-note">Real desk data from the Sep 25, 2026 close. Education, not advice.</p>
-  </div>
-</dialog>
-
+<script>document.documentElement.classList.add("js");</script>
+<script src="ao-marketing-config.js"></script>
 <script>
 (function () {
-  var root = document.documentElement, btn = document.getElementById('ao-theme-toggle');
-  function cur() { return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; }
-  function apply(t) { root.setAttribute('data-theme', t); try { localStorage.setItem('ao-theme', t); } catch (e) {} if (btn) btn.textContent = t === 'light' ? 'Dark' : 'Light'; }
-  apply(cur());
-  if (btn) btn.addEventListener('click', function () { apply(cur() === 'light' ? 'dark' : 'light'); });
-
-  // reveal on scroll
-  var els = document.querySelectorAll('.rv');
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
-    els.forEach(function (el) { io.observe(el); });
-  } else { els.forEach(function (el) { el.classList.add('in'); }); }
-
-  // waitlist → Supabase (insert-only table; the public key cannot read the list)
-  var SB = 'https://kolvaqpoufznqswlfofp.supabase.co/rest/v1/ao_waitlist';
-  var KEY = 'sb_publishable_zoJY6MXoYE1YVJZuR5NpPQ_FYN08tEI';
-  var form = document.getElementById('waitlist');
-  if (!form) return;
-  form.addEventListener('submit', function (ev) {
-    ev.preventDefault();
-    var msg = document.getElementById('wl-msg'), b = document.getElementById('wl-btn');
-    var email = String(form.email.value || '').trim();
-    if (form.company.value) return;
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { msg.className = 'msg err'; msg.textContent = 'Enter a valid email.'; return; }
-    b.disabled = true; b.textContent = 'Joining…'; msg.className = 'msg'; msg.textContent = '';
-    var src = 'site';
-    try { var u = new URLSearchParams(location.search); src = (u.get('utm_source') || 'site') + (u.get('utm_campaign') ? '/' + u.get('utm_campaign') : ''); } catch (e) {}
-    fetch(SB, {
-      method: 'POST',
-      headers: { 'apikey': KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
-      body: JSON.stringify({ email: email, interest: 'api_mcp', use_case: form.use.value, source: src.slice(0, 120) })
-    }).then(function (r) {
-      if (r.status === 201 || r.status === 409) {
-        msg.className = 'msg ok';
-        msg.textContent = r.status === 409 ? "You're already on the list. We'll email you." : "You're on the list. We'll email you when the beta opens.";
-        form.reset(); b.textContent = 'Joined';
-      } else { throw new Error(String(r.status)); }
-    }).catch(function () {
-      msg.className = 'msg err'; msg.textContent = 'Something went wrong. Try again in a minute.';
-      b.disabled = false; b.textContent = 'Join the waitlist';
-    });
-  });
+  var cfg = window.AO_MARKETING;
+  if (!cfg || !cfg.freeWhop) return;
+  document.querySelectorAll("[data-ao-free]").forEach(function (el) { el.setAttribute("href", cfg.freeWhop); });
 })();
 </script>
-<script src="/motion.js?v=20260925" defer></script>
 </body>
 </html>
