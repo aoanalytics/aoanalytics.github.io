@@ -49,6 +49,7 @@
     .will-not-grid p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
     @media (max-width:1000px){.preview-gallery,.will-not-grid,.desk-principles-grid,.anti-pattern-strip{grid-template-columns:1fr}.preview-gallery figure.wide{grid-column:auto}}
   </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"A&O desk in 50 seconds","description":"A 50-second tour of the Alpha & Omega Analytics options desk: dashboard, model scores, dealer levels, flow and your trading plan. Education, not advice.","thumbnailUrl":"https://tradewithao.com/videos/ao-dashboard-demo-poster.jpg","uploadDate":"2026-10-04","duration":"PT50S","contentUrl":"https://tradewithao.com/videos/ao-dashboard-demo-1080p.mp4","embedUrl":"https://tradewithao.com/watch/"}</script>
 </head>
 <body>
 <main>
@@ -76,15 +77,20 @@
     <p class="hero-copy">AO is a customized watchlist desk for options traders. Hunt, read the same 1–5, unmask the structure, then decide. No signal lottery. Education, not advice. <span style="color:var(--muted)">Stop waiting for the signal.</span> Waiting is the filter.</p>
     <div class="hero-actions">
       <a class="button button-primary" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
-      <a class="button button-secondary" href="#previews">See product previews</a>
+      <a class="button button-secondary" href="/watch/">Watch the 50-second demo</a>
     </div>
     <p class="hero-free" style="margin:14px 0 0;font-size:14px;color:var(--muted,#7E9487)">Not ready? <a href="https://whop.com/alpha-omega-analytics/products/signal-terminal-free/" target="_blank" rel="noreferrer" style="color:var(--accent,#00FF88)">Start with free access on Whop</a>. No card needed.</p>
     <p class="trust-line">Your tickers, from 0DTE through LEAPS. $1 for 30 days, then $50 a month.</p>
     <div class="dashboard-stage">
       <div class="stage-glow"></div>
-      <figure style="margin:0">
-        <img src="/images/previews/simple-desktop-dark.webp" alt="AO Simple Mode desk preview" width="1600" height="900" style="width:100%;height:auto;display:block;border:1px solid var(--line);background:var(--ink)"/>
-        <figcaption class="preview-caption-rule" style="text-align:center;margin-top:14px;letter-spacing:.08em">Product preview · sample data.</figcaption>
+      <figure class="hero-demo" id="demo" style="margin:0">
+        <video class="hero-demo-video" autoplay muted loop playsinline preload="metadata" controls poster="/videos/ao-dashboard-demo-poster.jpg" width="1920" height="1080" aria-label="50-second tour of the A&amp;O desk" style="width:100%;height:auto;display:block;border:1px solid var(--line);background:var(--ink)">
+          <source src="/videos/ao-dashboard-demo-720p.mp4" type="video/mp4" media="(max-width: 900px)">
+          <source src="/videos/ao-dashboard-demo-1080p.mp4" type="video/mp4">
+          <img src="/images/previews/simple-desktop-dark.webp" alt="AO Simple Mode desk preview" width="1600" height="900"/>
+        </video>
+        <script>(function(){try{var v=document.querySelector(".hero-demo-video");if(v&&window.matchMedia("(max-width: 900px)").matches&&v.currentSrc.indexOf("720p")<0){v.src="/videos/ao-dashboard-demo-720p.mp4";v.load();}}catch(e){}})();</script>
+        <figcaption class="preview-caption-rule" style="text-align:center;margin-top:14px;letter-spacing:.08em">The desk in 50 seconds. Sound off by default. <a href="/watch/" style="color:var(--accent,#00FF88)">Watch full screen with sound →</a></figcaption>
       </figure>
     </div>
   </section>
