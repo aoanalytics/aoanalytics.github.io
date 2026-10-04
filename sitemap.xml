@@ -40,4 +40,5 @@
     <loc>https://tradewithao.com/risk.html</loc>
     <changefreq>monthly</changefreq>
   </url>
+  <url><loc>https://tradewithao.com/record/</loc><changefreq>daily</changefreq></url>
 </urlset>
