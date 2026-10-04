@@ -6,7 +6,7 @@ A&O is for traders who are tired of signal rooms, cheap lottery-ticket calls and
 
 ## Product
 
-- Your Plan: goal, experience, styles traded, contract price range (from $2.50), max loss per trade, trade limits, first-15-minute rule, stop rule
+- Your Plan: goal, experience, styles traded, the contract price ranges the member likes to trade, max loss per trade, trade limits, first-15-minute rule, stop rule
 - Top Setups: setups filtered to the member's plan, each with a 1 to 5 read, dealer levels, flow, expected move and invalidation
 - Rule Lab: backtest a plain rule on up to 5 years of daily bars
 - Strategy League: Rule Lab strategies paper-trading on a live leaderboard (paper money only)
