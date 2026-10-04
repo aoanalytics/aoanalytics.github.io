@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"The A&O desk in one minute","description":"A one-minute tour of the Alpha & Omega Analytics options terminal: Your Plan, setups, dealer levels, flow, My Portfolio, the market calendar, Rule Lab and the Strategy League. Education, not advice.","thumbnailUrl":"https://tradewithao.com/videos/ao-dashboard-demo-poster.jpg","uploadDate":"2026-10-04","duration":"PT1M5S","contentUrl":"https://tradewithao.com/videos/ao-dashboard-demo-1080p.mp4","embedUrl":"https://tradewithao.com/watch/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"The A&O desk in one minute","description":"A one-minute tour of the A&O Analytics trading terminal: write your plan, ask the desk, see setups as zones, backtest in Rule Lab, check how big flow did in the Flow Tracker, tag contracts in the community and follow the public track record. Education, not advice.","thumbnailUrl":"https://tradewithao.com/videos/ao-dashboard-demo-poster.jpg","uploadDate":"2026-10-04","duration":"PT51S","contentUrl":"https://tradewithao.com/videos/ao-dashboard-demo-1080p.mp4","embedUrl":"https://tradewithao.com/watch/"}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"A&O Trading Terminal","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"1","priceCurrency":"USD","description":"$1 for a 30-day trial, then $50/month"},"url":"https://tradewithao.com/"}</script>
   <style>
     :root{
@@ -246,6 +246,7 @@
       <a href="#how">How it works</a>
       <a href="#tour">Product</a>
       <a href="#why">Why A&amp;O</a>
+      <a href="/record/">Track record</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -270,7 +271,7 @@
       <div class="trust">
         <span><i></i>No alerts. No picks.</span>
         <span><i></i>Backtest before you trade</span>
-        <span><i></i>Read-only broker sync</span>
+        <span><i></i>Read-only broker sync via SnapTrade</span>
         <span><i></i>Education, not advice</span>
       </div>
 
@@ -300,6 +301,7 @@
             <button type="button" class="on" data-demo="0">Game plan</button>
             <button type="button" data-demo="1">Backtest</button>
             <button type="button" data-demo="2">Your plan</button>
+            <button type="button" data-demo="3">Community</button>
           </div>
         </div>
       </div>
@@ -371,8 +373,12 @@
           <div><span class="n">06 · Dealer levels and flow</span><h3>Context, explained.</h3><p>Gamma regime, call and put walls, the flip level and qualifying options prints, in plain English. Context inside your terminal, not the product.</p><ul><li>Bull, base and bear scenarios</li><li>Heatmaps for SPX, SPY, QQQ, IWM, NDX and any ticker</li><li>Flow shows positioning, not intent</li></ul></div>
         </article>
         <article class="feat reveal">
+          <div class="shot"><img src="/images/terminal/flow-tracker.webp" alt="Flow Tracker marking big options prints against today's price" loading="lazy" width="1440" height="589"></div>
+          <div><span class="n">07 · Flow Tracker</span><h3>See how the big flow actually did.</h3><p>Every big print is marked against today's price from the side that traded: entry, now, change, dollars per contract, and whether it is in the money.</p><ul><li>Bought at the ask or sold at the bid, tracked the right way</li><li>Open interest changes flagged, expired contracts valued at intrinsic</li><li>5, 10, 20 or 30 days back</li></ul></div>
+        </article>
+        <article class="feat flip reveal">
           <div class="shot"><img src="/images/terminal/connect-to-ai.webp" alt="Connect to AI page with a live answer from the desk" loading="lazy" width="1440" height="589"></div>
-          <div><span class="n">07 · Ask A&amp;O and Connect to AI</span><h3>Bring the desk into your AI.</h3><p>Ask questions in plain English, or connect Claude, ChatGPT or Cursor with one sign-in. Every answer carries its data and its timestamp.</p><ul><li>Read-only. It never places a trade.</li><li>Sign in once, revoke any time</li><li>Connect to AI is in beta</li></ul></div>
+          <div><span class="n">08 · Ask A&amp;O, community and Connect to AI</span><h3>Bring the desk into your AI.</h3><p>Ask questions in plain English, talk setups with other members, or connect Claude, ChatGPT or Cursor with one sign-in. Every answer carries its data and its timestamp.</p><ul><li>Tag a contract in the community and anyone can open it and see if it fits their account</li><li>Read-only. It never places a trade.</li><li>Connect to AI is in beta</li></ul></div>
         </article>
       </div>
     </div>
@@ -400,6 +406,20 @@
     </div>
   </section>
 
+  <section class="sec" id="record" style="padding-top:20px">
+    <div class="wrap">
+      <div class="note reveal" style="border-color:rgba(0,210,106,.3);background:linear-gradient(180deg,rgba(0,210,106,.07),var(--panel))">
+        <div class="ic" style="background:var(--greenSoft);color:var(--green2)">✓</div>
+        <div>
+          <h4>Every pick, kept. In public.</h4>
+          <p>Each trading day at 10:05 AM ET, A&amp;O records what the desk's model found and tracks it as a paper trade on the same exit plan the terminal shows. 0DTE, 1DTE, weeklies, monthlies and LEAPS, winners and losers, nothing backfilled.</p>
+          <p style="margin-top:14px"><a class="btn btn-ghost" href="/record/">See the track record →</a></p>
+          <small>Paper trades. Hypothetical results do not predict future results. Education, not advice.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="sec" id="broker" style="padding-top:20px">
     <div class="wrap broker">
       <div class="reveal">
@@ -408,7 +428,7 @@
         <p class="sub">A&amp;O never holds your money and never places a trade for you. You place every order yourself, at your own broker.</p>
       </div>
       <div class="bcards">
-        <div class="bcard reveal"><div class="ic">◉</div><div><b>Read-only account sync</b><span>Broker-approved sign-in (OAuth) is rolling out, so My Portfolio can read your positions. Read-only.</span></div></div>
+        <div class="bcard reveal"><div class="ic">◉</div><div><b>Read-only account sync through SnapTrade</b><span>Connect your brokerage through SnapTrade so My Portfolio can read your positions and every card can say if a contract fits your account. Read-only: it cannot place trades.</span></div></div>
         <div class="bcard reveal"><div class="ic">⌁</div><div><b>We never see your password</b><span>You sign in at your broker, not on A&amp;O. Disconnect any time.</span></div></div>
         <div class="bcard reveal"><div class="ic">✓</div><div><b>No custody, no orders</b><span>Whop handles billing. Your broker holds your account. A&amp;O shows research and your plan, nothing more.</span></div></div>
       </div>
@@ -445,7 +465,8 @@
         <details><summary>Is this personalized investment advice?</summary><p>No. A&amp;O is a research tool with filters you control. It shows which setups match the rules you wrote. It does not know your full financial situation, does not tell you what to buy or sell, and does not place trades. Every decision is yours.</p></details>
         <details><summary>How is A&amp;O different from a signal Discord?</summary><p>A signal room picks tickers for you, pushes alerts and sells cheap contracts as lottery tickets. A&amp;O has no alerts and no picks. You set the tickers and strategies, and the desk shows what fits, with the levels and the invalidation. Read the comparison: <a href="/ao-vs-paying-for-signals.html">AO vs paying for a signal Discord</a>.</p></details>
         <details><summary>Can I backtest a strategy?</summary><p>Yes. Rule Lab replays a plain rule on up to five years of daily history and shows what price did after each time it fired. The Strategy League paper-trades rules live. Past results do not predict future ones.</p></details>
-        <details><summary>Can I connect my broker?</summary><p>Read-only broker connections through broker-approved sign-in are rolling out. A&amp;O never sees your broker password and never places orders.</p></details>
+        <details><summary>Can I connect my broker?</summary><p>Yes, read-only, through SnapTrade. You sign in at your broker, A&amp;O never sees your password, and the connection cannot place orders. Disconnect any time.</p></details>
+        <details><summary>Where can I see how the picks did?</summary><p>On the public <a href="/record/">track record</a>. Every pick the desk's model found is recorded at 10:05 AM ET and tracked as a paper trade, winners and losers. Nothing is backfilled.</p></details>
         <details><summary>What does the $1 trial include?</summary><p>Thirty days of the full terminal so you can set your plan, run the scan, backtest rules and track your portfolio before the $50/month Desk continues.</p></details>
       </div>
     </div>
@@ -471,7 +492,7 @@
       <div class="flinks">
         <a href="#how">How it works</a><a href="#tour">Product</a><a href="/ao-vs-paying-for-signals.html">AO vs signals</a>
         <a href="/how-to-read-spy-positive-vs-negative-gamma.html">How to read gamma</a><a href="/how-to-read-unusual-options-flow.html">How to read flow</a>
-        <a href="/watch/">Demo</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/risk.html">Risk disclosure</a>
+        <a href="/record/">Track record</a><a href="/watch/">Demo</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/risk.html">Risk disclosure</a>
       </div>
     </div>
     <div class="social">
@@ -541,7 +562,14 @@
           ["t", "Styles: Weekly, Spreads · Price range: $5 to $10 a contract."], ["br"],
           ["t", "Tabs outside your plan are dimmed on every ticker. Contracts outside your range or too big for your account are flagged."], ["br"],
           ["t", "If nothing fits today, the desk says wait."]],
-      cap: "How Your Plan filters the desk. You write every rule. Education, not advice." }
+      cap: "How Your Plan filters the desk. You write every rule. Education, not advice." },
+    { q: "Community: these TSLA weeklies look interesting, anyone watching?",
+      tools: ["community", "check_fit"],
+      a: [["b", "A member tagged a TSLA weekly call."], ["br"],
+          ["t", "Tap the tag and TSLA opens on your desk: the zones, the levels and the contracts for your plan."], ["br"],
+          ["t", "Every card says "], ["bull", "Fits your plan"], ["t", " or "], ["bear", "Too big for your account"], ["t", ", checked against your own rules and synced account."], ["br"],
+          ["t", "No one's call becomes your trade. You see the fit first."]],
+      cap: "Sample conversation to show how tags work. Not a real member's post. Education, not advice." }
   ];
   var qt = document.getElementById("dqt"), tools = document.getElementById("dtools"), ans = document.getElementById("da"), cap = document.getElementById("dcap");
   var tabs = document.querySelectorAll("[data-demo]");
