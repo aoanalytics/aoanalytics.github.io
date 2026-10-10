@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to pick an options strike that fits your premium and risk | Alpha &amp; Omega Analytics</title>
+  <meta name="description" content="In the money, at the money or out of the money: how delta, theta, IV, open interest and the bid/ask spread change the choice, and how to match a strike to your premium range and timeline. Education, not advice.">
+  <link rel="canonical" href="https://tradewithao.com/how-to-pick-an-options-strike.html">
+  <meta property="og:title" content="How to pick an options strike that fits your premium and risk">
+  <meta property="og:description" content="In the money, at the money or out of the money: how delta, theta, IV, open interest and the bid/ask spread change the choice, and how to match a strike to your premium range and timeline. Education, not advice.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://tradewithao.com/how-to-pick-an-options-strike.html">
+  <meta property="og:image" content="https://tradewithao.com/og-branded.png">
+  <meta property="og:image:width" content="1731">
+  <meta property="og:image:height" content="909">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://tradewithao.com/og-branded.png">
+  <meta name="twitter:title" content="How to pick an options strike that fits your premium and risk">
+  <meta name="twitter:description" content="In the money, at the money or out of the money: how delta, theta, IV, open interest and the bid/ask spread change the choice, and how to match a strike to your premium range and timeline. Education, not advice.">
+  <link rel="icon" href="/ao-logo-small.jpg">
+  <link rel="apple-touch-icon" href="/ao-logo-small.jpg">
+  <meta name="color-scheme" content="dark light">
+  <script>
+  (function () {
+    try {
+      var t = localStorage.getItem('ao-theme');
+      document.documentElement.setAttribute('data-theme', (t === 'light' || t === 'dark') ? t : 'dark');
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+  </script>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .preview-gallery{max-width:1380px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .preview-gallery figure{margin:0;background:#0B1712;border:1px solid #203229;padding:14px;display:flex;flex-direction:column;gap:12px}
+    .preview-gallery figure.wide{grid-column:1/-1}
+    .preview-gallery img{width:100%;height:auto;display:block;border:1px solid #13231C;background:#050505}
+    .preview-gallery figcaption{color:#7E9487;font-size:12px;line-height:1.5}
+    .preview-gallery figcaption strong{display:block;color:#D7E7DD;font:400 18px Georgia,serif;margin-bottom:4px}
+    .preview-caption-rule{letter-spacing:.08em;text-transform:uppercase;color:#7E9487;font-size:8px;display:block;margin-bottom:6px}
+    .pricing-grid-single{grid-template-columns:minmax(0,520px);justify-content:center;max-width:1180px;margin:auto}
+    .example-box{background:#0B1712;border:1px solid #203229;padding:22px 24px;margin:0 0 36px}
+    .example-box>span{letter-spacing:.16em;color:var(--accent,#00FF88);text-transform:uppercase;font-size:9px;font-weight:700}
+    .learn-article h3{margin:28px 0 10px;font:400 22px Georgia,serif;color:#D7E7DD}
+    .will-not-grid{max-width:1220px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .will-not-grid div{background:#0B1712;border:1px solid #203229;padding:22px}
+    .will-not-grid strong{display:block;margin:0 0 8px;font:400 18px Georgia,serif;color:#D7E7DD}
+    .will-not-grid p{margin:0;color:#7E9487;font-size:13px;line-height:1.65}
+    @media (max-width:1000px){.preview-gallery,.will-not-grid{grid-template-columns:1fr}.preview-gallery figure.wide{grid-column:auto}}
+    /* learn-page accent nudge — neon green desk */
+    .learn-article h1 em{color:var(--accent,#00FF88);font-style:normal}
+    .learn-article .section-kicker{color:var(--gold-light,#6DFFB1)}
+    .learn-cta .button-primary{background:var(--accent,#00FF88);color:#050505}
+  </style>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to pick an options strike that fits your premium and risk", "description": "In the money, at the money or out of the money: how delta, theta, IV, open interest and the bid/ask spread change the choice, and how to match a strike to your premium range and timeline. Education, not advice.", "datePublished": "2026-10-10", "dateModified": "2026-10-10", "image": "https://tradewithao.com/og-branded.png", "author": {"@type": "Organization", "name": "Alpha & Omega Analytics", "url": "https://tradewithao.com/"}, "publisher": {"@type": "Organization", "name": "Alpha & Omega Analytics", "logo": {"@type": "ImageObject", "url": "https://tradewithao.com/ao-logo-small.jpg"}}, "mainEntityOfPage": "https://tradewithao.com/how-to-pick-an-options-strike.html"}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is a cheaper out of the money option better?", "acceptedAnswer": {"@type": "Answer", "text": "Not by default. It costs less, but it needs a bigger move and loses value faster. Many traders pay more for an in the money contract to get more cushion."}}, {"@type": "Question", "name": "What delta should I pick?", "acceptedAnswer": {"@type": "Answer", "text": "There is no single right delta. Higher delta moves more like the stock. Lower delta is cheaper and more of a long shot. Match it to your premium range and how big a move you expect."}}, {"@type": "Question", "name": "Why does theta matter more on 0DTE?", "acceptedAnswer": {"@type": "Answer", "text": "Short-dated options have little time left, so time decay is a bigger share of their value each hour."}}, {"@type": "Question", "name": "Does A&amp;O pick the contract for me?", "acceptedAnswer": {"@type": "Answer", "text": "No. A&O shows which contracts line up with the rules you set and explains why. You decide what, if anything, to trade."}}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://tradewithao.com/"}, {"@type": "ListItem", "position": 2, "name": "Picking a strike", "item": "https://tradewithao.com/how-to-pick-an-options-strike.html"}]}</script>
+</head>
+<body class="learn-page">
+<main>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Alpha and Omega Analytics home"><img class="brand-logo" src="/ao-logo-wide.jpg" alt="Alpha &amp; Omega Analytics" width="1500" height="500"/></a>
+    <nav aria-label="Primary navigation">
+      <a href="/#workflow">How it works</a>
+      <a href="/ao-vs-paying-for-signals.html">AO vs signals</a>
+      <a href="/how-to-hunt-stocks-without-a-signal-discord.html">How to Hunt</a>
+      <a href="/how-to-read-spy-positive-vs-negative-gamma.html">How to read gamma</a>
+      <a href="/how-to-read-unusual-options-flow.html">How to read flow</a>
+      <a href="/#pricing">Pricing</a>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="theme-toggle" id="ao-theme-toggle" aria-label="Toggle light and dark mode">Light</button>
+      <a class="demo-login" href="https://dashboard.tradewithao.com/?aoScreen=morning#today" target="_blank" rel="noreferrer">Login</a>
+      <a class="header-cta" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <article class="learn-article">
+    <p class="section-kicker">Contracts</p>
+    <h1>How to pick an options strike <em>that fits your premium and risk</em></h1>
+    <p class="learn-lede">Two traders can like the same ticker and still need different contracts. The right strike depends on what you are willing to pay, how long you plan to hold, and how much you can lose. Here is how to think through it.</p>
+
+    <section>
+      <h2>In, at or out of the money</h2>
+      <ul class="learn-list"><li><strong>In the money (ITM).</strong> Costs more, moves more like the stock, and gives more cushion if price stalls.</li><li><strong>At the money (ATM).</strong> The balance point. Fast to react, and the most time value.</li><li><strong>Out of the money (OTM).</strong> Cheapest, but needs a bigger move to pay and loses value fastest if the move does not come.</li></ul>
+    </section>
+
+    <section>
+      <h2>The Greeks in plain words</h2>
+      <ul class="learn-list"><li><strong>Delta:</strong> about how much the option moves for each $1 the stock moves. A delta of 0.50 is roughly $50 per contract per $1.</li><li><strong>Gamma:</strong> how fast delta changes as the stock moves. High on short-dated contracts near the money.</li><li><strong>Theta:</strong> how much value the option loses per day from time alone, all else equal.</li><li><strong>Vega:</strong> how much the price changes for each 1 point change in implied volatility.</li><li><strong>IV (implied volatility):</strong> how much movement is priced in. High IV makes options expensive.</li></ul>
+    </section>
+
+    <section>
+      <h2>Contract quality</h2>
+      <ul class="learn-list"><li><strong>Bid/ask spread.</strong> A wide spread costs you on the way in and the way out.</li><li><strong>Open interest and volume.</strong> More contracts open and trading usually means easier fills.</li><li><strong>Where dealers sit.</strong> A call strike above the call wall needs price to push through a level where rallies often slow.</li></ul>
+    </section>
+
+    <section>
+      <h2>Match the contract to your plan</h2>
+      <ol class="learn-list"><li><strong>Premium range.</strong> Only look at contracts inside the price you are willing to pay.</li><li><strong>Timeline.</strong> 0DTE and 1DTE reward speed and punish waiting. Weeklies give a few days. Monthlies and LEAPS suit slower swings.</li><li><strong>Max loss.</strong> Size so the stop level fits the most you are willing to lose on one trade.</li><li><strong>Market conditions.</strong> In chop or high IV, a defined-risk spread can fit better than a single contract.</li></ol>
+    </section>
+
+    <section>
+      <h2>How the A&amp;O desk ranks contracts</h2>
+      <p>On each setup the desk shows three choices and explains how each one lines up: whether it fits your strike and premium rules, the bid/ask quality, open interest, IV, the Greeks, flow and dealer positioning. The model score measures how well a contract lines up with those checks. It is not a probability of profit, and it is not a recommendation.</p>
+    </section>
+
+    <section>
+      <h2>FAQ</h2>
+      <h3>Is a cheaper out of the money option better?</h3>
+      <p>Not by default. It costs less, but it needs a bigger move and loses value faster. Many traders pay more for an in the money contract to get more cushion.</p>
+      <h3>What delta should I pick?</h3>
+      <p>There is no single right delta. Higher delta moves more like the stock. Lower delta is cheaper and more of a long shot. Match it to your premium range and how big a move you expect.</p>
+      <h3>Why does theta matter more on 0DTE?</h3>
+      <p>Short-dated options have little time left, so time decay is a bigger share of their value each hour.</p>
+      <h3>Does A&amp;O pick the contract for me?</h3>
+      <p>No. A&amp;O shows which contracts line up with the rules you set and explains why. You decide what, if anything, to trade.</p>
+    </section>
+
+    <div class="learn-cta">
+      <a class="button button-primary" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
+      <a class="button button-secondary" href="https://dashboard.tradewithao.com/?aoScreen=morning#today" target="_blank" rel="noreferrer">Login</a>
+      <a class="button button-secondary" href="/">Home</a>
+    </div>
+    <p class="learn-foot">Educational analytics. Not financial advice. Options involve substantial risk and are not suitable for every investor. Past positioning does not guarantee future price.</p>
+  </article>
+</main>
+<footer>
+  <div class="brand footer-brand"><img class="brand-logo" src="/ao-logo-wide.jpg" alt="Alpha &amp; Omega Analytics" width="1500" height="500"/></div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/#workflow">How it works</a>
+    <a href="/ao-vs-paying-for-signals.html">AO vs signals</a>
+    <a href="/how-to-hunt-stocks-without-a-signal-discord.html">How to Hunt</a>
+    <a href="/how-to-read-spy-positive-vs-negative-gamma.html">How to read gamma</a>
+    <a href="/how-to-read-unusual-options-flow.html">How to read flow</a>
+    <a href="/how-to-read-call-and-put-walls.html">Call wall vs put wall</a>
+    <a href="/how-to-mark-spx-0dte-levels.html">SPX 0DTE levels</a>
+    <a href="/how-to-pick-an-options-strike.html">Picking a strike</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/risk.html">Risk disclosure</a>
+  </div>
+  <div class="social-links" aria-label="Alpha &amp; Omega Analytics social">
+    <a href="https://x.com/AO_Analytics" target="_blank" rel="noreferrer">X · @AO_Analytics <span aria-hidden="true">↗</span></a>
+    <a href="https://www.tiktok.com/@ao_analytics" target="_blank" rel="noreferrer">TikTok · @AO_Analytics <span aria-hidden="true">↗</span></a>
+    <a href="https://www.linkedin.com/company/alpha-omega-analytics-llc" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+  </div>
+  <p>Alpha &amp; Omega Analytics provides educational tools and market analysis. Nothing on this site is financial advice. Options involve substantial risk and are not suitable for every investor. Past positioning does not guarantee future price. Waiting is a read, not a miss.</p>
+  <small>© 2026 ALPHA &amp; OMEGA ANALYTICS. ALL RIGHTS RESERVED.</small>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById('ao-theme-toggle');
+  function current() {
+    return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  }
+  function apply(theme) {
+    root.setAttribute('data-theme', theme);
+    try { localStorage.setItem('ao-theme', theme); } catch (e) {}
+    if (btn) btn.textContent = theme === 'light' ? 'Dark' : 'Light';
+  }
+  apply(current());
+  if (btn) {
+    btn.addEventListener('click', function () {
+      apply(current() === 'light' ? 'dark' : 'light');
+    });
+  }
+})();
+</script>
+</body>
+</html>
