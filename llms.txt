@@ -16,6 +16,7 @@ A&O is for traders who are tired of signal rooms, cheap lottery-ticket calls and
 - Ask A&O and Connect to AI (beta): read-only access to the desk from Claude, ChatGPT or Cursor
 - Broker: read-only brokerage sync through SnapTrade. A&O never takes custody and never places orders.
 - Flow Tracker: big options prints marked against today's price from the side that traded
+- Member guide (PDF): https://tradewithao.com/guide/AO-Terminal-Member-Guide.pdf (how to use every screen in the terminal)
 - Public track record: https://tradewithao.com/record/ (paper picks recorded daily at 10:05 AM ET, winners and losers kept, nothing backfilled)
 
 ## Pricing
