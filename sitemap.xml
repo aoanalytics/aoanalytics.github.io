@@ -2,43 +2,69 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tradewithao.com/</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://tradewithao.com/watch/</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://tradewithao.com/ao-vs-paying-for-signals.html</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://tradewithao.com/how-to-hunt-stocks-without-a-signal-discord.html</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://tradewithao.com/how-to-read-spy-positive-vs-negative-gamma.html</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://tradewithao.com/how-to-read-unusual-options-flow.html</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://tradewithao.com/llms.txt</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://tradewithao.com/terms.html</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://tradewithao.com/privacy.html</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://tradewithao.com/risk.html</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
   </url>
-  <url><loc>https://tradewithao.com/record/</loc><changefreq>daily</changefreq></url>
+  <url><loc>https://tradewithao.com/record/</loc>
+    <lastmod>2026-10-10</lastmod><changefreq>daily</changefreq></url>
+  <url>
+    <loc>https://tradewithao.com/how-to-read-call-and-put-walls.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tradewithao.com/how-to-mark-spx-0dte-levels.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tradewithao.com/how-to-pick-an-options-strike.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
 </urlset>

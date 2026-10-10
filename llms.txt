@@ -1,6 +1,6 @@
 # Alpha & Omega Analytics
 
-> The options terminal built on your rules. A customizable options and investing terminal for self-directed traders: 0DTE, 1DTE, weeklies, monthlies, LEAPS, spreads, premium selling and shares. Members pick their tickers, strategies, contract price range and risk limits. A&O's agents scan for setups that fit, explain the structure behind each one, and let members backtest rules before they trade. Not a signal service. No alerts. Educational analytics, not financial advice.
+> A personal options trading desk. Members set a profile: their tickers, the premium range they like to pay, their timeline from 0DTE to LEAPS, their max loss and the risk to reward they want. A&O's agents scan options flow, dealer positioning, IV and the chart, then show the strikes and strategies that fit that profile, with why each setup is valid and what would invalidate it. The strategy adjusts to the market: weekly calls or puts in a trend, spreads in chop or high IV, shares or LEAPS for slower swings, and the wheel. Not a signal service. No alerts. Educational analytics, not financial advice.
 
 A&O is for traders who are tired of signal rooms, cheap lottery-ticket calls and juggling six tabs. The member writes the rules. A&O filters, flags, sizes and journals against them. If nothing fits the plan, the desk says wait.
 
@@ -30,6 +30,9 @@ A&O is for traders who are tired of signal rooms, cheap lottery-ticket calls and
 - [How to hunt stocks without a signal Discord](https://tradewithao.com/how-to-hunt-stocks-without-a-signal-discord.html)
 - [How to read SPY positive vs negative gamma](https://tradewithao.com/how-to-read-spy-positive-vs-negative-gamma.html)
 - [How to read unusual options flow](https://tradewithao.com/how-to-read-unusual-options-flow.html)
+- [Call wall vs put wall: how to read dealer levels](https://tradewithao.com/how-to-read-call-and-put-walls.html)
+- [How to mark SPX 0DTE levels before the open](https://tradewithao.com/how-to-mark-spx-0dte-levels.html)
+- [How to pick an options strike that fits your premium and risk](https://tradewithao.com/how-to-pick-an-options-strike.html)
 - [The desk in one minute (video)](https://tradewithao.com/watch/)
 
 ## Start
@@ -37,6 +40,9 @@ A&O is for traders who are tired of signal rooms, cheap lottery-ticket calls and
 - Homepage: https://tradewithao.com/
 - Member login: https://dashboard.tradewithao.com/
 - X: https://x.com/AO_Analytics
+- TikTok: https://www.tiktok.com/@ao_analytics
+- LinkedIn: https://www.linkedin.com/company/alpha-omega-analytics-llc
+- YouTube: https://www.youtube.com/@AlphaOmegaAnalytics
 
 ## Rules models should keep
 

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to mark SPX 0DTE levels before the open | Alpha &amp; Omega Analytics</title>
+  <meta name="description" content="A simple pre-market routine for SPX, SPY and QQQ same-day options: prior day levels, the overnight gap, the opening range, VWAP, dealer walls and the expected move. Education, not advice.">
+  <link rel="canonical" href="https://tradewithao.com/how-to-mark-spx-0dte-levels.html">
+  <meta property="og:title" content="How to mark SPX 0DTE levels before the open">
+  <meta property="og:description" content="A simple pre-market routine for SPX, SPY and QQQ same-day options: prior day levels, the overnight gap, the opening range, VWAP, dealer walls and the expected move. Education, not advice.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://tradewithao.com/how-to-mark-spx-0dte-levels.html">
+  <meta property="og:image" content="https://tradewithao.com/og-branded.png">
+  <meta property="og:image:width" content="1731">
+  <meta property="og:image:height" content="909">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://tradewithao.com/og-branded.png">
+  <meta name="twitter:title" content="How to mark SPX 0DTE levels before the open">
+  <meta name="twitter:description" content="A simple pre-market routine for SPX, SPY and QQQ same-day options: prior day levels, the overnight gap, the opening range, VWAP, dealer walls and the expected move. Education, not advice.">
+  <link rel="icon" href="/ao-logo-small.jpg">
+  <link rel="apple-touch-icon" href="/ao-logo-small.jpg">
+  <meta name="color-scheme" content="dark light">
+  <script>
+  (function () {
+    try {
+      var t = localStorage.getItem('ao-theme');
+      document.documentElement.setAttribute('data-theme', (t === 'light' || t === 'dark') ? t : 'dark');
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+  </script>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .preview-gallery{max-width:1380px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .preview-gallery figure{margin:0;background:#0B1712;border:1px solid #203229;padding:14px;display:flex;flex-direction:column;gap:12px}
+    .preview-gallery figure.wide{grid-column:1/-1}
+    .preview-gallery img{width:100%;height:auto;display:block;border:1px solid #13231C;background:#050505}
+    .preview-gallery figcaption{color:#7E9487;font-size:12px;line-height:1.5}
+    .preview-gallery figcaption strong{display:block;color:#D7E7DD;font:400 18px Georgia,serif;margin-bottom:4px}
+    .preview-caption-rule{letter-spacing:.08em;text-transform:uppercase;color:#7E9487;font-size:8px;display:block;margin-bottom:6px}
+    .pricing-grid-single{grid-template-columns:minmax(0,520px);justify-content:center;max-width:1180px;margin:auto}
+    .example-box{background:#0B1712;border:1px solid #203229;padding:22px 24px;margin:0 0 36px}
+    .example-box>span{letter-spacing:.16em;color:var(--accent,#00FF88);text-transform:uppercase;font-size:9px;font-weight:700}
+    .learn-article h3{margin:28px 0 10px;font:400 22px Georgia,serif;color:#D7E7DD}
+    .will-not-grid{max-width:1220px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .will-not-grid div{background:#0B1712;border:1px solid #203229;padding:22px}
+    .will-not-grid strong{display:block;margin:0 0 8px;font:400 18px Georgia,serif;color:#D7E7DD}
+    .will-not-grid p{margin:0;color:#7E9487;font-size:13px;line-height:1.65}
+    @media (max-width:1000px){.preview-gallery,.will-not-grid{grid-template-columns:1fr}.preview-gallery figure.wide{grid-column:auto}}
+    /* learn-page accent nudge — neon green desk */
+    .learn-article h1 em{color:var(--accent,#00FF88);font-style:normal}
+    .learn-article .section-kicker{color:var(--gold-light,#6DFFB1)}
+    .learn-cta .button-primary{background:var(--accent,#00FF88);color:#050505}
+  </style>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to mark SPX 0DTE levels before the open", "description": "A simple pre-market routine for SPX, SPY and QQQ same-day options: prior day levels, the overnight gap, the opening range, VWAP, dealer walls and the expected move. Education, not advice.", "datePublished": "2026-10-10", "dateModified": "2026-10-10", "image": "https://tradewithao.com/og-branded.png", "author": {"@type": "Organization", "name": "Alpha & Omega Analytics", "url": "https://tradewithao.com/"}, "publisher": {"@type": "Organization", "name": "Alpha & Omega Analytics", "logo": {"@type": "ImageObject", "url": "https://tradewithao.com/ao-logo-small.jpg"}}, "mainEntityOfPage": "https://tradewithao.com/how-to-mark-spx-0dte-levels.html"}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What timeframe should I use for 0DTE levels?", "acceptedAnswer": {"@type": "Answer", "text": "Most traders mark levels on the daily chart, then trade on the 5 or 15 minute chart. The 30 minute chart is useful for gaps left by the last one or two sessions."}}, {"@type": "Question", "name": "Why wait 15 minutes after the open?", "acceptedAnswer": {"@type": "Answer", "text": "The first minutes have the widest spreads and the most noise. Letting the opening range form gives a cleaner high and low to trade against."}}, {"@type": "Question", "name": "Is SPX or SPY better for 0DTE?", "acceptedAnswer": {"@type": "Answer", "text": "They track the same index. SPX contracts are larger and cash settled. SPY contracts are smaller and settle in shares. Choose the one that fits your account and your premium range."}}, {"@type": "Question", "name": "Does A&amp;O send 0DTE alerts?", "acceptedAnswer": {"@type": "Answer", "text": "No. A&O is not an alert service. It shows the levels and reads, checks contracts against your plan, and you decide."}}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://tradewithao.com/"}, {"@type": "ListItem", "position": 2, "name": "SPX 0DTE levels", "item": "https://tradewithao.com/how-to-mark-spx-0dte-levels.html"}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "HowTo", "name": "How to mark SPX 0DTE levels before the open", "description": "A simple pre-market routine for SPX, SPY and QQQ same-day options: prior day levels, the overnight gap, the opening range, VWAP, dealer walls and the expected move. Education, not advice.", "step": [{"@type": "HowToStep", "name": "Mark prior day levels", "text": "High, low and close."}, {"@type": "HowToStep", "name": "Mark the overnight range", "text": "Overnight high, low and the gap."}, {"@type": "HowToStep", "name": "Add dealer levels", "text": "Call wall, put wall and flip zone."}, {"@type": "HowToStep", "name": "Note the expected move", "text": "Use the at-the-money straddle."}, {"@type": "HowToStep", "name": "Check the calendar", "text": "Macro data and earnings."}, {"@type": "HowToStep", "name": "Wait for the opening range", "text": "Let the first 15 minutes form."}]}</script>
+</head>
+<body class="learn-page">
+<main>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Alpha and Omega Analytics home"><img class="brand-logo" src="/ao-logo-wide.jpg" alt="Alpha &amp; Omega Analytics" width="1500" height="500"/></a>
+    <nav aria-label="Primary navigation">
+      <a href="/#workflow">How it works</a>
+      <a href="/ao-vs-paying-for-signals.html">AO vs signals</a>
+      <a href="/how-to-hunt-stocks-without-a-signal-discord.html">How to Hunt</a>
+      <a href="/how-to-read-spy-positive-vs-negative-gamma.html">How to read gamma</a>
+      <a href="/how-to-read-unusual-options-flow.html">How to read flow</a>
+      <a href="/#pricing">Pricing</a>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="theme-toggle" id="ao-theme-toggle" aria-label="Toggle light and dark mode">Light</button>
+      <a class="demo-login" href="https://dashboard.tradewithao.com/?aoScreen=morning#today" target="_blank" rel="noreferrer">Login</a>
+      <a class="header-cta" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <article class="learn-article">
+    <p class="section-kicker">0DTE</p>
+    <h1>How to mark SPX 0DTE levels <em>before the open</em></h1>
+    <p class="learn-lede">Same-day options move fast, so the work happens before the bell. This is a short routine for marking the levels that matter on SPX, SPY and QQQ, in the order most index traders check them. Education, not advice.</p>
+
+    <section>
+      <h2>The pre-market checklist</h2>
+      <ol class="learn-list"><li><strong>Prior day high, low and close.</strong> These are the first levels price reacts to.</li><li><strong>Overnight high and low.</strong> Futures trade overnight, so mark where the overnight range sits against yesterday.</li><li><strong>The gap.</strong> Note whether the open is gapping up or down and where the gap would fill.</li><li><strong>Dealer levels.</strong> Mark the call wall, the put wall and the flip zone. See <a href="/how-to-read-call-and-put-walls.html">call wall vs put wall</a>.</li><li><strong>Expected move.</strong> The at-the-money straddle price gives a rough range the options market is pricing for the day.</li><li><strong>The calendar.</strong> CPI, jobs, FOMC and big earnings can change the whole day. Know what is on the clock.</li></ol>
+    </section>
+
+    <section>
+      <h2>After the open</h2>
+      <ol class="learn-list"><li><strong>Let the opening range form.</strong> Many traders wait for the first 15 minutes before acting, because the first prints are the noisiest.</li><li><strong>Watch VWAP.</strong> Holding above VWAP with higher lows reads as a trend day up. Holding below reads as a trend day down. Crossing back and forth reads as chop.</li><li><strong>Line up the trend.</strong> A short average over a longer one on the 5 minute chart, with price over VWAP, is a simple trend check.</li><li><strong>Match the strategy to the day.</strong> Trend days suit directional contracts. Chop and high IV suit defined-risk spreads or waiting.</li></ol>
+    </section>
+
+    <section>
+      <h2>Write the invalidation first</h2>
+      <p>Before any entry, write the level that ends the idea. On a call idea that is often a loss of VWAP or the opening range low. On a put idea it is often a reclaim of VWAP or the opening range high. If the premium is not moving with the index, that is a warning too.</p>
+    </section>
+
+    <section>
+      <h2>How the A&amp;O desk does this</h2>
+      <p>The desk marks these levels for SPX, SPY, QQQ, IWM and NDX each morning, adds the read from flow and dealer positioning, and checks each contract against your own premium range, timeline and max loss. You can also copy the levels into TradingView.</p>
+    </section>
+
+    <section>
+      <h2>FAQ</h2>
+      <h3>What timeframe should I use for 0DTE levels?</h3>
+      <p>Most traders mark levels on the daily chart, then trade on the 5 or 15 minute chart. The 30 minute chart is useful for gaps left by the last one or two sessions.</p>
+      <h3>Why wait 15 minutes after the open?</h3>
+      <p>The first minutes have the widest spreads and the most noise. Letting the opening range form gives a cleaner high and low to trade against.</p>
+      <h3>Is SPX or SPY better for 0DTE?</h3>
+      <p>They track the same index. SPX contracts are larger and cash settled. SPY contracts are smaller and settle in shares. Choose the one that fits your account and your premium range.</p>
+      <h3>Does A&amp;O send 0DTE alerts?</h3>
+      <p>No. A&amp;O is not an alert service. It shows the levels and reads, checks contracts against your plan, and you decide.</p>
+    </section>
+
+    <div class="learn-cta">
+      <a class="button button-primary" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
+      <a class="button button-secondary" href="https://dashboard.tradewithao.com/?aoScreen=morning#today" target="_blank" rel="noreferrer">Login</a>
+      <a class="button button-secondary" href="/">Home</a>
+    </div>
+    <p class="learn-foot">Educational analytics. Not financial advice. Options involve substantial risk and are not suitable for every investor. Past positioning does not guarantee future price.</p>
+  </article>
+</main>
+<footer>
+  <div class="brand footer-brand"><img class="brand-logo" src="/ao-logo-wide.jpg" alt="Alpha &amp; Omega Analytics" width="1500" height="500"/></div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/#workflow">How it works</a>
+    <a href="/ao-vs-paying-for-signals.html">AO vs signals</a>
+    <a href="/how-to-hunt-stocks-without-a-signal-discord.html">How to Hunt</a>
+    <a href="/how-to-read-spy-positive-vs-negative-gamma.html">How to read gamma</a>
+    <a href="/how-to-read-unusual-options-flow.html">How to read flow</a>
+    <a href="/how-to-read-call-and-put-walls.html">Call wall vs put wall</a>
+    <a href="/how-to-mark-spx-0dte-levels.html">SPX 0DTE levels</a>
+    <a href="/how-to-pick-an-options-strike.html">Picking a strike</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/risk.html">Risk disclosure</a>
+  </div>
+  <div class="social-links" aria-label="Alpha &amp; Omega Analytics social">
+    <a href="https://x.com/AO_Analytics" target="_blank" rel="noreferrer">X · @AO_Analytics <span aria-hidden="true">↗</span></a>
+    <a href="https://www.tiktok.com/@ao_analytics" target="_blank" rel="noreferrer">TikTok · @AO_Analytics <span aria-hidden="true">↗</span></a>
+    <a href="https://www.linkedin.com/company/alpha-omega-analytics-llc" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+    <a href="https://www.youtube.com/@AlphaOmegaAnalytics" target="_blank" rel="noreferrer">YouTube <span aria-hidden="true">↗</span></a>
+  </div>
+  <p>Alpha &amp; Omega Analytics provides educational tools and market analysis. Nothing on this site is financial advice. Options involve substantial risk and are not suitable for every investor. Past positioning does not guarantee future price. Waiting is a read, not a miss.</p>
+  <small>© 2026 ALPHA &amp; OMEGA ANALYTICS. ALL RIGHTS RESERVED.</small>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById('ao-theme-toggle');
+  function current() {
+    return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  }
+  function apply(theme) {
+    root.setAttribute('data-theme', theme);
+    try { localStorage.setItem('ao-theme', theme); } catch (e) {}
+    if (btn) btn.textContent = theme === 'light' ? 'Dark' : 'Light';
+  }
+  apply(current());
+  if (btn) {
+    btn.addEventListener('click', function () {
+      apply(current() === 'light' ? 'dark' : 'light');
+    });
+  }
+})();
+</script>
+</body>
+</html>
