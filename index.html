@@ -19,13 +19,20 @@
   <meta name="twitter:description" content="Your personal options desk: your tickers, premiums, timeline and risk. Agents pick the strikes and strategy that fit you, with why it works and what breaks it. Education, not advice.">
   <link rel="icon" href="/ao-logo-small.jpg">
   <link rel="apple-touch-icon" href="/ao-logo-small.jpg">
-  <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#07090d">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"The A&O desk in one minute","description":"A one-minute tour of the A&O Analytics trading terminal: write your plan, ask the desk, see setups as zones, backtest in Rule Lab, check how big flow did in the Flow Tracker, tag contracts in the community and follow the public track record. Education, not advice.","thumbnailUrl":"https://tradewithao.com/videos/ao-dashboard-demo-poster.jpg","uploadDate":"2026-10-04","duration":"PT1M3S","contentUrl":"https://tradewithao.com/videos/ao-dashboard-demo-1080p.mp4","embedUrl":"https://tradewithao.com/watch/"}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"A&O Trading Terminal","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"1","priceCurrency":"USD","description":"$1 for a 30-day trial, then $50/month"},"url":"https://tradewithao.com/"}</script>
+  <script>
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('ao-theme'); } catch (e) {}
+    document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+  })();
+  </script>
   <style>
     :root{
       --bg:#07090d;--bg2:#0a0e14;--panel:#0e131b;--panel2:#121925;--line:#1c2433;--line2:#263043;
@@ -221,7 +228,6 @@
     }
     @media (max-width:560px){
       .wrap{padding:0 16px}
-      .actions .btn-text{display:none}
       .stats{grid-template-columns:1fr}
       .stat .num{font-size:38px}
       .q,.a{max-width:100%}
@@ -235,6 +241,53 @@
       .caret,.demo-bar .live i{animation:none}
       .shot:after{display:none}
     }
+    /* Oct 11: light is the default theme; dark is one tap away. */
+    html[data-theme="light"]{
+      --bg:#ffffff;--bg2:#f6f8fa;--panel:#ffffff;--panel2:#f3f5f8;--line:#e6e9ef;--line2:#d5dbe4;
+      --text:#2a313c;--white:#0b0e13;--muted:#5a6474;--dim:#8a93a2;
+      --green:#00a656;--green2:#008f49;--greenSoft:rgba(0,166,86,.10);--red:#d1242f;--blue:#0969da;--gold:#9a6b00;--purple:#8250df;
+      color-scheme:light
+    }
+    html[data-theme="dark"]{color-scheme:dark}
+    html[data-theme="light"] .nav{background:rgba(255,255,255,.82);border-bottom-color:rgba(10,20,30,.08)}
+    html[data-theme="light"] .btn-light{background:#0b0e13;color:#fff}
+    html[data-theme="light"] .btn-light:hover{background:#000}
+    html[data-theme="light"] .btn-ghost{background:#fff}
+    html[data-theme="light"] .btn-ghost:hover{border-color:#9aa6b8}
+    html[data-theme="light"] .hero:before{background:radial-gradient(600px 300px at 50% 20%,rgba(0,166,86,.10),transparent 70%),radial-gradient(500px 260px at 80% 0%,rgba(9,105,218,.07),transparent 70%)}
+    html[data-theme="light"] .grid-bg{background-image:linear-gradient(rgba(10,20,30,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(10,20,30,.045) 1px,transparent 1px)}
+    html[data-theme="light"] .pill{background:#fff}
+    html[data-theme="light"] h1 .grad{background:linear-gradient(90deg,#0b0e13 0%,#0a8f4f 55%,var(--green) 100%);-webkit-background-clip:text;background-clip:text}
+    html[data-theme="light"] .demo{background:#fff;box-shadow:0 30px 80px rgba(16,24,40,.12),0 0 0 1px rgba(16,24,40,.03) inset}
+    html[data-theme="light"] .dots i{background:#d9dee6}
+    html[data-theme="light"] .demo-side span.on,html[data-theme="light"] .demo-tabs button.on{color:#fff}
+    html[data-theme="light"] .q{color:#fff}
+    html[data-theme="light"] .shot{box-shadow:0 24px 60px rgba(16,24,40,.12)}
+    html[data-theme="light"] .shot:after{background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%)}
+    html[data-theme="light"] .trust i{box-shadow:none}
+    html[data-theme="light"] .stat .num.red,html[data-theme="light"] .col.them h4,html[data-theme="light"] .col.them li:before{color:var(--red)}
+    html[data-theme="light"] .final{background:radial-gradient(600px 260px at 50% 30%,rgba(0,166,86,.08),transparent 70%)}
+    /* logo swaps with the theme */
+    .brand{display:inline-flex;align-items:center}
+    .brand .logo-ink,.brand .logo-mark{display:none}
+    html[data-theme="light"] .brand .logo-dark{display:none}
+    html[data-theme="light"] .brand .logo-ink{display:block;height:34px;width:auto}
+    /* sun / moon toggle */
+    .theme-btn{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--text);cursor:pointer;padding:0;flex:0 0 auto}
+    .theme-btn:hover{border-color:var(--muted);color:var(--white)}
+    .theme-btn svg{width:18px;height:18px}
+    .theme-btn .i-sun{display:none}
+    html[data-theme="dark"] .theme-btn .i-sun{display:block}
+    html[data-theme="dark"] .theme-btn .i-moon{display:none}
+    @media (max-width:560px){
+      .nav .wrap{gap:8px;height:60px}
+      .brand .logo-dark,.brand .logo-ink{display:none!important}
+      .brand .logo-mark{display:block;height:34px;width:34px;border-radius:9px}
+      html[data-theme="light"] .brand .logo-mark{content:url(/ao-logo-small-ink.png);border-radius:0;object-fit:contain}
+      .actions{gap:6px}
+      .actions .btn-text{display:inline-flex;padding:0 8px}
+      .theme-btn{width:34px;height:34px}
+    }
   </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Alpha & Omega Analytics", "url": "https://tradewithao.com/", "logo": "https://tradewithao.com/ao-logo-small.jpg", "sameAs": ["https://x.com/AO_Analytics", "https://www.tiktok.com/@ao_analytics", "https://www.linkedin.com/company/alpha-omega-analytics-llc","https://www.youtube.com/@AlphaOmegaAnalytics"]}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Alpha & Omega Analytics", "url": "https://tradewithao.com/"}</script>
@@ -244,7 +297,7 @@
 
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="/" aria-label="Alpha and Omega Analytics home"><img src="/ao-logo-wide.jpg" alt="Alpha &amp; Omega Analytics" width="1500" height="500"></a>
+    <a class="brand" href="/" aria-label="Alpha and Omega Analytics home"><img class="logo-dark" src="/ao-logo-wide.jpg" alt="Alpha &amp; Omega Analytics" width="1500" height="500"><img class="logo-ink" src="/ao-logo-wide-ink.png" alt="Alpha &amp; Omega Analytics" width="1092" height="163"><img class="logo-mark" src="/ao-logo-small.jpg" alt="Alpha &amp; Omega Analytics" width="400" height="400"></a>
     <nav class="links" aria-label="Primary">
       <a href="#how">How it works</a>
       <a href="#tour">Product</a>
@@ -254,6 +307,7 @@
       <a href="#faq">FAQ</a>
     </nav>
     <div class="actions">
+      <button type="button" class="theme-btn" data-theme-toggle aria-label="Switch to dark mode" title="Switch theme"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg></button>
       <a class="btn btn-text btn-sm" href="https://dashboard.tradewithao.com/" rel="noreferrer">Log in</a>
       <a class="btn btn-light btn-sm" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start for $1</a>
     </div>
@@ -637,6 +691,24 @@
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(function (en, obs) { if (en[0].isIntersecting) { start(); obs.disconnect(); } }, { threshold: 0.3 }).observe(demoEl);
   } else { start(); }
+})();
+</script>
+<script>
+(function () {
+  var root = document.documentElement;
+  function sync() {
+    var dark = root.getAttribute('data-theme') === 'dark';
+    document.querySelectorAll('[data-theme-toggle]').forEach(function (b) { b.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode'); });
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-theme-toggle]');
+    if (!b) return;
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('ao-theme', next); } catch (err) {}
+    sync();
+  });
+  sync();
 })();
 </script>
 </body>
