@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,9 +19,9 @@
   (function () {
     try {
       var t = localStorage.getItem('ao-theme');
-      document.documentElement.setAttribute('data-theme', (t === 'light' || t === 'dark') ? t : 'dark');
+      document.documentElement.setAttribute('data-theme', 'light');
     } catch (e) {
-      document.documentElement.setAttribute('data-theme', 'dark');
+      document.documentElement.setAttribute('data-theme', 'light');
     }
   })();
   </script>
@@ -46,7 +46,7 @@
       <a href="/#pricing">Pricing</a>
     </nav>
     <div class="header-actions">
-      <button type="button" class="theme-toggle" id="ao-theme-toggle" aria-label="Toggle light and dark mode">Light</button>
+      <button type="button" class="theme-toggle" id="ao-theme-toggle" aria-label="Toggle light and dark mode"><svg class="i-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg></button>
       <a class="demo-login" href="https://dashboard.tradewithao.com/?aoScreen=morning#today" target="_blank" rel="noreferrer">Login</a>
       <a class="header-cta" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start $1 desk trial <span aria-hidden="true">↗</span></a>
     </div>
@@ -109,12 +109,12 @@
   var root = document.documentElement;
   var btn = document.getElementById('ao-theme-toggle');
   function current() {
-    return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
   }
   function apply(theme) {
     root.setAttribute('data-theme', theme);
     try { localStorage.setItem('ao-theme', theme); } catch (e) {}
-    if (btn) btn.textContent = theme === 'light' ? 'Dark' : 'Light';
+    if (btn) btn.setAttribute('aria-label', theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
   }
   apply(current());
   if (btn) {
