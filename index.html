@@ -19,20 +19,14 @@
   <meta name="twitter:description" content="Your personal options desk: your tickers, premiums, timeline and risk. Agents pick the strikes and strategy that fit you, with why it works and what breaks it. Education, not advice.">
   <link rel="icon" href="/ao-logo-small.jpg">
   <link rel="apple-touch-icon" href="/ao-logo-small.jpg">
-  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#ffffff">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"A&O Trading Desk demo","description":"No signals. A 90-second tour of the A&O trading desk: your plan, the Dashboard, any ticker with levels and ranked strikes, Greeks in plain words, Rule Lab and Alfred.","thumbnailUrl":"https://tradewithao.com/videos/ao-demo-poster.jpg","uploadDate":"2026-10-12","duration":"PT1M33S","contentUrl":"https://tradewithao.com/videos/ao-demo.mp4","embedUrl":"https://tradewithao.com/watch/"}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"A&O Trading Terminal","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"1","priceCurrency":"USD","description":"$1 for a 30-day trial, then $50/month"},"url":"https://tradewithao.com/"}</script>
-  <script>
-  (function () {
-    var t = null;
-    try { t = localStorage.getItem('ao-theme'); } catch (e) {}
-    document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
-  })();
-  </script>
+  <script>document.documentElement.setAttribute('data-theme','light');try{localStorage.removeItem('ao-theme')}catch(e){}</script>
   <style>
     :root{
       --bg:#07090d;--bg2:#0a0e14;--panel:#0e131b;--panel2:#121925;--line:#1c2433;--line2:#263043;
@@ -358,7 +352,6 @@
       <a href="#faq">FAQ</a>
     </nav>
     <div class="actions">
-      <button type="button" class="theme-btn" data-theme-toggle aria-label="Switch to dark mode" title="Switch theme"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg></button>
       <a class="btn btn-text btn-sm" href="https://dashboard.tradewithao.com/" rel="noreferrer">Log in</a>
       <a class="btn btn-light btn-sm" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start for $1</a>
     </div>
@@ -827,24 +820,6 @@
   tabs.forEach(function (b) { b.addEventListener("click", function () { var i = Number(b.getAttribute("data-vid")); if (i !== cur) load(i, false); }); });
   root.querySelector("[data-player-play]").addEventListener("click", play);
   video.addEventListener("ended", function () { frame.classList.remove("playing"); video.removeAttribute("controls"); });
-})();
-</script>
-<script>
-(function () {
-  var root = document.documentElement;
-  function sync() {
-    var dark = root.getAttribute('data-theme') === 'dark';
-    document.querySelectorAll('[data-theme-toggle]').forEach(function (b) { b.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode'); });
-  }
-  document.addEventListener('click', function (e) {
-    var b = e.target.closest && e.target.closest('[data-theme-toggle]');
-    if (!b) return;
-    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    try { localStorage.setItem('ao-theme', next); } catch (err) {}
-    sync();
-  });
-  sync();
 })();
 </script>
 </body>

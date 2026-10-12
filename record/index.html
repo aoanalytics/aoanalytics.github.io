@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <script>(function(){var t=null;try{t=localStorage.getItem('ao-theme')}catch(e){}document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light')})();</script>
+  <script>document.documentElement.setAttribute('data-theme','light');</script>
   <style>
     :root{--bg:#07090d;--bg2:#0a0e14;--panel:#0e131b;--panel2:#121925;--line:#1c2433;--line2:#263043;--text:#c9d1d9;--white:#f2f5f8;--muted:#8b96a8;--dim:#5d687a;--green:#00d26a;--green2:#3ce68d;--greenSoft:rgba(0,210,106,.12);--red:#ff7b72;--gold:#e3b341}
     *{box-sizing:border-box}
@@ -67,7 +67,7 @@
 <div class="nav"><div class="wrap">
   <a class="brand" href="/" aria-label="Alpha and Omega Analytics home"><img class="logo-dark" src="/ao-logo-wide.jpg" alt="Alpha &amp; Omega Analytics" width="1500" height="500"><img class="logo-ink" src="/ao-logo-wide-ink.png" alt="Alpha &amp; Omega Analytics" width="1092" height="163"><img class="logo-mark" src="/ao-logo-small.jpg" alt="Alpha &amp; Omega Analytics" width="400" height="400"></a>
   <nav class="links" aria-label="Primary"><a href="/#how">How it works</a><a href="/#tour">Product</a><a href="/record/" class="on">Track record</a><a href="/#pricing">Pricing</a><a href="/#faq">FAQ</a></nav>
-  <div class="actions"><button type="button" class="theme-btn" data-theme-toggle aria-label="Switch to dark mode"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg></button><a class="btn btn-text" href="https://dashboard.tradewithao.com/">Log in</a><a class="btn btn-light" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start for $1</a></div>
+  <div class="actions"><a class="btn btn-text" href="https://dashboard.tradewithao.com/">Log in</a><a class="btn btn-light" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start for $1</a></div>
 </div></div>
 
 <header class="hero"><div class="wrap">
@@ -131,6 +131,6 @@
   });
 })();
 </script>
-<script>document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-theme-toggle]');if(!b)return;var r=document.documentElement,n=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('ao-theme',n)}catch(err){}b.setAttribute('aria-label',n==='dark'?'Switch to light mode':'Switch to dark mode')});</script>
+
 </body>
 </html>
