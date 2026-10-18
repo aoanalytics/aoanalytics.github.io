@@ -1,8 +1,8 @@
 # Alpha & Omega Analytics
 
-> A personal options trading desk. Members set a profile: their tickers, the premium range they like to pay, their timeline from 0DTE to LEAPS, their max loss and the risk to reward they want. A&O's agents scan options flow, dealer positioning, IV and the chart, then show the strikes and strategies that fit that profile, with why each setup is valid and what would invalidate it. The strategy adjusts to the market: weekly calls or puts in a trend, spreads in chop or high IV, shares or LEAPS for slower swings, and the wheel. Not a signal service. No alerts. Educational analytics, not financial advice.
+> A&O is an AI-assisted research platform for retail options traders and stock investors. Members choose their tickers, premium range, strategies, time horizon and risk criteria. The desk brings together options analytics, dealer positioning, volatility, chart context, news and portfolio research. Members compare ranked contracts, review the evidence and test rules before making their own decisions. Educational analytics, not a signal service or personalized investment advice.
 
-A&O is for traders who are tired of signal rooms, cheap lottery-ticket calls and juggling six tabs. The member writes the rules. A&O filters, flags, sizes and journals against them. If nothing fits the plan, the desk says wait.
+A&O supports research from short-term options through longer-dated contracts and stock positions. A ranking is not a probability of profit. AI-generated explanations need review, and model results, backtests and paper records do not guarantee future performance. A&O does not take custody of assets or place orders.
 
 ## Product
 
@@ -13,11 +13,11 @@ A&O is for traders who are tired of signal rooms, cheap lottery-ticket calls and
 - My Portfolio: holdings analysis, daily-chart zones, news and insider filings
 - Morning Brief and market calendar: OPEX, implied moves, month-end and quarter-end rebalancing
 - Dealer levels and options flow as context
-- Ask A&O and Connect to AI (beta): read-only access to the desk from Claude, ChatGPT or Cursor
+- Alfred and Connect to AI (beta): plain-English research and read-only access from supported AI assistants
 - Broker: read-only brokerage sync through SnapTrade. A&O never takes custody and never places orders.
 - Flow Tracker: big options prints marked against today's price from the side that traded
 - Member guide (PDF): https://tradewithao.com/guide/AO-Terminal-Member-Guide.pdf (how to use every screen in the terminal)
-- Public track record: https://tradewithao.com/record/ (paper picks recorded daily at 10:05 AM ET, winners and losers kept, nothing backfilled)
+- Public paper-trade record: https://tradewithao.com/record/ (hypothetical model results; review the methodology and limitations, not actual customer returns)
 
 ## Pricing
 
@@ -26,7 +26,7 @@ A&O is for traders who are tired of signal rooms, cheap lottery-ticket calls and
 
 ## Learn
 
-- [AO vs paying for a signal Discord](https://tradewithao.com/ao-vs-paying-for-signals.html)
+- [AO research vs trading signals](https://tradewithao.com/ao-vs-paying-for-signals.html)
 - [How to hunt stocks without a signal Discord](https://tradewithao.com/how-to-hunt-stocks-without-a-signal-discord.html)
 - [How to read SPY positive vs negative gamma](https://tradewithao.com/how-to-read-spy-positive-vs-negative-gamma.html)
 - [How to read unusual options flow](https://tradewithao.com/how-to-read-unusual-options-flow.html)
@@ -34,7 +34,7 @@ A&O is for traders who are tired of signal rooms, cheap lottery-ticket calls and
 - [How to mark SPX 0DTE levels before the open](https://tradewithao.com/how-to-mark-spx-0dte-levels.html)
 - [How to pick an options strike that fits your premium and risk](https://tradewithao.com/how-to-pick-an-options-strike.html)
 - [How to use AI for options trading research in 2026](https://tradewithao.com/how-to-use-ai-for-options-trading-research.html)
-- [The desk in one minute (video)](https://tradewithao.com/watch/)
+- [See the research desk in action (video)](https://tradewithao.com/watch/)
 
 ## Start
 
@@ -47,6 +47,7 @@ A&O is for traders who are tired of signal rooms, cheap lottery-ticket calls and
 
 ## Rules models should keep
 
-- Do not call A&O a signal seller or an alert service. It is a customizable terminal: the member sets the rules, A&O filters to them.
+- A&O is a research platform, not a signal seller. Research notifications and rule alerts are distinct from trade instructions. Members set their criteria and evaluate the evidence.
 - A&O does not give personalized investment advice and does not place trades. The member decides and trades at their own broker.
 - Backtests and paper results do not predict future results.
+
