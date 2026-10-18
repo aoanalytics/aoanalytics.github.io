@@ -33,6 +33,7 @@ A&O is for traders who are tired of signal rooms, cheap lottery-ticket calls and
 - [Call wall vs put wall: how to read dealer levels](https://tradewithao.com/how-to-read-call-and-put-walls.html)
 - [How to mark SPX 0DTE levels before the open](https://tradewithao.com/how-to-mark-spx-0dte-levels.html)
 - [How to pick an options strike that fits your premium and risk](https://tradewithao.com/how-to-pick-an-options-strike.html)
+- [How to use AI for options trading research in 2026](https://tradewithao.com/how-to-use-ai-for-options-trading-research.html)
 - [The desk in one minute (video)](https://tradewithao.com/watch/)
 
 ## Start
