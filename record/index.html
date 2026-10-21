@@ -100,6 +100,7 @@
     <div class="scroll" id="sigList"></div>
     <p class="rules" id="sigNote"></p>
   </section>
+  <section class="card" id="corrCard" hidden><h2>Corrections</h2><div id="corrList"></div></section>
   <p class="rules" id="rules"></p>
   <p class="rules" id="disc"></p>
 </main>
@@ -168,6 +169,11 @@
         }).join("") + "</tbody></table>"
       : '<div class="empty">No picks yet. The first ones are recorded at 10:05 AM ET on the next trading day.</div>';
     document.getElementById("rules").textContent = d.rules || "";
+    // Oct 21: published corrections, dated.
+    if (d.corrections && d.corrections.length) {
+      document.getElementById("corrCard").hidden = false;
+      document.getElementById("corrList").innerHTML = d.corrections.map(function (c) { return '<p class="rules"><b>' + esc(c.day) + " · " + esc(c.title) + ".</b> " + esc(c.text) + "</p>"; }).join("");
+    }
     document.getElementById("disc").textContent = d.disclaimer || "";
   }
   function renderSignals(d) {
