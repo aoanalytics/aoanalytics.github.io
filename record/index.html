@@ -156,9 +156,9 @@
     var pf = d.portfolio;
     if (pf && pf.trades) {
       document.getElementById("sigPortH").hidden = false;
-      document.getElementById("sigPortRule").textContent = pf.rule || "";
+      document.getElementById("sigPortRule").textContent = (pf.rule || "") + (pf.skippedForCap ? " " + pf.skippedForCap + " later signals were past the day's cap and not taken." : "");
       document.getElementById("sigPort").innerHTML =
-        '<div class="stat"><em>Balance</em><b class="' + cls(pf.pnl) + '">' + usd(pf.balance) + "</b><small>from " + usd(pf.start) + "</small></div>" +
+        '<div class="stat"><em>Balance</em><b class="' + cls(pf.pnl) + '">' + "$" + Math.round(pf.balance).toLocaleString("en-US") + "</b><small>from $" + Math.round(pf.start).toLocaleString("en-US") + "</small></div>" +
         '<div class="stat"><em>Profit</em><b class="' + cls(pf.pnl) + '">' + usd(pf.pnl) + "</b><small>" + pct(pf.returnPct) + "</small></div>" +
         '<div class="stat"><em>Positions</em><b>' + esc(pf.trades) + "</b><small>" + esc(pf.wins) + " up \u00b7 " + esc(pf.losses) + " down" + (pf.openSignals ? " \u00b7 " + esc(pf.openSignals) + " open" : "") + "</small></div>" +
         '<div class="stat"><em>Worst drawdown</em><b>' + (pf.maxDrawdownPct == null ? "\u2014" : "\u2212" + esc(pf.maxDrawdownPct) + "%") + "</b><small>peak to trough</small></div>";
