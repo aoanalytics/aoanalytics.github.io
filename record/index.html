@@ -154,7 +154,9 @@
       '<div class="stat"><em>Picks recorded</em><b>' + esc(ov.picks || 0) + "</b><small>" + esc(ov.open || 0) + " open</small></div>" +
       '<div class="stat"><em>Closed</em><b>' + esc(ov.closed || 0) + "</b><small>" + esc(ov.wins || 0) + " up · " + esc(ov.losses || 0) + " down</small></div>" +
       '<div class="stat"><em>Win rate</em><b>' + (ov.winRate == null ? "—" : esc(ov.winRate) + "%") + "</b><small>closed picks</small></div>" +
-      '<div class="stat"><em>Average result</em><b class="' + cls(ov.avgResultPct) + '">' + pct(ov.avgResultPct) + '</b><small class="' + cls(ov.totalPerContract) + '">' + usd(ov.totalPerContract) + " per contract, total</small></div>";
+      '<div class="stat"><em>Average result</em><b class="' + cls(ov.avgResultPct) + '">' + pct(ov.avgResultPct) + '</b><small class="' + cls(ov.totalPerContract) + '">' + usd(ov.totalPerContract) + " per contract, total</small></div>" +
+      // Oct 21: the same trades after the bid/ask spread and fees (estimated where no quote was saved).
+      (d.costs && d.costs.closed ? '<div class="stat"><em>After spread &amp; fees</em><b class="' + cls(d.costs.avgResultPct) + '">' + pct(d.costs.avgResultPct) + "</b><small>average per trade · spreads estimated for " + esc(d.costs.estimated) + " of " + esc(d.costs.closed) + "</small></div>" : "");
     document.getElementById("byH").innerHTML = "<table><thead><tr><th>Strategy</th><th>Picks</th><th>Closed</th><th>Win rate</th><th>Average</th><th>Per contract</th></tr></thead><tbody>" +
       HZ.map(function (h) { var s = (d.byHorizon || {})[h] || {}; return "<tr><td><b>" + h + "</b></td><td>" + esc(s.picks || 0) + "</td><td>" + esc(s.closed || 0) + "</td><td>" + (s.winRate == null ? "—" : esc(s.winRate) + "%") + '</td><td class="' + cls(s.avgResultPct) + '">' + pct(s.avgResultPct) + '</td><td class="' + cls(s.totalPerContract) + '">' + usd(s.totalPerContract) + "</td></tr>"; }).join("") + "</tbody></table>";
     var t = d.trades || [];
@@ -216,8 +218,8 @@
             : x.outcome === "failed" ? '<span class="down">' + (/invalidated/i.test(reason) ? "read flipped" : "stopped") + "</span>"
             : x.outcome === "chop" ? "flat at close" : "open";
           var shown = exitPct(x);
-          return "<tr><td>" + esc(x.day) + "</td><td>" + esc(when(x.at)) + "</td><td><b>" + esc(x.ticker) + "</b><small>" +
-            (x.score === 5 ? "5/5 breakout" : "1/5 breakdown") + "</small></td><td>" + esc(x.contract || "\u2014") + "</td><td>" +
+          return "<tr><td>" + esc(x.day) + "</td><td>" + esc(when(x.at)) + (x.outcomeAt ? "<small>out " + esc(when(x.outcomeAt)) + "</small>" : "") + "</td><td><b>" + esc(x.ticker) + "</b><small>" +
+            (x.score === 5 ? "5/5 breakout" : "1/5 breakdown") + (x.pHit != null ? " · hit chance " + Math.round(x.pHit * 100) + "%" : "") + "</small></td><td>" + esc(x.contract || "\u2014") + "</td><td>" +
             px(x.entry) + '</td><td class="' + cls(shown) + '" title="' + esc(reason) + '">' + (x.graded ? pct(shown) + (x.outcome ? "" : " <small>now</small>") : "\u2014") + "</td><td>" +
             (x.graded ? mark : '<span title="' + esc(x.withheldReason || "") + '">not graded</span>') + "</td></tr>";
         }).join("");
