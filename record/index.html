@@ -81,6 +81,18 @@
   <section class="stats" id="stats" aria-live="polite"></section>
   <section class="card"><h2>By strategy</h2><div class="scroll" id="byH"></div></section>
   <section class="card"><h2>Every pick</h2><div class="scroll" id="list"></div></section>
+  <!-- Oct 20: Omega records once, at 10:05 AM ET. The engine fires the moment a read hits
+       5/5 or 1/5, and those are usually gone again within minutes, so the two records show
+       different days. Both are real; they are published apart rather than averaged. -->
+  <section class="card" id="sigCard" hidden><h2>Engine signals</h2>
+    <p class="rules" id="sigRule"></p>
+    <section class="stats" id="sigStats" aria-live="polite"></section>
+    <h3 id="sigPortH" hidden>$10,000 model portfolio</h3>
+    <p class="rules" id="sigPortRule"></p>
+    <section class="stats" id="sigPort" aria-live="polite"></section>
+    <div class="scroll" id="sigList"></div>
+    <p class="rules" id="sigNote"></p>
+  </section>
   <p class="rules" id="rules"></p>
   <p class="rules" id="disc"></p>
 </main>
@@ -93,6 +105,7 @@
 <script>
 (function () {
   var API = "https://dashboard.tradewithao.com/api/public/track-record";
+  var SIGNAL_API = "https://dashboard.tradewithao.com/api/public/signal-record?days=10";
   var HZ = ["0DTE", "1DTE", "Weekly", "Monthly", "LEAPS"];
   function esc(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function n(v) { var x = Number(v); return v !== null && v !== undefined && v !== "" && isFinite(x) ? x : null; }
@@ -124,6 +137,49 @@
     document.getElementById("rules").textContent = d.rules || "";
     document.getElementById("disc").textContent = d.disclaimer || "";
   }
+  function renderSignals(d) {
+    var st = d.stats || {}, sessions = d.sessions || [];
+    if (!sessions.length) return;
+    document.getElementById("sigCard").hidden = false;
+    document.getElementById("sigRule").textContent = d.rule || "";
+    document.getElementById("sigStats").innerHTML =
+      '<div class="stat"><em>Signals fired</em><b>' + esc(st.signals || 0) + "</b><small>" + esc(st.open || 0) + " still open</small></div>" +
+      '<div class="stat"><em>Closed</em><b>' + esc(st.closed || 0) + "</b><small>" + esc(st.hits || 0) + " hit \u00b7 " + esc(st.misses || 0) + " failed</small></div>" +
+      '<div class="stat"><em>Hit rate</em><b>' + (st.hitRate == null ? "\u2014" : esc(st.hitRate) + "%") + "</b><small>" + (st.hitRate == null ? "shown from 5 closed" : "closed signals") + "</small></div>" +
+      '<div class="stat"><em>Average result</em><b class="' + cls(st.avgResultPct) + '">' + pct(st.avgResultPct) + "</b><small>per closed signal</small></div>" +
+      (st.withheld ? '<div class="stat"><em>Not counted</em><b>' + esc(st.withheld) + "</b><small>measured against another contract</small></div>" : "");
+    function when(iso) {
+      var t = Date.parse(iso); if (!isFinite(t)) return "";
+      try { return new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit", hour12: false }).format(new Date(t)); }
+      catch (e) { return String(iso).slice(11, 16); }
+    }
+    var pf = d.portfolio;
+    if (pf && pf.trades) {
+      document.getElementById("sigPortH").hidden = false;
+      document.getElementById("sigPortRule").textContent = pf.rule || "";
+      document.getElementById("sigPort").innerHTML =
+        '<div class="stat"><em>Balance</em><b class="' + cls(pf.pnl) + '">' + usd(pf.balance) + "</b><small>from " + usd(pf.start) + "</small></div>" +
+        '<div class="stat"><em>Profit</em><b class="' + cls(pf.pnl) + '">' + usd(pf.pnl) + "</b><small>" + pct(pf.returnPct) + "</small></div>" +
+        '<div class="stat"><em>Positions</em><b>' + esc(pf.trades) + "</b><small>" + esc(pf.wins) + " up \u00b7 " + esc(pf.losses) + " down" + (pf.openSignals ? " \u00b7 " + esc(pf.openSignals) + " open" : "") + "</small></div>" +
+        '<div class="stat"><em>Worst drawdown</em><b>' + (pf.maxDrawdownPct == null ? "\u2014" : "\u2212" + esc(pf.maxDrawdownPct) + "%") + "</b><small>peak to trough</small></div>";
+    }
+    document.getElementById("sigList").innerHTML =
+      "<table><thead><tr><th>Day</th><th>ET</th><th>Signal</th><th>Contract</th><th>Entry</th><th>Result</th><th></th></tr></thead><tbody>" +
+      sessions.map(function (s2) {
+        return (s2.signals || []).map(function (x) {
+          var mark = x.outcome === "hit" ? '<span class="up">hit</span>'
+            : x.outcome === "failed" ? '<span class="down">failed</span>' : "open";
+          return "<tr><td>" + esc(x.day) + "</td><td>" + esc(when(x.at)) + "</td><td><b>" + esc(x.ticker) + "</b><small>" +
+            (x.score === 5 ? "5/5 breakout" : "1/5 breakdown") + "</small></td><td>" + esc(x.contract || "\u2014") + "</td><td>" +
+            px(x.entry) + '</td><td class="' + cls(x.resultPct) + '">' + (x.graded ? pct(x.resultPct) : "\u2014") + "</td><td>" +
+            (x.graded ? mark : '<span title="' + esc(x.withheldReason || "") + '">not graded</span>') + "</td></tr>";
+        }).join("");
+      }).join("") + "</tbody></table>";
+    document.getElementById("sigNote").textContent =
+      "Rows marked \u201Cnot graded\u201D were measured against a different contract on the same ticker and are left out of every number in this section. They are listed rather than hidden. Paper results, hypothetical, no fills, fees or slippage. Education only, not financial advice.";
+  }
+  fetch(SIGNAL_API, { cache: "no-store" }).then(function (r) { return r.json(); })
+    .then(function (d) { if (d && d.ok) renderSignals(d); }).catch(function () {});
   fetch(API, { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (d) {
     if (d && d.ok) render(d); else throw new Error("bad");
   }).catch(function () {
