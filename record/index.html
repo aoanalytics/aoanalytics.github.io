@@ -140,6 +140,19 @@
   function renderSignals(d) {
     var st = d.stats || {}, sessions = d.sessions || [];
     if (!sessions.length) return;
+    // Graded exit, not the latest mark: +30% target, -30% stop, or the mark when the read flipped (never a gain).
+    function exitPct(x) {
+      var r = String(x.outcomeReason || "");
+      if (x.outcome === "hit" && /\+30%/.test(r)) return 30;
+      if (x.outcome === "failed" && /-30%/.test(r)) return -30;
+      if (x.outcome === "failed") return x.resultPct == null ? null : Math.min(x.resultPct, 0);
+      return x.resultPct;
+    }
+    var closedEx = [];
+    sessions.forEach(function (s2) { (s2.signals || []).forEach(function (x) {
+      if (x.graded && (x.outcome === "hit" || x.outcome === "failed")) { var e = exitPct(x); if (e != null) closedEx.push(e); }
+    }); });
+    if (closedEx.length) st.avgResultPct = Math.round(closedEx.reduce(function (a, b) { return a + b; }, 0) / closedEx.length * 10) / 10;
     document.getElementById("sigCard").hidden = false;
     document.getElementById("sigRule").textContent = d.rule || "";
     document.getElementById("sigStats").innerHTML =
@@ -167,11 +180,14 @@
       "<table><thead><tr><th>Day</th><th>ET</th><th>Signal</th><th>Contract</th><th>Entry</th><th>Result</th><th></th></tr></thead><tbody>" +
       sessions.map(function (s2) {
         return (s2.signals || []).map(function (x) {
+          var reason = String(x.outcomeReason || "");
           var mark = x.outcome === "hit" ? '<span class="up">hit</span>'
-            : x.outcome === "failed" ? '<span class="down">failed</span>' : "open";
+            : x.outcome === "failed" ? '<span class="down">' + (/invalidated/i.test(reason) ? "read flipped" : "stopped") + "</span>"
+            : x.outcome === "chop" ? "flat at close" : "open";
+          var shown = exitPct(x);
           return "<tr><td>" + esc(x.day) + "</td><td>" + esc(when(x.at)) + "</td><td><b>" + esc(x.ticker) + "</b><small>" +
             (x.score === 5 ? "5/5 breakout" : "1/5 breakdown") + "</small></td><td>" + esc(x.contract || "\u2014") + "</td><td>" +
-            px(x.entry) + '</td><td class="' + cls(x.resultPct) + '">' + (x.graded ? pct(x.resultPct) : "\u2014") + "</td><td>" +
+            px(x.entry) + '</td><td class="' + cls(shown) + '" title="' + esc(reason) + '">' + (x.graded ? pct(shown) + (x.outcome ? "" : " <small>now</small>") : "\u2014") + "</td><td>" +
             (x.graded ? mark : '<span title="' + esc(x.withheldReason || "") + '">not graded</span>') + "</td></tr>";
         }).join("");
       }).join("") + "</tbody></table>";
