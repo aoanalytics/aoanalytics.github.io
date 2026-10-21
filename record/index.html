@@ -81,6 +81,13 @@
   <section class="stats" id="stats" aria-live="polite"></section>
   <section class="card"><h2>By strategy</h2><div class="scroll" id="byH"></div></section>
   <section class="card"><h2>Every pick</h2><div class="scroll" id="list"></div></section>
+  <!-- Oct 21: Omega's signal lane, in shadow: shown here, kept out of every number above. -->
+  <section class="card" id="laneCard" hidden><h2>Omega signal lane <small>(shadow, not counted above)</small></h2>
+    <p class="rules" id="laneRule"></p>
+    <section class="stats" id="laneStats" aria-live="polite"></section>
+    <div class="scroll" id="laneList"></div>
+    <div class="scroll" id="laneSkip"></div>
+  </section>
   <!-- Oct 20: Omega records once, at 10:05 AM ET. The engine fires the moment a read hits
        5/5 or 1/5, and those are usually gone again within minutes, so the two records show
        different days. Both are real; they are published apart rather than averaged. -->
@@ -114,7 +121,31 @@
   function px(v) { var x = n(v); return x === null ? "—" : "$" + x.toFixed(2); }
   function cls(v) { var x = n(v); return !x ? "" : x > 0 ? "up" : "down"; }
   function day(iso) { var t = Date.parse(iso); if (!isFinite(t)) return ""; try { return new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", year: "numeric" }).format(new Date(t)); } catch (e) { return String(iso).slice(0, 10); } }
+  function renderLane(L) {
+    if (!L) return;
+    var st = L.stats || {}, tr = L.trades || [], sk = L.skipped || [];
+    document.getElementById("laneCard").hidden = false;
+    document.getElementById("laneRule").textContent = L.rule || "";
+    document.getElementById("laneStats").innerHTML =
+      '<div class="stat"><em>Taken</em><b>' + esc(st.picks || 0) + "</b><small>" + esc(st.open || 0) + " open</small></div>" +
+      '<div class="stat"><em>Win rate</em><b>' + (st.winRate == null ? "\u2014" : esc(st.winRate) + "%") + "</b><small>closed</small></div>" +
+      '<div class="stat"><em>Average result</em><b class="' + cls(st.avgResultPct) + '">' + pct(st.avgResultPct) + "</b><small>per closed trade</small></div>" +
+      '<div class="stat"><em>Passed on</em><b>' + esc(sk.length) + "</b><small>signals it chose not to take</small></div>";
+    function t(iso) { var x = Date.parse(iso); if (!isFinite(x)) return ""; try { return new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit", hour12: false }).format(new Date(x)); } catch (e) { return ""; } }
+    document.getElementById("laneList").innerHTML = tr.length ?
+      "<table><thead><tr><th>Day</th><th>Fired</th><th>Pick</th><th>Entry</th><th>Result</th><th>Why it closed</th></tr></thead><tbody>" +
+      tr.map(function (x) {
+        var res = x.status === "closed" ? pct(x.resultPct) : (x.changePct == null ? "open" : pct(x.changePct) + " <small>now</small>");
+        return "<tr><td>" + esc(x.day) + "</td><td>" + esc(t(x.firedAt)) + "</td><td><b>" + esc(x.contract || x.ticker) + "</b><small>" + esc(x.read) + (x.contract ? "" : " \u00b7 contract shown when it closes") + "</small></td><td>" +
+          px(x.entry) + '</td><td class="' + cls(x.status === "closed" ? x.resultPct : x.changePct) + '">' + res + "</td><td>" + esc(x.exitReason || (x.status === "open" ? "Open" : "")) + "</td></tr>";
+      }).join("") + "</tbody></table>" : '<p class="rules">No signal has passed the checks yet.</p>';
+    document.getElementById("laneSkip").innerHTML = sk.length ?
+      "<h3>Signals it passed on</h3><table><thead><tr><th>Day</th><th>Fired</th><th>Ticker</th><th>Why not</th></tr></thead><tbody>" +
+      sk.map(function (x) { return "<tr><td>" + esc(x.day) + "</td><td>" + esc(t(x.at)) + "</td><td><b>" + esc(x.ticker) + "</b><small>" + (x.side === "CALL" ? "call" : "put") + "</small></td><td>" + esc(x.why) + "</td></tr>"; }).join("") +
+      "</tbody></table>" : "";
+  }
   function render(d) {
+    try { renderLane(d.signalLane); } catch (e) {}
     var ov = d.overall || {};
     document.getElementById("started").textContent = d.startedAt
       ? "The record started " + day(d.startedAt) + ". Nothing before that is shown or backfilled."
