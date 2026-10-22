@@ -240,11 +240,11 @@
       '<div class="stat"><em>Passed on</em><b>' + esc(sk.length) + "</b><small>signals it chose not to take</small></div>";
     function t(iso) { var x = Date.parse(iso); if (!isFinite(x)) return ""; try { return new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit", hour12: false }).format(new Date(x)); } catch (e) { return ""; } }
     document.getElementById("laneList").innerHTML = tr.length ?
-      "<table><thead><tr><th>Day</th><th>Fired</th><th>Pick</th><th>Entry</th><th>Result</th><th>Why it closed</th></tr></thead><tbody>" +
+      "<table><thead><tr><th>Day</th><th>Fired</th><th>Pick</th><th>Entry</th><th>Result</th><th title=\"Best price while the trade was open\">Highest reached</th><th title=\"Best price until expiry, even after the exit\">Highest if held</th><th>Why it closed</th></tr></thead><tbody>" +
       tr.map(function (x) {
         var res = x.status === "closed" ? pct(x.resultPct) : (x.changePct == null ? "open" : pct(x.changePct) + " <small>now</small>");
         return "<tr><td>" + esc(x.day) + "</td><td>" + esc(t(x.firedAt)) + "</td><td><b>" + esc(x.contract || x.ticker) + "</b><small>" + esc(x.read) + (x.contract ? "" : " \u00b7 contract shown when it closes") + "</small></td><td>" +
-          px(x.entry) + '</td><td class="' + cls(x.status === "closed" ? x.resultPct : x.changePct) + '">' + res + "</td><td>" + esc(x.exitReason || (x.status === "open" ? "Open" : "")) + "</td></tr>";
+          px(x.entry) + '</td><td class="' + cls(x.status === "closed" ? x.resultPct : x.changePct) + '">' + res + '</td><td class="' + cls(x.maxGainPct) + '">' + pct(x.maxGainPct) + '</td><td class="' + cls(x.bestIfHeldPct) + '">' + pct(x.bestIfHeldPct) + "</td><td>" + esc(x.exitReason || (x.status === "open" ? "Open" : "")) + "</td></tr>";
       }).join("") + "</tbody></table>" : '<p class="rules">No signal has passed the checks yet.</p>';
     document.getElementById("laneSkip").innerHTML = sk.length ?
       "<h3>Signals it passed on</h3><table><thead><tr><th>Day</th><th>Fired</th><th>Ticker</th><th>Why not</th></tr></thead><tbody>" +
