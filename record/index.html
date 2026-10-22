@@ -72,6 +72,21 @@
     .controls a{font-size:14px;text-decoration:underline}
     .muted{color:var(--muted)}
     .stats.six{grid-template-columns:repeat(3,minmax(0,1fr))}
+    /* Oct 21: "how far each signal ran" squares, distribution and monthly chart */
+    .ng-head{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:6px 0 14px}
+    .ng-head div{padding:16px;border-radius:14px;border:1px solid var(--line);background:var(--panel2)}
+    .ng-head b{display:block;font-size:34px;font-weight:800;letter-spacing:-.02em;color:var(--white);line-height:1.1}
+    .ng-head span{display:block;font-size:13px;color:var(--muted);margin-top:4px}
+    .ng-omega{font-size:14px;margin:0 0 14px;padding:12px 14px;border-radius:12px;background:var(--greenSoft);border:1px solid rgba(0,166,86,.25)}
+    #ngCanvas{width:100%;display:block;margin:6px 0 8px;border-radius:8px}
+    .ng-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;margin-top:10px}
+    .ng-bar{display:grid;grid-template-columns:150px minmax(0,1fr) 92px;gap:10px;align-items:center;font-size:13px;margin:6px 0}
+    .ng-bar i{display:block;height:14px;border-radius:4px}
+    .ng-bar em{font-style:normal;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+    .ng-rules{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
+    .ng-rules div{font-size:13px;color:var(--muted);border-top:2px solid var(--line2);padding-top:10px}
+    .ng-rules b{display:block;color:var(--white);font-size:14px;margin-bottom:4px}
+    @media (max-width:900px){.ng-head,.ng-rules{grid-template-columns:repeat(2,minmax(0,1fr))}.ng-two{grid-template-columns:1fr}.ng-bar{grid-template-columns:120px minmax(0,1fr) 84px}}
     footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13px;margin-top:60px}
     @media (max-width:900px){.links{display:none}.stats,.stats.six{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media (max-width:560px){.wrap{padding:0 16px}.nav .wrap{gap:8px}.actions{gap:6px}.brand .logo-dark,.brand .logo-ink{display:none!important}.brand .logo-mark{display:block!important;height:34px;width:34px;border-radius:9px}html[data-theme="light"] .brand .logo-mark{content:url(/ao-logo-small-ink.png);border-radius:0;object-fit:contain}.theme-btn{width:34px;height:34px}}
@@ -147,6 +162,21 @@
     <p class="rules" id="sigNote"></p>
   </section>
   <!-- Oct 21: every engine signal since May 2026, raw. Every row listed; numbers only from measurable rows. -->
+  <section class="card" id="ngCard" hidden><h2>How far each signal ran</h2>
+    <p class="sub" id="ngSub"></p>
+    <div class="ng-head" id="ngHead"></div>
+    <p class="ng-omega" id="ngOmega" hidden></p>
+    <div class="controls"><label for="ngSide" class="muted">Show</label><select id="ngSide"><option value="">Calls and puts</option><option value="1">Calls</option><option value="0">Puts</option></select><span class="muted" id="ngCount"></span></div>
+    <canvas id="ngCanvas" role="img" aria-label="One square per measured signal, coloured by how far its option ran after the signal"></canvas>
+    <div class="legend" id="ngLegend"></div>
+    <div class="ng-two"><div><h3>How far they ran</h3><div id="ngDist"></div></div><div><h3>Reached +25% the same day, by month</h3><div id="ngMonths"></div></div></div>
+    <div class="ng-rules">
+      <div><b>The rules came first.</b>A signal is the engine's own 5/5 or 1/5 read at the moment it fired. Nothing is picked afterwards.</div>
+      <div><b>The entry is the price when it fired.</b>The option's mid price at the signal, on the contract the engine chose then.</div>
+      <div><b>Only prices after the signal count.</b>An earlier high that day is ignored.</div>
+      <div><b>Best price is not a return.</b>Nobody sells every top. What a rule actually made is in the next section.</div>
+    </div>
+  </section>
   <section class="card" id="arcCard"><h2>Every engine signal since May 2026 <small>(raw)</small></h2>
     <p class="sub" id="arcSub">Loading every signal since May 2026…</p>
     <section class="stats" id="arcStats" aria-live="polite"></section>
@@ -255,6 +285,7 @@
     }
   }
   function render(d) {
+    window.__aoTR = d;
     try { renderLane(d.signalLane); } catch (e) {}
     try { renderAccount(d.allocator); } catch (e) {}
     try { renderChanges(d); } catch (e) {}
@@ -409,7 +440,64 @@
     document.getElementById("arcMethod").textContent = [me.signals, me.graded, me.held, "Highest reached: the best price the option traded at after the signal that day.", me.notCounted, me.costs].filter(Boolean).join(" ");
     loadMonth();
   }
-  fetch(ARC, { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (a) { if (a && a.ok) renderArchive(a); else throw new Error("bad"); })
+  /* Oct 21: the squares view, in the style flow services use, with what the trades actually made right below. */
+  var NG = { rows: [], months: [], summary: null };
+  function ngColors() {
+    var cs = getComputedStyle(document.documentElement);
+    var v = function (k, f) { return (cs.getPropertyValue(k) || "").trim() || f; };
+    return { none: v("--red", "#d1242f"), lt25: v("--line2", "#d5dbe4"), "25": "#7fd8a6", "50": v("--green", "#00a656"), "100": v("--gold", "#9a6b00") };
+  }
+  function ngBucket(b) { return b <= 0 ? "none" : b < 25 ? "lt25" : b < 50 ? "25" : b < 100 ? "50" : "100"; }
+  function ngDraw() {
+    var cv = document.getElementById("ngCanvas"), side = document.getElementById("ngSide").value;
+    var list = NG.rows.filter(function (r) { return side === "" || String(r[1]) === side; });
+    var order = { "100": 0, "50": 1, "25": 2, lt25: 3, none: 4 };
+    list = list.slice().sort(function (a, b) { return order[ngBucket(a[2])] - order[ngBucket(b[2])] || b[2] - a[2]; });
+    var W = cv.clientWidth || 800, sz = W < 500 ? 5 : 7, gap = 1, per = Math.max(1, Math.floor((W + gap) / (sz + gap)));
+    var H = Math.ceil(list.length / per) * (sz + gap), dpr = window.devicePixelRatio || 1;
+    cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + "px";
+    var c = cv.getContext("2d"); c.scale(dpr, dpr); var col = ngColors();
+    list.forEach(function (r, i) { c.fillStyle = col[ngBucket(r[2])]; c.fillRect((i % per) * (sz + gap), Math.floor(i / per) * (sz + gap), sz, sz); });
+    var n25 = list.filter(function (r) { return r[2] >= 25; }).length;
+    document.getElementById("ngCount").textContent = list.length.toLocaleString("en-US") + " signals \u00b7 " + (list.length ? Math.round(n25 / list.length * 1000) / 10 : 0) + "% reached +25%";
+  }
+  function renderSquares(a, sq) {
+    var b = (a.stats || {}).best; if (!b || !sq || !sq.rows) return;
+    NG.rows = sq.rows; NG.months = sq.months || [];
+    var col = ngColors(), h = (a.stats || {}).held || {};
+    document.getElementById("ngCard").hidden = false;
+    document.getElementById("ngSub").textContent = "Every measured engine signal since " + day(a.from + "T16:00:00Z") + ", one square each, coloured by the best price its option reached after the signal that same day, against its price at the signal. Same-day only: a signal is not followed to expiry, so this undercounts moves that came later.";
+    document.getElementById("ngHead").innerHTML =
+      "<div><b>" + esc(b.reached25Rate) + "%</b><span>reached +25% the same day</span></div>" +
+      "<div><b>" + pct(b.median) + "</b><span>median best price (not a return)</span></div>" +
+      "<div><b>" + esc(b.doubledRate) + "%</b><span>at least doubled</span></div>" +
+      "<div><b>" + esc(h.upRate) + "%</b><span>finished the day above entry</span></div>";
+    var tr = window.__aoTR;
+    if (tr && tr.trades) {
+      var bh = tr.trades.filter(function (x) { return x.status === "closed" && x.bestIfHeldPct != null; }).map(function (x) { return x.bestIfHeldPct; });
+      if (bh.length >= 10) {
+        var s2 = bh.slice().sort(function (x, y) { return x - y; }), med = s2[Math.floor((s2.length - 1) / 2)];
+        var r25 = Math.round(bh.filter(function (v) { return v >= 25; }).length / bh.length * 100), dbl = Math.round(bh.filter(function (v) { return v >= 100; }).length / bh.length * 100);
+        var o = document.getElementById("ngOmega"); o.hidden = false;
+        o.innerHTML = "<b>Omega's own picks, followed to expiry:</b> " + esc(r25) + "% reached +25%, median best " + pct(med) + ", " + esc(dbl) + "% at least doubled (" + esc(bh.length) + " closed picks since Oct 5, partly estimated from the stock's price where the option's own history is incomplete).";
+      }
+    }
+    document.getElementById("ngLegend").innerHTML = b.buckets.map(function (k) { return '<span><i style="background:' + col[k.key] + ';height:10px;width:10px"></i>' + esc(k.label) + "</span>"; }).join("");
+    var mx = Math.max.apply(null, b.buckets.map(function (k) { return k.n; }).concat([1]));
+    document.getElementById("ngDist").innerHTML = b.buckets.slice().reverse().map(function (k) { return '<div class="ng-bar"><span>' + esc(k.label) + '</span><i style="width:' + Math.max(2, k.n / mx * 100).toFixed(1) + "%;background:" + col[k.key] + '"></i><em>' + esc(k.n.toLocaleString("en-US")) + " \u00b7 " + Math.round(k.n / b.n * 100) + "%</em></div>"; }).join("");
+    var MN = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    document.getElementById("ngMonths").innerHTML = (a.byMonth || []).map(function (m) { var r = m.best ? m.best.reached25Rate : null; return '<div class="ng-bar"><span>' + esc(MN[Number(m.month.slice(5))] + " " + m.month.slice(0, 4)) + '</span><i style="width:' + (r == null ? 0 : Math.max(2, r)).toFixed(1) + '%;background:var(--green)"></i><em>' + (r == null ? "\u2014" : esc(r) + "%") + " of " + esc(((m.best || {}).n || 0).toLocaleString("en-US")) + "</em></div>"; }).join("") +
+      '<p class="sub" style="margin-top:8px">Overall ' + esc(b.reached25Rate) + "%. May starts on the 28th.</p>";
+    document.getElementById("ngSide").onchange = ngDraw;
+    ngDraw();
+    var t; window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(ngDraw, 150); });
+  }
+  fetch(ARC, { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (a) {
+    if (a && a.ok) {
+      renderArchive(a);
+      fetch(ARC + "?squares=1", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (sq) { if (sq && sq.ok) { var tries = 0, go = function () { if (!window.__aoTR && tries++ < 20) return setTimeout(go, 500); try { renderSquares(a, sq); } catch (e) {} }; go(); } }).catch(function () {});
+    } else throw new Error("bad");
+  })
     .catch(function () { document.getElementById("arcSub").textContent = "The signal archive could not load right now. Try again in a minute."; });
   fetch(SIGNAL_API, { cache: "no-store" }).then(function (r) { return r.json(); })
     .then(function (d) { if (d && d.ok) renderSignals(d); }).catch(function () {});
