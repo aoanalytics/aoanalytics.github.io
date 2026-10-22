@@ -115,8 +115,8 @@
     <b class="t">Live testing: these agents are being built in the open</b>
     <p>Omega and the signal engine are paper-trading agents under active development. We are traders first, and we change the rules when the record shows us something is off. What we are building toward:</p>
     <ul>
-      <li><b>Adaptive take profit and stop loss</b>: exits sized from the market (the chart's structure, the stock's own movement, dealer gamma, options flow), not fixed percentages.</li>
-      <li><b>Adaptive trailing</b>: winners are sold in slices on dollar trails, so a quick gain is protected and a trend can keep running.</li>
+      <li><b>One clear exit rule</b>: from Oct 22, Omega takes profit at +30% and stops at &minus;50%, chosen by testing every exit rule on its own trades (below).</li>
+      <li><b>Adaptive take profit, stop loss and trailing</b>, sized from the market, in test lanes beside the official rule; one joins only if it beats it.</li>
       <li><b>Trading it as a book</b>: per-trade and open-risk limits by account size, a daily profit goal that banks the day, and a daily portfolio review, so results come from a system rather than single bets.</li>
     </ul>
     <p><b>Built on retail data.</b> A&amp;O runs on a standard broker data feed and free public sources, sampled every few seconds to a few minutes, not an institutional tick-by-tick feed. Signals and prices are what A&amp;O saw at the time, so they can trail what a desk with direct exchange feeds sees. Any edge here comes from the model, not from paying for speed.</p>
@@ -133,6 +133,20 @@
     <div class="legend" id="acctLegend"></div>
     <div id="acctChart"></div>
     <p class="rules" id="acctNote"></p>
+  </section>
+  <!-- Oct 22: the exit rule study behind Rule 4 (+30% / -50%). Static: measured on the 64 trades of Oct 5-21. -->
+  <section class="card" id="exitCard"><h2>Which exit rule wins</h2>
+    <p class="sub">On Omega&rsquo;s 64 trades, holding at <b>+30% up / &minus;50% down</b> would have won <b>59.4%</b> of the time, versus 53.1% as actually traded. Holding to the end wins less often (34.6% of the 26 that have expired), but the winners are huge. From Oct 22, +30% / &minus;50% is Omega&rsquo;s official exit rule.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Exit rule (same 64 trades)</th><th>Win rate</th><th>Average per trade</th><th>Average win</th><th>Average loss</th><th>Gains &divide; losses</th></tr></thead>
+      <tbody>
+        <tr><td>As actually traded</td><td>53.1%</td><td class="down">&minus;0.1%</td><td class="up">+33.6%</td><td class="down">&minus;38.3%</td><td>1.00</td></tr>
+        <tr><td>+30% target / &minus;30% stop</td><td>53.1%</td><td class="up">+4.5%</td><td class="up">+43.1%</td><td class="down">&minus;39.3%</td><td>1.24</td></tr>
+        <tr><td><b>+30% target / &minus;50% stop (official from Oct 22)</b></td><td><b>59.4%</b></td><td class="up"><b>+4.9%</b></td><td class="up">+42.3%</td><td class="down">&minus;49.7%</td><td>1.24</td></tr>
+        <tr><td>Trail 25% off the high after +30%</td><td>42.2%</td><td class="up">+16.4%</td><td class="up">+86.6%</td><td class="down">&minus;34.7%</td><td>1.82</td></tr>
+        <tr><td>Held to expiry (26 expired so far)</td><td>34.6%</td><td class="up">+90.4%</td><td class="up">+444.5%</td><td class="down">&minus;97.1%</td><td>2.42</td></tr>
+      </tbody></table></div>
+    <p class="rules">38 of the 64 trades (59.4%) reached +30% at some point before expiry, and 41 (64%) reached +25%. Puts moved our way 61% of the time (23 of 38); calls 19% (5 of 26), which is why calls now need the chart&rsquo;s trend on their side. Target and stop rows are replays on each trade&rsquo;s recorded option prices (partly estimated where a trade&rsquo;s price history is incomplete), before costs. &ldquo;Held to expiry&rdquo; settles each contract at its value from the stock&rsquo;s close on expiry day; the typical held trade expired worthless, and the average comes from a few large winners (Oct 16 puts on NDX, PANW, SOXL, ARM, INTC and LITE). Measured Oct 22, 2026.</p>
   </section>
   <!-- Oct 21: the founder's own hand-placed 0DTE trades, real fills, no account details. -->
   <section class="card" id="deskCard" hidden><h2>Our own 0DTE trades <small>(real fills)</small></h2>
