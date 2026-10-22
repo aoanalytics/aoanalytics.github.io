@@ -148,6 +148,18 @@
       </tbody></table></div>
     <p class="rules">38 of the 64 trades (59.4%) reached +30% at some point before expiry, and 41 (64%) reached +25%. Puts moved our way 61% of the time (23 of 38); calls 19% (5 of 26), which is why calls now need the chart&rsquo;s trend on their side. Target and stop rows are replays on each trade&rsquo;s recorded option prices (partly estimated where a trade&rsquo;s price history is incomplete), before costs. &ldquo;Held to expiry&rdquo; settles each contract at its value from the stock&rsquo;s close on expiry day; the typical held trade expired worthless, and the average comes from a few large winners (Oct 16 puts on NDX, PANW, SOXL, ARM, INTC and LITE). Measured Oct 22, 2026.</p>
   </section>
+  <!-- Oct 22: group-exit test lane, beside the official +30% / -50%. -->
+  <section class="card" id="gxCard" hidden><h2>Test lane: exits matched to each type of stock <small>(not counted above)</small></h2>
+    <p class="sub" id="gxRule"></p>
+    <div class="scroll"><table><thead><tr><th>Group</th><th>Tickers</th><th>Target</th><th>Stop</th><th>Sep&ndash;Oct check</th></tr></thead><tbody>
+      <tr><td><b>Index</b></td><td>SPY, SPX, QQQ, NDX, IWM</td><td>+20%</td><td>&minus;50%</td><td>85% wins, +11.5% a signal (vs &minus;9.1% at +30/&minus;50)</td></tr>
+      <tr><td><b>Fast movers</b></td><td>AMD, ARM, AMZN, MSFT, JPM, GS, UNH, NOW, ETN, STX, AAOI</td><td>+100%</td><td>&minus;50%</td><td>+11.3% a signal (vs +3.2%)</td></tr>
+      <tr><td><b>Most names</b></td><td>NVDA, AAPL, META, GOOGL, PLTR, COIN, MU, HOOD, SNDK, CRWV and 31 more</td><td>+30%</td><td>&minus;50%</td><td>+9.1% a signal (vs +4.3%)</td></tr>
+      <tr><td><b>Calm</b></td><td>TSLA, AVGO, SMCI, IONQ, SNOW, IBM, USO, SLV and others</td><td>+30%</td><td>&minus;50%</td><td>+5.9% a signal (same as +30/&minus;50)</td></tr>
+    </tbody></table></div>
+    <section class="stats" id="gxStats" aria-live="polite"></section>
+    <p class="rules">Groups and targets were chosen on May&ndash;August engine signals and checked on September&ndash;October signals they never saw: 61.8% wins and +8.8% a signal, against 57.3% and +3.7% for +30% / &minus;50% on the same signals. Those checks are same-day exits at mid prices, before costs. This lane runs on Omega&rsquo;s own multi-day picks from Oct 22 and replaces the official rule only if it beats it there.</p>
+  </section>
   <!-- Oct 21: the founder's own hand-placed 0DTE trades, real fills, no account details. -->
   <section class="card" id="deskCard" hidden><h2>Our own 0DTE trades <small>(real fills)</small></h2>
     <p class="sub" id="deskSub"></p>
@@ -311,8 +323,19 @@
         P.filter(function (p) { return w[p.key] != null; }).map(function (p) { return "<tr><td>" + esc(p.label) + '</td><td class="' + cls(w[p.key]) + '">' + pct(w[p.key]) + "</td></tr>"; }).join("") + "</tbody></table>";
     }
   }
+  function renderGroupLane(g) {
+    if (!g) return;
+    document.getElementById("gxCard").hidden = false;
+    var st = g.stats || {};
+    document.getElementById("gxStats").innerHTML =
+      '<div class="stat"><em>Picks followed</em><b>' + esc(st.trades || 0) + "</b><small>from " + esc(day(g.from + "T16:00:00Z")) + "</small></div>" +
+      '<div class="stat"><em>Closed</em><b>' + esc(st.closed || 0) + "</b><small>" + (st.winRate == null ? "win rate shown from 5 closed" : esc(st.winRate) + "% wins") + "</small></div>" +
+      '<div class="stat"><em>Average, lane</em><b class="' + cls(st.avgPct) + '">' + pct(st.avgPct) + "</b><small>per closed pick</small></div>" +
+      '<div class="stat"><em>Same picks, official</em><b class="' + cls(st.officialAvgPct) + '">' + pct(st.officialAvgPct) + "</b><small>lane " + pct(st.laneAvgSamePct) + " on these</small></div>";
+  }
   function render(d) {
     window.__aoTR = d;
+    try { renderGroupLane(d.groupLane); } catch (e) {}
     try { renderLane(d.signalLane); } catch (e) {}
     try { renderAccount(d.allocator); } catch (e) {}
     try { renderChanges(d); } catch (e) {}
