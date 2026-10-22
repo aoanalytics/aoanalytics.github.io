@@ -43,6 +43,18 @@
     .card{border-radius:16px;border:1px solid var(--line);background:var(--panel);padding:18px;margin:14px 0}
     .card h2{margin:0 0 12px;font-size:20px;color:var(--white)}
     .scroll{overflow-x:auto}
+    /* Oct 22: By strategy rows open to show their trades */
+    tr.hz{cursor:pointer}
+    tr.hz:hover td{background:var(--panel2)}
+    tr.hz td:first-child b::before{content:"\25B8";display:inline-block;width:16px;color:var(--muted);transition:transform .15s}
+    tr.hz.open td:first-child b::before{transform:rotate(90deg)}
+    tr.hzd{display:none}
+    tr.hzd.open{display:table-row}
+    tr.hzd > td{padding:4px 12px 14px;background:var(--bg2)}
+    tr.hzd table{font-size:13px}
+    tr.hzd th{padding:8px 10px}
+    tr.hzd td{padding:8px 10px}
+    tr.hzd tfoot td{border-top:1px solid var(--line2);font-weight:700;color:var(--white)}
     table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
     th{text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
     td{padding:12px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:top}
@@ -180,7 +192,7 @@
     <div class="scroll" id="planList"></div>
   </section>
   <section class="card"><h2>By strategy</h2>
-    <p class="sub">Actual results. Profit assumes $1,000 in every trade.</p>
+    <p class="sub">Actual results. Profit assumes $1,000 in every trade. Click a strategy to see its trades.</p>
     <div class="scroll" id="byH"></div></section>
   <section class="card"><h2>Every pick</h2><div class="scroll" id="list"></div></section>
   <!-- Oct 21: Omega's signal lane, in shadow: shown here, kept out of every number above. -->
@@ -353,9 +365,24 @@
       "";
     // Oct 22: equal money per trade ($1,000 each) beside the per-contract total, so the two cannot be confused.
     var eq = {}; (d.trades || []).forEach(function (x) { if (x.status === "closed" && x.resultPct != null) eq[x.horizon] = (eq[x.horizon] || 0) + 1000 * x.resultPct / 100; });
+    var byHt = {}; (d.trades || []).forEach(function (x) { if (x.status === "closed" && x.resultPct != null) (byHt[x.horizon] = byHt[x.horizon] || []).push(x); });
+    function hzTrades(h, e) {
+      var rows = (byHt[h] || []).slice().sort(function (a, b) { return String(a.exitAt || a.day).localeCompare(String(b.exitAt || b.day)); });
+      return "<table><thead><tr><th>Day</th><th>Trade</th><th>Bought</th><th>Sold</th><th>Result</th><th>Profit on $1,000</th><th>Why it closed</th></tr></thead><tbody>" +
+        rows.map(function (x) { var p = 10 * x.resultPct;
+          return "<tr><td>" + esc(x.day) + "</td><td><b>" + esc(prettyOcc(x.contract) || x.ticker) + "</b></td><td>" + px(x.entry) + "</td><td>" + px(x.exitPrice) + '</td><td class="' + cls(x.resultPct) + '">' + pct(x.resultPct) + '</td><td class="' + cls(p) + '">' + usd(p) + "</td><td>" + esc(x.exitReason || "") + "</td></tr>"; }).join("") +
+        '</tbody><tfoot><tr><td colspan="5">Total, ' + rows.length + " trades</td><td class=\"" + cls(e) + '">' + usd(e) + "</td><td></td></tr></tfoot></table>";
+    }
     document.getElementById("byH").innerHTML = "<table><thead><tr><th>Strategy</th><th>Trades</th><th>Won</th><th>Average per trade</th><th>Profit</th></tr></thead><tbody>" +
       HZ.filter(function (h) { var s = (d.byHorizon || {})[h] || {}; return s.closed > 0; }).map(function (h) { var s = (d.byHorizon || {})[h] || {}; var e = eq[h];
-        return "<tr><td><b>" + h + "</b></td><td>" + esc(s.closed) + "</td><td>" + esc(s.wins || 0) + " of " + esc(s.closed) + (s.closed >= 5 ? " <small>" + Math.round((s.wins || 0) / s.closed * 100) + "%</small>" : "") + '</td><td class="' + cls(s.avgResultPct) + '">' + pct(s.avgResultPct) + '</td><td class="' + cls(e) + '">' + (e == null ? "—" : usd(e)) + "</td></tr>"; }).join("") + "</tbody></table>";
+        return '<tr class="hz" data-h="' + h + '"><td><b>' + h + "</b></td><td>" + esc(s.closed) + "</td><td>" + esc(s.wins || 0) + " of " + esc(s.closed) + (s.closed >= 5 ? " <small>" + Math.round((s.wins || 0) / s.closed * 100) + "%</small>" : "") + '</td><td class="' + cls(s.avgResultPct) + '">' + pct(s.avgResultPct) + '</td><td class="' + cls(e) + '">' + (e == null ? "—" : usd(e)) + "</td></tr>" +
+          '<tr class="hzd" data-h="' + h + '"><td colspan="5"><div class="scroll">' + hzTrades(h, e) + "</div></td></tr>"; }).join("") + "</tbody></table>";
+    if (!window.__hzBound) { window.__hzBound = true; document.getElementById("byH").addEventListener("click", function (ev) {
+      var r = ev.target.closest && ev.target.closest("tr.hz"); if (!r) return;
+      var h = r.getAttribute("data-h"), open = !r.classList.contains("open");
+      r.classList.toggle("open", open);
+      var dr = document.querySelector('#byH tr.hzd[data-h="' + h + '"]'); if (dr) dr.classList.toggle("open", open);
+    }); }
     var t = d.trades || [];
     document.getElementById("list").innerHTML = t.length
       ? "<table><thead><tr><th>Day</th><th>Pick</th><th>Strategy</th><th>Entry</th><th>Exit</th><th>Result</th><th title=\"Best price the option reached while the trade was open\">Highest reached</th><th title=\"Best price before expiry, even after the exit\">Highest if held</th><th>Why it closed</th></tr></thead><tbody>" +
