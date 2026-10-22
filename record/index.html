@@ -172,6 +172,12 @@
     <section class="stats" id="gxStats" aria-live="polite"></section>
     <p class="rules">Groups and targets were chosen on May&ndash;August engine signals and checked on September&ndash;October signals they never saw: 61.8% wins and +8.8% a signal, against 57.3% and +3.7% for +30% / &minus;50% on the same signals. Those checks are same-day exits at mid prices, before costs. This lane runs on Omega&rsquo;s own multi-day picks from Oct 22 and replaces the official rule only if it beats it there.</p>
   </section>
+  <!-- Oct 22: two more test lanes from Oct 23 (gap reversal, backup contract). Not counted above. -->
+  <section class="card" id="tlCard" hidden><h2>New test lanes <small>(from Oct 23, not counted above)</small></h2>
+    <p class="sub">Ideas we are trying on paper before they can touch the record. Each runs +30% / &minus;50%.</p>
+    <div class="scroll" id="tlTable"></div>
+    <div class="scroll" id="tlTrades"></div>
+  </section>
   <!-- Oct 21: the founder's own hand-placed 0DTE trades, real fills, no account details. -->
   <section class="card" id="deskCard" hidden><h2>Our own 0DTE trades <small>(real fills)</small></h2>
     <p class="sub" id="deskSub"></p>
@@ -347,9 +353,32 @@
       '<div class="stat"><em>Average, lane</em><b class="' + cls(st.avgPct) + '">' + pct(st.avgPct) + "</b><small>per closed pick</small></div>" +
       '<div class="stat"><em>Same picks, official</em><b class="' + cls(st.officialAvgPct) + '">' + pct(st.officialAvgPct) + "</b><small>lane " + pct(st.laneAvgSamePct) + " on these</small></div>";
   }
+  function renderTestLanes(d) {
+    var g = d.gapLane, b = d.backupLane;
+    if (!g && !b) return;
+    document.getElementById("tlCard").hidden = false;
+    function row(name, what, st) {
+      st = st || {};
+      return "<tr><td><b>" + name + "</b><small>" + what + "</small></td><td>" + esc(st.picks || 0) + "</td><td>" + esc(st.closed || 0) + "</td><td>" +
+        (st.closed ? esc(st.wins || 0) + " of " + esc(st.closed) : "\u2014") + '</td><td class="' + cls(st.avgResultPct) + '">' + pct(st.avgResultPct) + "</td></tr>";
+    }
+    document.getElementById("tlTable").innerHTML = "<table><thead><tr><th>Lane</th><th>Trades</th><th>Closed</th><th>Won</th><th>Average</th></tr></thead><tbody>" +
+      (g ? row("Gap reversal", "Stocks that gap down 1%+, hold a low and take back VWAP with call money leading. Calls.", g.stats) : "") +
+      (g && g.spyFiltered ? row("Gap reversal, market on side", "Same, only while SPY is above its VWAP.", g.spyFiltered.stats) : "") +
+      (b ? row("Backup contract", "A strong read skipped for want of a usable contract, retried with a wider strike and expiry range.", b.stats) : "") + "</tbody></table>";
+    var xs = [].concat(((g && g.trades) || []).map(function (x) { return Object.assign({ lane: x.variant === "spy" ? "Gap reversal, market on side" : "Gap reversal" }, x); }),
+      ((b && b.trades) || []).map(function (x) { return Object.assign({ lane: "Backup contract" }, x); }))
+      .sort(function (a, c) { return String(c.day + c.enteredAt).localeCompare(String(a.day + a.enteredAt)); }).slice(0, 30);
+    document.getElementById("tlTrades").innerHTML = xs.length
+      ? "<table><thead><tr><th>Day</th><th>Lane</th><th>Contract</th><th>Entry</th><th>Result</th></tr></thead><tbody>" + xs.map(function (x) {
+          var res = x.status === "closed" ? x.resultPct : x.changePct;
+          return "<tr><td>" + esc(x.day) + "</td><td>" + esc(x.lane) + "</td><td><b>" + esc(x.contract) + "</b></td><td>" + px(x.entry) + '</td><td class="' + cls(res) + '">' + pct(res) + (x.status === "closed" ? "" : " <small>open</small>") + "</td></tr>"; }).join("") + "</tbody></table>"
+      : '<p class="muted">No trades yet. The lanes start with the open on Oct 23.</p>';
+  }
   function render(d) {
     window.__aoTR = d;
     try { renderGroupLane(d.groupLane); } catch (e) {}
+    try { renderTestLanes(d); } catch (e) {}
     try { renderLane(d.signalLane); } catch (e) {}
     try { renderAccount(d.allocator); } catch (e) {}
     try { renderChanges(d); } catch (e) {}
