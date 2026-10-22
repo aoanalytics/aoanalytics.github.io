@@ -119,6 +119,7 @@
       <li><b>Adaptive trailing</b>: winners are sold in slices on dollar trails, so a quick gain is protected and a trend can keep running.</li>
       <li><b>Trading it as a book</b>: per-trade and open-risk limits by account size, a daily profit goal that banks the day, and a daily portfolio review, so results come from a system rather than single bets.</li>
     </ul>
+    <p><b>Built on retail data.</b> A&amp;O runs on a standard broker data feed and free public sources, sampled every few seconds to a few minutes, not an institutional tick-by-tick feed. Signals and prices are what A&amp;O saw at the time, so they can trail what a desk with direct exchange feeds sees. Any edge here comes from the model, not from paying for speed.</p>
     <small>Every change is dated on this page. No result is edited, backfilled or removed: each trade keeps the rule it was recorded under, and corrections are new dated entries. Paper results only, not real fills. Education only, not financial advice.</small>
   </div>
 </div></header>
@@ -132,6 +133,18 @@
     <div class="legend" id="acctLegend"></div>
     <div id="acctChart"></div>
     <p class="rules" id="acctNote"></p>
+  </section>
+  <!-- Oct 21: the founder's own hand-placed 0DTE trades, real fills, no account details. -->
+  <section class="card" id="deskCard" hidden><h2>Our own 0DTE trades <small>(real fills)</small></h2>
+    <p class="sub" id="deskSub"></p>
+    <section class="stats six" id="deskStats" aria-live="polite"></section>
+    <h3>The same trades in a $10,000 and a $20,000 account</h3>
+    <section class="stats" id="deskSim" aria-live="polite"></section>
+    <div class="legend"><span><i style="background:var(--green2)"></i>Balance, $10,000 start</span><span><i style="background:var(--green);height:8px"></i>Each trade's profit or loss</span></div>
+    <div id="deskChart"></div>
+    <h3>Every trade</h3>
+    <div class="scroll" id="deskList"></div>
+    <p class="rules" id="deskNote"></p>
   </section>
   <section class="card" id="chgCard" hidden><h2>What we changed, and why</h2>
     <p class="sub">We trade these setups ourselves. By Oct 21 the record matched what we saw on our own screens: on choppy days the read flipped between calls and puts every time price crossed VWAP (SPY crossed it 7 times on Oct 21), signals were being scored on candles that had not finished, the first half hour produced mostly puts with no better hit rate, and fixed +30% / &minus;30% exits sold winners early and rode losers to the stop. These are the fixes. They apply to new trades from Oct 22; every earlier trade stays under the rule it was recorded with.</p>
@@ -244,16 +257,15 @@
     var m = a.account.mid || {}, c = a.account.afterCosts || {}, spy = a.spy || {};
     var cur = a.curve, last = function (xs) { return xs && xs.length ? xs[xs.length - 1] : null; };
     document.getElementById("acctCard").hidden = false;
-    document.getElementById("acctSub").textContent = "Omega's paper account from " + day(a.from + "T16:00:00Z") + " to " + day(a.to + "T16:00:00Z") + ": every counted trade, $10,000 to start, results compounding. Shown two ways: at the mid price, and after the bid/ask spread and $0.65 per contract each way. The S&P 500 (SPY) over the same days is the yardstick.";
+    document.getElementById("acctSub").textContent = "Omega's paper account from " + day(a.from + "T16:00:00Z") + " to " + day(a.to + "T16:00:00Z") + ": every counted trade, $10,000 to start, 10% of the balance per pick, results compounding. Prices are the mid price at the time, the standard for paper records (before commissions and the bid/ask spread). The S&P 500 (SPY) over the same days is shown for reference.";
     function money(v) { var x = n(v); return x === null ? "\u2014" : "$" + Math.round(x).toLocaleString("en-US"); }
     document.getElementById("acctStats").innerHTML =
       '<div class="stat"><em>At mid price</em><b class="' + cls(m.returnPct) + '">' + money(last(cur.mid)) + '</b><small class="' + cls(m.returnPct) + '">' + pct(m.returnPct) + "</small></div>" +
-      '<div class="stat"><em>After spread &amp; fees</em><b class="' + cls(c.returnPct) + '">' + money(last(cur.afterCosts)) + '</b><small class="' + cls(c.returnPct) + '">' + pct(c.returnPct) + "</small></div>" +
       '<div class="stat"><em>S&amp;P 500, same days</em><b class="' + cls(spy.returnPct) + '">' + money(last(cur.spy)) + '</b><small class="' + cls(spy.returnPct) + '">' + pct(spy.returnPct) + "</small></div>" +
-      '<div class="stat"><em>Worst drawdown</em><b>' + pct(m.maxDrawdownPct) + "</b><small>" + pct(c.maxDrawdownPct) + " after costs</small></div>" +
+      '<div class="stat"><em>Worst drawdown</em><b>' + pct(m.maxDrawdownPct) + "</b><small>peak to trough</small></div>" +
       (a.winRate ? '<div class="stat"><em>Win rate</em><b>' + esc(a.winRate.mid) + "%</b><small>likely range " + esc((a.winRate.midRange || []).join("\u2013")) + "% \u00b7 " + esc(a.trades) + " trades</small></div>" : "") +
-      (a.profitFactor ? '<div class="stat"><em>Profit factor</em><b>' + esc(a.profitFactor.mid) + "</b><small>" + esc(a.profitFactor.afterCosts) + " after costs</small></div>" : "");
-    var series = [["At mid price", cur.mid, "var(--green2)"], ["After spread & fees", cur.afterCosts, "var(--red)"], ["S&P 500", cur.spy, "var(--muted)"]].filter(function (x) { return x[1] && x[1].length > 1; });
+      (a.profitFactor ? '<div class="stat"><em>Profit factor</em><b>' + esc(a.profitFactor.mid) + "</b><small>gains divided by losses</small></div>" : "");
+    var series = [["Omega's $10K account", cur.mid, "var(--green2)"], ["S&P 500", cur.spy, "var(--muted)"]].filter(function (x) { return x[1] && x[1].length > 1; });
     var all = [].concat.apply([], series.map(function (x) { return x[1]; })).filter(function (v) { return n(v) !== null; });
     var lo = Math.min.apply(null, all.concat([10000])), hi = Math.max.apply(null, all.concat([10000])), pad = (hi - lo) * 0.08 || 100;
     lo -= pad; hi += pad;
@@ -266,7 +278,8 @@
     var lines = series.map(function (x) { return '<polyline fill="none" stroke="' + x[2] + '" stroke-width="2.2" stroke-linejoin="round" points="' + x[1].map(function (v, i) { return X(i).toFixed(1) + "," + Y(v).toFixed(1); }).join(" ") + '"/>'; }).join("");
     document.getElementById("acctChart").innerHTML = '<svg class="chart" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="$10,000 account balance by day">' + grid + base + lines + lbl + "</svg>";
     document.getElementById("acctLegend").innerHTML = series.map(function (x) { return '<span><i style="background:' + x[2] + '"></i>' + esc(x[0]) + "</span>"; }).join("");
-    document.getElementById("acctNote").textContent = "These are early results from a system we are still building, over " + (m.days || "") + " trading days. Rules changed during this period (each trade is shown under its own rule below), and the after-cost line shows how much the spread costs on short-dated options, which is one reason the exits now change. " + (a.note || "");
+    var pkI = 0; (cur.mid || []).forEach(function (v, i) { if (v > cur.mid[pkI]) pkI = i; });
+    document.getElementById("acctNote").textContent = "Early days: " + (m.days || "") + " trading days, during which the exit rules were rebuilt three times. The account peaked at " + money(cur.mid[pkI]) + (cur.days[pkI] && cur.days[pkI] !== "start" ? " on " + day(cur.days[pkI] + "T16:00:00Z") : "") + " and stands at " + pct(m.returnPct) + " overall. Replayed on the same trades, trailing exits would have averaged +6% to +16% a trade instead of fixed targets (see below); Rule 4 puts that into practice from Oct 22. Each trade stays under the rule it was recorded with.";
   }
   function renderChanges(d) {
     var g = d.governance || {}, ch = (g.engineChanges || []).slice().reverse();
@@ -298,8 +311,7 @@
       '<div class="stat"><em>Closed</em><b>' + esc(ov.closed || 0) + "</b><small>" + esc(ov.wins || 0) + " up · " + esc(ov.losses || 0) + " down</small></div>" +
       '<div class="stat"><em>Win rate</em><b>' + (ov.winRate == null ? "—" : esc(ov.winRate) + "%") + "</b><small>closed picks</small></div>" +
       '<div class="stat"><em>Average result</em><b class="' + cls(ov.avgResultPct) + '">' + pct(ov.avgResultPct) + '</b><small class="' + cls(ov.totalPerContract) + '">' + usd(ov.totalPerContract) + " per contract, total</small></div>" +
-      // Oct 21: the same trades after the bid/ask spread and fees (estimated where no quote was saved).
-      (d.costs && d.costs.closed ? '<div class="stat"><em>After spread &amp; fees</em><b class="' + cls(d.costs.avgResultPct) + '">' + pct(d.costs.avgResultPct) + "</b><small>average per trade · spreads estimated for " + esc(d.costs.estimated) + " of " + esc(d.costs.closed) + "</small></div>" : "");
+      "";
     document.getElementById("byH").innerHTML = "<table><thead><tr><th>Strategy</th><th>Picks</th><th>Closed</th><th>Win rate</th><th>Average</th><th>Per contract</th></tr></thead><tbody>" +
       HZ.map(function (h) { var s = (d.byHorizon || {})[h] || {}; return "<tr><td><b>" + h + "</b></td><td>" + esc(s.picks || 0) + "</td><td>" + esc(s.closed || 0) + "</td><td>" + (s.winRate == null ? "—" : esc(s.winRate) + "%") + '</td><td class="' + cls(s.avgResultPct) + '">' + pct(s.avgResultPct) + '</td><td class="' + cls(s.totalPerContract) + '">' + usd(s.totalPerContract) + "</td></tr>"; }).join("") + "</tbody></table>";
     var t = d.trades || [];
@@ -375,6 +387,45 @@
     document.getElementById("sigNote").textContent =
       "Rows marked \u201Cnot graded\u201D were measured against a different contract on the same ticker and are left out of every number in this section. They are listed rather than hidden. Paper results, hypothetical, no fills, fees or slippage. Education only, not financial advice.";
   }
+  /* Oct 21: the founder's own trades. */
+  function renderDesk(v) {
+    var z = v.zeroDte || {}, al = v.all || {}, s10 = (v.sim || {}).zeroDte || {};
+    document.getElementById("deskCard").hidden = false;
+    document.getElementById("deskSub").textContent = v.note || "";
+    var money = function (x) { return (x < 0 ? "\u2212$" : "+$") + Math.abs(Math.round(x)).toLocaleString("en-US"); };
+    document.getElementById("deskStats").innerHTML =
+      '<div class="stat"><em>0DTE trades</em><b>' + esc(z.trades) + "</b><small>over " + esc(z.days) + " trading days</small></div>" +
+      '<div class="stat"><em>Win rate</em><b>' + esc(z.winRate) + "%</b><small>" + esc(z.wins) + " up \u00b7 " + esc(z.losses) + " down \u00b7 " + esc(z.flat) + " flat</small></div>" +
+      '<div class="stat"><em>Total</em><b class="up">' + money(z.pnl) + "</b><small>profit factor " + esc(z.profitFactor) + "</small></div>" +
+      '<div class="stat"><em>Average win</em><b class="up">' + money(z.avgWin) + "</b><small>" + pct(z.avgWinPct) + " on the option</small></div>" +
+      '<div class="stat"><em>Average loss</em><b class="down">' + (z.avgLoss == null ? "\u2014" : money(z.avgLoss)) + "</b><small>" + pct(z.avgLossPct) + " on the option</small></div>" +
+      '<div class="stat"><em>Average per trade</em><b class="' + cls(z.avgPct) + '">' + pct(z.avgPct) + "</b><small>on the option</small></div>";
+    var k10 = s10.k10 || {}, k20 = s10.k20 || {};
+    document.getElementById("deskSim").innerHTML =
+      '<div class="stat"><em>$10,000 account</em><b class="up">$' + Math.round(k10.end).toLocaleString("en-US") + "</b><small>" + pct(k10.returnPct) + "</small></div>" +
+      '<div class="stat"><em>$20,000 account</em><b class="up">$' + Math.round(k20.end).toLocaleString("en-US") + "</b><small>" + pct(k20.returnPct) + "</small></div>" +
+      '<div class="stat"><em>Worst drawdown</em><b>' + pct(k10.maxDrawdownPct) + "</b><small>$10,000 account</small></div>" +
+      '<div class="stat"><em>Largest position</em><b>' + esc(k10.largestPositionPct) + "%</b><small>of $10,000 (one NDX contract)</small></div>";
+    // Chart: per-trade bars and the $10K balance line.
+    var tr = (v.trades || []).filter(function (t) { return t.horizon === "0DTE"; }), cv = k10.curve || [];
+    if (tr.length && cv.length) {
+      var W = 900, H = 240, L = 56, R = 12, T = 12, B = 26, nT = tr.length;
+      var bals = cv.map(function (c) { return c.balance; }), lo = Math.min.apply(null, bals), hi = Math.max.apply(null, bals), pad = (hi - lo) * 0.08 || 100; lo -= pad; hi += pad;
+      var X = function (i) { return L + (W - L - R) * (i / Math.max(1, nT)); }, Y = function (val) { return T + (H - T - B) * (1 - (val - lo) / (hi - lo)); };
+      var mxP = Math.max.apply(null, tr.map(function (t) { return Math.abs(t.pnl); }).concat([1])), bw = (W - L - R) / nT * 0.6, mid = H - B - 40;
+      var bars = tr.map(function (t, i) { var hgt = Math.abs(t.pnl) / mxP * 36, x = X(i + 0.5) - bw / 2; return '<rect x="' + x.toFixed(1) + '" y="' + (t.pnl >= 0 ? mid - hgt : mid).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + Math.max(1, hgt).toFixed(1) + '" rx="2" fill="' + (t.pnl >= 0 ? "var(--green)" : "var(--red)") + '" opacity=".55"><title>' + esc(t.day + " " + t.contract + ": " + money(t.pnl)) + "</title></rect>"; }).join("");
+      var grid = "", k; for (k = 0; k <= 3; k++) { var gv = lo + (hi - lo) * k / 3; grid += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(gv).toFixed(1) + '" y2="' + Y(gv).toFixed(1) + '" stroke="var(--line)"/><text x="' + (L - 8) + '" y="' + (Y(gv) + 4).toFixed(1) + '" text-anchor="end" font-size="11" fill="var(--muted)">$' + Math.round(gv / 100) * 100 + "</text>"; }
+      var line = '<polyline fill="none" stroke="var(--green2)" stroke-width="2.4" stroke-linejoin="round" points="' + cv.map(function (c, i) { return X(i).toFixed(1) + "," + Y(c.balance).toFixed(1); }).join(" ") + '"/>';
+      var lbl = ""; var seen = {}; tr.forEach(function (t, i) { if (!seen[t.day]) { seen[t.day] = 1; lbl += '<text x="' + X(i + 0.5).toFixed(1) + '" y="' + (H - 6) + '" text-anchor="start" font-size="11" fill="var(--muted)">' + esc(t.day.slice(5).replace("-", "/")) + "</text>"; } });
+      document.getElementById("deskChart").innerHTML = '<svg class="chart" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Balance of a $10,000 account trade by trade">' + grid + bars + line + lbl + "</svg>";
+    }
+    document.getElementById("deskList").innerHTML = "<table><thead><tr><th>Day</th><th>Contract</th><th>Type</th><th>Qty</th><th>Bought</th><th>Sold</th><th>Profit</th><th>Result</th></tr></thead><tbody>" +
+      (v.trades || []).map(function (t) { return "<tr><td>" + esc(t.day) + "</td><td><b>" + esc(t.contract) + "</b></td><td>" + esc(t.horizon) + "</td><td>" + esc(t.qty) + "</td><td>" + px(t.buy) + "<small>" + esc(t.buyAt) + " ET</small></td><td>" + px(t.sell) + "<small>" + esc(t.sellAt) + " ET</small></td><td class=\"" + cls(t.pnl) + "\">" + money(t.pnl) + "</td><td class=\"" + cls(t.pct) + "\">" + pct(t.pct) + "</td></tr>"; }).join("") + "</tbody></table>";
+    var un = v.unmatched || [];
+    document.getElementById("deskNote").textContent = "All " + al.trades + " trades shown, including a 1DTE and a weekly: " + al.winRate + "% win rate, " + money(al.pnl) + " total. " + (v.sim && v.sim.method ? v.sim.method + " " : "") +
+      (un.length ? "Not counted, because the other side is not in the order history provided: " + un.map(function (u) { return u.day + " " + u.contract + " (" + u.action.toLowerCase() + " at " + px(u.price) + ")"; }).join("; ") + ". " : "") + "Past results. Real trading involves risk of loss. Education only, not financial advice.";
+  }
+  fetch("https://dashboard.tradewithao.com/api/public/desk-trades", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (v) { if (v && v.ok) renderDesk(v); }).catch(function () {});
   /* Oct 21: every engine signal since May 2026, raw. The list is complete; the numbers use measurable rows. */
   var ARC = "https://dashboard.tradewithao.com/api/public/signal-archive";
   function arcTiles(st) {
@@ -482,6 +533,10 @@
         o.innerHTML = "<b>Omega's own picks, followed to expiry:</b> " + esc(r25) + "% reached +25%, median best " + pct(med) + ", " + esc(dbl) + "% at least doubled (" + esc(bh.length) + " closed picks since Oct 5, partly estimated from the stock's price where the option's own history is incomplete).";
       }
     }
+    var tx = a.toExpiry || {};
+    var exLine = tx.followed ? "<b>Followed to expiry (from " + esc(day(tx.startDay + "T16:00:00Z")) + "):</b> " + esc(tx.complete) + " signals followed every day so far" + (tx.reached25Rate != null ? ", " + esc(tx.reached25Rate) + "% reached +25%, median best " + pct(tx.medianBest) : "") + (tx.expired ? "; " + esc(tx.expired) + " have expired, " + esc(tx.aboveEntryAtExpiryRate) + "% above entry at expiry" : "") + "."
+      : "<b>Followed to expiry, from " + esc(day((tx.startDay || "2026-10-22") + "T16:00:00Z")) + ":</b> every open signal's contract is now checked after each close until it expires, so this section will show how far signals ran before expiry, like-for-like with flow services.";
+    var ox = document.getElementById("ngOmega"); ox.hidden = false; ox.innerHTML = (ox.innerHTML ? ox.innerHTML + "<br>" : "") + exLine;
     document.getElementById("ngLegend").innerHTML = b.buckets.map(function (k) { return '<span><i style="background:' + col[k.key] + ';height:10px;width:10px"></i>' + esc(k.label) + "</span>"; }).join("");
     var mx = Math.max.apply(null, b.buckets.map(function (k) { return k.n; }).concat([1]));
     document.getElementById("ngDist").innerHTML = b.buckets.slice().reverse().map(function (k) { return '<div class="ng-bar"><span>' + esc(k.label) + '</span><i style="width:' + Math.max(2, k.n / mx * 100).toFixed(1) + "%;background:" + col[k.key] + '"></i><em>' + esc(k.n.toLocaleString("en-US")) + " \u00b7 " + Math.round(k.n / b.n * 100) + "%</em></div>"; }).join("");
