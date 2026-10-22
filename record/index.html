@@ -179,7 +179,9 @@
     <p class="sub" id="planSub" hidden></p>
     <div class="scroll" id="planList"></div>
   </section>
-  <section class="card"><h2>By strategy</h2><div class="scroll" id="byH"></div></section>
+  <section class="card"><h2>By strategy <small>(actual results, as traded)</small></h2>
+    <p class="sub">Each pick closed under the exit rules in force that day. &ldquo;Avg % per trade&rdquo; counts every trade once. &ldquo;Total $, 1 contract each&rdquo; adds up dollars holding one contract of every pick, so expensive contracts (NDX, SPX) weigh more. &ldquo;$1,000 in each trade&rdquo; puts the same money in every pick, the way an account trades. Win rate shows from 5 closed trades.</p>
+    <div class="scroll" id="byH"></div></section>
   <section class="card"><h2>Every pick</h2><div class="scroll" id="list"></div></section>
   <!-- Oct 21: Omega's signal lane, in shadow: shown here, kept out of every number above. -->
   <section class="card" id="laneCard" hidden><h2>Omega signal lane <small>(shadow, not counted above)</small></h2>
@@ -349,8 +351,10 @@
       '<div class="stat"><em>Win rate</em><b>' + (ov.winRate == null ? "—" : esc(ov.winRate) + "%") + "</b><small>closed picks</small></div>" +
       '<div class="stat"><em>Average result</em><b class="' + cls(ov.avgResultPct) + '">' + pct(ov.avgResultPct) + '</b><small class="' + cls(ov.totalPerContract) + '">' + usd(ov.totalPerContract) + " per contract, total</small></div>" +
       "";
-    document.getElementById("byH").innerHTML = "<table><thead><tr><th>Strategy</th><th>Picks</th><th>Closed</th><th>Win rate</th><th>Average</th><th>Per contract</th></tr></thead><tbody>" +
-      HZ.map(function (h) { var s = (d.byHorizon || {})[h] || {}; return "<tr><td><b>" + h + "</b></td><td>" + esc(s.picks || 0) + "</td><td>" + esc(s.closed || 0) + "</td><td>" + (s.winRate == null ? "—" : esc(s.winRate) + "%") + '</td><td class="' + cls(s.avgResultPct) + '">' + pct(s.avgResultPct) + '</td><td class="' + cls(s.totalPerContract) + '">' + usd(s.totalPerContract) + "</td></tr>"; }).join("") + "</tbody></table>";
+    // Oct 22: equal money per trade ($1,000 each) beside the per-contract total, so the two cannot be confused.
+    var eq = {}; (d.trades || []).forEach(function (x) { if (x.status === "closed" && x.resultPct != null) eq[x.horizon] = (eq[x.horizon] || 0) + 1000 * x.resultPct / 100; });
+    document.getElementById("byH").innerHTML = "<table><thead><tr><th>Strategy</th><th>Picks</th><th>Closed</th><th>Win rate</th><th>Avg % per trade</th><th>$1,000 in each trade</th><th>Total $, 1 contract each</th></tr></thead><tbody>" +
+      HZ.map(function (h) { var s = (d.byHorizon || {})[h] || {}; var e = eq[h]; return "<tr><td><b>" + h + "</b></td><td>" + esc(s.picks || 0) + "</td><td>" + esc(s.closed || 0) + "</td><td>" + (s.winRate == null ? "—" : esc(s.winRate) + "%") + '</td><td class="' + cls(s.avgResultPct) + '">' + pct(s.avgResultPct) + '</td><td class="' + cls(e) + '">' + (e == null ? "—" : usd(e)) + '</td><td class="' + cls(s.totalPerContract) + '">' + usd(s.totalPerContract) + "</td></tr>"; }).join("") + "</tbody></table>";
     var t = d.trades || [];
     document.getElementById("list").innerHTML = t.length
       ? "<table><thead><tr><th>Day</th><th>Pick</th><th>Strategy</th><th>Entry</th><th>Exit</th><th>Result</th><th title=\"Best price the option reached while the trade was open\">Highest reached</th><th title=\"Best price before expiry, even after the exit\">Highest if held</th><th>Why it closed</th></tr></thead><tbody>" +
