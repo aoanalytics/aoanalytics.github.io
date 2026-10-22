@@ -51,8 +51,29 @@
     .up{color:var(--green2)}.down{color:var(--red)}
     .empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line2);border-radius:12px}
     .rules{color:var(--muted);font-size:14px;margin:20px 0}
+    /* Oct 21: testing notice, $10K account, change log, signal archive */
+    .testing{margin:22px 0 0;padding:18px 20px;border-radius:14px;border:1px solid rgba(227,179,65,.55);background:rgba(227,179,65,.10);max-width:980px}
+    .testing b.t{display:block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+    .testing p{margin:0 0 8px;font-size:15px}
+    .testing ul{margin:6px 0 8px 18px;padding:0;font-size:15px}
+    .testing li{margin:3px 0}
+    .testing small{display:block;color:var(--muted);font-size:13px}
+    .card h3{margin:18px 0 8px;font-size:16px;color:var(--white)}
+    .card .sub{margin:-4px 0 12px;color:var(--muted);font-size:14px}
+    .chart{width:100%;height:auto;display:block;margin:8px 0 4px}
+    .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:0 0 10px}
+    .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+    .chg{margin:0;padding:0;list-style:none}
+    .chg li{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+    .chg li:last-child{border-bottom:0}
+    .chg time{display:inline-block;min-width:92px;color:var(--muted);font-variant-numeric:tabular-nums}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
+    .controls select{height:36px;border-radius:10px;border:1px solid var(--line2);background:var(--panel);color:var(--text);padding:0 10px;font:inherit;font-size:14px}
+    .controls a{font-size:14px;text-decoration:underline}
+    .muted{color:var(--muted)}
+    .stats.six{grid-template-columns:repeat(3,minmax(0,1fr))}
     footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13px;margin-top:60px}
-    @media (max-width:900px){.links{display:none}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:900px){.links{display:none}.stats,.stats.six{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media (max-width:560px){.wrap{padding:0 16px}.nav .wrap{gap:8px}.actions{gap:6px}.brand .logo-dark,.brand .logo-ink{display:none!important}.brand .logo-mark{display:block!important;height:34px;width:34px;border-radius:9px}html[data-theme="light"] .brand .logo-mark{content:url(/ao-logo-small-ink.png);border-radius:0;object-fit:contain}.theme-btn{width:34px;height:34px}}
     html[data-theme="light"]{--bg:#ffffff;--bg2:#f6f8fa;--panel:#ffffff;--panel2:#f3f5f8;--line:#e6e9ef;--line2:#d5dbe4;--text:#2a313c;--white:#0b0e13;--muted:#5a6474;--dim:#8a93a2;--green:#00a656;--green2:#008f49;--greenSoft:rgba(0,166,86,.10);--red:#d1242f;--gold:#9a6b00;color-scheme:light}
     html[data-theme="light"] .nav{background:rgba(255,255,255,.82);border-bottom-color:rgba(10,20,30,.08)}
@@ -75,10 +96,35 @@
   <h1>Every pick, kept.</h1>
   <p class="lede">Each trading day at 10:05 AM ET, A&amp;O records what the desk's model found and tracks it as a paper trade on the same exit plan the terminal shows. Winners and losers both stay on this page.</p>
   <p class="note" id="started">Loading the record…</p>
+  <div class="testing" role="note">
+    <b class="t">Live testing: these agents are being built in the open</b>
+    <p>Omega and the signal engine are paper-trading agents under active development. We are traders first, and we change the rules when the record shows us something is off. What we are building toward:</p>
+    <ul>
+      <li><b>Adaptive take profit and stop loss</b>: exits sized from the market (the chart's structure, the stock's own movement, dealer gamma, options flow), not fixed percentages.</li>
+      <li><b>Adaptive trailing</b>: winners are sold in slices on dollar trails, so a quick gain is protected and a trend can keep running.</li>
+      <li><b>Trading it as a book</b>: per-trade and open-risk limits by account size, a daily profit goal that banks the day, and a daily portfolio review, so results come from a system rather than single bets.</li>
+    </ul>
+    <small>Every change is dated on this page. No result is edited, backfilled or removed: each trade keeps the rule it was recorded under, and corrections are new dated entries. Paper results only, not real fills. Education only, not financial advice.</small>
+  </div>
 </div></header>
 
 <main class="wrap">
   <section class="stats" id="stats" aria-live="polite"></section>
+  <!-- Oct 21: Omega's $10K simulated account, the report allocators asked for. -->
+  <section class="card" id="acctCard" hidden><h2>$10,000 simulated account</h2>
+    <p class="sub" id="acctSub"></p>
+    <section class="stats" id="acctStats" aria-live="polite"></section>
+    <div class="legend" id="acctLegend"></div>
+    <div id="acctChart"></div>
+    <p class="rules" id="acctNote"></p>
+  </section>
+  <section class="card" id="chgCard" hidden><h2>What we changed, and why</h2>
+    <p class="sub">We trade these setups ourselves. By Oct 21 the record matched what we saw on our own screens: on choppy days the read flipped between calls and puts every time price crossed VWAP (SPY crossed it 7 times on Oct 21), signals were being scored on candles that had not finished, the first half hour produced mostly puts with no better hit rate, and fixed +30% / &minus;30% exits sold winners early and rode losers to the stop. These are the fixes. They apply to new trades from Oct 22; every earlier trade stays under the rule it was recorded with.</p>
+    <ul class="chg" id="chgList"></ul>
+    <h3 id="planH" hidden>Exit plans replayed on the same trades</h3>
+    <p class="sub" id="planSub" hidden></p>
+    <div class="scroll" id="planList"></div>
+  </section>
   <section class="card"><h2>By strategy</h2><div class="scroll" id="byH"></div></section>
   <section class="card"><h2>Every pick</h2><div class="scroll" id="list"></div></section>
   <!-- Oct 21: Omega's signal lane, in shadow: shown here, kept out of every number above. -->
@@ -99,6 +145,23 @@
     <section class="stats" id="sigPort" aria-live="polite"></section>
     <div class="scroll" id="sigList"></div>
     <p class="rules" id="sigNote"></p>
+  </section>
+  <!-- Oct 21: every engine signal since May 2026, raw. Every row listed; numbers only from measurable rows. -->
+  <section class="card" id="arcCard"><h2>Every engine signal since May 2026 <small>(raw)</small></h2>
+    <p class="sub" id="arcSub">Loading every signal since May 2026…</p>
+    <section class="stats" id="arcStats" aria-live="polite"></section>
+    <h3>If every signal had simply been held to the close</h3>
+    <section class="stats" id="arcHeld" aria-live="polite"></section>
+    <h3>By month</h3>
+    <div class="scroll" id="arcMonths"></div>
+    <h3>Calls and puts</h3>
+    <div class="scroll" id="arcSides"></div>
+    <h3>Every signal</h3>
+    <div class="controls"><label for="arcMonth" class="muted">Month</label><select id="arcMonth"></select>
+      <label for="arcSide" class="muted">Side</label><select id="arcSide"><option value="">Calls and puts</option><option value="CALL">Calls</option><option value="PUT">Puts</option></select>
+      <a id="arcCsv" href="https://dashboard.tradewithao.com/api/public/signal-archive.csv">Download every signal (CSV)</a></div>
+    <div class="scroll" id="arcRows"></div>
+    <p class="rules" id="arcMethod"></p>
   </section>
   <section class="card" id="corrCard" hidden><h2>Corrections</h2><div id="corrList"></div></section>
   <p class="rules" id="rules"></p>
@@ -145,8 +208,56 @@
       sk.map(function (x) { return "<tr><td>" + esc(x.day) + "</td><td>" + esc(t(x.at)) + "</td><td><b>" + esc(x.ticker) + "</b><small>" + (x.side === "CALL" ? "call" : "put") + "</small></td><td>" + esc(x.why) + "</td></tr>"; }).join("") +
       "</tbody></table>" : "";
   }
+  /* Oct 21: Omega's $10K simulated account (the allocator report), drawn from the record's own numbers. */
+  function renderAccount(a) {
+    if (!a || !a.account || !a.curve) return;
+    var m = a.account.mid || {}, c = a.account.afterCosts || {}, spy = a.spy || {};
+    var cur = a.curve, last = function (xs) { return xs && xs.length ? xs[xs.length - 1] : null; };
+    document.getElementById("acctCard").hidden = false;
+    document.getElementById("acctSub").textContent = "Omega's paper account from " + day(a.from + "T16:00:00Z") + " to " + day(a.to + "T16:00:00Z") + ": every counted trade, $10,000 to start, results compounding. Shown two ways: at the mid price, and after the bid/ask spread and $0.65 per contract each way. The S&P 500 (SPY) over the same days is the yardstick.";
+    function money(v) { var x = n(v); return x === null ? "\u2014" : "$" + Math.round(x).toLocaleString("en-US"); }
+    document.getElementById("acctStats").innerHTML =
+      '<div class="stat"><em>At mid price</em><b class="' + cls(m.returnPct) + '">' + money(last(cur.mid)) + '</b><small class="' + cls(m.returnPct) + '">' + pct(m.returnPct) + "</small></div>" +
+      '<div class="stat"><em>After spread &amp; fees</em><b class="' + cls(c.returnPct) + '">' + money(last(cur.afterCosts)) + '</b><small class="' + cls(c.returnPct) + '">' + pct(c.returnPct) + "</small></div>" +
+      '<div class="stat"><em>S&amp;P 500, same days</em><b class="' + cls(spy.returnPct) + '">' + money(last(cur.spy)) + '</b><small class="' + cls(spy.returnPct) + '">' + pct(spy.returnPct) + "</small></div>" +
+      '<div class="stat"><em>Worst drawdown</em><b>' + pct(m.maxDrawdownPct) + "</b><small>" + pct(c.maxDrawdownPct) + " after costs</small></div>" +
+      (a.winRate ? '<div class="stat"><em>Win rate</em><b>' + esc(a.winRate.mid) + "%</b><small>likely range " + esc((a.winRate.midRange || []).join("\u2013")) + "% \u00b7 " + esc(a.trades) + " trades</small></div>" : "") +
+      (a.profitFactor ? '<div class="stat"><em>Profit factor</em><b>' + esc(a.profitFactor.mid) + "</b><small>" + esc(a.profitFactor.afterCosts) + " after costs</small></div>" : "");
+    var series = [["At mid price", cur.mid, "var(--green2)"], ["After spread & fees", cur.afterCosts, "var(--red)"], ["S&P 500", cur.spy, "var(--muted)"]].filter(function (x) { return x[1] && x[1].length > 1; });
+    var all = [].concat.apply([], series.map(function (x) { return x[1]; })).filter(function (v) { return n(v) !== null; });
+    var lo = Math.min.apply(null, all.concat([10000])), hi = Math.max.apply(null, all.concat([10000])), pad = (hi - lo) * 0.08 || 100;
+    lo -= pad; hi += pad;
+    var W = 900, H = 240, L = 56, R = 12, T = 10, B = 26, nPts = cur.days.length;
+    var X = function (i) { return L + (W - L - R) * (i / Math.max(1, nPts - 1)); }, Y = function (v) { return T + (H - T - B) * (1 - (v - lo) / (hi - lo)); };
+    var grid = "", k;
+    for (k = 0; k <= 4; k++) { var gv = lo + (hi - lo) * k / 4; grid += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(gv).toFixed(1) + '" y2="' + Y(gv).toFixed(1) + '" stroke="var(--line)"/><text x="' + (L - 8) + '" y="' + (Y(gv) + 4).toFixed(1) + '" text-anchor="end" font-size="11" fill="var(--muted)">$' + Math.round(gv / 100) * 100 + "</text>"; }
+    var base = '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(10000).toFixed(1) + '" y2="' + Y(10000).toFixed(1) + '" stroke="var(--dim)" stroke-dasharray="4 4"/>';
+    var lbl = cur.days.map(function (d2, i) { return (i === 1 || i === nPts - 1 || (i % 4 === 1)) && d2 !== "start" ? '<text x="' + X(i).toFixed(1) + '" y="' + (H - 6) + '" text-anchor="middle" font-size="11" fill="var(--muted)">' + esc(d2.slice(5).replace("-", "/")) + "</text>" : ""; }).join("");
+    var lines = series.map(function (x) { return '<polyline fill="none" stroke="' + x[2] + '" stroke-width="2.2" stroke-linejoin="round" points="' + x[1].map(function (v, i) { return X(i).toFixed(1) + "," + Y(v).toFixed(1); }).join(" ") + '"/>'; }).join("");
+    document.getElementById("acctChart").innerHTML = '<svg class="chart" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="$10,000 account balance by day">' + grid + base + lines + lbl + "</svg>";
+    document.getElementById("acctLegend").innerHTML = series.map(function (x) { return '<span><i style="background:' + x[2] + '"></i>' + esc(x[0]) + "</span>"; }).join("");
+    document.getElementById("acctNote").textContent = "These are early results from a system we are still building, over " + (m.days || "") + " trading days. Rules changed during this period (each trade is shown under its own rule below), and the after-cost line shows how much the spread costs on short-dated options, which is one reason the exits now change. " + (a.note || "");
+  }
+  function renderChanges(d) {
+    var g = d.governance || {}, ch = (g.engineChanges || []).slice().reverse();
+    var rules = (d.rulesTimeline || d.ruleVersions || []);
+    if (!ch.length) return;
+    document.getElementById("chgCard").hidden = false;
+    document.getElementById("chgList").innerHTML = ch.map(function (c) { return '<li><time>' + esc(day(c.day + "T16:00:00Z")) + "</time> " + esc(c.what) + "</li>"; }).join("") +
+      (g.freeze && g.freeze.note ? '<li><time>Policy</time> ' + esc(g.freeze.note) + "</li>" : "") +
+      (g.promotionBar && g.promotionBar.note ? '<li><time>Promotion</time> ' + esc(g.promotionBar.note) + "</li>" : "");
+    var w = d.whatIf, P = d.plans || [];
+    if (w && w.trades && P.length) {
+      document.getElementById("planH").hidden = false; document.getElementById("planSub").hidden = false;
+      document.getElementById("planSub").textContent = "Each exit plan replayed on the recorded option prices of the same " + w.trades + " trades. Hindsight, before costs, and partly estimated where a trade's price history is incomplete: a guide to which way to adapt, not a result.";
+      document.getElementById("planList").innerHTML = "<table><thead><tr><th>Exit plan</th><th>Average per trade</th></tr></thead><tbody>" +
+        P.filter(function (p) { return w[p.key] != null; }).map(function (p) { return "<tr><td>" + esc(p.label) + '</td><td class="' + cls(w[p.key]) + '">' + pct(w[p.key]) + "</td></tr>"; }).join("") + "</tbody></table>";
+    }
+  }
   function render(d) {
     try { renderLane(d.signalLane); } catch (e) {}
+    try { renderAccount(d.allocator); } catch (e) {}
+    try { renderChanges(d); } catch (e) {}
     var ov = d.overall || {};
     document.getElementById("started").textContent = d.startedAt
       ? "The record started " + day(d.startedAt) + ". Nothing before that is shown or backfilled."
@@ -162,10 +273,10 @@
       HZ.map(function (h) { var s = (d.byHorizon || {})[h] || {}; return "<tr><td><b>" + h + "</b></td><td>" + esc(s.picks || 0) + "</td><td>" + esc(s.closed || 0) + "</td><td>" + (s.winRate == null ? "—" : esc(s.winRate) + "%") + '</td><td class="' + cls(s.avgResultPct) + '">' + pct(s.avgResultPct) + '</td><td class="' + cls(s.totalPerContract) + '">' + usd(s.totalPerContract) + "</td></tr>"; }).join("") + "</tbody></table>";
     var t = d.trades || [];
     document.getElementById("list").innerHTML = t.length
-      ? "<table><thead><tr><th>Day</th><th>Pick</th><th>Strategy</th><th>Entry</th><th>Exit</th><th>Result</th><th>Why it closed</th></tr></thead><tbody>" +
+      ? "<table><thead><tr><th>Day</th><th>Pick</th><th>Strategy</th><th>Entry</th><th>Exit</th><th>Result</th><th title=\"Best price the option reached while the trade was open\">Highest reached</th><th title=\"Best price before expiry, even after the exit\">Highest if held</th><th>Why it closed</th></tr></thead><tbody>" +
         t.map(function (x) {
           var open = x.status === "open";
-          return "<tr><td>" + esc(x.day) + "</td><td><b>" + esc(x.contract || x.ticker) + "</b><small>" + esc(x.read) + (open ? " · open" : "") + "</small></td><td>" + esc(x.horizon) + "</td><td>" + (open ? "—" : px(x.entry)) + "</td><td>" + (open ? "—" : px(x.exitPrice)) + '</td><td class="' + cls(x.resultPct) + '">' + (open ? "Open" : pct(x.resultPct)) + "</td><td>" + esc(x.exitReason || x.note || "") + "</td></tr>";
+          return "<tr><td>" + esc(x.day) + "</td><td><b>" + esc(x.contract || x.ticker) + "</b><small>" + esc(x.read) + (open ? " · open" : "") + "</small></td><td>" + esc(x.horizon) + "</td><td>" + (open ? "—" : px(x.entry)) + "</td><td>" + (open ? "—" : px(x.exitPrice)) + '</td><td class="' + cls(x.resultPct) + '">' + (open ? "Open" : pct(x.resultPct)) + '</td><td class="' + cls(x.maxGainPct) + '">' + (open ? "\u2014" : pct(x.maxGainPct)) + '</td><td class="' + cls(x.bestIfHeldPct) + '">' + (open ? "\u2014" : pct(x.bestIfHeldPct)) + "</td><td>" + esc(x.exitReason || x.note || "") + "</td></tr>";
         }).join("") + "</tbody></table>"
       : '<div class="empty">No picks yet. The first ones are recorded at 10:05 AM ET on the next trading day.</div>';
     document.getElementById("rules").textContent = d.rules || "";
@@ -233,6 +344,73 @@
     document.getElementById("sigNote").textContent =
       "Rows marked \u201Cnot graded\u201D were measured against a different contract on the same ticker and are left out of every number in this section. They are listed rather than hidden. Paper results, hypothetical, no fills, fees or slippage. Education only, not financial advice.";
   }
+  /* Oct 21: every engine signal since May 2026, raw. The list is complete; the numbers use measurable rows. */
+  var ARC = "https://dashboard.tradewithao.com/api/public/signal-archive";
+  function arcTiles(st) {
+    var g = st.graded || {}, h = st.held || {};
+    return {
+      main: '<div class="stat"><em>Signals fired</em><b>' + esc((st.fired || 0).toLocaleString("en-US")) + "</b><small>" + esc((st.calls || 0).toLocaleString("en-US")) + " calls \u00b7 " + esc((st.puts || 0).toLocaleString("en-US")) + " puts</small></div>" +
+        '<div class="stat"><em>Measured</em><b>' + esc((st.counted || 0).toLocaleString("en-US")) + "</b><small>" + esc(((st.notCounted || {}).noPrice || 0).toLocaleString("en-US")) + " had no option price \u00b7 " + esc(((st.notCounted || {}).shared || 0).toLocaleString("en-US")) + " shared a price path</small></div>" +
+        '<div class="stat"><em>Win rate</em><b>' + (g.winRate == null ? "\u2014" : esc(g.winRate) + "%") + "</b><small>" + esc((g.wins || 0).toLocaleString("en-US")) + " of " + esc((g.n || 0).toLocaleString("en-US")) + " closed, graded exit</small></div>" +
+        '<div class="stat"><em>Average win</em><b class="up">' + pct(g.avgWinPct) + "</b><small>on the option</small></div>" +
+        '<div class="stat"><em>Average loss</em><b class="down">' + pct(g.avgLossPct) + "</b><small>on the option</small></div>" +
+        '<div class="stat"><em>Average per signal</em><b class="' + cls(g.avgPct) + '">' + pct(g.avgPct) + "</b><small>profit factor " + (g.profitFactor == null ? "\u2014" : esc(g.profitFactor)) + "</small></div>",
+      held: '<div class="stat"><em>Profitable if held to the close</em><b>' + (h.upRate == null ? "\u2014" : esc(h.upRate) + "%") + "</b><small>" + esc((h.up || 0).toLocaleString("en-US")) + " of " + esc((h.n || 0).toLocaleString("en-US")) + " signals</small></div>" +
+        '<div class="stat"><em>Average win, held</em><b class="up">' + pct(h.avgWinPct) + "</b><small>last price that day</small></div>" +
+        '<div class="stat"><em>Average loss, held</em><b class="down">' + pct(h.avgLossPct) + "</b><small>last price that day</small></div>" +
+        '<div class="stat"><em>Average per signal, held</em><b class="' + cls(h.avgPct) + '">' + pct(h.avgPct) + "</b><small>profit factor " + (h.profitFactor == null ? "\u2014" : esc(h.profitFactor)) + "</small></div>" +
+        '<div class="stat"><em>Highest take profit reached</em><b>' + ((st.reached30 || {}).rate == null ? "\u2014" : esc(st.reached30.rate) + "%") + "</b><small>reached +30% or more at some point</small></div>"
+    };
+  }
+  // OCC symbol to "SLV $52.50 Call · Nov 27, 2026".
+  function prettyOcc(c) {
+    var m = /^([A-Z.]{1,6})\s*(\d{2})(\d{2})(\d{2})([CP])(\d{8})$/.exec(String(c || "").replace(/\s+/g, ""));
+    if (!m) return c || "\u2014";
+    var MN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], k = Number(m[6]) / 1000;
+    return m[1] + " $" + (k % 1 ? k.toFixed(2) : k.toFixed(0)) + " " + (m[5] === "C" ? "Call" : "Put") + " \u00b7 " + MN[Number(m[3]) - 1] + " " + Number(m[4]) + ", 20" + m[2];
+  }
+  function arcRow(r) {
+    var mark = r.outcome === "hit" ? '<span class="up">hit</span>' : r.outcome === "failed" ? '<span class="down">' + (/invalidated|flip/i.test(r.why || "") ? "read flipped" : "stopped") + "</span>" : r.outcome === "chop" ? "no exit hit" : (r.outcome || "open");
+    return "<tr><td>" + esc(r.day) + "</td><td><b>" + esc(r.ticker) + "</b><small>" + (r.side === "CALL" ? "call \u00b7 5/5" : "put \u00b7 1/5") + "</small></td><td>" + esc(prettyOcc(r.contract)) + "</td><td>" + px(r.entry) + "</td><td>" +
+      (r.counted ? (r.exitPct == null ? "<small>" + mark + "</small>" : '<span class="' + cls(r.exitPct) + '">' + pct(r.exitPct) + "</span> <small>" + mark + "</small>") : "\u2014") + "</td><td>" + (r.counted ? '<span class="' + cls(r.heldPct) + '">' + pct(r.heldPct) + "</span>" : "\u2014") + "</td><td>" + (r.counted ? '<span class="' + cls(r.bestPct) + '">' + pct(r.bestPct) + "</span>" : "\u2014") + "</td><td>" + (r.counted ? "" : '<small>' + esc(r.notCounted || "not measured") + "</small>") + "</td></tr>";
+  }
+  var arcCache = {};
+  function loadMonth() {
+    var m = document.getElementById("arcMonth").value, side = document.getElementById("arcSide").value, box = document.getElementById("arcRows");
+    if (!m) return;
+    function draw(rows, all) {
+      var list = rows.filter(function (r) { return !side || r.side === side; }).slice().reverse();
+      var shown = all ? list : list.slice(0, 200);
+      box.innerHTML = '<p class="sub">' + esc(list.length.toLocaleString("en-US")) + " signals in " + esc(m) + (side ? " (" + (side === "CALL" ? "calls" : "puts") + ")" : "") + ", newest first. Every one is listed" + (shown.length < list.length ? "; showing the first 200" : "") + ".</p>" +
+        "<table><thead><tr><th>Day</th><th>Signal</th><th>Contract</th><th>Entry</th><th>Graded exit</th><th>Held to close</th><th>Highest reached</th><th></th></tr></thead><tbody>" + shown.map(arcRow).join("") + "</tbody></table>" +
+        (shown.length < list.length ? '<div class="controls"><button type="button" class="btn btn-light" id="arcAll">Show all ' + esc(list.length.toLocaleString("en-US")) + "</button></div>" : "");
+      var btn = document.getElementById("arcAll"); if (btn) btn.onclick = function () { draw(rows, true); };
+    }
+    if (arcCache[m]) return draw(arcCache[m]);
+    box.innerHTML = '<div class="empty">Loading ' + esc(m) + "\u2026</div>";
+    fetch(ARC + "?month=" + encodeURIComponent(m), { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (j) {
+      if (!j || !j.ok) throw new Error("bad"); arcCache[m] = j.rows || []; draw(arcCache[m]);
+    }).catch(function () { box.innerHTML = '<div class="empty">This month could not load. Try again in a minute, or download the CSV.</div>'; });
+  }
+  function renderArchive(a) {
+    var st = a.stats || {}, t = arcTiles(st);
+    document.getElementById("arcSub").textContent = "Every 5/5 breakout (call) and 1/5 breakdown (put) the engine has fired since it began recording on " + day(a.from + "T16:00:00Z") + ", through " + day(a.to + "T16:00:00Z") + ". These are raw signals, before Omega's filters and before the changes above. Nothing is removed: signals we cannot measure are listed below and left out of the numbers, with the reason.";
+    document.getElementById("arcStats").innerHTML = t.main;
+    document.getElementById("arcHeld").innerHTML = t.held;
+    var mrow = function (label, s2) { var g = s2.graded || {}, h = s2.held || {}; return "<tr><td><b>" + esc(label) + "</b></td><td>" + esc((s2.fired || 0).toLocaleString("en-US")) + "</td><td>" + esc((s2.counted || 0).toLocaleString("en-US")) + "</td><td>" + (g.winRate == null ? "\u2014" : esc(g.winRate) + "%") + '</td><td class="up">' + pct(g.avgWinPct) + '</td><td class="down">' + pct(g.avgLossPct) + '</td><td class="' + cls(g.avgPct) + '">' + pct(g.avgPct) + "</td><td>" + (h.upRate == null ? "\u2014" : esc(h.upRate) + "%") + '</td><td class="' + cls(h.avgPct) + '">' + pct(h.avgPct) + "</td><td>" + ((s2.reached30 || {}).rate == null ? "\u2014" : esc(s2.reached30.rate) + "%") + "</td></tr>"; };
+    var head = "<table><thead><tr><th></th><th>Fired</th><th>Measured</th><th>Win rate</th><th>Avg win</th><th>Avg loss</th><th>Avg per signal</th><th>Up if held</th><th>Avg if held</th><th>Reached +30%</th></tr></thead><tbody>";
+    var MN = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    document.getElementById("arcMonths").innerHTML = head + (a.byMonth || []).map(function (m) { return mrow(MN[Number(m.month.slice(5))] + " " + m.month.slice(0, 4), m); }).join("") + mrow("All", st) + "</tbody></table>";
+    document.getElementById("arcSides").innerHTML = head + mrow("Calls (5/5)", (a.bySide || {}).CALL || {}) + mrow("Puts (1/5)", (a.bySide || {}).PUT || {}) + "</tbody></table>";
+    var sel = document.getElementById("arcMonth");
+    sel.innerHTML = (a.months || []).slice().reverse().map(function (m) { return '<option value="' + esc(m) + '">' + esc(MN[Number(m.slice(5))] + " " + m.slice(0, 4)) + "</option>"; }).join("");
+    sel.onchange = loadMonth; document.getElementById("arcSide").onchange = loadMonth;
+    var me = a.method || {};
+    document.getElementById("arcMethod").textContent = [me.signals, me.graded, me.held, "Highest reached: the best price the option traded at after the signal that day.", me.notCounted, me.costs].filter(Boolean).join(" ");
+    loadMonth();
+  }
+  fetch(ARC, { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (a) { if (a && a.ok) renderArchive(a); else throw new Error("bad"); })
+    .catch(function () { document.getElementById("arcSub").textContent = "The signal archive could not load right now. Try again in a minute."; });
   fetch(SIGNAL_API, { cache: "no-store" }).then(function (r) { return r.json(); })
     .then(function (d) { if (d && d.ok) renderSignals(d); }).catch(function () {});
   fetch(API, { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (d) {
