@@ -26,6 +26,8 @@ A&O supports research from short-term options through longer-dated contracts and
 
 ## Learn
 
+- [How to research a stock before buying](https://tradewithao.com/how-to-research-a-stock-before-buying.html)
+
 - [AO research vs trading signals](https://tradewithao.com/ao-vs-paying-for-signals.html)
 - [How to hunt stocks without a signal Discord](https://tradewithao.com/how-to-hunt-stocks-without-a-signal-discord.html)
 - [How to read SPY positive vs negative gamma](https://tradewithao.com/how-to-read-spy-positive-vs-negative-gamma.html)
@@ -50,4 +52,3 @@ A&O supports research from short-term options through longer-dated contracts and
 - A&O is a research platform, not a signal seller. Research notifications and rule alerts are distinct from trade instructions. Members set their criteria and evaluate the evidence.
 - A&O does not give personalized investment advice and does not place trades. The member decides and trades at their own broker.
 - Backtests and paper results do not predict future results.
-
