@@ -1,49 +1,133 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Track Record | Alpha &amp; Omega Analytics</title>
-  <meta name="description" content="A&amp;O's public paper track record. Every pick the desk's model found, recorded at 10:05 AM ET and tracked on the same exit plan the terminal shows. Winners and losers. Education, not advice.">
+  <meta name="description" content="A&amp;O's public paper track record. Every pick Omega took since Oct 5, 2026, every test lane, every model version and our own real trades. Winners and losers. Education, not advice.">
   <link rel="canonical" href="https://tradewithao.com/record/">
   <meta property="og:title" content="A&amp;O Track Record: every pick, kept">
-  <meta property="og:description" content="Paper results by strategy: 0DTE, 1DTE, weeklies, monthlies and LEAPS. Every pick recorded, winners and losers.">
+  <meta property="og:description" content="Every pick, every test lane and every model version, with the results before and after each change. Winners and losers.">
   <meta property="og:image" content="https://tradewithao.com/og-branded.png">
   <link rel="icon" href="/ao-logo-small.jpg">
-  <meta name="theme-color" content="#07090d">
+  <meta name="theme-color" content="#000000">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <script>document.documentElement.setAttribute('data-theme','light');</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#07090d;--bg2:#0a0e14;--panel:#0e131b;--panel2:#121925;--line:#1c2433;--line2:#263043;--text:#c9d1d9;--white:#f2f5f8;--muted:#8b96a8;--dim:#5d687a;--green:#00d26a;--green2:#3ce68d;--greenSoft:rgba(0,210,106,.12);--red:#ff7b72;--gold:#e3b341}
+    /* Oct 23: rebuilt in the style of a modern flow-alert record: dark, one record card with a square per pick,
+       strategies, model versions, receipts, and how it is built. Every number comes from the public API. */
+    :root{--bg:#000;--bg2:#05070a;--panel:#0b0d12;--panel2:#10131a;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);--text:#d7dce5;--white:#f3f5f9;--muted:#8d96a7;--dim:#5f6878;--green:#22c76f;--green2:#3ce68d;--greenSoft:rgba(60,230,141,.10);--red:#ff7b72;--redSoft:rgba(255,123,114,.12);--gold:#e3b341;--goldSoft:rgba(227,179,65,.12);--open:#7d8bb0;--mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;color-scheme:dark}
     *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+    html{scroll-behavior:smooth;scroll-padding-top:120px}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
     a{color:inherit;text-decoration:none}
-    .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
-    .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(7,9,13,.72);border-bottom:1px solid rgba(255,255,255,.05)}
-    .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
-    .brand img{height:44px;width:auto;display:block}
+    button{font:inherit;color:inherit}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+    .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+    .up{color:var(--green2)}.down{color:var(--red)}.gold{color:var(--gold)}.muted{color:var(--muted)}.dim{color:var(--dim)}
+    .stat b.up,.st-nums strong.up,.v-nums strong.up,.rc-stats b.up,.ng-head b.up{color:var(--green2)}.stat b.down,.st-nums strong.down,.v-nums strong.down,.rc-stats b.down{color:var(--red)}.rc-stats b.gold{color:var(--gold)}
+    /* nav */
+    .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(0,0,0,.72);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:20px}
+    .brand{display:inline-flex;align-items:center}.brand img{height:42px;width:auto;display:block}.brand .logo-mark{display:none}
     .links{display:flex;gap:28px;font-size:14px;color:var(--muted)}
     .links a:hover,.links a.on{color:var(--white)}
-    .btn{display:inline-flex;align-items:center;justify-content:center;height:38px;padding:0 16px;border-radius:999px;font-weight:600;font-size:13px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;height:38px;padding:0 16px;border-radius:999px;font-weight:600;font-size:13px;border:0;cursor:pointer}
     .btn-light{background:var(--white);color:#0b0e13}
-    .btn-text{color:var(--muted)}
+    .btn-text{color:var(--muted);background:transparent}
     .actions{display:flex;gap:8px;align-items:center}
-    header.hero{padding:72px 0 30px;background:radial-gradient(600px 260px at 50% 0%,rgba(0,210,106,.12),transparent 70%)}
-    .kicker{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green2);margin-bottom:12px}
-    h1{margin:0 0 14px;font-size:clamp(38px,6vw,64px);line-height:1.04;letter-spacing:-.035em;font-weight:800;color:var(--white)}
-    .lede{max-width:760px;color:var(--muted);font-size:18px;margin:0}
-    .note{margin:18px 0 0;padding:14px 16px;border-radius:12px;border:1px solid rgba(227,179,65,.3);background:rgba(227,179,65,.06);color:var(--text);font-size:14px;max-width:860px}
-    .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:34px 0 14px}
-    .stat{padding:20px;border-radius:14px;border:1px solid var(--line);background:var(--panel)}
-    .stat em{display:block;font-style:normal;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-    .stat b{display:block;margin-top:6px;font-size:32px;font-weight:800;letter-spacing:-.02em;color:var(--white)}
+    .subnav{position:sticky;top:64px;z-index:40;background:rgba(0,0,0,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.05)}
+    .subnav .wrap{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;height:44px;align-items:center;font-size:13px;color:var(--muted);white-space:nowrap}
+    .subnav .wrap::-webkit-scrollbar{display:none}
+    .subnav a:hover{color:var(--white)}
+    /* hero */
+    .hero{position:relative;text-align:center;padding:72px 0 0;overflow:hidden}
+    html,body{overflow-x:clip}
+    .eyebrow{display:block;font-size:14px;font-weight:500;color:var(--green2);margin:0 0 14px}
+    .hero h1{margin:0 auto 18px;max-width:900px;font-size:clamp(36px,5.6vw,58px);line-height:1.06;letter-spacing:-.045em;font-weight:600;color:var(--white)}
+    .hero .lede{margin:0 auto;max-width:760px;font-size:clamp(17px,2vw,19px);line-height:1.6;color:#b5bccb}
+    .hero .fine{margin:16px auto 0;max-width:620px;font-size:13px;line-height:1.6;color:var(--dim)}
+    /* the record card */
+    .stage{position:relative;margin:56px 0 0;padding-top:30px}
+    .stage::before{content:"";position:absolute;left:50%;top:-40px;width:150%;height:200px;transform:translateX(-50%);border-radius:50%;border-top:1.5px solid rgba(60,230,141,.55);box-shadow:0 -14px 50px -10px rgba(60,230,141,.35);pointer-events:none;-webkit-mask:linear-gradient(90deg,transparent,#000 25%,#000 75%,transparent);mask:linear-gradient(90deg,transparent,#000 25%,#000 75%,transparent)}
+    .stage::after{content:"";position:absolute;left:50%;top:-120px;width:120%;height:260px;transform:translateX(-50%);background:radial-gradient(50% 60% at 50% 70%,rgba(60,230,141,.12),transparent 70%);pointer-events:none}
+    .rc{position:relative;z-index:1;text-align:left;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#0d1016,#08090d);overflow:hidden}
+    .rc-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 20px;border-bottom:1px solid var(--line);font-size:14px;font-weight:600;color:var(--white)}
+    .rc-head span{font-family:var(--mono);font-size:12px;font-weight:400;color:var(--muted)}
+    .rc-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-bottom:1px solid var(--line)}
+    .rc-stats div{padding:16px 20px;border-left:1px solid var(--line)}
+    .rc-stats div:first-child{border-left:0}
+    .rc-stats b{display:block;font-size:30px;font-weight:600;letter-spacing:-.03em;color:var(--white);line-height:1.15}
+    .rc-stats span{display:block;font-size:13px;color:var(--muted);line-height:1.4;margin-top:4px}
+    .rc-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:12px 20px;border-bottom:1px solid var(--line)}
+    .seg{display:inline-flex;align-items:center;gap:8px}
+    .seg em{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+    .pills{display:inline-flex;border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+    .pills button{border:0;background:transparent;color:var(--muted);font-size:13px;padding:5px 11px;border-radius:7px;cursor:pointer}
+    .pills button[aria-pressed="true"]{background:rgba(255,255,255,.08);color:var(--white);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+    .legend2{margin-left:auto;display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted)}
+    .legend2 i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;vertical-align:0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(30px,1fr));gap:6px;padding:20px}
+    .sq{aspect-ratio:1;border-radius:5px;border:0;padding:0;cursor:pointer;transition:opacity .2s,transform .12s}
+    .sq:hover,.sq:focus-visible{transform:scale(1.12);outline:2px solid var(--white);outline-offset:1px}
+    .sq.c-gold{background:var(--gold)}.sq.c-up{background:#2f9e63}.sq.c-down{background:#c9514b}.sq.c-open{background:transparent;box-shadow:inset 0 0 0 1.5px var(--open)}
+    .sq.fade{opacity:.12}
+    .sq-info{min-height:52px;padding:12px 20px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+    .sq-info b{color:var(--white);font-family:var(--mono);font-weight:500}
+    .cap{max-width:760px;margin:14px auto 0;text-align:center;font-size:13px;color:var(--dim)}
+    /* sections */
+    section.blk{padding:96px 0 0}
+    .blk-h{max-width:780px;margin:0 0 28px}
+    .blk-h .eyebrow{margin-bottom:10px;font-size:14px}
+    .blk-h h2{margin:0 0 12px;font-size:clamp(30px,4.2vw,44px);line-height:1.1;letter-spacing:-.035em;font-weight:600;color:var(--white)}
+    .blk-h p{margin:0;font-size:17px;color:#a9b1c0}
+    .card{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:20px;margin:14px 0}
+    .card h3{margin:0 0 8px;font-size:17px;font-weight:600;color:var(--white)}
+    .card .sub{margin:0 0 14px;color:var(--muted);font-size:14px}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:14px 0}
+    .stats.six{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .stat{padding:16px 18px;background:var(--panel2);border:1px solid var(--line);border-radius:12px}
+    .stat em{display:block;font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+    .stat b{display:block;margin-top:6px;font-size:26px;font-weight:600;letter-spacing:-.02em;color:var(--white)}
     .stat small{color:var(--muted);font-size:13px}
-    .card{border-radius:16px;border:1px solid var(--line);background:var(--panel);padding:18px;margin:14px 0}
-    .card h2{margin:0 0 12px;font-size:20px;color:var(--white)}
     .scroll{overflow-x:auto}
-    /* Oct 22: By strategy rows open to show their trades */
+    table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+    th{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);font-weight:500;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+    td{padding:11px 12px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:top}
+    td small{display:block;color:var(--dim);font-size:12px}
+    tr:last-child td{border-bottom:0}
+    tfoot td{border-top:1px solid var(--line2);font-weight:600;color:var(--white)}
+    .rules{color:var(--muted);font-size:14px;margin:16px 0}
+    .empty{padding:26px;text-align:center;color:var(--muted);border:1px dashed var(--line2);border-radius:12px}
+    .chart{width:100%;height:auto;display:block;margin:8px 0 4px}
+    .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:0 0 10px}
+    .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
+    .controls select{height:36px;border-radius:10px;border:1px solid var(--line2);background:var(--panel2);color:var(--text);padding:0 10px;font:inherit;font-size:14px}
+    .controls a{font-size:14px;text-decoration:underline}
+    /* strategies */
+    .strat{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .st{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:10px;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--panel);transition:border-color .15s,background .15s}
+    .st:hover{border-color:var(--line2)}
+    .st[aria-pressed="true"]{border-color:rgba(60,230,141,.6);background:linear-gradient(180deg,rgba(60,230,141,.06),var(--panel) 60%)}
+    .st:focus-visible{outline:2px solid var(--green2);outline-offset:2px}
+    .st-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .st-top b{font-size:16px;font-weight:600;color:var(--white)}
+    .badge{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:999px;white-space:nowrap}
+    .badge.off{background:var(--greenSoft);color:var(--green2)}.badge.test{background:rgba(255,255,255,.06);color:var(--muted)}.badge.real{background:var(--goldSoft);color:var(--gold)}
+    .st p{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+    .st-nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 8px;margin-top:auto;padding-top:10px;border-top:1px solid var(--line)}
+    .st-nums span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+    .st-nums strong{display:block;white-space:nowrap;font-size:17px;font-weight:600;color:var(--white);font-variant-numeric:tabular-nums}
+    .st-more{font-size:12.5px;color:var(--dim)}
+    .idle{grid-column:1/-1;margin:2px 0 0;font-size:13px;color:var(--dim);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .st-idle{height:30px;padding:0 12px;border-radius:999px;border:1px dashed var(--line2);background:transparent;color:var(--muted);font-size:12.5px;cursor:pointer}
+    .st-idle[aria-pressed="true"]{border-style:solid;border-color:rgba(60,230,141,.6);color:var(--white)}
+    .st[aria-pressed="true"] .st-more{color:var(--green2)}
+    #stratDetail{margin-top:14px}
+    .det-h{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+    .det-h h3{margin:0}
     tr.hz{cursor:pointer}
     tr.hz:hover td{background:var(--panel2)}
     tr.hz td:first-child b::before{content:"\25B8";display:inline-block;width:16px;color:var(--muted);transition:transform .15s}
@@ -52,209 +136,246 @@
     tr.hzd.open{display:table-row}
     tr.hzd > td{padding:4px 12px 14px;background:var(--bg2)}
     tr.hzd table{font-size:13px}
-    tr.hzd th{padding:8px 10px}
-    tr.hzd td{padding:8px 10px}
-    tr.hzd tfoot td{border-top:1px solid var(--line2);font-weight:700;color:var(--white)}
-    table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
-    th{text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
-    td{padding:12px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:top}
-    td small{display:block;color:var(--dim);font-size:12px}
-    tr:last-child td{border-bottom:0}
-    .up{color:var(--green2)}.down{color:var(--red)}
-    .empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line2);border-radius:12px}
-    .rules{color:var(--muted);font-size:14px;margin:20px 0}
-    /* Oct 21: testing notice, $10K account, change log, signal archive */
-    .testing{margin:22px 0 0;padding:18px 20px;border-radius:14px;border:1px solid rgba(227,179,65,.55);background:rgba(227,179,65,.10);max-width:980px}
-    .testing b.t{display:block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-    .testing p{margin:0 0 8px;font-size:15px}
-    .testing ul{margin:6px 0 8px 18px;padding:0;font-size:15px}
-    .testing li{margin:3px 0}
-    .testing small{display:block;color:var(--muted);font-size:13px}
-    .card h3{margin:18px 0 8px;font-size:16px;color:var(--white)}
-    .card .sub{margin:-4px 0 12px;color:var(--muted);font-size:14px}
-    .chart{width:100%;height:auto;display:block;margin:8px 0 4px}
-    .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:0 0 10px}
-    .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+    /* model versions */
+    .ver{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+    .v{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:18px;display:flex;flex-direction:column;gap:8px}
+    .v.now{border-color:rgba(60,230,141,.45)}
+    .v.next{border-style:dashed;background:transparent;grid-column:1/-1}
+    .clamp{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    details.full > summary{cursor:pointer;font-size:12.5px;color:var(--dim);list-style:none;margin-top:4px}
+    details.full > summary::-webkit-details-marker{display:none}
+    details.full[open] > summary{display:none}
+    .v-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+    .v-top b{font-size:17px;font-weight:600;color:var(--white)}
+    .v-top span{font-family:var(--mono);font-size:12px;color:var(--muted)}
+    .v p{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+    .v-nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding-top:10px;margin-top:auto;border-top:1px solid var(--line)}
+    .v-nums span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+    .v-nums strong{display:block;font-size:18px;font-weight:600;color:var(--white)}
+    .vbar{height:6px;border-radius:3px;background:rgba(255,255,255,.06);position:relative;overflow:hidden}
+    .vbar i{position:absolute;top:0;bottom:0;border-radius:3px}
+    .v-summary{margin:16px 0 0;font-size:15px;color:#b5bccb}
+    details.more{border:1px solid var(--line);border-radius:14px;background:var(--panel);margin:14px 0}
+    details.more > summary{cursor:pointer;list-style:none;padding:16px 20px;font-weight:600;color:var(--white);display:flex;justify-content:space-between;gap:12px}
+    details.more > summary::-webkit-details-marker{display:none}
+    details.more > summary::after{content:"Show";font-family:var(--mono);font-size:12px;font-weight:400;color:var(--muted)}
+    details.more[open] > summary::after{content:"Hide"}
+    details.more > .in{padding:0 20px 20px}
     .chg{margin:0;padding:0;list-style:none}
-    .chg li{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+    .chg li{padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
     .chg li:last-child{border-bottom:0}
-    .chg time{display:inline-block;min-width:92px;color:var(--muted);font-variant-numeric:tabular-nums}
-    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
-    .controls select{height:36px;border-radius:10px;border:1px solid var(--line2);background:var(--panel);color:var(--text);padding:0 10px;font:inherit;font-size:14px}
-    .controls a{font-size:14px;text-decoration:underline}
-    .muted{color:var(--muted)}
-    .stats.six{grid-template-columns:repeat(3,minmax(0,1fr))}
-    /* Oct 21: "how far each signal ran" squares, distribution and monthly chart */
-    .ng-head{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:6px 0 14px}
-    .ng-head div{padding:16px;border-radius:14px;border:1px solid var(--line);background:var(--panel2)}
-    .ng-head b{display:block;font-size:34px;font-weight:800;letter-spacing:-.02em;color:var(--white);line-height:1.1}
+    .chg time{display:inline-block;min-width:96px;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+    /* receipts */
+    .rx{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
+    .rx-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:14px 18px;border-bottom:1px solid var(--line)}
+    .rx-row:last-child{border-bottom:0}
+    .rx-row .l b{font-family:var(--mono);font-weight:500;font-size:15px;color:var(--white)}
+    .rx-row .l b small{display:inline;font-size:12px;color:var(--dim);margin-left:8px}
+    .rx-row .l span{display:block;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+    .rx-row .l p{margin:4px 0 0;font-size:13px;color:var(--dim)}
+    .rx-row .r{text-align:right}
+    .rx-row .r b{display:block;font-family:var(--mono);font-size:17px;font-weight:600}
+    .rx-row .r span{display:block;font-size:13px;color:var(--muted)}
+    .rx-ctl{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px}
+    .rx-ctl .count{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-left:auto}
+    .ghost{height:34px;padding:0 14px;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--text);font-size:13px;cursor:pointer}
+    .ghost[aria-pressed="true"]{background:rgba(255,255,255,.08);color:var(--white)}
+    /* how it is built */
+    .built{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .built div{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:18px}
+    .built b{display:block;color:var(--white);font-size:15px;font-weight:600;margin-bottom:6px}
+    .built p{margin:0;font-size:13.5px;line-height:1.55;color:var(--muted)}
+    .testing{margin:14px 0 0;padding:18px 20px;border-radius:14px;border:1px solid rgba(227,179,65,.35);background:rgba(227,179,65,.06)}
+    .testing b.t{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+    .testing p{margin:0 0 8px;font-size:14.5px}
+    .testing ul{margin:6px 0 8px 18px;padding:0;font-size:14.5px}
+    .testing li{margin:3px 0}
+    /* engine squares (kept from the Oct 21 section) */
+    .ng-head{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin:6px 0 14px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--line)}
+    .ng-head div{padding:16px;background:var(--panel)}
+    .ng-head b{display:block;font-size:30px;font-weight:600;letter-spacing:-.02em;color:var(--white);line-height:1.1}
     .ng-head span{display:block;font-size:13px;color:var(--muted);margin-top:4px}
-    .ng-omega{font-size:14px;margin:0 0 14px;padding:12px 14px;border-radius:12px;background:var(--greenSoft);border:1px solid rgba(0,166,86,.25)}
+    .ng-omega{font-size:14px;margin:0 0 14px;padding:12px 14px;border-radius:12px;background:var(--greenSoft);border:1px solid rgba(60,230,141,.22)}
     #ngCanvas{width:100%;display:block;margin:6px 0 8px;border-radius:8px}
     .ng-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;margin-top:10px}
+    .ng-two h3{font-size:15px}
     .ng-bar{display:grid;grid-template-columns:150px minmax(0,1fr) 92px;gap:10px;align-items:center;font-size:13px;margin:6px 0}
-    .ng-bar i{display:block;height:14px;border-radius:4px}
+    .ng-bar i{display:block;height:12px;border-radius:3px}
     .ng-bar em{font-style:normal;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
-    .ng-rules{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
-    .ng-rules div{font-size:13px;color:var(--muted);border-top:2px solid var(--line2);padding-top:10px}
-    .ng-rules b{display:block;color:var(--white);font-size:14px;margin-bottom:4px}
-    @media (max-width:900px){.ng-head,.ng-rules{grid-template-columns:repeat(2,minmax(0,1fr))}.ng-two{grid-template-columns:1fr}.ng-bar{grid-template-columns:120px minmax(0,1fr) 84px}}
-    footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13px;margin-top:60px}
-    @media (max-width:900px){.links{display:none}.stats,.stats.six{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    @media (max-width:560px){.wrap{padding:0 16px}.nav .wrap{gap:8px}.actions{gap:6px}.brand .logo-dark,.brand .logo-ink{display:none!important}.brand .logo-mark{display:block!important;height:34px;width:34px;border-radius:9px}html[data-theme="light"] .brand .logo-mark{content:url(/ao-logo-small-ink.png);border-radius:0;object-fit:contain}.theme-btn{width:34px;height:34px}}
-    html[data-theme="light"]{--bg:#ffffff;--bg2:#f6f8fa;--panel:#ffffff;--panel2:#f3f5f8;--line:#e6e9ef;--line2:#d5dbe4;--text:#2a313c;--white:#0b0e13;--muted:#5a6474;--dim:#8a93a2;--green:#00a656;--green2:#008f49;--greenSoft:rgba(0,166,86,.10);--red:#d1242f;--gold:#9a6b00;color-scheme:light}
-    html[data-theme="light"] .nav{background:rgba(255,255,255,.82);border-bottom-color:rgba(10,20,30,.08)}
-    html[data-theme="light"] .btn-light{background:#0b0e13;color:#fff}
-    .brand{display:inline-flex;align-items:center}.brand .logo-ink,.brand .logo-mark{display:none}
-    html[data-theme="light"] .brand .logo-dark{display:none}html[data-theme="light"] .brand .logo-ink{display:block;height:34px;width:auto}
-    .theme-btn{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--text);cursor:pointer;padding:0}
-    .theme-btn svg{width:18px;height:18px}.theme-btn .i-sun{display:none}html[data-theme="dark"] .theme-btn .i-sun{display:block}html[data-theme="dark"] .theme-btn .i-moon{display:none}
+    footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13px;margin-top:96px}
+    @media (max-width:1100px){.strat{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media (max-width:980px){.rc-stats{grid-template-columns:repeat(3,minmax(0,1fr))}.rc-stats div:nth-child(4){border-left:0}.rc-stats div:nth-child(n+4){border-top:1px solid var(--line)}.strat{grid-template-columns:repeat(2,minmax(0,1fr))}.built{grid-template-columns:repeat(2,minmax(0,1fr))}.legend2{margin-left:0}}
+    @media (max-width:900px){.links{display:none}.stats,.stats.six{grid-template-columns:repeat(2,minmax(0,1fr))}.rc-stats div:last-child:nth-child(odd){grid-column:1/-1}.ng-head{grid-template-columns:repeat(2,minmax(0,1fr))}.ng-two{grid-template-columns:1fr}.ng-bar{grid-template-columns:120px minmax(0,1fr) 84px}}
+    @media (max-width:640px){.wrap{padding:0 16px}.hero{padding-top:48px}.rc-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.rc-stats div{border-left:0!important;border-top:1px solid var(--line)}.rc-stats div:nth-child(-n+2){border-top:0}.rc-stats div:nth-child(even){border-left:1px solid var(--line)!important}.rc-stats b{font-size:24px}.strat,.built{grid-template-columns:1fr}.grid{grid-template-columns:repeat(auto-fill,minmax(22px,1fr));gap:5px;padding:14px}.rx-row{grid-template-columns:1fr}.rx-row .r{text-align:left}section.blk{padding-top:72px}.brand .logo-dark{display:none}.brand .logo-mark{display:block;height:34px;width:34px;border-radius:9px}}
   </style>
 </head>
 <body>
 <div class="nav"><div class="wrap">
-  <a class="brand" href="/" aria-label="Alpha and Omega Analytics home"><img class="logo-dark" src="/ao-logo-wide.jpg" alt="Alpha &amp; Omega Analytics" width="1500" height="500"><img class="logo-ink" src="/ao-logo-wide-ink.png" alt="Alpha &amp; Omega Analytics" width="1092" height="163"><img class="logo-mark" src="/ao-logo-small.jpg" alt="Alpha &amp; Omega Analytics" width="400" height="400"></a>
+  <a class="brand" href="/" aria-label="Alpha and Omega Analytics home"><img class="logo-dark" src="/ao-logo-wide.jpg" alt="Alpha &amp; Omega Analytics" width="1500" height="500"><img class="logo-mark" src="/ao-logo-small.jpg" alt="Alpha &amp; Omega Analytics" width="400" height="400"></a>
   <nav class="links" aria-label="Primary"><a href="/#how">How it works</a><a href="/#tour">Product</a><a href="/record/" class="on">Track record</a><a href="/#pricing">Pricing</a><a href="/#faq">FAQ</a></nav>
   <div class="actions"><a class="btn btn-text" href="https://dashboard.tradewithao.com/">Log in</a><a class="btn btn-light" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start for $1</a></div>
 </div></div>
+<nav class="subnav" aria-label="On this page"><div class="wrap">
+  <a href="#record">The record</a><a href="#strategies">Strategies</a><a href="#versions">Model versions</a><a href="#own">Our own trades</a><a href="#receipts">Every pick</a><a href="#engine">Engine signals</a><a href="#built">How it is built</a>
+</div></nav>
 
-<header class="hero"><div class="wrap">
-  <span class="kicker">Track record</span>
-  <h1>Every pick, kept.</h1>
-  <p class="lede">Each trading day at 10:05 AM ET, A&amp;O records what the desk's model found and tracks it as a paper trade on the same exit plan the terminal shows. Winners and losers both stay on this page.</p>
-  <p class="note" id="started">Loading the record…</p>
-  <div class="testing" role="note">
-    <b class="t">Live testing: these agents are being built in the open</b>
-    <p>Omega and the signal engine are paper-trading agents under active development. We are traders first, and we change the rules when the record shows us something is off. What we are building toward:</p>
-    <ul>
-      <li><b>One clear exit rule</b>: from Oct 22, Omega takes profit at +30% and stops at &minus;50%, chosen by testing every exit rule on its own trades (below).</li>
-      <li><b>Adaptive take profit, stop loss and trailing</b>, sized from the market, in test lanes beside the official rule; one joins only if it beats it.</li>
-      <li><b>Trading it as a book</b>: per-trade and open-risk limits by account size, a daily profit goal that banks the day, and a daily portfolio review, so results come from a system rather than single bets.</li>
-    </ul>
-    <p><b>Built on retail data.</b> A&amp;O runs on a standard broker data feed and free public sources, sampled every few seconds to a few minutes, not an institutional tick-by-tick feed. Signals and prices are what A&amp;O saw at the time, so they can trail what a desk with direct exchange feeds sees. Any edge here comes from the model, not from paying for speed.</p>
-    <small>Every change is dated on this page. No result is edited, backfilled or removed: each trade keeps the rule it was recorded under, and corrections are new dated entries. Paper results only, not real fills. Education only, not financial advice.</small>
+<main>
+<header class="hero" id="record"><div class="wrap">
+  <span class="eyebrow" id="heroEyebrow">Track record</span>
+  <h1 id="heroH1">Every pick, kept.</h1>
+  <p class="lede" id="heroLede">Omega is A&amp;O's paper-trading agent. Each trading day it takes the strongest reads from the desk's model and follows them on a fixed exit plan. Every pick it has taken is on this page, winners and losers.</p>
+  <p class="fine" id="started">Loading the record…</p>
+
+  <div class="stage">
+    <div class="rc" aria-live="polite">
+      <div class="rc-head">Omega's official record<span id="rcRange">one square per pick</span></div>
+      <div class="rc-stats" id="rcStats"></div>
+      <div class="rc-bar">
+        <div class="seg"><em>Horizon</em><div class="pills" id="fHz" role="group" aria-label="Horizon"></div></div>
+        <div class="seg"><em>Side</em><div class="pills" id="fSide" role="group" aria-label="Side"><button type="button" data-v="" aria-pressed="true">Calls and puts</button><button type="button" data-v="CALL" aria-pressed="false">Calls</button><button type="button" data-v="PUT" aria-pressed="false">Puts</button></div></div>
+        <div class="legend2" id="rcLegend"></div>
+      </div>
+      <div class="grid" id="pickGrid" role="list" aria-label="One square per pick"></div>
+      <div class="sq-info" id="sqInfo">Point at or tap a square to see the trade behind it.</div>
+    </div>
+    <p class="cap">One square per pick, in the order Omega took them. Filter the set and the squares outside it fade but stay in place. Results are at the option's mid price, before the bid/ask spread and commissions.</p>
   </div>
 </div></header>
 
-<main class="wrap">
-  <section class="stats" id="stats" aria-live="polite"></section>
+<div class="wrap">
   <!-- Oct 21: Omega's $10K simulated account, the report allocators asked for. -->
-  <section class="card" id="acctCard" hidden><h2>$10,000 simulated account</h2>
-    <p class="sub" id="acctSub"></p>
-    <section class="stats" id="acctStats" aria-live="polite"></section>
-    <div class="legend" id="acctLegend"></div>
-    <div id="acctChart"></div>
-    <p class="rules" id="acctNote"></p>
-  </section>
-  <!-- Oct 22: the exit rule study behind Rule 4 (+30% / -50%). Static: measured on the 64 trades of Oct 5-21. -->
-  <section class="card" id="exitCard"><h2>Which exit rule wins</h2>
-    <p class="sub">On Omega&rsquo;s 64 trades, holding at <b>+30% up / &minus;50% down</b> would have won <b>59.4%</b> of the time, versus 53.1% as actually traded. Holding to the end wins less often (34.6% of the 26 that have expired), but the winners are huge. From Oct 22, +30% / &minus;50% is Omega&rsquo;s official exit rule.</p>
-    <div class="scroll"><table>
-      <thead><tr><th>Exit rule (same 64 trades)</th><th>Win rate</th><th>Average per trade</th><th>Average win</th><th>Average loss</th><th>Gains &divide; losses</th></tr></thead>
-      <tbody>
-        <tr><td>As actually traded</td><td>53.1%</td><td class="down">&minus;0.1%</td><td class="up">+33.6%</td><td class="down">&minus;38.3%</td><td>1.00</td></tr>
-        <tr><td>+30% target / &minus;30% stop</td><td>53.1%</td><td class="up">+4.5%</td><td class="up">+43.1%</td><td class="down">&minus;39.3%</td><td>1.24</td></tr>
-        <tr><td><b>+30% target / &minus;50% stop (official from Oct 22)</b></td><td><b>59.4%</b></td><td class="up"><b>+4.9%</b></td><td class="up">+42.3%</td><td class="down">&minus;49.7%</td><td>1.24</td></tr>
-        <tr><td>Trail 25% off the high after +30%</td><td>42.2%</td><td class="up">+16.4%</td><td class="up">+86.6%</td><td class="down">&minus;34.7%</td><td>1.82</td></tr>
-        <tr><td>Held to expiry (26 expired so far)</td><td>34.6%</td><td class="up">+90.4%</td><td class="up">+444.5%</td><td class="down">&minus;97.1%</td><td>2.42</td></tr>
-      </tbody></table></div>
-    <p class="rules">38 of the 64 trades (59.4%) reached +30% at some point before expiry, and 41 (64%) reached +25%. Puts moved our way 61% of the time (23 of 38); calls 19% (5 of 26), which is why calls now need the chart&rsquo;s trend on their side. Target and stop rows are replays on each trade&rsquo;s recorded option prices (partly estimated where a trade&rsquo;s price history is incomplete), before costs. &ldquo;Held to expiry&rdquo; settles each contract at its value from the stock&rsquo;s close on expiry day; the typical held trade expired worthless, and the average comes from a few large winners (Oct 16 puts on NDX, PANW, SOXL, ARM, INTC and LITE). Measured Oct 22, 2026.</p>
-  </section>
-  <!-- Oct 22: group-exit test lane, beside the official +30% / -50%. -->
-  <section class="card" id="gxCard" hidden><h2>Test lane: exits matched to each type of stock <small>(not counted above)</small></h2>
-    <p class="sub" id="gxRule"></p>
-    <div class="scroll"><table><thead><tr><th>Group</th><th>Tickers</th><th>Target</th><th>Stop</th><th>Sep&ndash;Oct check</th></tr></thead><tbody>
-      <tr><td><b>Index</b></td><td>SPY, SPX, QQQ, NDX, IWM</td><td>+20%</td><td>&minus;50%</td><td>85% wins, +11.5% a signal (vs &minus;9.1% at +30/&minus;50)</td></tr>
-      <tr><td><b>Fast movers</b></td><td>AMD, ARM, AMZN, MSFT, JPM, GS, UNH, NOW, ETN, STX, AAOI</td><td>+100%</td><td>&minus;50%</td><td>+11.3% a signal (vs +3.2%)</td></tr>
-      <tr><td><b>Most names</b></td><td>NVDA, AAPL, META, GOOGL, PLTR, COIN, MU, HOOD, SNDK, CRWV and 31 more</td><td>+30%</td><td>&minus;50%</td><td>+9.1% a signal (vs +4.3%)</td></tr>
-      <tr><td><b>Calm</b></td><td>TSLA, AVGO, SMCI, IONQ, SNOW, IBM, USO, SLV and others</td><td>+30%</td><td>&minus;50%</td><td>+5.9% a signal (same as +30/&minus;50)</td></tr>
-    </tbody></table></div>
-    <section class="stats" id="gxStats" aria-live="polite"></section>
-    <p class="rules">Groups and targets were chosen on May&ndash;August engine signals and checked on September&ndash;October signals they never saw: 61.8% wins and +8.8% a signal, against 57.3% and +3.7% for +30% / &minus;50% on the same signals. Those checks are same-day exits at mid prices, before costs. This lane runs on Omega&rsquo;s own multi-day picks from Oct 22 and replaces the official rule only if it beats it there.</p>
-  </section>
-  <!-- Oct 22: two more test lanes from Oct 23 (gap reversal, backup contract). Not counted above. -->
-  <section class="card" id="tlCard" hidden><h2>New test lanes <small>(from Oct 23, not counted above)</small></h2>
-    <p class="sub">Ideas we are trying on paper before they can touch the record. Each runs +30% / &minus;50%.</p>
-    <div class="scroll" id="tlTable"></div>
-    <div class="scroll" id="tlTrades"></div>
-  </section>
-  <!-- Oct 21: the founder's own hand-placed 0DTE trades, real fills, no account details. -->
-  <section class="card" id="deskCard" hidden><h2>Our own 0DTE trades <small>(real fills)</small></h2>
-    <p class="sub" id="deskSub"></p>
-    <section class="stats six" id="deskStats" aria-live="polite"></section>
-    <h3>The same trades in a $10,000 and a $20,000 account</h3>
-    <section class="stats" id="deskSim" aria-live="polite"></section>
-    <div class="legend"><span><i style="background:var(--green2)"></i>Balance, $10,000 start</span><span><i style="background:var(--green);height:8px"></i>Each trade's profit or loss</span></div>
-    <div id="deskChart"></div>
-    <h3>Every trade</h3>
-    <div class="scroll" id="deskList"></div>
-    <p class="rules" id="deskNote"></p>
-  </section>
-  <section class="card" id="chgCard" hidden><h2>What we changed, and why</h2>
-    <p class="sub">We trade these setups ourselves. By Oct 21 the record matched what we saw on our own screens: on choppy days the read flipped between calls and puts every time price crossed VWAP (SPY crossed it 7 times on Oct 21), signals were being scored on candles that had not finished, the first half hour produced mostly puts with no better hit rate, and fixed +30% / &minus;30% exits sold winners early and rode losers to the stop. These are the fixes. They apply to new trades from Oct 22; every earlier trade stays under the rule it was recorded with.</p>
-    <ul class="chg" id="chgList"></ul>
-    <h3 id="planH" hidden>Exit plans replayed on the same trades</h3>
-    <p class="sub" id="planSub" hidden></p>
-    <div class="scroll" id="planList"></div>
-  </section>
-  <section class="card"><h2>By strategy</h2>
-    <p class="sub">Actual results. Profit assumes $1,000 in every trade. Click a strategy to see its trades.</p>
-    <div class="scroll" id="byH"></div></section>
-  <section class="card"><h2>Every pick</h2><div class="scroll" id="list"></div></section>
-  <!-- Oct 21: Omega's signal lane, in shadow: shown here, kept out of every number above. -->
-  <section class="card" id="laneCard" hidden><h2>Omega signal lane <small>(shadow, not counted above)</small></h2>
-    <p class="rules" id="laneRule"></p>
-    <section class="stats" id="laneStats" aria-live="polite"></section>
-    <div class="scroll" id="laneList"></div>
-    <div class="scroll" id="laneSkip"></div>
-  </section>
-  <!-- Oct 20: Omega records once, at 10:05 AM ET. The engine fires the moment a read hits
-       5/5 or 1/5, and those are usually gone again within minutes, so the two records show
-       different days. Both are real; they are published apart rather than averaged. -->
-  <section class="card" id="sigCard" hidden><h2>Engine signals</h2>
-    <p class="rules" id="sigRule"></p>
-    <section class="stats" id="sigStats" aria-live="polite"></section>
-    <h3 id="sigPortH" hidden>$10,000 model portfolio</h3>
-    <p class="rules" id="sigPortRule"></p>
-    <section class="stats" id="sigPort" aria-live="polite"></section>
-    <div class="scroll" id="sigList"></div>
-    <p class="rules" id="sigNote"></p>
-  </section>
-  <!-- Oct 21: every engine signal since May 2026, raw. Every row listed; numbers only from measurable rows. -->
-  <section class="card" id="ngCard" hidden><h2>How far each signal ran</h2>
-    <p class="sub" id="ngSub"></p>
-    <div class="ng-head" id="ngHead"></div>
-    <p class="ng-omega" id="ngOmega" hidden></p>
-    <div class="controls"><label for="ngSide" class="muted">Show</label><select id="ngSide"><option value="">Calls and puts</option><option value="1">Calls</option><option value="0">Puts</option></select><span class="muted" id="ngCount"></span></div>
-    <canvas id="ngCanvas" role="img" aria-label="One square per measured signal, coloured by how far its option ran after the signal"></canvas>
-    <div class="legend" id="ngLegend"></div>
-    <div class="ng-two"><div><h3>How far they ran</h3><div id="ngDist"></div></div><div><h3>Reached +25% the same day, by month</h3><div id="ngMonths"></div></div></div>
-    <div class="ng-rules">
-      <div><b>The rules came first.</b>A signal is the engine's own 5/5 or 1/5 read at the moment it fired. Nothing is picked afterwards.</div>
-      <div><b>The entry is the price when it fired.</b>The option's mid price at the signal, on the contract the engine chose then.</div>
-      <div><b>Only prices after the signal count.</b>An earlier high that day is ignored.</div>
-      <div><b>Best price is not a return.</b>Nobody sells every top. What a rule actually made is in the next section.</div>
+  <section class="blk" id="acctCard" hidden>
+    <div class="blk-h"><span class="eyebrow">What it did to an account</span><h2>$10,000, every pick, compounding.</h2><p id="acctSub"></p></div>
+    <div class="card">
+      <section class="stats" id="acctStats" aria-live="polite"></section>
+      <div class="legend" id="acctLegend"></div>
+      <div id="acctChart"></div>
+      <p class="rules" id="acctNote"></p>
     </div>
   </section>
-  <section class="card" id="arcCard"><h2>Every engine signal since May 2026 <small>(raw)</small></h2>
-    <p class="sub" id="arcSub">Loading every signal since May 2026…</p>
-    <section class="stats" id="arcStats" aria-live="polite"></section>
-    <h3>If every signal had simply been held to the close</h3>
-    <section class="stats" id="arcHeld" aria-live="polite"></section>
-    <h3>By month</h3>
-    <div class="scroll" id="arcMonths"></div>
-    <h3>Calls and puts</h3>
-    <div class="scroll" id="arcSides"></div>
-    <h3>Every signal</h3>
-    <div class="controls"><label for="arcMonth" class="muted">Month</label><select id="arcMonth"></select>
-      <label for="arcSide" class="muted">Side</label><select id="arcSide"><option value="">Calls and puts</option><option value="CALL">Calls</option><option value="PUT">Puts</option></select>
-      <a id="arcCsv" href="https://dashboard.tradewithao.com/api/public/signal-archive.csv">Download every signal (CSV)</a></div>
-    <div class="scroll" id="arcRows"></div>
-    <p class="rules" id="arcMethod"></p>
+
+  <section class="blk" id="strategies">
+    <div class="blk-h"><span class="eyebrow">Strategies</span><h2>One official record. Every new idea on paper first.</h2>
+      <p>Omega's picks are the record. Each new idea runs beside it as a test lane, on paper, and joins the official rules only when it clears a written bar: 30 closed trades over 15 sessions, a profit factor of 1.2 after costs, and a better result than the official rule. Pick one to see its trades.</p></div>
+    <div class="strat" id="stratGrid" role="group" aria-label="Strategies"></div>
+    <div id="stratDetail" class="card" aria-live="polite"></div>
   </section>
-  <section class="card" id="corrCard" hidden><h2>Corrections</h2><div id="corrList"></div></section>
-  <p class="rules" id="rules"></p>
-  <p class="rules" id="disc"></p>
+
+  <section class="blk" id="versions">
+    <div class="blk-h"><span class="eyebrow">How the model is changing</span><h2>Every version is dated. Its results stay on the page.</h2>
+      <p>When the record shows something is off, the rules change for new trades. Old trades keep the rule they were recorded under, so each version can be judged on its own picks.</p></div>
+    <div class="ver" id="verGrid"></div>
+    <p class="v-summary" id="verSummary"></p>
+    <details class="more" id="chgCard" hidden>
+      <summary>Every change, dated</summary>
+      <div class="in">
+        <ul class="chg" id="chgList"></ul>
+        <h3 id="planH" hidden>Exit plans replayed on the same trades</h3>
+        <p class="sub" id="planSub" hidden></p>
+        <div class="scroll" id="planList"></div>
+      </div>
+    </details>
+    <!-- Oct 22: the exit rule study behind Rule 4 (+30% / -50%). Static: measured on the 64 trades of Oct 5-21. -->
+    <details class="more">
+      <summary>Why the exits are +30% / &minus;50% (Rule 4)</summary>
+      <div class="in">
+        <p class="sub">On Omega&rsquo;s 64 trades, holding at <b>+30% up / &minus;50% down</b> would have won <b>59.4%</b> of the time, versus 53.1% as actually traded. Holding to the end wins less often (34.6% of the 26 that have expired), but the winners are huge. From Oct 22, +30% / &minus;50% is Omega&rsquo;s official exit rule.</p>
+        <div class="scroll"><table>
+          <thead><tr><th>Exit rule (same 64 trades)</th><th>Win rate</th><th>Average per trade</th><th>Average win</th><th>Average loss</th><th>Gains &divide; losses</th></tr></thead>
+          <tbody>
+            <tr><td>As actually traded</td><td>53.1%</td><td class="down">&minus;0.1%</td><td class="up">+33.6%</td><td class="down">&minus;38.3%</td><td>1.00</td></tr>
+            <tr><td>+30% target / &minus;30% stop</td><td>53.1%</td><td class="up">+4.5%</td><td class="up">+43.1%</td><td class="down">&minus;39.3%</td><td>1.24</td></tr>
+            <tr><td><b>+30% target / &minus;50% stop (official from Oct 22)</b></td><td><b>59.4%</b></td><td class="up"><b>+4.9%</b></td><td class="up">+42.3%</td><td class="down">&minus;49.7%</td><td>1.24</td></tr>
+            <tr><td>Trail 25% off the high after +30%</td><td>42.2%</td><td class="up">+16.4%</td><td class="up">+86.6%</td><td class="down">&minus;34.7%</td><td>1.82</td></tr>
+            <tr><td>Held to expiry (26 expired so far)</td><td>34.6%</td><td class="up">+90.4%</td><td class="up">+444.5%</td><td class="down">&minus;97.1%</td><td>2.42</td></tr>
+          </tbody></table></div>
+        <p class="rules">38 of the 64 trades (59.4%) reached +30% at some point before expiry, and 41 (64%) reached +25%. Puts moved our way 61% of the time (23 of 38); calls 19% (5 of 26), which is why calls now need the chart&rsquo;s trend on their side. Target and stop rows are replays on each trade&rsquo;s recorded option prices (partly estimated where a trade&rsquo;s price history is incomplete), before costs. &ldquo;Held to expiry&rdquo; settles each contract at its value from the stock&rsquo;s close on expiry day; the typical held trade expired worthless, and the average comes from a few large winners (Oct 16 puts on NDX, PANW, SOXL, ARM, INTC and LITE). Measured Oct 22, 2026.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- Oct 21: the founder's own hand-placed 0DTE trades, real fills, no account details. -->
+  <section class="blk" id="own">
+    <div class="blk-h"><span class="eyebrow">Real fills</span><h2>Our own trades, from the broker's order history.</h2><p id="deskSub">Trades A&amp;O's founder placed by hand using the dashboard and its scores.</p></div>
+    <div class="card" id="deskCard" hidden>
+      <section class="stats six" id="deskStats" aria-live="polite"></section>
+      <h3>The same trades in a $10,000 and a $20,000 account</h3>
+      <section class="stats" id="deskSim" aria-live="polite"></section>
+      <div class="legend"><span><i style="background:var(--green2)"></i>Balance, $10,000 start</span><span><i style="background:var(--green);height:8px"></i>Each trade's profit or loss</span></div>
+      <div id="deskChart"></div>
+      <details class="more"><summary>Every trade</summary><div class="in"><div class="scroll" id="deskList"></div></div></details>
+      <p class="rules" id="deskNote"></p>
+    </div>
+  </section>
+
+  <section class="blk" id="receipts">
+    <div class="blk-h"><span class="eyebrow">The receipts</span><h2>Every pick, twelve at a time.</h2><p>Omega's picks, newest first. Shuffle for another twelve, or show them all. Best price is the highest the option traded while the trade was open, not a return.</p></div>
+    <div class="rx-ctl"><button type="button" class="ghost" id="rxNew" aria-pressed="true">Newest</button><button type="button" class="ghost" id="rxShuf" aria-pressed="false">Shuffle</button><button type="button" class="ghost" id="rxAll" aria-pressed="false">Show all</button><span class="count" id="rxCount"></span></div>
+    <div class="rx" id="rxList"><div class="empty">Loading the picks…</div></div>
+  </section>
+
+  <section class="blk" id="engine">
+    <div class="blk-h"><span class="eyebrow">Engine signals</span><h2>Every signal the engine fired, raw.</h2><p>Omega takes a few picks a day. The engine underneath fires a signal every time a read hits 5/5 or 1/5. These are those signals, before Omega's filters and before the changes above.</p></div>
+    <!-- Oct 21: every engine signal since May 2026, raw. Every row listed; numbers only from measurable rows. -->
+    <div class="card" id="ngCard" hidden><h3>How far each signal ran</h3>
+      <p class="sub" id="ngSub"></p>
+      <div class="ng-head" id="ngHead"></div>
+      <p class="ng-omega" id="ngOmega" hidden></p>
+      <div class="controls"><label for="ngSide" class="muted">Show</label><select id="ngSide"><option value="">Calls and puts</option><option value="1">Calls</option><option value="0">Puts</option></select><span class="muted" id="ngCount"></span></div>
+      <canvas id="ngCanvas" role="img" aria-label="One square per measured signal, coloured by how far its option ran after the signal"></canvas>
+      <div class="legend" id="ngLegend"></div>
+      <div class="ng-two"><div><h3>How far they ran</h3><div id="ngDist"></div></div><div><h3>Reached +25% the same day, by month</h3><div id="ngMonths"></div></div></div>
+    </div>
+    <!-- Oct 20: the engine fires the moment a read hits 5/5 or 1/5. Last 10 days, graded. -->
+    <details class="more" id="sigCard" hidden><summary>The last 10 days of signals, graded</summary><div class="in">
+      <p class="rules" id="sigRule"></p>
+      <section class="stats" id="sigStats" aria-live="polite"></section>
+      <h3 id="sigPortH" hidden>$10,000 model portfolio</h3>
+      <p class="rules" id="sigPortRule"></p>
+      <section class="stats" id="sigPort" aria-live="polite"></section>
+      <div class="scroll" id="sigList"></div>
+      <p class="rules" id="sigNote"></p>
+    </div></details>
+    <details class="more" id="arcCard"><summary>Every engine signal since May 2026</summary><div class="in">
+      <p class="sub" id="arcSub">Loading every signal since May 2026…</p>
+      <section class="stats" id="arcStats" aria-live="polite"></section>
+      <h3>If every signal had simply been held to the close</h3>
+      <section class="stats" id="arcHeld" aria-live="polite"></section>
+      <h3>By month</h3>
+      <div class="scroll" id="arcMonths"></div>
+      <h3>Calls and puts</h3>
+      <div class="scroll" id="arcSides"></div>
+      <h3>Every signal</h3>
+      <div class="controls"><label for="arcMonth" class="muted">Month</label><select id="arcMonth"></select>
+        <label for="arcSide" class="muted">Side</label><select id="arcSide"><option value="">Calls and puts</option><option value="CALL">Calls</option><option value="PUT">Puts</option></select>
+        <a id="arcCsv" href="https://dashboard.tradewithao.com/api/public/signal-archive.csv">Download every signal (CSV)</a></div>
+      <div class="scroll" id="arcRows"></div>
+      <p class="rules" id="arcMethod"></p>
+    </div></details>
+  </section>
+
+  <section class="blk" id="built">
+    <div class="blk-h"><span class="eyebrow">How it is built</span><h2>The rules came first.</h2></div>
+    <div class="built">
+      <div><b>Picked by the rules, at the time.</b><p>Each pick is the model's own read at the moment Omega took it. Nothing is picked afterwards, and nothing before Oct 5, 2026 is shown or backfilled.</p></div>
+      <div><b>The entry is the mid price.</b><p>Entries and exits are the option's mid price at the time, the standard for paper records, before the bid/ask spread and commissions.</p></div>
+      <div><b>Every trade is kept.</b><p>No result is edited, backfilled or removed. Each trade keeps the rule it was recorded under; corrections are new, dated entries.</p></div>
+      <div><b>Built on retail data.</b><p>A standard broker data feed and free public sources, sampled every few seconds to a few minutes. Any edge here comes from the model, not from paying for speed.</p></div>
+    </div>
+    <div class="testing" role="note">
+      <b class="t">Live testing: these agents are being built in the open</b>
+      <p>Omega and the signal engine are paper-trading agents under active development. We are traders first, and we change the rules when the record shows us something is off. What we are building toward:</p>
+      <ul>
+        <li><b>One clear exit rule</b>: from Oct 22, Omega takes profit at +30% and stops at &minus;50%, chosen by testing every exit rule on its own trades.</li>
+        <li><b>Adaptive take profit, stop loss and trailing</b>, sized from the market, in test lanes beside the official rule; one joins only if it beats it.</li>
+        <li><b>Trading it as a book</b>: per-trade and open-risk limits by account size, a daily profit goal that banks the day, and a daily portfolio review, so results come from a system rather than single bets.</li>
+      </ul>
+    </div>
+    <div class="card" id="corrCard" hidden><h3>Corrections</h3><div id="corrList"></div></div>
+    <p class="rules" id="rules"></p>
+    <p class="rules" id="disc"></p>
+  </section>
+</div>
 </main>
 
 <footer><div class="wrap">
@@ -267,6 +388,9 @@
   var API = "https://dashboard.tradewithao.com/api/public/track-record";
   var SIGNAL_API = "https://dashboard.tradewithao.com/api/public/signal-record?days=10";
   var HZ = ["0DTE", "1DTE", "Weekly", "Monthly", "LEAPS"];
+  var API = "https://dashboard.tradewithao.com/api/public/track-record";
+  var SIGNAL_API = "https://dashboard.tradewithao.com/api/public/signal-record?days=10";
+  var HZ = ["0DTE", "1DTE", "Weekly", "Monthly", "LEAPS"];
   function esc(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function n(v) { var x = Number(v); return v !== null && v !== undefined && v !== "" && isFinite(x) ? x : null; }
   function pct(v) { var x = n(v); if (x === null) return "—"; return (x > 0 ? "+" : x < 0 ? "−" : "") + Math.abs(x).toFixed(1) + "%"; }
@@ -274,29 +398,6 @@
   function px(v) { var x = n(v); return x === null ? "—" : "$" + x.toFixed(2); }
   function cls(v) { var x = n(v); return !x ? "" : x > 0 ? "up" : "down"; }
   function day(iso) { var t = Date.parse(iso); if (!isFinite(t)) return ""; try { return new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", year: "numeric" }).format(new Date(t)); } catch (e) { return String(iso).slice(0, 10); } }
-  function renderLane(L) {
-    if (!L) return;
-    var st = L.stats || {}, tr = L.trades || [], sk = L.skipped || [];
-    document.getElementById("laneCard").hidden = false;
-    document.getElementById("laneRule").textContent = L.rule || "";
-    document.getElementById("laneStats").innerHTML =
-      '<div class="stat"><em>Taken</em><b>' + esc(st.picks || 0) + "</b><small>" + esc(st.open || 0) + " open</small></div>" +
-      '<div class="stat"><em>Win rate</em><b>' + (st.winRate == null ? "\u2014" : esc(st.winRate) + "%") + "</b><small>closed</small></div>" +
-      '<div class="stat"><em>Average result</em><b class="' + cls(st.avgResultPct) + '">' + pct(st.avgResultPct) + "</b><small>per closed trade</small></div>" +
-      '<div class="stat"><em>Passed on</em><b>' + esc(sk.length) + "</b><small>signals it chose not to take</small></div>";
-    function t(iso) { var x = Date.parse(iso); if (!isFinite(x)) return ""; try { return new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit", hour12: false }).format(new Date(x)); } catch (e) { return ""; } }
-    document.getElementById("laneList").innerHTML = tr.length ?
-      "<table><thead><tr><th>Day</th><th>Fired</th><th>Pick</th><th>Entry</th><th>Result</th><th title=\"Best price while the trade was open\">Highest reached</th><th title=\"Best price until expiry, even after the exit\">Highest if held</th><th>Why it closed</th></tr></thead><tbody>" +
-      tr.map(function (x) {
-        var res = x.status === "closed" ? pct(x.resultPct) : (x.changePct == null ? "open" : pct(x.changePct) + " <small>now</small>");
-        return "<tr><td>" + esc(x.day) + "</td><td>" + esc(t(x.firedAt)) + "</td><td><b>" + esc(x.contract || x.ticker) + "</b><small>" + esc(x.read) + (x.contract ? "" : " \u00b7 contract shown when it closes") + "</small></td><td>" +
-          px(x.entry) + '</td><td class="' + cls(x.status === "closed" ? x.resultPct : x.changePct) + '">' + res + '</td><td class="' + cls(x.maxGainPct) + '">' + pct(x.maxGainPct) + '</td><td class="' + cls(x.bestIfHeldPct) + '">' + pct(x.bestIfHeldPct) + "</td><td>" + esc(x.exitReason || (x.status === "open" ? "Open" : "")) + "</td></tr>";
-      }).join("") + "</tbody></table>" : '<p class="rules">No signal has passed the checks yet.</p>';
-    document.getElementById("laneSkip").innerHTML = sk.length ?
-      "<h3>Signals it passed on</h3><table><thead><tr><th>Day</th><th>Fired</th><th>Ticker</th><th>Why not</th></tr></thead><tbody>" +
-      sk.map(function (x) { return "<tr><td>" + esc(x.day) + "</td><td>" + esc(t(x.at)) + "</td><td><b>" + esc(x.ticker) + "</b><small>" + (x.side === "CALL" ? "call" : "put") + "</small></td><td>" + esc(x.why) + "</td></tr>"; }).join("") +
-      "</tbody></table>" : "";
-  }
   /* Oct 21: Omega's $10K simulated account (the allocator report), drawn from the record's own numbers. */
   function renderAccount(a) {
     if (!a || !a.account || !a.curve) return;
@@ -343,91 +444,263 @@
         P.filter(function (p) { return w[p.key] != null; }).map(function (p) { return "<tr><td>" + esc(p.label) + '</td><td class="' + cls(w[p.key]) + '">' + pct(w[p.key]) + "</td></tr>"; }).join("") + "</tbody></table>";
     }
   }
-  function renderGroupLane(g) {
-    if (!g) return;
-    document.getElementById("gxCard").hidden = false;
-    var st = g.stats || {};
-    document.getElementById("gxStats").innerHTML =
-      '<div class="stat"><em>Picks followed</em><b>' + esc(st.trades || 0) + "</b><small>from " + esc(day(g.from + "T16:00:00Z")) + "</small></div>" +
-      '<div class="stat"><em>Closed</em><b>' + esc(st.closed || 0) + "</b><small>" + (st.winRate == null ? "win rate shown from 5 closed" : esc(st.winRate) + "% wins") + "</small></div>" +
-      '<div class="stat"><em>Average, lane</em><b class="' + cls(st.avgPct) + '">' + pct(st.avgPct) + "</b><small>per closed pick</small></div>" +
-      '<div class="stat"><em>Same picks, official</em><b class="' + cls(st.officialAvgPct) + '">' + pct(st.officialAvgPct) + "</b><small>lane " + pct(st.laneAvgSamePct) + " on these</small></div>";
+  /* ---------- Oct 23 redesign: the record card, strategies, model versions and receipts ---------- */
+  var MN3 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function md(ds) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(ds || "")); return m ? MN3[Number(m[2]) - 1] + " " + Number(m[3]) : ""; }
+  function etParts(iso) {
+    var t = Date.parse(iso); if (!isFinite(t)) return null;
+    try {
+      var p = {}; new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit", hour: "numeric", minute: "2-digit", hour12: true }).formatToParts(new Date(t)).forEach(function (x) { p[x.type] = x.value; });
+      return { day: p.year + "-" + p.month + "-" + p.day, time: p.hour + ":" + p.minute + " " + p.dayPeriod };
+    } catch (e) { return null; }
   }
-  function renderTestLanes(d) {
-    var g = d.gapLane, b = d.backupLane;
-    if (!g && !b) return;
-    document.getElementById("tlCard").hidden = false;
-    function row(name, what, st) {
-      st = st || {};
-      return "<tr><td><b>" + name + "</b><small>" + what + "</small></td><td>" + esc(st.picks || 0) + "</td><td>" + esc(st.closed || 0) + "</td><td>" +
-        (st.closed ? esc(st.wins || 0) + " of " + esc(st.closed) : "\u2014") + '</td><td class="' + cls(st.avgResultPct) + '">' + pct(st.avgResultPct) + "</td></tr>";
-    }
-    document.getElementById("tlTable").innerHTML = "<table><thead><tr><th>Lane</th><th>Trades</th><th>Closed</th><th>Won</th><th>Average</th></tr></thead><tbody>" +
-      (g ? row("Gap reversal", "Stocks that gap down 1%+, hold a low and take back VWAP with call money leading. Calls.", g.stats) : "") +
-      (g && g.spyFiltered ? row("Gap reversal, market on side", "Same, only while SPY is above its VWAP.", g.spyFiltered.stats) : "") +
-      (b ? row("Backup contract", "A strong read skipped for want of a usable contract, retried with a wider strike and expiry range.", b.stats) : "") + "</tbody></table>";
-    var xs = [].concat(((g && g.trades) || []).map(function (x) { return Object.assign({ lane: x.variant === "spy" ? "Gap reversal, market on side" : "Gap reversal" }, x); }),
-      ((b && b.trades) || []).map(function (x) { return Object.assign({ lane: "Backup contract" }, x); }))
-      .sort(function (a, c) { return String(c.day + c.enteredAt).localeCompare(String(a.day + a.enteredAt)); }).slice(0, 30);
-    document.getElementById("tlTrades").innerHTML = xs.length
-      ? "<table><thead><tr><th>Day</th><th>Lane</th><th>Contract</th><th>Entry</th><th>Result</th></tr></thead><tbody>" + xs.map(function (x) {
-          var res = x.status === "closed" ? x.resultPct : x.changePct;
-          return "<tr><td>" + esc(x.day) + "</td><td>" + esc(x.lane) + "</td><td><b>" + esc(x.contract) + "</b></td><td>" + px(x.entry) + '</td><td class="' + cls(res) + '">' + pct(res) + (x.status === "closed" ? "" : " <small>open</small>") + "</td></tr>"; }).join("") + "</tbody></table>"
-      : '<p class="muted">No trades yet. The lanes start with the open on Oct 23.</p>';
+  /* Long rule text: the first sentence (or ~180 characters), then the rest behind "Full rule". */
+  function shortText(text, label) {
+    var t = String(text || ""), m = /^(.*?\.)\s/.exec(t), first = m ? m[1] : t;
+    if (first.length > 200) { var cut = first.lastIndexOf("; ", 180); if (cut < 80) cut = first.lastIndexOf(", ", 180); first = first.slice(0, cut > 80 ? cut : 180).replace(/[;,]\s*$/, "") + "\u2026"; }
+    if (first.length >= t.length) return "<p>" + esc(t) + "</p>";
+    return "<p>" + esc(first) + '</p><details class="full"><summary>' + esc(label || "Full rule") + " \u25B8</summary><p>" + esc(t) + "</p></details>";
   }
-  function render(d) {
-    window.__aoTR = d;
-    try { renderGroupLane(d.groupLane); } catch (e) {}
-    try { renderTestLanes(d); } catch (e) {}
-    try { renderLane(d.signalLane); } catch (e) {}
-    try { renderAccount(d.allocator); } catch (e) {}
-    try { renderChanges(d); } catch (e) {}
+  function closedOf(rows) { return (rows || []).filter(function (x) { return x && x.status === "closed" && n(x.resultPct) !== null; }); }
+  function nums(rows) {
+    var c = closedOf(rows), w = c.filter(function (x) { return x.resultPct > 0; }).length;
+    var sum = c.reduce(function (a, x) { return a + x.resultPct; }, 0);
+    return { all: (rows || []).length, closed: c.length, open: (rows || []).length - c.length, wins: w, avg: c.length ? Math.round(sum / c.length * 10) / 10 : null, profit: c.length ? Math.round(sum * 10) : null };
+  }
+  function bucketOf(x) { if (x.status !== "closed" || n(x.resultPct) === null) return "open"; return x.resultPct >= 30 ? "gold" : x.resultPct > 0 ? "up" : "down"; }
+  function sideWord(x) { return x.side === "CALL" ? "call" : x.side === "PUT" ? "put" : String(x.read || "").toLowerCase(); }
+
+  /* The record card: stats, horizon and side filters, one square per pick. */
+  var REC = { rows: [], hz: "", side: "" };
+  function recStats(view, ov, all) {
+    var s = nums(view), rate = s.closed >= 5 ? Math.round(s.wins / s.closed * 100) : null;
+    var withBest = view.filter(function (x) { return n(x.bestIfHeldPct) !== null; });
+    var r30 = all && ov.reached30Rate != null ? ov.reached30Rate : (withBest.length >= 5 ? Math.round(withBest.filter(function (x) { return x.bestIfHeldPct >= 29.95; }).length / withBest.length * 100) : null);
+    var avg = all && ov.avgResultPct != null ? ov.avgResultPct : s.avg;
+    return '<div><b>' + esc(s.all) + "</b><span>picks in this view" + (s.open ? " · " + esc(s.open) + " open" : "") + "</span></div>" +
+      '<div><b>' + (rate == null ? "—" : rate + "%") + "</b><span>closed as winners" + (s.closed ? " (" + esc(s.wins) + " of " + esc(s.closed) + ")" : "") + "</span></div>" +
+      '<div><b class="gold">' + (r30 == null ? "—" : esc(r30) + "%") + "</b><span>reached +30% before expiry</span></div>" +
+      '<div><b class="' + cls(avg) + '">' + pct(avg) + "</b><span>average per trade, mid price</span></div>" +
+      '<div><b class="' + cls(s.profit) + '">' + (s.profit == null ? "—" : usd(s.profit)) + "</b><span>with $1,000 in every trade</span></div>";
+  }
+  function sqText(x) {
+    var a = etParts(x.openedAt), b = etParts(x.exitAt);
+    var when = md(x.day) + (x.enteredAt ? ", " + x.enteredAt : "") + (x.status === "closed" && x.exitedAt ? " → " + (b && b.day !== x.day ? md(b.day) + ", " : "") + x.exitedAt : "");
+    var res = x.status === "closed" ? '<span class="' + cls(x.resultPct) + '">' + pct(x.resultPct) + "</span> · " + esc(x.exitReason || "") : "open";
+    return "<b>" + esc(x.contract || x.ticker) + "</b> · " + esc(x.horizon) + " " + esc(sideWord(x)) + " · " + esc(when) + (x.entry ? " · entry " + px(x.entry) : "") + (x.exitPrice ? ", exit " + px(x.exitPrice) : "") + " · " + res + (x.story ? '<br><span class="dim">' + esc(x.story) + "</span>" : "");
+  }
+  function recDraw() {
+    var d = window.__aoTR || {}, ov = d.overall || {};
+    var inView = function (x) { return (!REC.hz || x.horizon === REC.hz) && (!REC.side || x.side === REC.side); };
+    var view = REC.rows.filter(inView), all = !REC.hz && !REC.side;
+    document.getElementById("rcStats").innerHTML = recStats(view, ov, all);
+    var cnt = { gold: 0, up: 0, down: 0, open: 0 };
+    view.forEach(function (x) { cnt[bucketOf(x)]++; });
+    document.getElementById("rcLegend").innerHTML =
+      '<span><i style="background:var(--gold)"></i>' + cnt.gold + " closed at +30% or better</span>" +
+      '<span><i style="background:#2f9e63"></i>' + cnt.up + " smaller wins</span>" +
+      '<span><i style="background:#c9514b"></i>' + cnt.down + " losses</span>" +
+      (cnt.open ? '<span><i style="box-shadow:inset 0 0 0 1.5px var(--open)"></i>' + cnt.open + " open</span>" : "");
+    Array.prototype.forEach.call(document.querySelectorAll("#pickGrid .sq"), function (el) {
+      var x = REC.rows[Number(el.getAttribute("data-i"))];
+      el.classList.toggle("fade", !inView(x));
+    });
+  }
+  function renderRecord(d) {
     var ov = d.overall || {};
-    document.getElementById("started").textContent = d.startedAt
-      ? "The record started " + day(d.startedAt) + ". Nothing before that is shown or backfilled."
-      : "The record starts with the next trading day's 10:05 AM ET picks. Nothing is backfilled.";
-    document.getElementById("stats").innerHTML =
-      '<div class="stat"><em>Picks recorded</em><b>' + esc(ov.picks || 0) + "</b><small>" + esc(ov.open || 0) + " open</small></div>" +
-      '<div class="stat"><em>Closed</em><b>' + esc(ov.closed || 0) + "</b><small>" + esc(ov.wins || 0) + " up · " + esc(ov.losses || 0) + " down</small></div>" +
-      '<div class="stat"><em>Win rate</em><b>' + (ov.winRate == null ? "—" : esc(ov.winRate) + "%") + "</b><small>closed picks</small></div>" +
-      '<div class="stat"><em>Average result</em><b class="' + cls(ov.avgResultPct) + '">' + pct(ov.avgResultPct) + '</b><small class="' + cls(ov.totalPerContract) + '">' + usd(ov.totalPerContract) + " per contract, total</small></div>" +
-      "";
-    // Oct 22: equal money per trade ($1,000 each) beside the per-contract total, so the two cannot be confused.
-    var eq = {}; (d.trades || []).forEach(function (x) { if (x.status === "closed" && x.resultPct != null) eq[x.horizon] = (eq[x.horizon] || 0) + 1000 * x.resultPct / 100; });
-    var byHt = {}; (d.trades || []).forEach(function (x) { if (x.status === "closed" && x.resultPct != null) (byHt[x.horizon] = byHt[x.horizon] || []).push(x); });
-    function hzTrades(h, e) {
-      var rows = (byHt[h] || []).slice().sort(function (a, b) { return String(a.exitAt || a.day).localeCompare(String(b.exitAt || b.day)); });
-      return "<table><thead><tr><th>Day</th><th>Trade</th><th>Bought</th><th>Sold</th><th>Result</th><th>Profit on $1,000</th><th>Why it closed</th></tr></thead><tbody>" +
-        rows.map(function (x) { var p = 10 * x.resultPct;
-          return "<tr><td>" + esc(x.day) + "</td><td><b>" + esc(prettyOcc(x.contract) || x.ticker) + "</b></td><td>" + px(x.entry) + "</td><td>" + px(x.exitPrice) + '</td><td class="' + cls(x.resultPct) + '">' + pct(x.resultPct) + '</td><td class="' + cls(p) + '">' + usd(p) + "</td><td>" + esc(x.exitReason || "") + "</td></tr>"; }).join("") +
-        '</tbody><tfoot><tr><td colspan="5">Total, ' + rows.length + " trades</td><td class=\"" + cls(e) + '">' + usd(e) + "</td><td></td></tr></tfoot></table>";
+    REC.rows = (d.trades || []).slice().sort(function (a, b) { return String(a.openedAt || a.day).localeCompare(String(b.openedAt || b.day)); });
+    var first = d.startedAt ? etParts(d.startedAt) : null, firstDay = first ? first.day : (REC.rows[0] || {}).day;
+    var lastDay = REC.rows.length ? REC.rows[REC.rows.length - 1].day : firstDay;
+    var span = md(firstDay) + " – " + md(lastDay) + ", " + String(lastDay || "").slice(0, 4);
+    document.getElementById("heroEyebrow").textContent = "Track record · " + span;
+    if (ov.picks) {
+      document.getElementById("heroH1").textContent = ov.picks + " picks since " + md(firstDay) + ". Every one is still here.";
+      document.getElementById("heroLede").textContent = "Omega is A&O's paper-trading agent. Each trading day it takes the strongest reads from the desk's model and follows them on a fixed exit plan. So far " +
+        (ov.winRate == null ? "" : ov.winRate + "% closed as winners, ") + (ov.reached30Rate == null ? "" : ov.reached30Rate + "% reached +30% before expiry, ") +
+        "and the average trade " + (ov.avgResultPct < 0 ? "lost " : "made ") + Math.abs(ov.avgResultPct || 0).toFixed(1) + "% at mid prices. Winners and losers both stay on this page.";
     }
-    document.getElementById("byH").innerHTML = "<table><thead><tr><th>Strategy</th><th>Trades</th><th>Won</th><th>Average per trade</th><th>Profit</th></tr></thead><tbody>" +
-      HZ.filter(function (h) { var s = (d.byHorizon || {})[h] || {}; return s.closed > 0; }).map(function (h) { var s = (d.byHorizon || {})[h] || {}; var e = eq[h];
+    document.getElementById("started").textContent = d.startedAt
+      ? "The record started " + day(d.startedAt) + ". Nothing before that is shown or backfilled. Paper trades at mid prices, before the bid/ask spread and commissions. Education only, not financial advice."
+      : "The record starts with the next trading day's picks. Nothing is backfilled.";
+    document.getElementById("rcRange").textContent = span + " · one square per pick";
+    var hzs = HZ.filter(function (h) { return REC.rows.some(function (x) { return x.horizon === h; }); });
+    document.getElementById("fHz").innerHTML = '<button type="button" data-v="" aria-pressed="true">All</button>' + hzs.map(function (h) { return '<button type="button" data-v="' + esc(h) + '" aria-pressed="false">' + esc(h) + "</button>"; }).join("");
+    document.getElementById("pickGrid").innerHTML = REC.rows.map(function (x, i) {
+      var lab = (x.contract || x.ticker) + ", " + md(x.day) + ", " + (x.status === "closed" ? pct(x.resultPct) : "open");
+      return '<button type="button" role="listitem" class="sq c-' + bucketOf(x) + '" data-i="' + i + '" aria-label="' + esc(lab) + '" title="' + esc(lab) + '"></button>';
+    }).join("");
+    var info = document.getElementById("sqInfo"), grid = document.getElementById("pickGrid");
+    var show = function (ev) { var el = ev.target.closest && ev.target.closest(".sq"); if (!el) return; info.innerHTML = sqText(REC.rows[Number(el.getAttribute("data-i"))]); };
+    grid.onmouseover = show; grid.onfocusin = show; grid.onclick = show;
+    function pills(id, key) {
+      document.getElementById(id).onclick = function (ev) {
+        var b = ev.target.closest && ev.target.closest("button"); if (!b) return;
+        REC[key] = b.getAttribute("data-v") || "";
+        Array.prototype.forEach.call(this.querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+        recDraw();
+      };
+    }
+    pills("fHz", "hz"); pills("fSide", "side");
+    recDraw();
+  }
+
+  /* Strategies: Omega (official), each test lane, and our own real trades. */
+  var STRAT = { active: "omega", defs: [] };
+  function tradeTable(rows, opts) {
+    opts = opts || {};
+    if (!rows.length) return '<p class="muted">No trades yet.</p>';
+    var list = rows.slice().sort(function (a, b) { return String(b.day + (b.enteredAt || "")).localeCompare(String(a.day + (a.enteredAt || ""))); });
+    var total = nums(rows).profit;
+    if (opts.same) {
+      return "<table><thead><tr><th>Day</th><th>Trade</th><th>This lane</th><th>Official</th><th>Why it closed</th></tr></thead><tbody>" + list.map(function (x) {
+        var off = x.officialPct != null ? x.officialPct : x.official;
+        return "<tr><td>" + esc(md(x.day)) + "</td><td><b>" + esc(x.ticker) + "</b><small>" + esc((x.horizon || "") + " " + sideWord(x)) + "</small></td><td class=\"" + cls(x.resultPct) + "\">" + (x.status === "closed" ? pct(x.resultPct) : "open") + '</td><td class="' + cls(off) + '">' + pct(off) + "</td><td>" + esc(x.exitReason || "") + "</td></tr>";
+      }).join("") + "</tbody></table>";
+    }
+    return "<table><thead><tr><th>Day</th><th>Trade</th><th>Entry</th><th>Exit</th><th>Result</th><th>On $1,000</th><th>Why it closed</th></tr></thead><tbody>" + list.map(function (x) {
+      var closed = x.status === "closed" && n(x.resultPct) !== null, now = n(x.changePct);
+      var res = closed ? pct(x.resultPct) : "open" + (now !== null ? " <small>" + pct(now) + " now</small>" : "");
+      return "<tr><td>" + esc(md(x.day)) + (x.enteredAt ? "<small>" + esc(x.enteredAt) + "</small>" : "") + "</td><td><b>" + esc(x.contract || x.ticker) + "</b><small>" + esc(sideWord(x)) + (x.contract ? "" : " · contract shown when it closes") + "</small></td><td>" + px(x.entry) + "</td><td>" + (closed ? px(x.exitPrice) : "—") + '</td><td class="' + cls(closed ? x.resultPct : now) + '">' + res + '</td><td class="' + cls(closed ? x.resultPct : null) + '">' + (closed ? usd(x.resultPct * 10) : "—") + "</td><td>" + esc(x.exitReason || "") + "</td></tr>";
+    }).join("") + '</tbody><tfoot><tr><td colspan="5">Total, ' + closedOf(rows).length + ' closed</td><td class="' + cls(total) + '">' + (total == null ? "—" : usd(total)) + "</td><td></td></tr></tfoot></table>";
+  }
+  function omegaHorizons(d) {
+    var eq = {}, byHt = {};
+    (d.trades || []).forEach(function (x) { if (x.status === "closed" && x.resultPct != null) { eq[x.horizon] = (eq[x.horizon] || 0) + 10 * x.resultPct; (byHt[x.horizon] = byHt[x.horizon] || []).push(x); } });
+    return "<table><thead><tr><th>Horizon</th><th>Trades</th><th>Won</th><th>Average per trade</th><th>On $1,000 each</th></tr></thead><tbody>" +
+      HZ.filter(function (h) { var s = (d.byHorizon || {})[h] || {}; return s.closed > 0; }).map(function (h) {
+        var s = (d.byHorizon || {})[h] || {}, e = eq[h];
         return '<tr class="hz" data-h="' + h + '"><td><b>' + h + "</b></td><td>" + esc(s.closed) + "</td><td>" + esc(s.wins || 0) + " of " + esc(s.closed) + (s.closed >= 5 ? " <small>" + Math.round((s.wins || 0) / s.closed * 100) + "%</small>" : "") + '</td><td class="' + cls(s.avgResultPct) + '">' + pct(s.avgResultPct) + '</td><td class="' + cls(e) + '">' + (e == null ? "—" : usd(e)) + "</td></tr>" +
-          '<tr class="hzd" data-h="' + h + '"><td colspan="5"><div class="scroll">' + hzTrades(h, e) + "</div></td></tr>"; }).join("") + "</tbody></table>";
-    if (!window.__hzBound) { window.__hzBound = true; document.getElementById("byH").addEventListener("click", function (ev) {
+          '<tr class="hzd" data-h="' + h + '"><td colspan="5"><div class="scroll">' + tradeTable(byHt[h] || []) + "</div></td></tr>";
+      }).join("") + "</tbody></table>";
+  }
+  function stratDefs(d) {
+    var D = [], g = d.gapLane, desk = window.__aoDesk;
+    D.push({ key: "omega", name: "Omega", badge: "off", tag: "Official", what: "The strongest reads from the desk's model, followed on the official exit rule. Every number at the top of the page comes from these.", rows: d.trades || [], rule: d.rules });
+    if (desk && desk.all) D.push({ key: "desk", name: "Our own trades", badge: "real", tag: "Real fills", what: "Trades A&O's founder placed by hand using the dashboard. Real fills from the broker's order history.", desk: desk });
+    if (d.topLane) D.push({ key: "top", name: "Best setup", badge: "test", tag: "Test lane", what: "The desk's single best setup each morning, rolled to the next one when it reaches its first target.", rows: d.topLane.trades || [], rule: d.topLane.rule });
+    if (d.signalLane) D.push({ key: "signal", name: "Signals as they fire", badge: "test", tag: "Test lane", what: "5/5 and 1/5 signals taken the moment they fire, when the odds and the market agree.", rows: d.signalLane.trades || [], rule: d.signalLane.rule, skipped: d.signalLane.skipped });
+    if (d.groupLane) D.push({ key: "group", name: "Exits by stock type", badge: "test", tag: "Same picks", what: "Omega's own picks with targets matched to each group of stocks: indexes +20%, fast movers +100%, the rest +30%.", rows: d.groupLane.trades || [], rule: d.groupLane.rule, same: true });
+    if (d.structureLane) D.push({ key: "structure", name: "Exit on the chart", badge: "test", tag: "Same picks", what: "Omega's own picks, sold when a finished candle breaks the chart structure the trade depends on.", rows: d.structureLane.trades || [], rule: d.structureLane.rule, same: true });
+    if (g) D.push({ key: "gap", name: "Gap reversal", badge: "test", tag: "Test lane", what: "Stocks that gap down 1% or more, hold a low and take back VWAP with call money leading. Calls.", rows: (g.trades || []).filter(function (x) { return x.variant !== "spy"; }), rule: g.rule });
+    if (g && g.spyFiltered) D.push({ key: "gapspy", name: "Gap reversal, market on side", badge: "test", tag: "Test lane", what: "The same gap reversal, taken only while SPY is above its VWAP.", rows: (g.trades || []).filter(function (x) { return x.variant === "spy"; }), rule: g.spyFiltered.rule || g.rule });
+    if (d.backupLane) D.push({ key: "backup", name: "Backup contract", badge: "test", tag: "Test lane", what: "A strong read skipped for want of a usable contract, retried with a wider strike and expiry range.", rows: d.backupLane.trades || [], rule: d.backupLane.rule });
+    if (d.flowLane) D.push({ key: "flow", name: "Money against it", badge: "test", tag: "Test lane", what: "Picks Omega skipped because the option money was 2x on the other side, held on paper. If these win, the money was wrong.", rows: d.flowLane.trades || [], rule: d.flowLane.rule });
+    return D;
+  }
+  function stratCard(s) {
+    var a, label4 = "On $1k each", v4;
+    if (s.desk) {
+      var al = s.desk.all || {};
+      a = { closed: al.trades, wins: al.wins, avg: al.avgPct, profit: al.pnl };
+      label4 = "Real P&L";
+    } else a = nums(s.rows);
+    v4 = a.profit == null ? "—" : usd(a.profit);
+    return '<button type="button" class="st" data-k="' + s.key + '" aria-pressed="' + (STRAT.active === s.key) + '"><div class="st-top"><b>' + esc(s.name) + '</b><span class="badge ' + s.badge + '">' + esc(s.tag) + "</span></div><p>" + esc(s.what) + "</p>" +
+      '<div class="st-nums"><div><span>Closed</span><strong>' + esc(a.closed || 0) + (a.open ? ' <small class="dim">+' + a.open + "</small>" : "") + "</strong></div><div><span>Won</span><strong>" + (a.closed ? esc(a.wins) : "—") + "</strong></div>" +
+      '<div><span>Average</span><strong class="' + cls(a.avg) + '">' + pct(a.avg) + '</strong></div><div><span>' + label4 + '</span><strong class="' + cls(a.profit) + '">' + v4 + "</strong></div></div>" +
+      '<span class="st-more">' + (STRAT.active === s.key ? "Showing its trades below" : "See its trades") + "</span></button>";
+  }
+  function stratDetail(s, d) {
+    var box = document.getElementById("stratDetail");
+    var head = '<div class="det-h"><h3>' + esc(s.name) + '</h3><span class="badge ' + s.badge + '">' + esc(s.tag) + "</span></div>";
+    if (s.desk) {
+      box.innerHTML = head + '<p class="sub">' + esc(s.desk.note || "") + '</p><p><a class="up" href="#own">The full breakdown, with the $10,000 and $20,000 accounts, is below &darr;</a></p><div class="scroll">' +
+        "<table><thead><tr><th>Day</th><th>Contract</th><th>Bought</th><th>Sold</th><th>Profit</th><th>Result</th></tr></thead><tbody>" +
+        (s.desk.trades || []).slice().reverse().map(function (t) { return "<tr><td>" + esc(md(t.day)) + "</td><td><b>" + esc(t.contract) + "</b><small>" + esc(t.horizon) + "</small></td><td>" + px(t.buy) + "<small>" + esc(t.buyAt) + "</small></td><td>" + px(t.sell) + "<small>" + esc(t.sellAt) + '</small></td><td class="' + cls(t.pnl) + '">' + usd(t.pnl) + '</td><td class="' + cls(t.pct) + '">' + pct(t.pct) + "</td></tr>"; }).join("") + "</tbody></table></div>";
+      return;
+    }
+    var body = s.key === "omega" ? '<p class="sub">Click a horizon to see its trades.</p><div class="scroll" id="byH">' + omegaHorizons(d) + "</div>" : '<div class="scroll">' + tradeTable(s.rows, { same: s.same }) + "</div>";
+    var sk = (s.skipped || []).slice(0, 15);
+    var skip = sk.length ? "<h3 style=\"margin-top:18px\">Signals it passed on</h3><div class=\"scroll\"><table><thead><tr><th>Day</th><th>Ticker</th><th>Why not</th></tr></thead><tbody>" +
+      sk.map(function (x) { return "<tr><td>" + esc(md(x.day)) + "</td><td><b>" + esc(x.ticker) + "</b><small>" + (x.side === "CALL" ? "call" : "put") + "</small></td><td style=\"white-space:normal\">" + esc(x.why) + "</td></tr>"; }).join("") + "</tbody></table></div>" : "";
+    box.innerHTML = head + '<div class="sub">' + shortText(s.rule || "", "Full rules") + "</div>" + body + skip;
+  }
+  function renderStrategies(d) {
+    STRAT.defs = stratDefs(d);
+    var gridEl = document.getElementById("stratGrid");
+    // Lanes with no trade yet get one line under the cards instead of an empty card.
+    var live = STRAT.defs.filter(function (x) { return x.desk || x.key === "omega" || (x.rows || []).length; }), idle = STRAT.defs.filter(function (x) { return live.indexOf(x) < 0; });
+    gridEl.innerHTML = live.map(stratCard).join("") + (idle.length ? '<p class="idle">Waiting for their first trade: ' + idle.map(function (x) { return '<button type="button" class="st-idle" data-k="' + x.key + '" aria-pressed="' + (STRAT.active === x.key) + '">' + esc(x.name) + "</button>"; }).join("") + "</p>" : "");
+    var cur = STRAT.defs.filter(function (s) { return s.key === STRAT.active; })[0] || STRAT.defs[0];
+    if (cur) stratDetail(cur, d);
+    gridEl.onclick = function (ev) {
+      var b = ev.target.closest && ev.target.closest(".st, .st-idle"); if (!b) return;
+      STRAT.active = b.getAttribute("data-k");
+      renderStrategies(window.__aoTR || d);
+      document.getElementById("stratDetail").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    };
+    document.getElementById("stratDetail").onclick = function (ev) {
       var r = ev.target.closest && ev.target.closest("tr.hz"); if (!r) return;
       var h = r.getAttribute("data-h"), open = !r.classList.contains("open");
       r.classList.toggle("open", open);
-      var dr = document.querySelector('#byH tr.hzd[data-h="' + h + '"]'); if (dr) dr.classList.toggle("open", open);
-    }); }
-    var t = d.trades || [];
-    document.getElementById("list").innerHTML = t.length
-      ? "<table><thead><tr><th>Day</th><th>Pick</th><th>Strategy</th><th>Entry</th><th>Exit</th><th>Result</th><th title=\"Best price the option reached while the trade was open\">Highest reached</th><th title=\"Best price before expiry, even after the exit\">Highest if held</th><th>Why it closed</th></tr></thead><tbody>" +
-        t.map(function (x) {
-          var open = x.status === "open";
-          return "<tr><td>" + esc(x.day) + "</td><td><b>" + esc(x.contract || x.ticker) + "</b><small>" + esc(x.read) + (open ? " · open" : "") + "</small></td><td>" + esc(x.horizon) + "</td><td>" + (open ? "—" : px(x.entry)) + "</td><td>" + (open ? "—" : px(x.exitPrice)) + '</td><td class="' + cls(x.resultPct) + '">' + (open ? "Open" : pct(x.resultPct)) + '</td><td class="' + cls(x.maxGainPct) + '">' + (open ? "\u2014" : pct(x.maxGainPct)) + '</td><td class="' + cls(x.bestIfHeldPct) + '">' + (open ? "\u2014" : pct(x.bestIfHeldPct)) + "</td><td>" + esc(x.exitReason || x.note || "") + "</td></tr>";
-        }).join("") + "</tbody></table>"
-      : '<div class="empty">No picks yet. The first ones are recorded at 10:05 AM ET on the next trading day.</div>';
+      var dr = this.querySelector('tr.hzd[data-h="' + h + '"]'); if (dr) dr.classList.toggle("open", open);
+    };
+  }
+
+  /* Model versions: each rule set with its own picks, and the latest change. */
+  function renderVersions(d) {
+    var R = (d.byRule || []).slice().sort(function (a, b) { return String(a.from).localeCompare(String(b.from)); });
+    if (!R.length) return;
+    var maxAbs = Math.max.apply(null, R.map(function (r) { return Math.abs(n((r.stats || {}).avgResultPct) || 0); }).concat([10]));
+    var cards = R.map(function (r, i) {
+      var s = r.stats || {}, now = r.to == null, av = n(s.avgResultPct);
+      var w = av === null ? 0 : Math.abs(av) / maxAbs * 50;
+      var bar = '<div class="vbar" title="Average per trade"><i style="left:' + (av !== null && av < 0 ? (50 - w) : 50) + "%;width:" + w.toFixed(1) + "%;background:" + (av !== null && av < 0 ? "var(--red)" : "var(--green2)") + '"></i><i style="left:50%;width:1px;background:var(--dim)"></i></div>';
+      return '<div class="v' + (now ? " now" : "") + '"><div class="v-top"><b>' + esc(r.name) + (now ? ' <span class="badge off" style="margin-left:6px">Current</span>' : "") + "</b><span>" + esc(md(r.from)) + (r.to && r.to !== r.from ? " – " + esc(md(r.to)) : r.to ? "" : " – now") + "</span></div>" +
+        shortText(r.summary) +
+        '<div class="v-nums"><div><span>Picks</span><strong>' + esc(s.closed || 0) + "</strong></div><div><span>Won</span><strong>" + (s.winRate == null ? (s.closed ? esc(s.wins) + "/" + esc(s.closed) : "—") : esc(s.winRate) + "%") + '</strong></div><div><span>Average</span><strong class="' + cls(av) + '">' + pct(av) + "</strong></div></div>" + bar + "</div>";
+    });
+    var ch = ((d.governance || {}).engineChanges || [])[0];
+    if (ch) cards.push('<div class="v next"><div class="v-top"><b>Latest change</b><span>' + esc(md(ch.day)) + "</span></div>" + shortText(ch.what, "Read the whole change") + '<p class="dim">Applies to new trades only. Its results will show here as they close. Every change is listed below.</p></div>');
+    document.getElementById("verGrid").innerHTML = cards.join("");
+    var enough = R.filter(function (r) { return ((r.stats || {}).closed || 0) >= 10; }), few = R.filter(function (r) { return ((r.stats || {}).closed || 0) < 10 && ((r.stats || {}).closed || 0) > 0; });
+    var best = enough.slice().sort(function (a, b) { return (n(b.stats.avgResultPct) || -999) - (n(a.stats.avgResultPct) || -999); })[0];
+    var txt = best ? "Of the versions with 10 or more closed picks, " + best.name + " has the best average so far: " + pct(best.stats.avgResultPct) + " a trade over " + best.stats.closed + " picks." : "";
+    if (few.length) txt += " " + few.map(function (r) { return r.name; }).join(" and ") + (few.length > 1 ? " have " : " has ") + few.reduce(function (a, r) { return a + (r.stats.closed || 0); }, 0) + " closed picks" + (few.length > 1 ? " between them" : "") + ", too few to judge yet.";
+    document.getElementById("verSummary").textContent = txt.trim();
+  }
+
+  /* The receipts: twelve picks at a time. */
+  var RX = { mode: "new" };
+  function rxRow(x) {
+    var closed = x.status === "closed" && n(x.resultPct) !== null, b = etParts(x.exitAt);
+    var when = md(x.day) + (x.enteredAt ? " · " + x.enteredAt : "") + (closed && x.exitedAt ? " → " + (b && b.day !== x.day ? md(b.day) + " · " : "") + x.exitedAt : "") + (x.heldFor ? " (" + x.heldFor + ")" : "");
+    return '<div class="rx-row"><div class="l"><b>' + esc(x.contract || x.ticker) + "<small>" + esc(x.horizon) + " " + esc(sideWord(x)) + "</small></b><span>" + esc(when) + "</span><span>Entry " + px(x.entry) + (closed ? " · exit " + px(x.exitPrice) : "") + "</span>" + (x.story ? "<p>" + esc(x.story) + "</p>" : "") + "</div>" +
+      '<div class="r"><b class="' + (closed ? (x.resultPct >= 30 ? "gold" : cls(x.resultPct)) : "") + '">' + (closed ? pct(x.resultPct) : "Open") + "</b><span>" + esc(x.exitReason || "") + "</span>" +
+      (n(x.maxGainPct) !== null ? '<span class="dim">Best while open ' + pct(x.maxGainPct) + "</span>" : "") + "</div></div>";
+  }
+  function rxDraw() {
+    var d = window.__aoTR || {}, all = (d.trades || []).slice().sort(function (a, b) { return String(b.openedAt || b.day).localeCompare(String(a.openedAt || a.day)); });
+    var list = all;
+    if (RX.mode === "new") list = all.slice(0, 12);
+    else if (RX.mode === "shuffle") { list = all.slice(); for (var i = list.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = list[i]; list[i] = list[j]; list[j] = t; } list = list.slice(0, 12); }
+    document.getElementById("rxList").innerHTML = list.length ? list.map(rxRow).join("") : '<div class="empty">No picks yet.</div>';
+    document.getElementById("rxCount").textContent = list.length + " of " + all.length;
+    ["rxNew", "rxShuf", "rxAll"].forEach(function (id) { document.getElementById(id).setAttribute("aria-pressed", String((id === "rxNew" && RX.mode === "new") || (id === "rxShuf" && RX.mode === "shuffle") || (id === "rxAll" && RX.mode === "all"))); });
+  }
+  function renderReceipts() {
+    document.getElementById("rxNew").onclick = function () { RX.mode = "new"; rxDraw(); };
+    document.getElementById("rxShuf").onclick = function () { RX.mode = "shuffle"; rxDraw(); };
+    document.getElementById("rxAll").onclick = function () { RX.mode = "all"; rxDraw(); };
+    rxDraw();
+  }
+
+  function render(d) {
+    window.__aoTR = d;
+    try { renderRecord(d); } catch (e) { if (window.console) console.error(e); }
+    try { renderStrategies(d); } catch (e) { if (window.console) console.error(e); }
+    try { renderVersions(d); } catch (e) { if (window.console) console.error(e); }
+    try { renderReceipts(); } catch (e) { if (window.console) console.error(e); }
+    try { renderAccount(d.allocator); } catch (e) {}
+    try { renderChanges(d); } catch (e) {}
     document.getElementById("rules").textContent = d.rules || "";
-    // Oct 21: published corrections, dated.
     if (d.corrections && d.corrections.length) {
       document.getElementById("corrCard").hidden = false;
       document.getElementById("corrList").innerHTML = d.corrections.map(function (c) { return '<p class="rules"><b>' + esc(c.day) + " · " + esc(c.title) + ".</b> " + esc(c.text) + "</p>"; }).join("");
     }
     document.getElementById("disc").textContent = d.disclaimer || "";
   }
+
   function renderSignals(d) {
     var st = d.stats || {}, sessions = d.sessions || [];
     if (!sessions.length) return;
@@ -523,7 +796,12 @@
     document.getElementById("deskNote").textContent = "All " + al.trades + " trades shown, including a 1DTE and a weekly: " + al.winRate + "% win rate, " + money(al.pnl) + " total. " + (v.sim && v.sim.method ? v.sim.method + " " : "") +
       (un.length ? "Not counted, because the other side is not in the order history provided: " + un.map(function (u) { return u.day + " " + u.contract + " (" + u.action.toLowerCase() + " at " + px(u.price) + ")"; }).join("; ") + ". " : "") + "Past results. Real trading involves risk of loss. Education only, not financial advice.";
   }
-  fetch("https://dashboard.tradewithao.com/api/public/desk-trades", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (v) { if (v && v.ok) renderDesk(v); }).catch(function () {});
+  fetch("https://dashboard.tradewithao.com/api/public/desk-trades", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (v) {
+    if (!v || !v.ok) return;
+    window.__aoDesk = v;
+    try { renderDesk(v); } catch (e) {}
+    if (window.__aoTR) { try { renderStrategies(window.__aoTR); } catch (e) {} }
+  }).catch(function () {});
   /* Oct 21: every engine signal since May 2026, raw. The list is complete; the numbers use measurable rows. */
   var ARC = "https://dashboard.tradewithao.com/api/public/signal-archive";
   function arcTiles(st) {
@@ -661,6 +939,5 @@
   });
 })();
 </script>
-
 </body>
 </html>
