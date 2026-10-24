@@ -602,6 +602,7 @@
     if (g && g.spyFiltered) D.push({ key: "gapspy", name: "Gap reversal, market on side", badge: "test", tag: "Test lane", what: "The same gap reversal, taken only while SPY is above its VWAP.", rows: (g.trades || []).filter(function (x) { return x.variant === "spy"; }), rule: g.spyFiltered.rule || g.rule });
     if (d.backupLane) D.push({ key: "backup", name: "Backup contract", badge: "test", tag: "Test lane", what: "A strong read skipped for want of a usable contract, retried with a wider strike and expiry range.", rows: d.backupLane.trades || [], rule: d.backupLane.rule });
     if (d.reversalLane) D.push({ key: "reversal", name: "Peek-a-boo and islands", badge: "test", tag: "Test lane", what: "Reversal setups: a stop run through a key level that closes back, and island tops and bottoms. From Oct 26.", rows: d.reversalLane.trades || [], rule: d.reversalLane.rule });
+    if (d.confirmLane) D.push({ key: "confirm", name: "Wait for 10:00", badge: "test", tag: "Primary test", what: "Omega's picks from before 10:00, bought only if the move held at 10:00 (the stock past its pick price and VWAP). Missed winners count against it. From Oct 26.", rows: d.confirmLane.trades || [], rule: d.confirmLane.rule });
     if (d.noLocLane) D.push({ key: "noloc", name: "Location check off", badge: "test", tag: "Test lane", what: "The same looks as Omega with the location check turned off, as its own portfolio. Shows whether skipping picks right on support or resistance (or with no location score) helps. From Oct 26.", rows: d.noLocLane.trades || [], rule: d.noLocLane.rule });
     if (d.flowLane) D.push({ key: "flow", name: "Money against it", badge: "test", tag: "Test lane", what: "Picks Omega skipped because the option money was 2x on the other side, held on paper. If these win, the money was wrong.", rows: d.flowLane.trades || [], rule: d.flowLane.rule });
     return D;
@@ -663,7 +664,7 @@
     document.getElementById("chSub").textContent = "Omega's official rules are frozen from " + md(c.from) + " to " + md(c.to) + ", 2026. They were announced on " + md(c.announcedOn) + ", before any of these trades existed. Every number above stays as it is. Below, the official rules and each test lane from " + md(c.from) + ", each as its own $10,000 paper account after estimated costs.";
     var head = "<thead><tr><th>Strategy</th><th>Closed</th><th>Sessions</th><th>Won</th><th>Avg at mid</th><th>Avg after costs</th><th>$10K after costs</th><th>Worst drop</th><th>Status</th></tr></thead>";
     var body = c.rows.map(function (r) {
-      var status = r.official ? "Official" : r.closed === 0 ? "No trades yet" : r.meetsBar ? "Clears the bar" : "Needs " + (r.needs && r.needs.length ? r.needs.join(", ") : "to beat the official rules");
+      var status = r.official ? "Official" : r.baseline ? "Baseline for the 10:00 test" : r.closed === 0 ? "No trades yet" : r.inConfirmation ? "Cleared the first bar, in confirmation" : r.meetsBar ? "Clears the bar" : "Needs " + (r.needs && r.needs.length ? r.needs.join(", ") : "to beat the official rules");
       return "<tr><td><b>" + esc(r.name) + "</b></td><td>" + r.closed + (r.open ? " <small>+" + r.open + " open</small>" : "") + "</td><td>" + r.sessions + "</td><td>" + (r.winRate == null ? "—" : r.winRate + "%") + '</td><td class="' + cls(r.avgMidPct) + '">' + pct(r.avgMidPct) + '</td><td class="' + cls(r.avgAfterCostsPct) + '">' + pct(r.avgAfterCostsPct) + "</td><td>" + (r.closed ? "$" + Number(r.account).toLocaleString("en-US") : "—") + "</td><td>" + (r.closed ? pct(r.maxDrawdownPct) : "—") + "</td><td>" + esc(status) + "</td></tr>";
     }).join("");
     document.getElementById("chTable").innerHTML = head + "<tbody>" + body + "</tbody>";
@@ -675,11 +676,19 @@
       document.getElementById("chFiles").innerHTML = vs.slice().reverse().map(function (v, i) { return '<a href="' + esc(v.file) + '">' + esc(v.file) + "</a> (version " + esc(v.version) + (i === 0 ? ", current" : "") + ")"; }).join(" and ");
       document.getElementById("chVersions").innerHTML = vs.map(function (v) { return '<p class="rules"><b>Version ' + esc(v.version) + " · " + esc(md(v.announcedOn)) + ".</b> " + esc(v.change || "The rules as first announced.") + ' <span class="mono">' + esc(v.hash) + "</span></p>"; }).join("");
     }
-    var ex = (c.experiments || [])[0];
-    if (ex) {
-      var st = { collecting: "Collecting", inconclusive: "Inconclusive" }[ex.status] || ex.status;
-      document.getElementById("chExp").innerHTML = '<h3 style="margin:18px 0 6px">Does the location check help?</h3><p class="rules">' + esc(ex.bar) + "</p>" +
-        '<div class="scroll"><table><thead><tr><th>Opportunities</th><th>Sessions</th><th>Advantage per opportunity, after costs</th><th>95% range (by day)</th><th>Status</th></tr></thead><tbody><tr><td>' + esc(ex.opportunities) + " of " + esc(150) + "</td><td>" + esc(ex.sessions) + " of 30</td><td class=\"" + cls(ex.advantagePctPoints) + '">' + (ex.advantagePctPoints == null ? "\u2014" : (ex.advantagePctPoints > 0 ? "+" : "") + esc(ex.advantagePctPoints) + " pts") + "</td><td>" + (ex.ci95 ? esc(ex.ci95[0]) + " to " + esc(ex.ci95[1]) : "\u2014") + "</td><td>" + esc(st) + (ex.needs && ex.needs.length ? " <small>needs " + esc(ex.needs.join(", ")) + "</small>" : "") + "</td></tr></tbody></table></div>";
+    var exs = c.experiments || [];
+    if (exs.length) {
+      var ST = { collecting: "Collecting", inconclusive: "Inconclusive" };
+      var one = function (ex) {
+        var st = ST[ex.status] || ex.status, oc = ex.outcomes || null;
+        var ocTxt = oc && Object.keys(oc).length ? '<p class="rules">At 10:00 so far: ' + Object.keys(oc).map(function (k) { return esc(oc[k]) + " " + esc(k); }).join(", ") + ".</p>" : "";
+        var cf = ex.confirmation ? '<p class="rules">Cleared the first bar on ' + esc(md(ex.confirmation.clearedOn)) + ". Confirmation period: " + esc(ex.confirmation.sessions) + " of " + esc(ex.confirmation.needsSessions) + " sessions, " + esc(ex.confirmation.opportunities) + " of " + esc(ex.confirmation.needsOpportunities) + " opportunities.</p>" : "";
+        return '<h3 style="margin:18px 0 6px">' + esc(ex.name) + (ex.primary ? ' <span class="badge off" style="margin-left:6px">Primary test</span>' : "") + '</h3><p class="rules">' + esc(ex.bar) + "</p>" +
+          '<div class="scroll"><table><thead><tr><th>Opportunities</th><th>Sessions</th><th>Advantage per opportunity, after costs</th><th>95% range (by day)</th><th>Status</th></tr></thead><tbody><tr><td>' + esc(ex.opportunities) + "</td><td>" + esc(ex.sessions) + '</td><td class="' + cls(ex.advantagePctPoints) + '">' + (ex.advantagePctPoints == null ? "\u2014" : (ex.advantagePctPoints > 0 ? "+" : "") + esc(ex.advantagePctPoints) + " pts") + "</td><td>" + (ex.ci95 ? esc(ex.ci95[0]) + " to " + esc(ex.ci95[1]) : "\u2014") + "</td><td>" + esc(st) + (ex.needs && ex.needs.length ? " <small>needs " + esc(ex.needs.join(", ")) + "</small>" : "") + "</td></tr></tbody></table></div>" + ocTxt + cf;
+      };
+      document.getElementById("chExp").innerHTML = '<h3 style="margin:22px 0 6px">Registered experiments</h3>' + exs.map(one).join("") +
+        (c.controls ? '<p class="rules"><b>Promotion controls.</b> ' + esc(c.controls) + "</p>" : "") +
+        (c.registryHash ? '<p class="rules">SHA-256 of the registered experiments and controls: <span class="mono">' + esc(c.registryHash) + "</span></p>" : "");
     }
   }
 
