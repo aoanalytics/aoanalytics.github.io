@@ -216,7 +216,7 @@
   <div class="actions"><a class="btn btn-text" href="https://dashboard.tradewithao.com/">Log in</a><a class="btn btn-light" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start for $1</a></div>
 </div></div>
 <nav class="subnav" aria-label="On this page"><div class="wrap">
-  <a href="#record">The record</a><a href="#strategies">Strategies</a><a href="#versions">Model versions</a><a href="#own">Our own trades</a><a href="#receipts">Every pick</a><a href="#engine">Engine signals</a><a href="#built">How it is built</a>
+  <a href="#record">The record</a><a href="#chapter">From Oct 26</a><a href="#strategies">Strategies</a><a href="#versions">Model versions</a><a href="#own">Our own trades</a><a href="#receipts">Every pick</a><a href="#engine">Engine signals</a><a href="#built">How it is built</a>
 </div></nav>
 
 <main>
@@ -251,6 +251,20 @@
       <div class="legend" id="acctLegend"></div>
       <div id="acctChart"></div>
       <p class="rules" id="acctNote"></p>
+    </div>
+  </section>
+
+  <!-- Oct 24: the frozen-rules chapter. Announced Oct 24, before any of its trades existed. -->
+  <section class="blk" id="chapter" hidden>
+    <div class="blk-h"><span class="eyebrow">From Oct 26, 2026</span><h2>The rules are frozen. Every idea races them on paper.</h2>
+      <p id="chSub"></p></div>
+    <div class="card">
+      <div class="scroll"><table id="chTable"></table></div>
+      <p class="rules" id="chNote"></p>
+      <details class="more"><summary>The frozen rules, word for word</summary><div class="in">
+        <p class="rules" id="chText"></p>
+        <p class="rules">SHA-256 of that text: <span class="mono" id="chHash"></span>. The same text is published as <a href="rules-2026-10-26.txt">rules-2026-10-26.txt</a>, so anyone can check the hash. This page's git history shows when it was posted.</p>
+      </div></details>
     </div>
   </section>
 
@@ -638,6 +652,22 @@
     };
   }
 
+  /* Oct 24: from Oct 26 the official rules are frozen; the official record and every test lane, same dates. */
+  function renderChapter(c) {
+    if (!c || !c.rows) return;
+    document.getElementById("chapter").hidden = false;
+    document.getElementById("chSub").textContent = "Omega's official rules are frozen from " + md(c.from) + " to " + md(c.to) + ", 2026. They were announced on " + md(c.announcedOn) + ", before any of these trades existed. Every number above stays as it is. Below, the official rules and each test lane from " + md(c.from) + ", each as its own $10,000 paper account after estimated costs.";
+    var head = "<thead><tr><th>Strategy</th><th>Closed</th><th>Sessions</th><th>Won</th><th>Avg at mid</th><th>Avg after costs</th><th>$10K after costs</th><th>Worst drop</th><th>Status</th></tr></thead>";
+    var body = c.rows.map(function (r) {
+      var status = r.official ? "Official" : r.closed === 0 ? "No trades yet" : r.meetsBar ? "Clears the bar" : "Needs " + (r.needs && r.needs.length ? r.needs.join(", ") : "to beat the official rules");
+      return "<tr><td><b>" + esc(r.name) + "</b></td><td>" + r.closed + (r.open ? " <small>+" + r.open + " open</small>" : "") + "</td><td>" + r.sessions + "</td><td>" + (r.winRate == null ? "—" : r.winRate + "%") + '</td><td class="' + cls(r.avgMidPct) + '">' + pct(r.avgMidPct) + '</td><td class="' + cls(r.avgAfterCostsPct) + '">' + pct(r.avgAfterCostsPct) + "</td><td>" + (r.closed ? "$" + Number(r.account).toLocaleString("en-US") : "—") + "</td><td>" + (r.closed ? pct(r.maxDrawdownPct) : "—") + "</td><td>" + esc(status) + "</td></tr>";
+    }).join("");
+    document.getElementById("chTable").innerHTML = head + "<tbody>" + body + "</tbody>";
+    document.getElementById("chNote").textContent = (c.note || "") + " The bar: " + (c.bar && c.bar.note ? c.bar.note : "");
+    document.getElementById("chText").textContent = c.rulesText || "";
+    document.getElementById("chHash").textContent = c.rulesHash || "";
+  }
+
   /* Model versions: each rule set with its own picks, and the latest change. */
   function renderVersions(d) {
     var R = (d.byRule || []).slice().sort(function (a, b) { return String(a.from).localeCompare(String(b.from)); });
@@ -694,6 +724,7 @@
     try { renderReceipts(); } catch (e) { if (window.console) console.error(e); }
     try { renderAccount(d.allocator); } catch (e) {}
     try { renderChanges(d); } catch (e) {}
+    try { renderChapter(d.chapter); } catch (e) { if (window.console) console.error(e); }
     document.getElementById("rules").textContent = d.rules || "";
     if (d.corrections && d.corrections.length) {
       document.getElementById("corrCard").hidden = false;
