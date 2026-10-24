@@ -263,8 +263,10 @@
       <p class="rules" id="chNote"></p>
       <details class="more"><summary>The frozen rules, word for word</summary><div class="in">
         <p class="rules" id="chText"></p>
-        <p class="rules">SHA-256 of that text: <span class="mono" id="chHash"></span>. The same text is published as <a href="rules-2026-10-26.txt">rules-2026-10-26.txt</a>, so anyone can check the hash. This page's git history shows when it was posted.</p>
+        <p class="rules">SHA-256 of that text: <span class="mono" id="chHash"></span>. Every version is published word for word, so anyone can check its hash: <span id="chFiles"><a href="rules-2026-10-26-v2.txt">rules-2026-10-26-v2.txt</a> (current) and <a href="rules-2026-10-26.txt">rules-2026-10-26.txt</a> (version 1)</span>. This page's git history shows when each was posted.</p>
+        <div id="chVersions"></div>
       </div></details>
+      <div id="chExp"></div>
     </div>
   </section>
 
@@ -352,6 +354,7 @@
     </div></details>
     <details class="more" id="arcCard"><summary>Every engine signal since May 2026</summary><div class="in">
       <p class="sub" id="arcSub">Loading every signal since May 2026…</p>
+      <p class="rules" id="arcCorr" hidden></p>
       <section class="stats" id="arcStats" aria-live="polite"></section>
       <h3>If every signal had simply been held to the close</h3>
       <section class="stats" id="arcHeld" aria-live="polite"></section>
@@ -599,6 +602,7 @@
     if (g && g.spyFiltered) D.push({ key: "gapspy", name: "Gap reversal, market on side", badge: "test", tag: "Test lane", what: "The same gap reversal, taken only while SPY is above its VWAP.", rows: (g.trades || []).filter(function (x) { return x.variant === "spy"; }), rule: g.spyFiltered.rule || g.rule });
     if (d.backupLane) D.push({ key: "backup", name: "Backup contract", badge: "test", tag: "Test lane", what: "A strong read skipped for want of a usable contract, retried with a wider strike and expiry range.", rows: d.backupLane.trades || [], rule: d.backupLane.rule });
     if (d.reversalLane) D.push({ key: "reversal", name: "Peek-a-boo and islands", badge: "test", tag: "Test lane", what: "Reversal setups: a stop run through a key level that closes back, and island tops and bottoms. From Oct 26.", rows: d.reversalLane.trades || [], rule: d.reversalLane.rule });
+    if (d.noLocLane) D.push({ key: "noloc", name: "Location check off", badge: "test", tag: "Test lane", what: "The same looks as Omega with the location check turned off, as its own portfolio. Shows whether skipping picks right on support or resistance (or with no location score) helps. From Oct 26.", rows: d.noLocLane.trades || [], rule: d.noLocLane.rule });
     if (d.flowLane) D.push({ key: "flow", name: "Money against it", badge: "test", tag: "Test lane", what: "Picks Omega skipped because the option money was 2x on the other side, held on paper. If these win, the money was wrong.", rows: d.flowLane.trades || [], rule: d.flowLane.rule });
     return D;
   }
@@ -666,6 +670,17 @@
     document.getElementById("chNote").textContent = (c.note || "") + " The bar: " + (c.bar && c.bar.note ? c.bar.note : "");
     document.getElementById("chText").textContent = c.rulesText || "";
     document.getElementById("chHash").textContent = c.rulesHash || "";
+    var vs = c.rulesVersions || [];
+    if (vs.length) {
+      document.getElementById("chFiles").innerHTML = vs.slice().reverse().map(function (v, i) { return '<a href="' + esc(v.file) + '">' + esc(v.file) + "</a> (version " + esc(v.version) + (i === 0 ? ", current" : "") + ")"; }).join(" and ");
+      document.getElementById("chVersions").innerHTML = vs.map(function (v) { return '<p class="rules"><b>Version ' + esc(v.version) + " · " + esc(md(v.announcedOn)) + ".</b> " + esc(v.change || "The rules as first announced.") + ' <span class="mono">' + esc(v.hash) + "</span></p>"; }).join("");
+    }
+    var ex = (c.experiments || [])[0];
+    if (ex) {
+      var st = { collecting: "Collecting", inconclusive: "Inconclusive" }[ex.status] || ex.status;
+      document.getElementById("chExp").innerHTML = '<h3 style="margin:18px 0 6px">Does the location check help?</h3><p class="rules">' + esc(ex.bar) + "</p>" +
+        '<div class="scroll"><table><thead><tr><th>Opportunities</th><th>Sessions</th><th>Advantage per opportunity, after costs</th><th>95% range (by day)</th><th>Status</th></tr></thead><tbody><tr><td>' + esc(ex.opportunities) + " of " + esc(150) + "</td><td>" + esc(ex.sessions) + " of 30</td><td class=\"" + cls(ex.advantagePctPoints) + '">' + (ex.advantagePctPoints == null ? "\u2014" : (ex.advantagePctPoints > 0 ? "+" : "") + esc(ex.advantagePctPoints) + " pts") + "</td><td>" + (ex.ci95 ? esc(ex.ci95[0]) + " to " + esc(ex.ci95[1]) : "\u2014") + "</td><td>" + esc(st) + (ex.needs && ex.needs.length ? " <small>needs " + esc(ex.needs.join(", ")) + "</small>" : "") + "</td></tr></tbody></table></div>";
+    }
   }
 
   /* Model versions: each rule set with its own picks, and the latest change. */
@@ -885,6 +900,12 @@
   function renderArchive(a) {
     var st = a.stats || {}, t = arcTiles(st);
     document.getElementById("arcSub").textContent = "Every 5/5 breakout (call) and 1/5 breakdown (put) the engine has fired since it began recording on " + day(a.from + "T16:00:00Z") + ", through " + day(a.to + "T16:00:00Z") + ". These are raw signals, before Omega's filters and before the changes above. Nothing is removed: signals we cannot measure are listed below and left out of the numbers, with the reason.";
+    var cx = (a.corrections || [])[0], cb = document.getElementById("arcCorr");
+    if (cx && cb) {
+      var fmt = function (o) { return esc((o.counted || 0).toLocaleString("en-US")) + " counted, hit rate " + (o.hitRate == null ? "\u2014" : esc(o.hitRate) + "%") + ", win rate " + (o.winRate == null ? "\u2014" : esc(o.winRate) + "%") + ", average " + pct(o.avgPct) + ", held to the close " + pct(o.heldAvgPct); };
+      cb.hidden = false;
+      cb.innerHTML = "<b>Correction, " + esc(md(cx.day)) + ": " + esc(cx.title) + ".</b> " + esc(cx.text) + "<br>Before: " + fmt(cx.before || {}) + ".<br>After: " + fmt(cx.after || {}) + ".";
+    }
     document.getElementById("arcStats").innerHTML = t.main;
     document.getElementById("arcHeld").innerHTML = t.held;
     var mrow = function (label, s2) { var g = s2.graded || {}, h = s2.held || {}; return "<tr><td><b>" + esc(label) + "</b></td><td>" + esc((s2.fired || 0).toLocaleString("en-US")) + "</td><td>" + esc((s2.counted || 0).toLocaleString("en-US")) + "</td><td>" + (g.winRate == null ? "\u2014" : esc(g.winRate) + "%") + '</td><td class="up">' + pct(g.avgWinPct) + '</td><td class="down">' + pct(g.avgLossPct) + '</td><td class="' + cls(g.avgPct) + '">' + pct(g.avgPct) + "</td><td>" + (h.upRate == null ? "\u2014" : esc(h.upRate) + "%") + '</td><td class="' + cls(h.avgPct) + '">' + pct(h.avgPct) + "</td><td>" + ((s2.reached30 || {}).rate == null ? "\u2014" : esc(s2.reached30.rate) + "%") + "</td></tr>"; };
