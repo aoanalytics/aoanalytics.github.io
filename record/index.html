@@ -584,6 +584,7 @@
     if (g) D.push({ key: "gap", name: "Gap reversal", badge: "test", tag: "Test lane", what: "Stocks that gap down 1% or more, hold a low and take back VWAP with call money leading. Calls.", rows: (g.trades || []).filter(function (x) { return x.variant !== "spy"; }), rule: g.rule });
     if (g && g.spyFiltered) D.push({ key: "gapspy", name: "Gap reversal, market on side", badge: "test", tag: "Test lane", what: "The same gap reversal, taken only while SPY is above its VWAP.", rows: (g.trades || []).filter(function (x) { return x.variant === "spy"; }), rule: g.spyFiltered.rule || g.rule });
     if (d.backupLane) D.push({ key: "backup", name: "Backup contract", badge: "test", tag: "Test lane", what: "A strong read skipped for want of a usable contract, retried with a wider strike and expiry range.", rows: d.backupLane.trades || [], rule: d.backupLane.rule });
+    if (d.reversalLane) D.push({ key: "reversal", name: "Peek-a-boo and islands", badge: "test", tag: "Test lane", what: "Reversal setups: a stop run through a key level that closes back, and island tops and bottoms. From Oct 26.", rows: d.reversalLane.trades || [], rule: d.reversalLane.rule });
     if (d.flowLane) D.push({ key: "flow", name: "Money against it", badge: "test", tag: "Test lane", what: "Picks Omega skipped because the option money was 2x on the other side, held on paper. If these win, the money was wrong.", rows: d.flowLane.trades || [], rule: d.flowLane.rule });
     return D;
   }
