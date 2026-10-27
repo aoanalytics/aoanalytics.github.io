@@ -1,826 +1,103 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AO Analytics | Options Research for Traders &amp; Investors</title>
-  <meta name="description" content="AI-assisted options and stock research built around your tickers, premiums, time horizon and risk criteria. Compare setups, test ideas and make your own decisions.">
-  <link rel="canonical" href="https://tradewithao.com/">
-  <meta property="og:title" content="Your research desk. Your rules. Your decision.">
-  <meta property="og:description" content="Options analytics, market context and AI-assisted research for retail traders and investors. Set your criteria, review the evidence and decide for yourself.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://tradewithao.com/">
-  <meta property="og:image" content="https://tradewithao.com/og-branded.png">
-  <meta property="og:image:width" content="1731">
-  <meta property="og:image:height" content="909">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://tradewithao.com/og-branded.png">
-  <meta name="twitter:title" content="AO Analytics | Your Research Desk">
-  <meta name="twitter:description" content="AI-assisted research for options traders and stock investors. Your tickers, your criteria and your decisions. Educational analytics, not a signal service.">
-  <link rel="icon" href="/ao-logo-small.jpg">
-  <link rel="apple-touch-icon" href="/ao-logo-small.jpg">
-  <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#ffffff">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"A&O Trading Desk demo","description":"A 90-second tour of the A&O research desk: Your Plan, the Dashboard, ticker research, Greeks in plain English, Rule Lab and Alfred.","thumbnailUrl":"https://tradewithao.com/videos/ao-demo-poster.jpg","uploadDate":"2026-10-12","duration":"PT1M33S","contentUrl":"https://tradewithao.com/videos/ao-demo.mp4","embedUrl":"https://tradewithao.com/watch/"}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"A&O Trading Terminal","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"1","priceCurrency":"USD","description":"$1 for a 30-day trial, then $50/month"},"url":"https://tradewithao.com/"}</script>
-  <script>document.documentElement.setAttribute('data-theme','light');try{localStorage.removeItem('ao-theme')}catch(e){}</script>
-  <style>
-    :root{
-      --bg:#07090d;--bg2:#0a0e14;--panel:#0e131b;--panel2:#121925;--line:#1c2433;--line2:#263043;
-      --text:#c9d1d9;--white:#f2f5f8;--muted:#8b96a8;--dim:#5d687a;
-      --green:#00d26a;--green2:#3ce68d;--greenSoft:rgba(0,210,106,.12);--red:#f85149;--blue:#58a6ff;--gold:#e3b341;--purple:#a371f7;
-      --radius:16px;--maxw:1200px
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth;background:var(--bg)}
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-    .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#f8fafb" />
+<meta name="description" content="Alfred by A&O Analytics brings personalized options research, flow, dealer levels, contract comparisons, and historical testing into one human-controlled trading intelligence desk." />
+<title>Alfred — Your AI options research desk | A&O Analytics</title>
+<link rel="canonical" href="https://tradewithao.com/" />
+<link rel="icon" href="/ao-logo-small.jpg" />
+<link rel="apple-touch-icon" href="/ao-logo-small.jpg" />
+<meta property="og:title" content="Alfred — Your AI options research desk" />
+<meta property="og:description" content="Personalized options research, flow, dealer levels, contract comparisons and historical testing in one human-controlled desk." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://tradewithao.com/" />
+<meta property="og:image" content="https://tradewithao.com/og-branded.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Alfred — Your AI options research desk" />
+<meta name="twitter:description" content="Your markets. Your research. Your call." />
+<meta name="twitter:image" content="https://tradewithao.com/og-branded.png" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Alfred by A&O Analytics","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"1","priceCurrency":"USD","description":"$1 initial fee for 30 days, then $50 per month, plus applicable taxes"},"url":"https://tradewithao.com/"}</script>
+<style>
+:root{--ink:#101720;--muted:#586677;--rule:#dce4e9;--paper:#f8fafb;--white:#fff;--mint:#00d6a4;--mintdeep:#009978;--rose:#ff365f;--yellow:#ffc83d;--blue:#188dff;--violet:#aa63ff;--charcoal:#0d1014;--soft:#edf5f3;--shadow:0 24px 80px rgba(18,31,41,.12)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:94px}body{margin:0;background:var(--white);color:var(--ink);font-family:Inter,"SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:3px}::selection{background:#a2f8dd;color:#14291f}.container{max-width:1370px;margin:auto;padding:0 32px}.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:800}.muted{color:var(--muted)}.section-title{font-size:clamp(40px,5.1vw,73px);letter-spacing:-.065em;line-height:1.02;margin:10px 0 20px;font-weight:750}.small-title{font-size:clamp(26px,3.1vw,42px);line-height:1.07;letter-spacing:-.053em;margin:10px 0}.body-lg{font-size:19px;line-height:1.65;color:#4c5968}.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:750;border-radius:13px;padding:16px 22px;line-height:1;border:1px solid transparent;white-space:nowrap;transition:transform .2s,box-shadow .2s,background .2s}.btn:hover{transform:translateY(-2px)}.btn-primary{background:var(--mint);color:#06231c;box-shadow:0 10px 20px #00cf9b27}.btn-primary:hover{background:#2ae8bd;box-shadow:0 14px 26px #00cf9b3d}.btn-dark{background:var(--ink);color:white}.btn-outline{background:transparent;color:inherit;border-color:#9fadb955}.btn-white{background:white;color:var(--ink)}.link{font-size:14px;font-weight:750;display:inline-flex;align-items:center;gap:8px}.link:hover{color:var(--mintdeep)}.pill{display:inline-flex;gap:7px;align-items:center;border:1px solid var(--rule);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:750}.dot{width:7px;height:7px;border-radius:50%;background:var(--mint)}.site-header{position:sticky;top:0;z-index:90;background:#fffffff0;backdrop-filter:blur(18px);border-bottom:1px solid #e5eaee}.header-inner{height:80px;display:flex;align-items:center;gap:36px;justify-content:space-between}.wordmark{font-size:32px;font-weight:810;letter-spacing:-.085em;line-height:1;white-space:nowrap}.wordmark b{color:var(--mintdeep);font-weight:900}.wordmark small{display:block;font-size:8px;letter-spacing:.17em;font-weight:800;margin-top:5px;color:#58687a}.nav-links{display:flex;align-items:center;gap:30px;font-weight:650;font-size:13px}.nav-links a:hover{color:var(--mintdeep)}.header-actions{display:flex;align-items:center;gap:10px}.header-actions .btn{padding:13px 17px;font-size:13px}.icon-btn{border:1px solid var(--rule);border-radius:11px;background:transparent;width:40px;height:40px;font-size:19px;display:grid;place-items:center}.mobile-menu{display:none}
+.hero{background:radial-gradient(ellipse at 73% 16%,#e0fff6 0,transparent 29%),linear-gradient(#fff,#fbfcfd);overflow:hidden;padding-top:86px;padding-bottom:70px}.hero-grid{display:grid;grid-template-columns:42% 58%;align-items:center;gap:10px}.hero-copy{position:relative;z-index:2;padding-bottom:18px}.hero .eyebrow{color:#007e6b}.hero h1{font-weight:760;font-size:clamp(60px,6.1vw,95px);letter-spacing:-.077em;line-height:.99;margin:26px 0 30px;max-width:650px}.hero h1 em{font-style:normal;color:var(--mintdeep)}.hero-copy p{font-size:18px;line-height:1.55;max-width:520px;color:#526172}.hero-actions{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-top:29px}.hero .caveat{font-size:12px;color:#8d98a5;margin-top:19px}.hero-proof{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:38px;color:#596a77;font-size:12px;font-weight:650}.hero-proof span:before{content:'✓';color:var(--mintdeep);font-weight:900;margin-right:8px}.product-stage{position:relative;padding:32px 0 32px 0;margin-right:-35px}.product-stage:before{content:'';position:absolute;inset:1% -5% 0 4%;background:linear-gradient(135deg,#b4f9e4,#cdeefc 45%,#f2d3ff);filter:blur(62px);opacity:.68}.product-window{position:relative;z-index:1;background:white;border:1px solid #cddbe0;border-radius:21px;box-shadow:0 30px 78px #28394530;overflow:hidden;transform:perspective(1450px) rotateY(-4deg);transform-origin:left center;transition:transform .35s}.product-window:hover{transform:perspective(1450px) rotateY(-1deg)}.product-toolbar{height:45px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e7eef1;padding:0 14px;background:#f9fbfd}.lights{display:flex;gap:5px}.lights i{width:9px;height:9px;border-radius:50%;background:#dae4e9}.lights i:nth-child(1){background:#ff6964}.lights i:nth-child(2){background:#ffca49}.lights i:nth-child(3){background:#36c780}.toolbar-address{margin:auto;background:#fff;border:1px solid #e5e9ed;border-radius:7px;font-size:10px;color:#8b96a2;padding:6px 12px;min-width:36%;text-align:center}.stage-top{display:flex;justify-content:space-between;align-items:center;padding:18px 20px 13px;background:#fcfefe;gap:10px}.stage-brand{font-size:20px;font-weight:800;letter-spacing:-.06em}.stage-brand span{color:var(--mintdeep)}.stage-status{font-size:9px;color:#008d73;background:#e8fff7;border:1px solid #c2eedd;padding:6px 9px;border-radius:50px;font-weight:800}.stage-heading{padding:6px 20px 10px}.stage-heading h3{font-size:18px;letter-spacing:-.04em;margin:0}.stage-heading p{font-size:10px;margin:5px 0;color:#6b7f8d}.agents{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;padding:0 16px 12px}.agent-card{background:#f6f8fa;border:1px solid #e2eaf0;padding:10px 7px;border-radius:10px;min-width:0}.agent-icon{height:24px;width:24px;display:grid;place-items:center;border-radius:8px;color:white;font-size:13px;margin-bottom:5px;font-weight:800}.agent-card span{display:block;font-size:9px;font-weight:800}.agent-card small{font-size:8px;color:#66798b}.index-label{font-size:9px;letter-spacing:.08em;font-weight:850;color:#637487;padding:2px 16px 8px}.tickers{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;padding:0 16px}.ticker{min-width:0;position:relative;min-height:128px;text-align:left;border:0;border-radius:10px;color:white;padding:12px 10px;overflow:hidden;box-shadow:inset 0 -2px #00000013;transition:transform .2s,filter .2s,outline .2s}.ticker:hover,.ticker.active{transform:translateY(-4px);outline:3px solid #08251b3d;filter:saturate(1.1)}.ticker.bull{background:linear-gradient(145deg,#0bdfae,#00a886)}.ticker.bear{background:linear-gradient(150deg,#ff6680,#ff325f)}.ticker.neutral{background:linear-gradient(145deg,#ffe47d,#ffc433);color:#222b35}.ticker-top{display:flex;justify-content:space-between;font-size:16px;font-weight:900}.ticker-price{font-size:15px;font-weight:850;margin-top:15px;letter-spacing:-.035em}.ticker-price span{display:block;font-size:9px;margin-top:3px;font-weight:650}.ticker-bottom{margin-top:16px;font-size:9px;font-weight:800;border-radius:5px;background:#ffffffd9;color:#252d33;display:inline-block;padding:5px 7px}.tickers .spark{position:absolute;right:-4px;top:53px;height:33px;width:82px;opacity:.88}.stage-bottom{display:grid;grid-template-columns:1fr 1.2fr;gap:9px;padding:13px 16px 18px}.stage-panel{background:white;border:1px solid #e2e9ed;border-radius:11px;padding:12px}.stage-panel-title{font-size:11px;font-weight:850;margin-bottom:9px}.stage-metrics{display:flex;gap:8px}.stage-metrics div{background:#f4f7fa;border-radius:7px;padding:9px;flex:1}.stage-metrics strong{display:block;font-size:14px}.stage-metrics small{font-size:8px;color:#7a8794}.mini-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.mini-cards span{border-radius:6px;background:#dffcf0;color:#007d62;font-size:9px;font-weight:800;padding:9px 6px;text-align:center}.mini-cards span:nth-child(2){background:#e7f3ff;color:#147bd9}.mini-cards span:nth-child(3){background:#f1e4ff;color:#8544c9}.stage-caption{position:relative;z-index:2;text-align:right;margin:9px 30px 0;color:#738493;font-size:10px}
+.brand-strip{background:#f2f6f7;border-top:1px solid #e7eff2;border-bottom:1px solid #e7eff2;padding:22px 0}.brand-row{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.brand-row span{font-size:13px;color:#506171;font-weight:700}.brand-row strong{color:#14222a}.brand-row span:before{content:'●';color:var(--mintdeep);font-size:10px;margin-right:8px}
+.workflow{padding:114px 0 120px;background:var(--white)}.split-head{display:grid;grid-template-columns:1fr .62fr;gap:60px;align-items:end;margin-bottom:42px}.split-head p{font-size:18px;line-height:1.5;color:var(--muted)}.workflow-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.step{border:1px solid #e0e7eb;background:linear-gradient(white,#f9fbfc);border-radius:18px;padding:24px 18px 26px;min-height:256px;transition:transform .2s,box-shadow .2s}.step:hover{transform:translateY(-5px);box-shadow:0 20px 44px #10213113}.step-no{height:31px;width:31px;border-radius:50%;background:#092b2a;color:#7affd6;display:grid;place-items:center;font-size:13px;font-weight:900;margin-bottom:34px}.step h3{font-size:19px;letter-spacing:-.04em;margin:0 0 12px}.step p{font-size:14px;color:#5e6d7a;line-height:1.57;margin:0}.step:last-child{background:#dffff4;border-color:#b5efdd}.step:last-child .step-no{background:var(--mintdeep);color:white}
+.showcase{background:var(--charcoal);color:white;padding:111px 0 120px;overflow:hidden}.showcase .eyebrow{color:var(--mint)}.showcase .body-lg{color:#b1bcc5}.showcase-header{display:grid;grid-template-columns:.95fr 1fr;gap:50px;align-items:end;margin-bottom:40px}.showcase-tabs{display:flex;gap:9px;flex-wrap:wrap;justify-content:end}.showcase-tabs button{border:1px solid #3b4650;background:transparent;color:#d6e0e6;padding:12px 16px;border-radius:10px;font-weight:800;font-size:12px}.showcase-tabs button.active{background:var(--mint);color:#001f1b;border-color:var(--mint)}.showcase-body{display:grid;grid-template-columns:1.65fr .72fr;gap:20px;align-items:stretch}.shot-frame{border:1px solid #38434a;background:#06090b;border-radius:17px;padding:11px;box-shadow:0 30px 100px #0007;overflow:hidden}.shot-frame img{display:block;width:100%;border-radius:8px;max-height:560px;object-fit:contain;object-position:top}.shot-label{display:flex;justify-content:space-between;align-items:center;color:#9db1bd;font-size:11px;padding:14px 10px 5px;gap:10px}.shot-copy{border:1px solid #33404a;background:#191f24;border-radius:17px;padding:33px;display:flex;flex-direction:column;justify-content:center}.shot-copy .eyebrow{color:var(--mint)}.shot-copy h3{font-size:clamp(28px,3vw,46px);line-height:1.04;letter-spacing:-.055em;margin:18px 0 12px}.shot-copy p{font-size:15px;line-height:1.65;color:#b8c4cb}.shot-copy .btn{margin-top:16px;align-self:flex-start}.data-foot{margin-top:16px;color:#8796a0;font-size:11px;line-height:1.5}
+.options{padding:118px 0;background:linear-gradient(180deg,#f6fafb,#fff)}.options-header{max-width:760px;margin-bottom:42px}.options-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.option{background:var(--white);border:1px solid #dce5eb;border-radius:19px;overflow:hidden;transition:box-shadow .2s,transform .2s;min-width:0}.option:hover{box-shadow:var(--shadow);transform:translateY(-4px)}.option-top{padding:22px 23px 12px;display:flex;justify-content:space-between;align-items:center}.option-top strong{font-size:18px}.option-top small{font-size:11px;font-weight:750}.option.itm{border-top:6px solid var(--mint)}.option.atm{border-top:6px solid var(--blue)}.option.otm{border-top:6px solid var(--violet)}.option.itm .option-type{color:#009b77}.option.atm .option-type{color:#1374d2}.option.otm .option-type{color:#7b42d8}.option-inner{padding:0 23px 22px}.option-ct{font-size:30px;letter-spacing:-.05em;margin:6px 0 3px;font-weight:850}.option-details{font-size:12px;color:#738496}.option-score{font-size:42px;font-weight:850;letter-spacing:-.06em}.option-score span{font-size:15px;color:#83929f;font-weight:650}.option-facts{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:17px}.fact{border:1px solid #e7ecef;background:#f7f9fa;padding:12px;border-radius:10px;min-height:73px}.fact label{display:block;font-size:10px;font-weight:750;color:#788896;margin-bottom:7px}.fact b{font-size:17px;letter-spacing:-.035em}.option .action{margin-top:13px;border-radius:10px;width:100%;padding:13px;color:var(--ink);border:1px solid #c9d6de;background:white;font-size:13px;font-weight:850}.option .action:hover{background:#eafff6;border-color:var(--mintdeep)}.option-foot{text-align:center;color:#7f8d99;font-size:12px;margin-top:21px}
+.feature-section{padding:112px 0}.feature-head{margin-bottom:38px}.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.feature-card{border:1px solid #e1e8ec;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 14px 45px #25394a09;display:flex;flex-direction:column}.feature-visual{background:#dcebe8;height:235px;overflow:hidden;position:relative;display:grid;place-items:center}.feature-visual img{width:100%;height:100%;object-fit:cover;object-position:top center}.feature-card:nth-child(2) .feature-visual{background:#12171c}.feature-card:nth-child(3) .feature-visual{background:#eaf1ff}.feature-copy{padding:29px;flex:1;display:flex;flex-direction:column}.feature-copy .eyebrow{color:#008b73}.feature-copy h3{font-size:24px;letter-spacing:-.05em;margin:11px 0}.feature-copy p{font-size:14px;line-height:1.55;color:#667482;flex:1}
+.agent-section{padding:110px 0;background:#eff7f4}.agent-intro{display:grid;grid-template-columns:1fr .85fr;gap:60px;align-items:start;margin-bottom:40px}.agent-intro p{font-size:18px;line-height:1.6;color:#5c6b78}.agent-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:13px}.agent-big{border:1px solid #dce8e6;border-radius:16px;background:white;padding:22px;min-height:185px}.agent-big .glyph{width:49px;height:49px;border-radius:14px;color:white;display:grid;place-items:center;font-size:22px;font-weight:850;box-shadow:0 9px 19px #0a203116}.agent-big h4{font-size:16px;letter-spacing:-.025em;margin:18px 0 7px}.agent-big p{font-size:12px;line-height:1.55;color:#5e6d77;margin:0}.agent-criteria{background:#fff;border-radius:15px;border:1px solid #d5e8df;padding:23px 30px;margin-top:23px;display:flex;align-items:center;justify-content:space-between;gap:25px}.agent-criteria strong{font-size:17px}.agent-criteria p{font-size:13px;color:#657783;line-height:1.55;margin:8px 0 0}
+.video-section{padding:110px 0;background:var(--white)}.video-cards{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:15px;margin-top:37px}.video{border-radius:18px;border:1px solid #dfe9ed;overflow:hidden;display:flex;flex-direction:column;background:#fafcfc}.video-cover{position:relative;height:235px;display:grid;place-items:center;overflow:hidden;background:#151c20}.video-cover img{width:100%;height:100%;object-fit:cover;filter:brightness(.54);position:absolute;inset:0}.video-cover:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50%,#00deac20,transparent 60%)}.play{width:66px;height:66px;border-radius:50%;background:var(--mint);color:#102620;border:0;font-size:23px;display:grid;place-items:center;position:relative;z-index:1;box-shadow:0 0 0 12px #ffffff25}.play:hover{transform:scale(1.09)}.video-cover .slot{position:absolute;bottom:14px;left:17px;color:white;font-size:11px;z-index:1;font-weight:750}.video-copy{padding:24px;display:flex;flex:1;flex-direction:column}.video-copy h3{font-size:20px;letter-spacing:-.04em;margin:0 0 9px}.video-copy p{color:#6e7d88;font-size:13px;line-height:1.55;flex:1}.video-copy .link{margin-top:10px}
+.price-section{padding:110px 0;background:#0d1014;color:white}.price-wrap{display:grid;grid-template-columns:1.25fr 1fr;gap:70px;align-items:center}.price-section .eyebrow{color:var(--mint)}.price-section p{color:#b4c0c8;font-size:18px;line-height:1.7;max-width:580px}.price-box{border:1px solid #3a4750;background:#1a2025;padding:40px;border-radius:24px}.price-box .cost{font-weight:850;letter-spacing:-.07em;font-size:65px}.price-box .cost small{font-size:16px;color:#acbbc3;letter-spacing:0}.price-box ul{list-style:none;padding:0;margin:23px 0 30px}.price-box li{padding:10px 0;border-bottom:1px solid #343f48;font-size:14px;color:#dce5e9}.price-box li:before{content:'✓';color:var(--mint);font-weight:900;margin-right:11px}.price-box .btn{width:100%}.fineprint{font-size:11px!important;color:#91a1ac!important;line-height:1.5!important;margin:14px 0 0!important}.faq-section{padding:112px 0}.faq-wrap{max-width:970px;margin:auto}.faq-wrap .section-title{text-align:center;margin-bottom:41px}.faq-wrap details{border-bottom:1px solid #dbe5ea;padding:22px 0}.faq-wrap summary{list-style:none;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-weight:750;font-size:18px;gap:20px}.faq-wrap summary:after{content:'+';font-size:25px;color:var(--mintdeep);font-weight:400}.faq-wrap details[open] summary:after{content:'−'}.faq-wrap details p{color:#5e6f7e;line-height:1.65;font-size:15px;max-width:810px;margin:13px 0 0}.end-cta{margin:45px auto 0;max-width:1308px;border-radius:26px;background:#d8fff2;padding:78px 65px;display:flex;justify-content:space-between;align-items:center;gap:55px}.end-cta h2{font-size:clamp(34px,5vw,65px);line-height:1;letter-spacing:-.065em;margin:0 0 18px}.end-cta p{color:#3c6357;font-size:16px;margin:0}.footer{padding:73px 0 33px;background:white}.footer-top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;border-bottom:1px solid #e0e7e9;padding-bottom:45px}.footer-top .wordmark{font-size:35px}.footer-links{display:flex;gap:22px;flex-wrap:wrap;max-width:700px;font-size:13px;color:#495e70;font-weight:650}.footer-links a:hover{color:#009c77}.footer-bottom{display:flex;justify-content:space-between;align-items:end;gap:35px;padding-top:25px;color:#74848e;font-size:11px;line-height:1.6}.footer-bottom p{max-width:850px;margin:0}.footer-bottom span{white-space:nowrap}
+.modal-overlay{position:fixed;inset:0;z-index:400;background:#091419bc;display:none;align-items:center;justify-content:center;padding:25px;backdrop-filter:blur(10px)}.modal-overlay.open{display:flex}.modal{max-width:760px;width:100%;max-height:min(90vh,850px);overflow:auto;background:#fff;border-radius:22px;box-shadow:0 25px 100px #0007;color:#15212d}.modal-head{padding:27px 30px;border-bottom:1px solid #e3ebef;display:flex;justify-content:space-between;align-items:center;gap:15px}.modal-head h2{font-size:27px;letter-spacing:-.05em;margin:0}.modal-close{width:40px;height:40px;background:#f2f5f6;border:0;border-radius:10px;font-size:25px}.modal-body{padding:29px 30px 35px}.modal-body p{font-size:15px;line-height:1.62;color:#4f6474}.modal-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.contract-modal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:20px 0}.contract-modal-grid div{background:#f2f6f8;padding:15px;border-radius:11px}.contract-modal-grid span{display:block;font-size:11px;color:#748493}.contract-modal-grid strong{display:block;font-size:23px;margin-top:6px}.demo-question{background:#0f191e;color:#fff;padding:22px;border-radius:15px}.demo-question label{font-size:12px;color:#8bf2cd;text-transform:uppercase;letter-spacing:.08em}.demo-question p{color:#ebf4f2;margin:12px 0 0}.tag{display:inline-block;padding:5px 8px;border-radius:6px;font-size:11px;font-weight:800;background:#defbef;color:#007c5d}.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s,transform .65s}.reveal.visible{opacity:1;transform:none}
+body[data-theme="dark"]{--ink:#f7fafc;--muted:#a5b4c0;--rule:#354047;--white:#11161a;--paper:#141a1e;--soft:#202d2b;background:#11161a;color:#f7fafc}body[data-theme="dark"] .site-header{background:#11161af0;border-color:#354047}body[data-theme="dark"] .hero{background:radial-gradient(ellipse at 70% 18%,#11392d 0,transparent 28%),#11161a}body[data-theme="dark"] .hero-copy p,body[data-theme="dark"] .hero-proof,body[data-theme="dark"] .body-lg,body[data-theme="dark"] .split-head p{color:#a9b6bf}body[data-theme="dark"] .wordmark small{color:#c5d0d9}body[data-theme="dark"] .brand-strip{background:#191f24;border-color:#26353d}body[data-theme="dark"] .brand-row span,body[data-theme="dark"] .brand-row strong{color:#c7d1d9}body[data-theme="dark"] .workflow,body[data-theme="dark"] .options,body[data-theme="dark"] .feature-section,body[data-theme="dark"] .video-section,body[data-theme="dark"] .faq-section,body[data-theme="dark"] .footer{background:#11161a}body[data-theme="dark"] .step,body[data-theme="dark"] .option,body[data-theme="dark"] .feature-card,body[data-theme="dark"] .video,body[data-theme="dark"] .agent-big,body[data-theme="dark"] .agent-criteria{background:#1a2228;border-color:#36414b}body[data-theme="dark"] .step p,body[data-theme="dark"] .feature-copy p,body[data-theme="dark"] .option-details,body[data-theme="dark"] .video-copy p,body[data-theme="dark"] .agent-criteria p,body[data-theme="dark"] .faq-wrap details p{color:#abb9c3}body[data-theme="dark"] .fact{background:#232d34;border-color:#3a464e}body[data-theme="dark"] .agent-section{background:#18231f}body[data-theme="dark"] .option .action{background:#172229;border-color:#48615c;color:#b6fff0}body[data-theme="dark"] .modal{background:#192026;color:#f7fafc}body[data-theme="dark"] .modal-body p{color:#c2cfd8}body[data-theme="dark"] .contract-modal-grid div,body[data-theme="dark"] .modal-close{background:#29333a}body[data-theme="dark"] .end-cta{color:#101b1a}
+@media(max-width:1130px){.nav-links{gap:16px}.hero-grid{grid-template-columns:1fr}.hero-copy{max-width:850px}.hero h1{max-width:800px}.product-stage{margin-right:0}.product-window{transform:none}.showcase-body{grid-template-columns:1.4fr 1fr}.workflow-grid{grid-template-columns:repeat(3,1fr)}.agent-grid{grid-template-columns:repeat(3,1fr)}.feature-grid{grid-template-columns:repeat(2,1fr)}.video-cards{grid-template-columns:1fr 1fr}.video-cards .video:first-child{grid-column:span 2}}@media(max-width:770px){.container{padding:0 19px}.site-header .header-inner{height:70px;gap:12px}.header-actions .btn-outline{display:none}.header-actions .btn-primary{padding:12px}.mobile-menu{display:grid}.nav-links{display:none;position:absolute;left:0;top:70px;right:0;padding:20px;background:var(--white);flex-direction:column;align-items:stretch;box-shadow:0 25px 25px #0002}.nav-links.open{display:flex}.hero{padding:75px 0 57px}.hero h1{font-size:clamp(54px,13vw,77px)}.hero-copy p{font-size:16px}.hero-proof{gap:12px}.product-stage{margin:13px -12px 0}.agents{grid-template-columns:repeat(3,1fr)}.agents .agent-card:nth-child(n+4){display:none}.tickers{grid-template-columns:repeat(3,1fr)}.tickers .ticker:nth-child(n+4){display:none}.stage-bottom{grid-template-columns:1fr}.brand-row{justify-content:center;text-align:center}.split-head,.showcase-header,.agent-intro,.price-wrap{grid-template-columns:1fr;gap:18px}.workflow,.showcase,.options,.feature-section,.agent-section,.video-section,.price-section,.faq-section{padding:74px 0}.workflow-grid,.options-grid,.feature-grid,.agent-grid,.video-cards{grid-template-columns:1fr}.video-cards .video:first-child{grid-column:auto}.showcase-body{grid-template-columns:1fr}.showcase-tabs{justify-content:start}.shot-copy{padding:26px}.option-score{font-size:36px}.end-cta{margin:30px 19px 0;display:block;padding:45px 28px}.end-cta .btn{margin-top:24px}.footer-bottom{display:block}.footer-bottom span{display:block;margin-top:17px}.stage-caption{font-size:10px;text-align:center}.product-stage:before{opacity:.35}}@media(max-width:470px){.wordmark{font-size:26px}.header-actions .btn-primary{font-size:12px;padding:12px}.icon-btn{width:36px;height:36px}.hero h1{letter-spacing:-.069em}.hero-actions .btn{width:100%}.toolbar-address{font-size:8px}.ticker{min-height:112px}.ticker-price{font-size:12px}.stage-panel{padding:9px}.contract-modal-grid{grid-template-columns:1fr}.modal-head,.modal-body{padding:21px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}}
 
-    /* nav */
-    .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(7,9,13,.72);border-bottom:1px solid rgba(255,255,255,.05)}
-    .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
-    .brand img{height:44px;width:auto}
-    .links{display:flex;gap:28px;font-size:14px;color:var(--muted)}
-    .links a:hover{color:var(--white)}
-    .actions{display:flex;align-items:center;gap:10px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:999px;font-weight:600;font-size:14px;transition:transform .2s,background .2s,border-color .2s,color .2s;white-space:nowrap}
-    .btn-sm{height:38px;padding:0 16px;font-size:13px}
-    .btn-light{background:var(--white);color:#0b0e13}
-    .btn-light:hover{background:#fff;transform:translateY(-1px)}
-    .btn-ghost{border:1px solid var(--line2);color:var(--text);background:rgba(255,255,255,.02)}
-    .btn-ghost:hover{border-color:#3a4760;color:var(--white)}
-    .btn-text{color:var(--muted);padding:0 10px}
-    .btn-text:hover{color:var(--white)}
-
-    /* hero */
-    .hero{position:relative;padding:72px 0 40px;overflow:hidden}
-    .hero:before{content:"";position:absolute;inset:-20% -10% auto;height:720px;background:radial-gradient(600px 300px at 50% 20%,rgba(0,210,106,.14),transparent 70%),radial-gradient(500px 260px at 80% 0%,rgba(88,166,255,.10),transparent 70%);pointer-events:none}
-    .grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 50% 20%,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 20%,#000 30%,transparent 75%);pointer-events:none}
-    .hero-inner{position:relative;text-align:center}
-    .pill{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 8px;border-radius:999px;border:1px solid var(--line2);background:rgba(14,19,27,.8);font-size:13px;color:var(--text)}
-    .pill b{background:var(--greenSoft);color:var(--green2);font-weight:600;padding:2px 9px;border-radius:999px;font-size:12px}
-    h1{margin:26px auto 18px;max-width:900px;font-size:clamp(42px,7vw,84px);line-height:1.02;letter-spacing:-.035em;font-weight:800;color:var(--white)}
-    h1 .grad{background:linear-gradient(90deg,#f2f5f8 0%,#7ff0b6 45%,var(--green) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-    .lede{max-width:720px;margin:0 auto;font-size:clamp(17px,2vw,20px);color:var(--muted)}
-    .lede strong{color:var(--white);font-weight:600}
-    .cta-row{display:flex;gap:12px;justify-content:center;margin:32px 0 18px;flex-wrap:wrap}
-    .trust{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:8px}
-    .trust span{display:inline-flex;align-items:center;gap:8px}
-    .trust i{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
-
-    /* hero demo */
-    .demo{position:relative;max-width:1040px;margin:54px auto 0;border-radius:20px;border:1px solid var(--line2);background:linear-gradient(180deg,#0d121a,#090c12);box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.02) inset;overflow:hidden;text-align:left}
-    .demo-bar{display:flex;align-items:center;gap:10px;height:46px;padding:0 16px;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)}
-    .dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:#252d3b}
-    .demo-bar .live{margin-left:auto;display:inline-flex;align-items:center;gap:6px;color:var(--green2)}
-    .demo-bar .live i{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.6s infinite}
-    @keyframes pulse{50%{opacity:.35}}
-    .demo-body{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:420px}
-    .demo-side{border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
-    .demo-side span{padding:8px 10px;border-radius:10px}
-    .demo-side span.on{background:var(--white);color:#0b0e13;font-weight:600}
-    .demo-side small{margin:12px 10px 4px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
-    .chat{padding:22px 26px;display:flex;flex-direction:column;gap:14px}
-    .chat-head{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--white)}
-    .chat-head img{width:22px;height:22px;border-radius:6px}
-    .q{align-self:flex-end;max-width:78%;background:var(--white);color:#0b0e13;padding:12px 16px;border-radius:16px 16px 4px 16px;font-weight:500;min-height:46px}
-    .caret{display:inline-block;width:2px;height:1em;background:currentColor;vertical-align:-2px;margin-left:2px;animation:blink 1s step-end infinite}
-    @keyframes blink{50%{opacity:0}}
-    .tools{display:flex;gap:6px;flex-wrap:wrap;min-height:26px}
-    .tools .status{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:8px;margin-right:6px}
-    .chip{font-size:11px;padding:4px 10px;border-radius:999px;background:var(--greenSoft);color:var(--green2);border:1px solid rgba(0,210,106,.25);opacity:0;transform:translateY(4px);transition:all .35s}
-    .chip.in{opacity:1;transform:none}
-    .a{max-width:88%;background:var(--panel2);border:1px solid var(--line2);border-radius:16px 16px 16px 4px;padding:16px 18px;font-size:14.5px;line-height:1.7;color:var(--text);min-height:120px}
-    .a .row{display:block}
-    .a b{color:var(--white)}
-    .a .bull{color:var(--green2)}.a .bear{color:var(--red)}.a .base{color:var(--gold)}
-    .a small{display:block;margin-top:10px;font-size:11px;color:var(--dim)}
-    .demo-foot{display:flex;justify-content:space-between;gap:12px;padding:12px 18px;border-top:1px solid var(--line);font-size:11px;color:var(--dim)}
-    .demo-tabs{display:flex;gap:6px}
-    .demo-tabs button{font:inherit;font-size:11px;color:var(--muted);background:transparent;border:1px solid var(--line2);border-radius:999px;padding:4px 10px;cursor:pointer}
-    .demo-tabs button.on{color:#0b0e13;background:var(--white);border-color:var(--white)}
-
-    /* sections */
-    section{position:relative}
-    .sec{padding:110px 0}
-    .kicker{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green2);margin-bottom:14px}
-    h2{margin:0 0 16px;font-size:clamp(32px,4.4vw,54px);line-height:1.06;letter-spacing:-.03em;font-weight:800;color:var(--white)}
-    .sub{max-width:640px;color:var(--muted);font-size:18px;margin:0}
-    .center{text-align:center}.center .sub{margin:0 auto}
-    .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
-    .reveal.in{opacity:1;transform:none}
-
-    /* stats */
-    .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:48px}
-    .stat{padding:26px 22px;border-radius:var(--radius);border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--bg2))}
-    .stat .num{font-size:44px;font-weight:800;letter-spacing:-.03em;color:var(--white);line-height:1}
-    .stat .num.red{color:#ff7b72}.stat .num.green{color:var(--green2)}
-    .stat p{margin:12px 0 10px;font-size:14px;color:var(--text)}
-    .stat a{font-size:12px;color:var(--dim);border-bottom:1px solid var(--line2)}
-    .stat a:hover{color:var(--muted)}
-    .stat-note{margin-top:22px;font-size:15px;color:var(--muted);max-width:760px}
-
-    /* steps */
-    .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:48px}
-    .step{padding:28px 24px;border-radius:var(--radius);border:1px solid var(--line);background:var(--panel)}
-    .step .n{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--green2)}
-    .step h3{margin:12px 0 8px;font-size:22px;color:var(--white);letter-spacing:-.01em}
-    .step p{margin:0;color:var(--muted);font-size:15px}
-    .step .ex{margin-top:16px;display:flex;flex-wrap:wrap;gap:6px}
-    .step .ex span{font-size:12px;padding:5px 10px;border-radius:999px;border:1px solid var(--line2);color:var(--text)}
-
-    /* tour */
-    .tour{display:flex;flex-direction:column;gap:110px;margin-top:64px}
-    .feat{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:56px;align-items:center}
-    .feat.flip{grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr)}
-    .feat.flip .shot{order:2}
-    .shot{position:relative;border-radius:18px;border:1px solid var(--line2);background:var(--panel);padding:10px;box-shadow:0 30px 80px rgba(0,0,0,.45);overflow:hidden}
-    .shot img{border-radius:10px;width:100%;height:auto;transition:transform .6s ease}
-    .shot:hover img{transform:scale(1.015)}
-    .shot:after{content:"";position:absolute;inset:0;border-radius:18px;background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.05) 50%,transparent 60%);transform:translateX(-100%);transition:transform 1.2s ease;pointer-events:none}
-    .feat.in .shot:after{transform:translateX(100%)}
-    .feat .n{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--dim)}
-    .feat h3{margin:10px 0 14px;font-size:clamp(28px,3vw,40px);line-height:1.1;letter-spacing:-.025em;color:var(--white);font-weight:700}
-    .feat p{color:var(--muted);font-size:17px;margin:0 0 18px}
-    .feat ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
-    .feat li{position:relative;padding-left:20px;color:var(--text);font-size:15px}
-    .feat li:before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--green)}
-    .cap{margin-top:10px;font-size:12px;color:var(--dim)}
-
-    /* compare */
-    .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:48px}
-    .col{border-radius:var(--radius);border:1px solid var(--line);padding:26px}
-    .col h4{margin:0 0 16px;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
-    .col.them{background:var(--bg2)}.col.them h4{color:#ff7b72}
-    .col.us{background:linear-gradient(180deg,rgba(0,210,106,.07),var(--panel));border-color:rgba(0,210,106,.28)}.col.us h4{color:var(--green2)}
-    .col ul{margin:0;padding:0;list-style:none;display:grid;gap:12px}
-    .col li{display:flex;gap:12px;font-size:15.5px}
-    .col.them li{color:var(--muted)}.col.them li:before{content:"✕";color:#ff7b72;font-weight:700}
-    .col.us li{color:var(--white)}.col.us li:before{content:"✓";color:var(--green2);font-weight:700}
-    .note{margin-top:14px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start;padding:24px 26px;border-radius:var(--radius);border:1px solid rgba(227,179,65,.3);background:linear-gradient(180deg,rgba(227,179,65,.07),var(--panel))}
-    .note .ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(227,179,65,.15);color:var(--gold);font-weight:800}
-    .note h4{margin:0 0 6px;color:var(--white);font-size:18px}
-    .note p{margin:0;color:var(--text);font-size:15px}
-    .note small{display:block;margin-top:8px;color:var(--dim);font-size:12px}
-
-    /* broker */
-    .broker{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
-    .bcards{display:grid;gap:12px}
-    .bcard{display:grid;grid-template-columns:40px minmax(0,1fr);gap:14px;padding:20px;border-radius:14px;border:1px solid var(--line);background:var(--panel)}
-    .bcard .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--greenSoft);color:var(--green2);font-weight:800}
-    .bcard b{display:block;color:var(--white);margin-bottom:2px}
-    .bcard span{color:var(--muted);font-size:14.5px}
-
-    /* pricing */
-    .price-card{max-width:560px;margin:48px auto 0;border-radius:22px;border:1px solid rgba(0,210,106,.3);background:radial-gradient(400px 200px at 50% 0%,rgba(0,210,106,.12),transparent 70%),var(--panel);padding:34px}
-    .price{display:flex;align-items:baseline;gap:12px;margin:8px 0 6px}
-    .price strong{font-size:64px;font-weight:800;letter-spacing:-.04em;color:var(--white)}
-    .price span{color:var(--muted)}
-    .price-card ul{margin:22px 0 26px;padding:0;list-style:none;display:grid;gap:10px}
-    .price-card li{display:flex;gap:10px;color:var(--text)}
-    .price-card li:before{content:"✓";color:var(--green2);font-weight:700}
-    .price-card .btn{width:100%}
-    .fine{text-align:center;color:var(--dim);font-size:13px;margin-top:16px}
-    .fine a{color:var(--muted);border-bottom:1px solid var(--line2)}
-
-    /* faq */
-    .faq{max-width:820px;margin:44px auto 0;border-top:1px solid var(--line)}
-    .faq details{border-bottom:1px solid var(--line)}
-    .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font-size:18px;font-weight:600;color:var(--white)}
-    .faq summary::-webkit-details-marker{display:none}
-    .faq summary:after{content:"+";color:var(--green2);font-size:22px;transition:transform .25s}
-    .faq details[open] summary:after{transform:rotate(45deg)}
-    .faq p{margin:-6px 0 22px;color:var(--muted)}
-    .faq a{color:var(--green2)}
-
-    /* final */
-    .final{padding:120px 0;text-align:center;background:radial-gradient(600px 260px at 50% 30%,rgba(0,210,106,.12),transparent 70%)}
-    footer{border-top:1px solid var(--line);padding:48px 0 40px;color:var(--dim);font-size:13px}
-    .fgrid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:start}
-    .flinks{display:flex;flex-wrap:wrap;gap:18px;justify-content:flex-end}
-    .flinks a:hover,.social a:hover{color:var(--white)}
-    .social{display:flex;gap:18px;margin:22px 0;flex-wrap:wrap}
-    .sources{margin-top:18px;font-size:12px;line-height:1.7}
-    .sources a{border-bottom:1px solid var(--line2)}
-    footer p{max-width:900px}
-
-    @media (max-width:980px){
-      .links{display:none}
-      .demo-body{grid-template-columns:1fr}.demo-side{display:none}
-      .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .steps,.compare{grid-template-columns:1fr}
-      .feat,.feat.flip{grid-template-columns:1fr;gap:26px}
-      .feat.flip .shot{order:0}
-      .broker{grid-template-columns:1fr;gap:32px}
-      .fgrid{grid-template-columns:1fr}.flinks{justify-content:flex-start}
-    }
-    @media (max-width:560px){
-      .wrap{padding:0 16px}
-      .stats{grid-template-columns:1fr}
-      .stat .num{font-size:38px}
-      .q,.a{max-width:100%}
-      .sec{padding:80px 0}
-      .tour{gap:72px}
-    }
-    @media (prefers-reduced-motion:reduce){
-      html{scroll-behavior:auto}
-      .reveal{opacity:1;transform:none;transition:none}
-      .chip{opacity:1;transform:none;transition:none}
-      .caret,.demo-bar .live i{animation:none}
-      .shot:after{display:none}
-    }
-    /* Oct 11: light is the default theme; dark is one tap away. */
-    html[data-theme="light"]{
-      --bg:#ffffff;--bg2:#f6f8fa;--panel:#ffffff;--panel2:#f3f5f8;--line:#e6e9ef;--line2:#d5dbe4;
-      --text:#2a313c;--white:#0b0e13;--muted:#5a6474;--dim:#8a93a2;
-      --green:#00a656;--green2:#008f49;--greenSoft:rgba(0,166,86,.10);--red:#d1242f;--blue:#0969da;--gold:#9a6b00;--purple:#8250df;
-      color-scheme:light
-    }
-    html[data-theme="dark"]{color-scheme:dark}
-    html[data-theme="light"] .nav{background:rgba(255,255,255,.82);border-bottom-color:rgba(10,20,30,.08)}
-    html[data-theme="light"] .btn-light{background:#0b0e13;color:#fff}
-    html[data-theme="light"] .btn-light:hover{background:#000}
-    html[data-theme="light"] .btn-ghost{background:#fff}
-    html[data-theme="light"] .btn-ghost:hover{border-color:#9aa6b8}
-    html[data-theme="light"] .hero:before{background:radial-gradient(600px 300px at 50% 20%,rgba(0,166,86,.10),transparent 70%),radial-gradient(500px 260px at 80% 0%,rgba(9,105,218,.07),transparent 70%)}
-    html[data-theme="light"] .grid-bg{background-image:linear-gradient(rgba(10,20,30,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(10,20,30,.045) 1px,transparent 1px)}
-    html[data-theme="light"] .pill{background:#fff}
-    html[data-theme="light"] h1 .grad{background:linear-gradient(90deg,#0b0e13 0%,#0a8f4f 55%,var(--green) 100%);-webkit-background-clip:text;background-clip:text}
-    html[data-theme="light"] .demo{background:#fff;box-shadow:0 30px 80px rgba(16,24,40,.12),0 0 0 1px rgba(16,24,40,.03) inset}
-    html[data-theme="light"] .dots i{background:#d9dee6}
-    html[data-theme="light"] .demo-side span.on,html[data-theme="light"] .demo-tabs button.on{color:#fff}
-    html[data-theme="light"] .q{color:#fff}
-    html[data-theme="light"] .shot{box-shadow:0 24px 60px rgba(16,24,40,.12)}
-    html[data-theme="light"] .shot:after{background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%)}
-    html[data-theme="light"] .trust i{box-shadow:none}
-    html[data-theme="light"] .stat .num.red,html[data-theme="light"] .col.them h4,html[data-theme="light"] .col.them li:before{color:var(--red)}
-    html[data-theme="light"] .final{background:radial-gradient(600px 260px at 50% 30%,rgba(0,166,86,.08),transparent 70%)}
-    /* logo swaps with the theme */
-    .brand{display:inline-flex;align-items:center}
-    .brand .logo-ink,.brand .logo-mark{display:none}
-    html[data-theme="light"] .brand .logo-dark{display:none}
-    html[data-theme="light"] .brand .logo-ink{display:block;height:34px;width:auto}
-    /* sun / moon toggle */
-    .theme-btn{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--text);cursor:pointer;padding:0;flex:0 0 auto}
-    .theme-btn:hover{border-color:var(--muted);color:var(--white)}
-    .theme-btn svg{width:18px;height:18px}
-    .theme-btn .i-sun{display:none}
-    html[data-theme="dark"] .theme-btn .i-sun{display:block}
-    html[data-theme="dark"] .theme-btn .i-moon{display:none}
-    @media (max-width:560px){
-      .nav .wrap{gap:8px;height:60px}
-      .brand .logo-dark,.brand .logo-ink{display:none!important}
-      .brand .logo-mark{display:block;height:34px;width:34px;border-radius:9px}
-      html[data-theme="light"] .brand .logo-mark{content:url(/ao-logo-small-ink.png);border-radius:0;object-fit:contain}
-      .actions{gap:6px}
-      .actions .btn-text{display:inline-flex;padding:0 8px}
-      .theme-btn{width:34px;height:34px}
-    }
-    /* Oct 12: video player, motion tape, smoother motion */
-    .play-i{display:inline-block;width:0;height:0;border-left:9px solid currentColor;border-top:6px solid transparent;border-bottom:6px solid transparent;margin-right:8px;transform:translateY(1px)}
-    .tape{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-    .tape-row{display:flex;gap:44px;width:max-content;padding:14px 0;animation:tape 46s linear infinite}
-    .tape-row span{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap;display:inline-flex;align-items:center;gap:44px}
-    .tape-row span:after{content:"";width:5px;height:5px;border-radius:50%;background:var(--green)}
-    @keyframes tape{to{transform:translateX(-50%)}}
-    .player{max-width:1080px;margin:44px auto 0}
-    .player-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
-    .player-tabs button{display:inline-flex;align-items:baseline;gap:8px;padding:10px 18px;border-radius:999px;border:1px solid var(--line2);background:var(--panel);color:var(--text);font:inherit;font-size:14px;cursor:pointer;transition:background .25s,color .25s,border-color .25s,transform .25s}
-    .player-tabs button small{color:var(--dim);font-size:12px}
-    .player-tabs button:hover{transform:translateY(-1px);border-color:var(--muted)}
-    .player-tabs button.on{background:var(--white);color:var(--bg);border-color:var(--white)}
-    .player-tabs button.on small{color:inherit;opacity:.7}
-    .player-frame{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line2);background:#000;aspect-ratio:16/9;box-shadow:0 40px 120px rgba(0,0,0,.35)}
-    html[data-theme="light"] .player-frame{box-shadow:0 30px 80px rgba(16,24,40,.16)}
-    .player-frame video{display:block;width:100%;height:100%;object-fit:cover;transition:opacity .45s ease,filter .45s ease}
-    .player-frame.swap video{opacity:0;filter:blur(8px)}
-    .player-play{position:absolute;inset:0;margin:auto;width:92px;height:92px;border-radius:50%;border:0;background:rgba(255,255,255,.92);cursor:pointer;display:grid;place-items:center;box-shadow:0 20px 60px rgba(0,0,0,.35);transition:transform .3s cubic-bezier(.2,.8,.2,1),opacity .3s}
-    .player-play span{width:0;height:0;border-left:26px solid #0b0e13;border-top:16px solid transparent;border-bottom:16px solid transparent;margin-left:7px}
-    .player-play:before{content:"";position:absolute;inset:-10px;border-radius:50%;border:2px solid rgba(255,255,255,.55);animation:ring 2.2s ease-out infinite}
-    .player-play:hover{transform:scale(1.07)}
-    .player-frame.playing .player-play{opacity:0;pointer-events:none;transform:scale(.8)}
-    @keyframes ring{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.35);opacity:0}}
-    .player-cap{text-align:center;color:var(--muted);font-size:15px;margin:16px auto 0;max-width:720px;transition:opacity .3s}
-    /* staggered reveals and a soft focus-in for screenshots */
-    .reveal{transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0ms)}
-    .feat .shot{transform:scale(.97);opacity:.0;transition:transform 1.1s cubic-bezier(.2,.8,.2,1),opacity 1.1s ease;transition-delay:120ms}
-    .feat.in .shot{transform:none;opacity:1}
-    .shot img{will-change:transform;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
-    .feat .shot:hover img{transform:scale(1.015)}
-    .step,.stat,.col,.feat .shot{transition-property:opacity,transform,box-shadow,border-color}
-    .step:hover,.stat:hover{transform:translateY(-3px);border-color:var(--line2)}
-    .btn{transition:transform .2s ease,background .2s,box-shadow .2s}
-    .btn:hover{transform:translateY(-1px)}
-    .nav{transition:background .3s,box-shadow .3s,height .3s}
-    .nav.scrolled{box-shadow:0 8px 30px rgba(0,0,0,.08)}
-    .hero h1,.hero .lede,.hero .cta-row,.hero .trust,.hero .pill{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
-    .hero .pill{animation-delay:.05s}.hero h1{animation-delay:.12s}.hero .lede{animation-delay:.22s}.hero .cta-row{animation-delay:.32s}.hero .trust{animation-delay:.42s}
-    @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-    .grid-bg{animation:gridpan 60s linear infinite}
-    @keyframes gridpan{to{background-position:0 64px,64px 0}}
-    @media (prefers-reduced-motion:reduce){
-      .tape-row,.grid-bg,.player-play:before{animation:none}
-      .hero h1,.hero .lede,.hero .cta-row,.hero .trust,.hero .pill{animation:none}
-      .feat .shot{transform:none;opacity:1;transition:none}
-      .reveal{transition:none}
-    }
-    @media (max-width:640px){ .demo-foot{flex-direction:column;align-items:flex-start} .demo-tabs{display:flex;flex-wrap:wrap;gap:6px} .demo-tabs button{white-space:nowrap} }
-    @media (max-width:560px){ .player-tabs button{padding:8px 12px;font-size:13px} .player-play{width:70px;height:70px} .player-play span{border-left-width:20px;border-top-width:12px;border-bottom-width:12px} }
-  </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Alpha & Omega Analytics","url":"https://tradewithao.com/","logo":"https://tradewithao.com/ao-logo-small.jpg","sameAs":["https://x.com/AO_Analytics","https://www.tiktok.com/@ao_analytics","https://www.linkedin.com/company/alpha-omega-analytics-llc","https://www.youtube.com/@AlphaOmegaAnalytics"]}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Alpha & Omega Analytics","url":"https://tradewithao.com/"}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is A&O?","acceptedAnswer":{"@type":"Answer","text":"A&O is an AI-assisted research platform for retail options traders and stock investors. Set your own watchlist, premium range, strategies, time horizon and risk criteria, then explore market context, ranked contracts, portfolio research and historical testing. It is research and decision support, not a signal service."}},{"@type":"Question","name":"Is this personalized investment advice?","acceptedAnswer":{"@type":"Answer","text":"No. A&O is a research tool with filters you control. It shows which setups match the rules you wrote. It does not know your full financial situation, does not tell you what to buy or sell, and does not place trades. Every decision is yours."}},{"@type":"Question","name":"How is A&O different from a signal Discord?","acceptedAnswer":{"@type":"Answer","text":"A trade callout starts with someone else's idea. A&O starts with your criteria and gives you tools to research the evidence, compare contracts and test rules. You decide whether an idea fits your own plan. Read the comparison: AO vs paying for a signal Discord."}},{"@type":"Question","name":"Can I backtest a strategy?","acceptedAnswer":{"@type":"Answer","text":"Yes. Rule Lab tests rules against up to five years of daily price history and shows the underlying's subsequent behavior. Those price outcomes should not be read as actual options fills or realized P&L. Strategy League provides separate paper-strategy results. Neither guarantees future performance."}},{"@type":"Question","name":"Can I connect my broker?","acceptedAnswer":{"@type":"Answer","text":"Supported brokerages can connect read-only through SnapTrade so you can research your positions in My Portfolio. Review the permissions before connecting. A&O does not take custody of your assets or submit orders."}},{"@type":"Question","name":"Where can I review model results?","acceptedAnswer":{"@type":"Answer","text":"Visit the public paper-trade record and read the methodology alongside the outcomes. Model paper results are hypothetical, not actual customer returns, and may differ from live execution."}},{"@type":"Question","name":"Is there a guide to the terminal?","acceptedAnswer":{"@type":"Answer","text":"Yes. The member guide (PDF) walks through Your Plan, the setup cards, dealer levels, Ask A&O, Rule Lab, Alpha Flow and the rest of the desk, with real screens."}},{"@type":"Question","name":"What does the $1 trial include?","acceptedAnswer":{"@type":"Answer","text":"Thirty days of the full terminal so you can set your plan, run the scan, backtest rules and track your portfolio before the $50/month Desk continues."}}]}</script>
+/* Agent-connected feature concept */
+.chart-vision{padding:110px 0;background:#f3f8f6;border-top:1px solid #dae7e3;border-bottom:1px solid #dae7e3;color:#101720}.chart-intro{display:grid;grid-template-columns:1fr .72fr;gap:60px;align-items:end;margin-bottom:36px}.chart-vision .body-lg{max-width:780px}.chart-panel{background:#0b0e11;color:#f4f7fa;border-radius:20px;border:1px solid #304047;overflow:hidden;box-shadow:0 34px 90px #11282024}.chart-panel-top{padding:20px 25px;display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid #26323a;align-items:center}.chart-panel-top strong{font-size:22px;letter-spacing:-.04em}.chart-panel-top .preview-badge{color:#ffc83c;font-size:10px;letter-spacing:.08em;border:1px solid #6c5b2b;border-radius:30px;padding:6px 11px;font-weight:800}.chart-content{display:grid;grid-template-columns:1.55fr 1fr;gap:0}.chart-image{min-height:390px;border-right:1px solid #243038;padding:22px;display:flex;align-items:center}.chart-image svg{width:100%;height:auto;max-height:370px}.chart-explainer{padding:28px 27px}.chart-explainer .eyebrow{color:#00daa7}.chart-explainer h3{font-size:30px;line-height:1.1;letter-spacing:-.045em;margin:10px 0 16px}.chart-explainer p{color:#c1ced4;line-height:1.6;font-size:14px}.chart-evidence{display:grid;gap:10px;margin:22px 0}.chart-evidence div{background:#171e23;border:1px solid #344047;border-radius:9px;padding:10px;font-size:12px}.chart-evidence b{color:#f3f8f9}.chart-evidence span{float:right;font-size:10px;color:#ffc83c}.chart-footnote{font-size:11px;color:#b2bfc6;margin-top:17px}.chart-vision .btn-primary{font-size:14px}body[data-theme="dark"] .chart-vision{background:#151d1a;border-color:#354a44;color:#f6faf8}
+@media(max-width:1100px){.chart-intro{grid-template-columns:1fr}.chart-content{grid-template-columns:1fr}.chart-image{border-right:0;border-bottom:1px solid #243038}.chart-image svg{max-height:400px}}@media(max-width:770px){.chart-vision{padding:75px 0}.chart-panel-top{padding:15px}.chart-panel-top strong{font-size:16px}.chart-explainer{padding:20px}}
+.option-score{line-height:1}.option-score span{display:block;margin-top:8px;letter-spacing:0}
+</style>
 </head>
 <body>
-
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="/" aria-label="Alpha and Omega Analytics home"><img class="logo-dark" src="/ao-logo-wide.jpg" alt="Alpha &amp; Omega Analytics" width="1500" height="500"><img class="logo-ink" src="/ao-logo-wide-ink.png" alt="Alpha &amp; Omega Analytics" width="1092" height="163"><img class="logo-mark" src="/ao-logo-small.jpg" alt="Alpha &amp; Omega Analytics" width="400" height="400"></a>
-    <nav class="links" aria-label="Primary">
-      <a href="#watch">Demo</a>
-      <a href="#how">How it works</a>
-      <a href="#tour">Product</a>
-      <a href="#why">Why A&amp;O</a>
-      <a href="/record/">Track record</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-    <div class="actions">
-      <a class="btn btn-text btn-sm" href="https://dashboard.tradewithao.com/" rel="noreferrer">Log in</a>
-      <a class="btn btn-light btn-sm" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start for $1</a>
-    </div>
-  </div>
-</header>
-
+<header class="site-header" id="top"><div class="container header-inner">
+<a href="#top" class="wordmark" aria-label="Alfred by A&O Analytics home">alfred<b>.</b><small>BY A&amp;O ANALYTICS</small></a>
+<nav id="site-nav" class="nav-links" aria-label="Primary navigation"><a href="#platform">The platform</a><a href="#how">How it works</a><a href="#trading">Trading</a><a href="#agent-chart">Agent chart</a><a href="#investing">Investing</a><a href="#videos">See it live</a><a href="https://tradewithao.com/record/">Track record ↗</a><a href="#pricing">Pricing</a></nav>
+<div class="header-actions"><button class="icon-btn" id="theme-switch" title="Switch to dark mode" aria-label="Toggle dark mode">☾</button><a class="btn btn-outline" href="https://dashboard.tradewithao.com/">Log in</a><a class="btn btn-primary" href="https://whop.com/checkout/plan_GJwXJwksB3D0F/">Try Alfred for $1 <span aria-hidden="true">↗</span></a><button class="icon-btn mobile-menu" id="mobile-menu" aria-label="Open navigation" aria-expanded="false">☰</button></div>
+</div></header>
 <main>
-  <section class="hero">
-    <div class="grid-bg" aria-hidden="true"></div>
-    <div class="wrap hero-inner">
-      <span class="pill"><b>Research, not signals</b> For traders and investors</span>
-      <h1>Your research desk.<br><span class="grad">Built around you.</span></h1>
-      <p class="lede">Institutional-style research for retail options traders and stock investors. You choose the <strong>tickers</strong>, <strong>premium range</strong>, <strong>time horizon</strong>, <strong>strategies</strong> and <strong>risk criteria</strong>. A&amp;O brings options analytics, market context and AI-assisted explanations into one desk, so you can compare setups, test ideas and make your own decisions.</p>
-      <div class="cta-row">
-        <a class="btn btn-light" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start your $1 trial →</a>
-        <a class="btn btn-ghost" href="#watch"><span class="play-i" aria-hidden="true"></span>Watch the demo</a>
-      </div>
-      <div class="trust">
-        <span><i></i>Your criteria. Your decisions.</span>
-        <span><i></i>Backtest before you trade</span>
-        <span><i></i>Read-only broker sync via SnapTrade</span>
-        <span><i></i>Education, not advice</span>
-      </div>
-
-      <div class="demo reveal" id="demo" aria-label="Animated example of asking the A&amp;O desk a question">
-        <div class="demo-bar">
-          <div class="dots"><i></i><i></i><i></i></div>
-          <span>A&amp;O Analytics · Trading Terminal</span>
-          <span class="live"><i></i>Alfred</span>
-        </div>
-        <div class="demo-body">
-          <div class="demo-side" aria-hidden="true">
-            <small>Today</small>
-            <span>Morning Brief</span><span>Dashboard</span><span>My Portfolio</span><span class="on">Top Setups</span>
-            <small>Desks</small>
-            <span>Dealers</span><span>Market Tide</span><span>Rule Lab</span><span>Strategy League</span>
-          </div>
-          <div class="chat">
-            <div class="chat-head"><img src="/ao-logo-small.jpg" alt=""> Alfred</div>
-            <div class="q" id="dq"><span id="dqt"></span><span class="caret"></span></div>
-            <div class="tools" id="dtools"></div>
-            <div class="a" id="da" aria-live="polite"></div>
-          </div>
-        </div>
-        <div class="demo-foot">
-          <span id="dcap">Real answers captured from the terminal on Oct 4, 2026. Education, not advice.</span>
-          <div class="demo-tabs" role="tablist" aria-label="Examples">
-            <button type="button" class="on" data-demo="0">Game plan</button>
-            <button type="button" data-demo="1">Backtest</button>
-            <button type="button" data-demo="2">Your plan</button>
-            <button type="button" data-demo="3">Community</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="tape" aria-hidden="true"><div class="tape-row">
-    <span>No signals</span><span>Your tickers</span><span>Your premiums</span><span>Your stops</span><span>Your expiries</span><span>0DTE to LEAPS</span><span>Spreads and writing</span><span>Agents scan</span><span>You decide</span><span>Review the evidence</span><span>Challenge the idea</span><span>Test before you trade</span>
-    <span>No signals</span><span>Your tickers</span><span>Your premiums</span><span>Your stops</span><span>Your expiries</span><span>0DTE to LEAPS</span><span>Spreads and writing</span><span>Agents scan</span><span>You decide</span><span>Review the evidence</span><span>Challenge the idea</span><span>Test before you trade</span>
-  </div></div>
-
-  <section class="sec" id="watch">
-    <div class="wrap">
-      <div class="reveal center">
-        <span class="kicker">See it in action</span>
-        <h2>Watch the desk work.</h2>
-        <p class="sub">See the research workflow in a 90-second demo, explore the full walkthrough, or learn how to connect A&amp;O to your AI. Real screens, sample account.</p>
-      </div>
-      <div class="player reveal" data-player>
-        <div class="player-tabs" role="tablist" aria-label="Videos">
-          <button type="button" role="tab" class="on" aria-selected="true" data-vid="0"><b>Product demo</b><small>1:33</small></button>
-          <button type="button" role="tab" aria-selected="false" data-vid="1"><b>How to use it</b><small>3:27</small></button>
-          <button type="button" role="tab" aria-selected="false" data-vid="2"><b>Connect to AI</b><small>0:45</small></button>
-        </div>
-        <div class="player-frame">
-          <video playsinline preload="none" poster="/videos/ao-demo-poster.jpg" width="1920" height="1080" aria-label="A&amp;O product demo" data-player-video>
-            <source src="/videos/ao-demo.mp4" type="video/mp4">
-          </video>
-          <button type="button" class="player-play" data-player-play aria-label="Play the video"><span></span></button>
-        </div>
-        <p class="player-cap" data-player-cap>Follow the research workflow: your plan, the Dashboard, ticker research, Greeks in plain English, Rule Lab and Alfred.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="problem">
-    <div class="wrap">
-      <div class="reveal">
-        <span class="kicker">A clearer research process</span>
-        <h2>More context.<br>Less guesswork.</h2>
-        <p class="sub">A trade idea is only a starting point. Understand the market, compare the contract, question the thesis and test your process before putting capital at risk.</p>
-      </div>
-      <div class="stats">
-        <div class="stat reveal"><div class="num red" data-count="1" data-suffix="">1</div><p>Define your watchlist, time horizon, budget and strategy before reviewing a contract.</p><a href="/how-to-pick-an-options-strike.html">Start with contract selection</a></div>
-        <div class="stat reveal"><div class="num red" data-count="2" data-prefix="" data-suffix="">2</div><p>Read options activity in context. A large trade is a clue to investigate, not a direction to copy.</p><a href="/how-to-read-unusual-options-flow.html">Understand options flow</a></div>
-        <div class="stat reveal"><div class="num green" data-count="3" data-suffix="">3</div><p>Use dealer levels as market context, not guaranteed support, resistance or price targets.</p><a href="/how-to-read-call-and-put-walls.html">Explore dealer levels</a></div>
-        <div class="stat reveal"><div class="num green" data-count="4" data-suffix="">4</div><p>Check AI explanations against the data, assumptions and timestamps behind the answer.</p><a href="/how-to-use-ai-for-options-trading-research.html">Build an AI research workflow</a></div>
-      </div>
-      <p class="stat-note reveal">Research should help you ask better questions, not pressure you into a trade. A&amp;O brings the evidence together. You decide whether it supports your plan, needs more work or calls for no action.</p>
-    </div>
-  </section>
-
-  <section class="sec" id="how" style="padding-top:20px">
-    <div class="wrap">
-      <div class="reveal center">
-        <span class="kicker">How it works</span>
-        <h2>Define your criteria.<br>Research your next move.</h2>
-        <p class="sub">Start with your own watchlist, budget and time horizon. Use the desk to compare research against those criteria, whether you are studying a short-term options trade or a longer-term stock position.</p>
-      </div>
-      <div class="steps">
-        <div class="step reveal"><span class="n">01</span><h3>Set your profile</h3><p>Choose the tickers you follow, the premium range you want to research, your time horizon, strategies and risk limits. Build the workflow around your plan, not someone else's trade.</p><div class="ex"><span>0DTE</span><span>Weeklies</span><span>Spreads</span><span>Premium selling</span><span>LEAPS</span><span>Shares</span></div></div>
-        <div class="step reveal"><span class="n">02</span><h3>Review the research</h3><p>Use AI-assisted analysis to bring together options flow, dealer positioning, implied volatility and chart context. Compare ranked contracts and strategies against the criteria you set.</p><div class="ex"><span>Your tickers</span><span>Your premiums</span><span>Your timeline</span><span>Your risk to reward</span></div></div>
-        <div class="step reveal"><span class="n">03</span><h3>Test before you trade</h3><p>Explore historical price behavior in Rule Lab and observe paper strategies in Strategy League. Review the assumptions and limitations, then decide whether to act at your own broker.</p><div class="ex"><span>Rule Lab</span><span>Strategy League</span><span>Paper trading</span></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="why-valid" style="padding-top:20px">
-    <div class="wrap">
-      <div class="reveal center">
-        <span class="kicker">Evidence before conviction</span>
-        <h2>Understand the thesis.<br>Know what challenges it.</h2>
-        <p class="sub">A score is a starting point, not a promise. Review the supporting evidence, the conflicting information and the conditions that could weaken an idea before deciding what to do.</p>
-      </div>
-      <div class="steps">
-        <div class="step reveal"><span class="n">✓</span><h3>Review the supporting evidence</h3><p>Bring trend, options activity, dealer positioning and news into the same research process. Look for agreement without treating any one data point as proof.</p><div class="ex"><span>Technicals and trend</span><span>Options flow</span><span>Dealer positioning</span><span>Sector news</span><span>Hot sector rotation</span></div></div>
-        <div class="step reveal"><span class="n">✕</span><h3>Identify what could change</h3><p>Review the levels and conditions that could challenge the thesis. A change in price, flow, volatility or news is a reason to reassess, not ignore the evidence.</p><div class="ex"><span>A key level lost</span><span>Sector news turning</span><span>Flow flipping sides</span><span>Dealer walls shifting</span><span>Off-exchange activity</span><span>Premiums not moving</span></div></div>
-        <div class="step reveal"><span class="n">⇄</span><h3>Compare different approaches</h3><p>A short-term trade and a long-term investment ask different questions. Compare structures and time horizons rather than forcing every market view into the same contract.</p><div class="ex"><span>Directional calls and puts</span><span>Spreads and volatility</span><span>Shares and longer-dated options</span><span>Covered calls and cash-secured puts</span></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="tour" style="padding-top:20px">
-    <div class="wrap">
-      <div class="reveal center">
-        <span class="kicker">The terminal</span>
-        <h2>One desk.<br>A wider view of the market.</h2>
-        <p class="sub">The first six screens are the live terminal, captured during the session on Oct 12, 2026 with a sample account. Numbers are that moment's data, not results or recommendations.</p>
-      </div>
-      <div class="tour">
-        <article class="feat reveal">
-          <div class="shot"><img src="/images/terminal/oct12-your-plan.webp" alt="Your Plan: goal, styles, budget per trade, max loss, trade limits and an adaptive stop" loading="lazy" width="1800" height="1125"></div>
-          <div><span class="n">01 · Your Plan</span><h3>You set the rules.</h3><p>Keep your watchlist, preferred strategies, premium range and time horizon together. Compare setups against your budget and risk settings before making a decision.</p><ul><li>Styles: 0DTE, 1DTE, weeklies, monthlies, LEAPS, spreads, writing, shares</li><li>Your budget, risk limits and trade preferences</li><li>Review your stop settings; orders remain at your broker</li></ul></div>
-        </article>
-        <article class="feat flip reveal">
-          <div class="shot"><img src="/images/terminal/oct12-dashboard.webp" alt="Dashboard with index setups, dealer positioning, the watchlist and live news" loading="lazy" width="1800" height="1125"></div>
-          <div><span class="n">02 · Dashboard</span><h3>Market context in one view.</h3><p>Review index setups, model scores, dealer levels, your watchlist and upcoming earnings and economic events without losing the wider market context.</p><ul><li>Upcoming earnings and the options-implied move</li><li>Dealer-level context as prices change</li><li>Updated research throughout the session</li></ul></div>
-        </article>
-        <article class="feat reveal">
-          <div class="shot"><img src="/images/terminal/oct12-ticker-pane.webp" alt="NVDA ticker pane with walls, the flip, VEX, a quick read and three ranked contracts" loading="lazy" width="1800" height="1125"></div>
-          <div><span class="n">03 · Any ticker</span><h3>From a ticker to the details.</h3><p>Explore dealer levels, a plain-English market read and ranked options contracts in one ticker view. Use the ranking to organize your research, not as a probability of profit.</p><ul><li>In, at and out of the money, per style</li><li>Contract fit checked against your plan</li><li>Review the rationale, then inspect the details</li></ul></div>
-        </article>
-        <article class="feat flip reveal">
-          <div class="shot"><img src="/images/terminal/oct12-rule-lab.webp" alt="Rule Lab testing NVDA closing above the 50-day with every result plotted" loading="lazy" width="1800" height="1125"></div>
-          <div><span class="n">04 · Rule Lab</span><h3>Test it before you trade it.</h3><p>Choose a ticker and a rule, then explore what the underlying price did after historical matches. Rule Lab shows up to five years of daily history and outcomes 5, 10 and 20 sessions later.</p><ul><li>Searchable rules: moving averages, RSI, gaps, highs</li><li>Results plotted with small samples called out</li><li>Export to CSV</li></ul></div>
-        </article>
-        <article class="feat reveal">
-          <div class="shot"><img src="/images/terminal/oct12-morning-brief.webp" alt="Morning Brief with the overnight read, futures tape and top movers" loading="lazy" width="1800" height="1125"></div>
-          <div><span class="n">05 · Morning Brief</span><h3>Start with the bigger picture.</h3><p>Review overnight developments, futures, volatility, key dealer levels and notable movers before building your own view of the session.</p><ul><li>Overnight gaps and opening context</li><li>Earnings and macro for the week</li><li>Context for the holdings you follow</li></ul></div>
-        </article>
-        <article class="feat flip reveal">
-          <div class="shot"><img src="/images/terminal/oct12-flow.webp" alt="Alpha Flow with the biggest bets of the day, calls versus puts and top tickers by premium" loading="lazy" width="1800" height="1125"></div>
-          <div><span class="n">06 · Flow</span><h3>Options activity, with context.</h3><p>Examine notable options prints, trade-side estimates and possible multi-leg activity. A large print alone does not establish the trader's intent or predict the stock's next move.</p><ul><li>Call and put premium activity by ticker</li><li>Next-day open-interest context</li><li>Search any ticker</li></ul></div>
-        </article>
-        <article class="feat reveal">
-          <div class="shot"><img src="/images/terminal/strategy-league.webp" alt="Strategy League with rules paper trading" loading="lazy" width="1440" height="589"></div>
-          <div><span class="n">07 · Strategy League</span><h3>Observe strategies without real capital.</h3><p>Follow Rule Lab strategies in a paper environment and compare their recorded results. Paper outcomes are hypothetical and do not represent what a live account would necessarily earn.</p><ul><li>Paper money only</li><li>Review both winning and losing results</li><li>Captured Oct 4, 2026</li></ul></div>
-        </article>
-        <article class="feat flip reveal">
-          <div class="shot"><img src="/images/terminal/connect-to-ai.webp" alt="Connect to AI page with a live answer from the desk" loading="lazy" width="1440" height="589"></div>
-          <div><span class="n">08 · Alfred and Connect to AI</span><h3>Ask in plain English.</h3><p>Ask Alfred about a ticker or connect a supported AI assistant to the desk. Use the underlying data and timestamps to check the response; AI-generated explanations still need your review.</p><ul><li>Read-only. It never places a trade.</li><li>Natural language, no commands to learn</li><li>Captured Oct 4, 2026</li></ul></div>
-        </article>
-    </div>
-  </section>
-
-  <section class="sec" id="why" style="padding-top:20px">
-    <div class="wrap">
-      <div class="reveal">
-        <span class="kicker">Why A&amp;O</span>
-        <h2>A research process.<br>Not a trade to copy.</h2>
-        <p class="sub">A&amp;O is built to help you understand an idea, not follow a callout. Start with your own criteria, review the evidence and decide whether the potential risk makes sense for you.</p>
-      </div>
-      <div class="compare">
-        <div class="col them reveal"><h4>Following a trade callout</h4><ul><li>Start with another person's trade idea</li><li>Inherit their ticker, strike and expiry</li><li>Work out whether it fits your own budget</li><li>Research the thesis and exit conditions yourself</li><li>Evaluate the evidence behind any performance claim</li></ul></div>
-        <div class="col us reveal"><h4>Researching with A&amp;O</h4><ul><li>Start with your tickers, premiums, time horizon and risk criteria</li><li>Compare ranked contracts and strategy choices</li><li>Review the rationale and what could challenge it</li><li>Keep market context and changing conditions in view</li><li>Explore backtests and paper records, including losses</li></ul></div>
-      </div>
-      <div class="note reveal">
-        <div class="ic">!</div>
-        <div>
-          <h4>Premium is a price, not a risk score.</h4>
-          <p>A lower premium does not automatically make an option safer, and a higher premium does not make it better. Consider the strike, expiration, liquidity, volatility and strategy together. Risk depends on the full position; some option-writing strategies can lose more than the premium received.</p>
-          <small>Education, not advice. Options involve substantial risk and are not suitable for every investor.</small>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="record" style="padding-top:20px">
-    <div class="wrap">
-      <div class="note reveal" style="border-color:rgba(0,210,106,.3);background:linear-gradient(180deg,rgba(0,210,106,.07),var(--panel))">
-        <div class="ic" style="background:var(--greenSoft);color:var(--green2)">✓</div>
-        <div>
-          <h4>Review the paper record.</h4>
-          <p>Explore A&amp;O's public paper-trade record across the time horizons tracked by the desk. Review the entries, outcomes and methodology together. These are hypothetical model results, not customer returns or a forecast of future performance.</p>
-          <p style="margin-top:14px"><a class="btn btn-ghost" href="/record/">See the track record →</a></p>
-          <small>Paper trades. Hypothetical results do not predict future results. Education, not advice.</small>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="broker" style="padding-top:20px">
-    <div class="wrap broker">
-      <div class="reveal">
-        <span class="kicker">Your money, your control</span>
-        <h2>Your account stays<br>at your broker.</h2>
-        <p class="sub">A&amp;O never holds your money and never places a trade for you. You place every order yourself, at your own broker.</p>
-      </div>
-      <div class="bcards">
-        <div class="bcard reveal"><div class="ic">◉</div><div><b>Read-only account sync through SnapTrade</b><span>Connect a supported brokerage through SnapTrade to bring positions into My Portfolio for research. The connection is read-only and does not place orders.</span></div></div>
-        <div class="bcard reveal"><div class="ic">⌁</div><div><b>Connect through SnapTrade</b><span>Review the supported connection and permissions before linking your account. You can disconnect when you choose.</span></div></div>
-        <div class="bcard reveal"><div class="ic">✓</div><div><b>No custody, no orders</b><span>Whop handles billing. Your broker holds your account. A&amp;O provides research and analysis; order entry stays with you.</span></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="pricing" style="padding-top:20px">
-    <div class="wrap">
-      <div class="reveal center">
-        <span class="kicker">Pricing</span>
-        <h2>$1 to try the whole terminal.</h2>
-        <p class="sub">Thirty days of full access for $1, then $50 a month. Cancel any time on Whop.</p>
-      </div>
-      <div class="price-card reveal">
-        <span class="kicker" style="margin:0">Desk</span>
-        <div class="price"><strong>$1</strong><span>for 30 days, then $50 / month</span></div>
-        <ul>
-          <li>Your Plan and setups filtered to it</li>
-          <li>Rule Lab backtesting and the Strategy League</li>
-          <li>My Portfolio, Morning Brief and market calendar</li>
-          <li>Dealer levels, flow, Alfred and Connect to AI (beta)</li>
-        </ul>
-        <a class="btn btn-light" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start your $1 trial →</a>
-      </div>
-      <p class="fine">Want to look around first? <a href="https://whop.com/alpha-omega-analytics/products/signal-terminal-free/" target="_blank" rel="noreferrer">Free access</a> is on Whop. Education, not advice.</p>
-    </div>
-  </section>
-
-  <section class="sec" id="faq" style="padding-top:20px">
-    <div class="wrap">
-      <div class="reveal center"><span class="kicker">Questions</span><h2>Frequently asked questions.</h2></div>
-      <div class="faq">
-        <details open><summary>What is A&amp;O?</summary><p>A&amp;O is an AI-assisted research platform for retail options traders and stock investors. Set your own watchlist, premium range, strategies, time horizon and risk criteria, then explore market context, ranked contracts, portfolio research and historical testing. It is research and decision support, not a signal service.</p></details>
-        <details><summary>Is this personalized investment advice?</summary><p>No. A&amp;O is a research tool with filters you control. It shows which setups match the rules you wrote. It does not know your full financial situation, does not tell you what to buy or sell, and does not place trades. Every decision is yours.</p></details>
-        <details><summary>How is A&amp;O different from a signal Discord?</summary><p>A trade callout starts with someone else's idea. A&amp;O starts with your criteria and gives you tools to research the evidence, compare contracts and test rules. You decide whether an idea fits your own plan. Read the comparison: <a href="/ao-vs-paying-for-signals.html">AO vs paying for a signal Discord</a>.</p></details>
-        <details><summary>Can I backtest a strategy?</summary><p>Yes. Rule Lab tests rules against up to five years of daily price history and shows the underlying's subsequent behavior. Those price outcomes should not be read as actual options fills or realized P&amp;L. Strategy League provides separate paper-strategy results. Neither guarantees future performance.</p></details>
-        <details><summary>Can I connect my broker?</summary><p>Supported brokerages can connect read-only through SnapTrade so you can research your positions in My Portfolio. Review the permissions before connecting. A&amp;O does not take custody of your assets or submit orders.</p></details>
-        <details><summary>Where can I review model results?</summary><p>Visit the public <a href="/record/">paper-trade record</a> and read the methodology alongside the outcomes. Model paper results are hypothetical, not actual customer returns, and may differ from live execution.</p></details>
-        <details><summary>Is there a guide to the terminal?</summary><p>Yes. The <a href="/guide/AO-Terminal-Member-Guide.pdf">member guide (PDF)</a> walks through Your Plan, the setup cards, dealer levels, Ask A&amp;O, Rule Lab, Alpha Flow and the rest of the desk, with real screens.</p></details>
-        <details><summary>What does the $1 trial include?</summary><p>Thirty days of the full terminal so you can set your plan, run the scan, backtest rules and track your portfolio before the $50/month Desk continues.</p></details>
-      </div>
-    </div>
-  </section>
-
-  <section class="final">
-    <div class="wrap reveal">
-      <span class="kicker">Build your desk</span>
-      <h2>Your research.<br>Your rules. Your decision.</h2>
-      <p class="sub" style="margin:0 auto">Build your watchlist, define your criteria and put the research to work. You decide what happens next.</p>
-      <div class="cta-row">
-        <a class="btn btn-light" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start your $1 trial →</a>
-        <a class="btn btn-ghost" href="https://dashboard.tradewithao.com/" rel="noreferrer">Log in</a>
-      </div>
-    </div>
-  </section>
+<section class="hero"><div class="container hero-grid">
+<div class="hero-copy"><span class="eyebrow">Your personal AI options research desk</span><h1>An entire<br>trading desk.<br><em>Built around you.</em></h1><p>Choose your markets. Set your rules. Alfred brings options activity, dealer positioning, technical context and specialized AI research together—so you can understand the evidence and make your own decisions.</p>
+<div class="hero-actions"><a class="btn btn-primary" href="https://whop.com/checkout/plan_GJwXJwksB3D0F/">Try Alfred for $1 <span>↗</span></a><button class="btn btn-outline" data-modal="video" aria-label="Explore available product videos">▶ &nbsp;Watch the desk work</button></div>
+<div class="hero-proof"><span>Options &amp; stocks</span><span>Contract comparisons</span><span>Historical research</span><span>Decisions stay with you</span></div><p class="caveat">Product illustration · Snapshot examples are not live quotes. Options carry substantial risk.</p></div>
+<div class="product-stage"><div class="product-window"><div class="product-toolbar"><span class="lights"><i></i><i></i><i></i></span><span class="toolbar-address">Alfred / Today · interactive preview</span><span style="font-size:10px;color:#83909b">◎</span></div>
+<div class="stage-top"><span class="stage-brand">alfred<span>.</span></span><span class="stage-status">● RESEARCH DESK</span></div>
+<div class="stage-heading"><h3>Your markets. Your research.</h3><p>Specialized desk views, with underlying evidence and clear status.</p></div>
+<div class="agents"><div class="agent-card"><span class="agent-icon" style="background:#00a983">◎</span><span>Macro</span><small>Market context</small></div><div class="agent-card"><span class="agent-icon" style="background:#197dff">▥</span><span>Quant</span><small>Setup research</small></div><div class="agent-card"><span class="agent-icon" style="background:#8e47f4">⌁</span><span>Flow</span><small>Unusual activity</small></div><div class="agent-card"><span class="agent-icon" style="background:#f7b41e">⬡</span><span>Risk</span><small>Condition checks</small></div><div class="agent-card"><span class="agent-icon" style="background:#f93664">▤</span><span>News</span><small>Catalyst context</small></div></div>
+<div class="index-label">ILLUSTRATIVE INDEX SETUPS · SELECT A TILE</div>
+<div class="tickers" id="hero-tickers"><button class="ticker bear active" data-ticker="SPY"><span class="ticker-top">SPY <small>↗</small></span><span class="ticker-price">Research snapshot<span>Under review</span></span><svg viewBox="0 0 100 40" class="spark" aria-hidden="true"><polyline fill="none" stroke="white" stroke-width="2.5" points="0,6 10,12 22,9 31,23 40,19 48,30 60,22 70,33 82,27 100,36"/></svg><span class="ticker-bottom">BEARISH · 2/5</span></button><button class="ticker bear" data-ticker="SPX"><span class="ticker-top">SPX <small>↗</small></span><span class="ticker-price">Research snapshot<span>Wait</span></span><svg viewBox="0 0 100 40" class="spark" aria-hidden="true"><polyline fill="none" stroke="white" stroke-width="2.5" points="0,8 10,13 22,17 31,12 40,20 48,25 60,22 70,33 82,30 100,35"/></svg><span class="ticker-bottom">BEARISH · 2/5</span></button><button class="ticker bear" data-ticker="QQQ"><span class="ticker-top">QQQ <small>↗</small></span><span class="ticker-price">Research snapshot<span>Review</span></span><svg viewBox="0 0 100 40" class="spark" aria-hidden="true"><polyline fill="none" stroke="white" stroke-width="2.5" points="0,10 10,13 22,11 31,23 40,16 48,27 60,23 70,33 82,30 100,32"/></svg><span class="ticker-bottom">MIXED · 3/5</span></button><button class="ticker bull" data-ticker="NVDA"><span class="ticker-top">NVDA <small>↗</small></span><span class="ticker-price">Research snapshot<span>Review</span></span><svg viewBox="0 0 100 40" class="spark" aria-hidden="true"><polyline fill="none" stroke="white" stroke-width="2.5" points="0,35 10,32 22,28 31,32 40,17 48,22 60,11 70,17 82,6 100,3"/></svg><span class="ticker-bottom">BULLISH · 4/5</span></button><button class="ticker neutral" data-ticker="IWM"><span class="ticker-top">IWM <small>↗</small></span><span class="ticker-price">Research snapshot<span>Wait</span></span><svg viewBox="0 0 100 40" class="spark" aria-hidden="true"><polyline fill="none" stroke="#ad6810" stroke-width="2.5" points="0,22 10,28 22,19 31,23 40,14 48,23 60,11 70,20 82,12 100,15"/></svg><span class="ticker-bottom">NEUTRAL · 3/5</span></button></div>
+<div class="stage-bottom"><div class="stage-panel"><div class="stage-panel-title" id="stage-title">SPY · Research read</div><div class="stage-metrics"><div><strong id="stage-grade">2/5</strong><small>Setup alignment</small></div><div><strong id="stage-status">REVIEW</strong><small>Research state</small></div></div></div><div class="stage-panel"><div class="stage-panel-title">Explore three contract profiles</div><div class="mini-cards"><span>ITM</span><span>ATM</span><span>OTM</span></div><button class="link" style="border:0;background:none;margin-top:12px;color:#047e67;padding:0" data-modal="contracts">View research comparison ↗</button></div></div>
+</div><div class="stage-caption">Interactive concept based on Alfred's product design—not a live market feed.</div></div>
+</div></section>
+<div class="brand-strip"><div class="container brand-row"><span><strong>One research workspace</strong> from context to contracts</span><span>Options activity &amp; dealer levels</span><span>0DTE through LEAPS</span><span>Human-controlled decisions</span></div></div>
+<section class="workflow" id="how"><div class="container"><div class="split-head"><div><span class="eyebrow" style="color:#008c70">The Alfred workflow</span><h2 class="section-title">From market noise<br>to a clearer next step.</h2></div><p>Five connected steps. No juggling ten tabs, chasing alerts, or accepting somebody else's entry. The work starts with your markets and ends with your decision.</p></div><div class="workflow-grid"><div class="step reveal"><span class="step-no">01</span><h3>Choose your markets.</h3><p>Select the tickers, strategies, time horizons and research criteria that matter to you.</p></div><div class="step reveal"><span class="step-no">02</span><h3>Let the desk research.</h3><p>Gather technicals, flow, gamma, volatility and news in one explainable view.</p></div><div class="step reveal"><span class="step-no">03</span><h3>Explore the setup.</h3><p>Review what supports the idea, what conflicts and the conditions that would change it.</p></div><div class="step reveal"><span class="step-no">04</span><h3>Compare the structures.</h3><p>Examine ITM, ATM and OTM contracts—or shares and income approaches—against your rules.</p></div><div class="step reveal"><span class="step-no">05</span><h3>Decide with context.</h3><p>Research further, journal the idea or pass. Your brokerage decisions stay yours.</p></div></div></div></section>
+<section class="showcase" id="platform"><div class="container"><div class="showcase-header"><div><span class="eyebrow">The product, not a promise</span><h2 class="section-title">The desk you<br>actually use.</h2><p class="body-lg">Simple when you want clarity. Pro when you want depth. A shared research foundation designed to keep every piece of evidence in reach.</p></div><div class="showcase-tabs" role="tablist" aria-label="Product screenshots"><button type="button" role="tab" class="active" data-showcase="simple" aria-selected="true" tabindex="0">Simple</button><button type="button" role="tab" data-showcase="pro" aria-selected="false" tabindex="-1">Pro contracts</button><button type="button" role="tab" data-showcase="flow" aria-selected="false" tabindex="-1">Flow Intelligence</button></div></div><div class="showcase-body"><div class="shot-frame"><img id="showcase-img" src="/images/alfred-v2/alfred-cbc69c641d5b.webp" alt="Captured A&O dashboard with setup tiles and index summaries" loading="lazy" /><div class="shot-label"><span id="showcase-label">Customer dashboard · October 26, 2026 captured screen</span><span>Selected product view</span></div></div><div class="shot-copy"><span class="eyebrow" id="showcase-overline">Simple Mode</span><h3 id="showcase-heading">Familiar, colorful, immediate.</h3><p id="showcase-desc">The index tiles and Top 10 cards your beta traders already use. Alfred puts market context and individual setup statuses in one glance, without hiding the research behind the colors.</p><a href="https://dashboard.tradewithao.com/" class="btn btn-primary">Explore Alfred <span>↗</span></a><div class="data-foot" id="showcase-note">Screenshot sourced from the user-provided dashboard capture. Quotes shown in the image are historical, not current prices.</div></div></div></div></section>
+<section class="chart-vision" id="agent-chart"><div class="container"><div class="chart-intro"><div><span class="eyebrow" style="color:#008f76">Next-generation chart intelligence · staged concept</span><h2 class="section-title">A chart that<br>shows its work.</h2></div><div><p class="body-lg">Follow price, flow and changing market structure through a single evidence trail. Select an event to see what a research module observed, what it inferred, and what challenged the original thesis.</p><a class="btn btn-primary" href="/v2/agent-chart.html">Try the interactive agent chart ↗</a></div></div><div class="chart-panel"><div class="chart-panel-top"><strong>SPY · Price, flow &amp; research evidence</strong><span class="preview-badge">PRODUCT CONCEPT · SYNTHETIC DATA</span></div><div class="chart-content"><div class="chart-image"><svg role="img" aria-label="Illustrative price chart with colored event markers, horizontal estimated levels and volume histogram" viewBox="0 0 850 440"><defs><linearGradient id="chartglow" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#00d2a5" stop-opacity=".16"/><stop offset="1" stop-color="#00d2a5" stop-opacity="0"/></linearGradient></defs><g stroke="#2e3a40" stroke-width="1"><path d="M30 40H823M30 120H823M30 200H823M30 280H823M30 360H823M30 40V400M180 40V400M330 40V400M480 40V400M630 40V400M823 40V400"/></g><path d="M30 155L110 143 195 140 300 143 390 138 495 141 610 140 705 139 823 136" fill="none" stroke="#009cf4" stroke-width="3"/><path d="M30 230L90 237 155 203 210 180 270 191 320 167 373 187 425 199 484 179 528 216 574 204 628 195 690 228 738 199 823 221" fill="none" stroke="#00d5a2" stroke-width="3.2"/><path d="M30 230L90 237 155 203 210 180 270 191 320 167 373 187 425 199 484 179 528 216 574 204 628 195 690 228 738 199 823 221V360H30Z" fill="url(#chartglow)"/><path d="M30 96H823" stroke="#00d5a2" stroke-width="2"/><path d="M30 277H823" stroke="#ff3d63" stroke-width="2"/><path d="M30 256C150 242 250 255 350 260S570 280 680 251S780 245 823 237" stroke="#ffc83c" stroke-width="2.5" stroke-dasharray="5 7" fill="none"/><g><circle cx="210" cy="180" r="13" fill="#101820" stroke="#00d5a2" stroke-width="3"/><circle cx="210" cy="180" r="6" fill="#00d5a2"/><circle cx="484" cy="179" r="13" fill="#101820" stroke="#aa73f8" stroke-width="3"/><circle cx="484" cy="179" r="6" fill="#aa73f8"/><circle cx="690" cy="228" r="13" fill="#101820" stroke="#ff3d63" stroke-width="3"/><circle cx="690" cy="228" r="6" fill="#ff3d63"/></g><g fill="#00d5a2" opacity=".4"><rect x="30" y="373" width="12" height="20"/><rect x="62" y="371" width="12" height="23"/><rect x="94" y="370" width="12" height="24"/><rect x="126" y="377" width="12" height="16"/><rect x="158" y="365" width="12" height="29"/><rect x="190" y="369" width="12" height="24"/><rect x="222" y="370" width="12" height="24"/><rect x="254" y="373" width="12" height="20"/><rect x="286" y="380" width="12" height="14"/><rect x="318" y="364" width="12" height="30"/><rect x="350" y="371" width="12" height="23"/><rect x="382" y="367" width="12" height="27"/><rect x="414" y="373" width="12" height="21"/><rect x="446" y="377" width="12" height="17"/><rect x="478" y="369" width="12" height="25"/><rect x="510" y="382" width="12" height="12"/><rect x="542" y="373" width="12" height="21"/><rect x="574" y="367" width="12" height="27"/><rect x="606" y="372" width="12" height="22"/><rect x="638" y="366" width="12" height="28"/><rect x="670" y="373" width="12" height="21"/><rect x="702" y="365" width="12" height="29"/><rect x="734" y="370" width="12" height="24"/><rect x="766" y="377" width="12" height="17"/></g><g fill="#a5b2be" font-size="13"><text x="34" y="423">9:30</text><text x="245" y="423">11:00</text><text x="495" y="423">1:00</text><text x="735" y="423">3:30</text></g><g font-size="13" font-weight="bold"><text x="693" y="89" fill="#00d5a2">EST. CALL WALL</text><text x="693" y="271" fill="#ff3d63">EST. PUT WALL</text></g></svg></div><div class="chart-explainer"><span class="eyebrow">Click a print. See the evidence.</span><h3>What changed—and why?</h3><p>Agents and rule-based research modules should explain their findings alongside contradictory context, not just flash a buy or sell label.</p><div class="chart-evidence"><div><b>Quant</b><span>OBSERVED</span><br>VWAP and price context</div><div><b>Options Flow</b><span>INFERRED</span><br>Print-side estimate, not confirmed intent</div><div><b>Dealers</b><span>ESTIMATED</span><br>Point-in-time gamma-level trail</div><div><b>Risk</b><span>RESEARCH ONLY</span><br>Which thesis assumptions changed?</div></div><a class="btn btn-primary" href="/v2/agent-chart.html">Explore the clickable replay ↗</a><div class="chart-footnote">Concept demonstration only. No autonomous order execution, real-time data or genuine agent outputs are included in this preview.</div></div></div></div></div></section>
+<section class="options" id="trading"><div class="container"><div class="options-header"><span class="eyebrow" style="color:#008c6e">Options, without the guessing game</span><h2 class="section-title">Same underlying.<br>Different ways to study it.</h2><p class="body-lg">When you open a setup, Alfred brings the contract comparison forward. Learn what the premium, liquidity and Greeks imply before going deeper into the chain.</p></div><div class="options-grid">
+<div class="option itm reveal"><div class="option-top"><strong class="option-type">ITM <small>· In the money</small></strong><span class="pill">More intrinsic value</span></div><div class="option-inner"><div class="option-ct">MSFT 520C</div><div class="option-details">Historical screenshot example · Oct 26</div><div class="option-score" style="color:#009e76">88<span>/100 research fit</span></div><div class="option-facts"><div class="fact"><label>Bid / Ask</label><b>$19.25 / $19.75</b></div><div class="fact"><label>Delta</label><b>0.64</b></div><div class="fact"><label>Reference Mark</label><b>$19.50</b></div><div class="fact"><label>Max long-option loss¹</label><b>$1,950</b></div></div><button class="action" data-modal="itm">Explore the ITM trade-offs ↗</button></div></div>
+<div class="option atm reveal"><div class="option-top"><strong class="option-type">ATM <small>· At the money</small></strong><span class="pill">Price sensitivity</span></div><div class="option-inner"><div class="option-ct">MSFT 530C</div><div class="option-details">Historical screenshot example · Oct 26</div><div class="option-score" style="color:#188dff">88<span>/100 research fit</span></div><div class="option-facts"><div class="fact"><label>Bid / Ask</label><b>$13.65 / $13.95</b></div><div class="fact"><label>Delta</label><b>0.52</b></div><div class="fact"><label>Reference Mark</label><b>$13.80</b></div><div class="fact"><label>Max long-option loss¹</label><b>$1,380</b></div></div><button class="action" data-modal="atm">Explore the ATM trade-offs ↗</button></div></div>
+<div class="option otm reveal"><div class="option-top"><strong class="option-type">OTM <small>· Out of the money</small></strong><span class="pill">Greater decay risk</span></div><div class="option-inner"><div class="option-ct">MSFT 535C</div><div class="option-details">Historical screenshot example · Oct 26</div><div class="option-score" style="color:#9b56f6">81<span>/100 research fit</span></div><div class="option-facts"><div class="fact"><label>Bid / Ask</label><b>$11.25 / $11.70</b></div><div class="fact"><label>Delta</label><b>0.46</b></div><div class="fact"><label>Reference Mark</label><b>$11.48</b></div><div class="fact"><label>Max long-option loss¹</label><b>$1,148</b></div></div><button class="action" data-modal="otm">Explore the OTM trade-offs ↗</button></div></div>
+</div><div class="option-foot">¹ Reference Mark × 100 for one long standard contract, excluding fees, using captured values. A fit score is not a probability of profit. These are historical research examples, not live offers or trade instructions.</div></div></section>
+<section class="feature-section" id="investing"><div class="container"><div class="feature-head"><span class="eyebrow" style="color:#009477">More than one way to participate</span><h2 class="section-title">Trading. Investing.<br>Research. One desk.</h2><p class="body-lg">Fast-moving options need quick context. Shares, covered calls and longer-term strategies require patience. Alfred brings both workflows into the same place.</p></div><div class="feature-grid">
+<article class="feature-card reveal"><div class="feature-visual"><img src="/images/alfred-v2/alfred-7c2d8db798f0.webp" width="1600" height="601" alt="Captured options contract comparison with Greeks and premiums" loading="lazy" /></div><div class="feature-copy"><span class="eyebrow">Trading research</span><h3>The setup behind the contract.</h3><p>Go from ticker-level evidence to an ITM, ATM and OTM comparison with IV, liquidity, Greeks and historical context.</p><button class="link" data-modal="contracts" style="border:0;background:none;padding:0;align-self:flex-start">Explore contract research ↗</button></div></article>
+<article class="feature-card reveal"><div class="feature-visual"><img src="/images/alfred-v2/alfred-afc294ea4d73.webp" width="1600" height="900" alt="Flow research design study showing a print feed and synchronized chart" loading="lazy" /></div><div class="feature-copy"><span class="eyebrow">Flow &amp; dealer intelligence</span><h3>Read the tape in context.</h3><p>Investigate significant prints, bid/ask location, prior open interest, dealer walls and what the print cannot establish.</p><button class="link" data-modal="flow" style="border:0;background:none;padding:0;align-self:flex-start">How Alfred reads flow ↗</button></div></article>
+<article class="feature-card reveal"><div class="feature-visual"><img src="/images/alfred-v2/alfred-3cd0420cd03f.webp" width="1536" height="1024" alt="Illustrative light-first Alfred design board showing product layouts" loading="lazy" /></div><div class="feature-copy"><span class="eyebrow">Investing &amp; Income</span><h3>More than today's trade.</h3><p>Research stocks, longer-dated calls, portfolio context and option-income structures with the same risk-first thinking.</p><button class="link" data-modal="investing" style="border:0;background:none;padding:0;align-self:flex-start">Explore investing workflows ↗</button></div></article>
+</div></div></section>
+<section class="agent-section" id="agents"><div class="container"><div class="agent-intro"><div><span class="eyebrow" style="color:#009477">AI-assisted research, grounded in data</span><h2 class="section-title">A research team.<br>One clear read.</h2></div><p>Think of Alfred as a coordinated research workflow: gather different viewpoints, identify conflicts, compare them against your criteria and surface the evidence. The agent labels describe research functions, not five independent guarantees.</p></div><div class="agent-grid"><div class="agent-big reveal"><span class="glyph" style="background:#00b88c">◎</span><h4>Macro</h4><p>Market regime, breadth, rates and important upcoming events.</p></div><div class="agent-big reveal"><span class="glyph" style="background:#177fff">▥</span><h4>Quant</h4><p>Statistical setup evaluation, historical patterns and validation.</p></div><div class="agent-big reveal"><span class="glyph" style="background:#994fff">⌁</span><h4>Options Flow</h4><p>Prints, trading-side estimates, liquidity and unusual activity.</p></div><div class="agent-big reveal"><span class="glyph" style="background:#f6bd29">⬡</span><h4>Risk</h4><p>Eligibility, thesis invalidation, events and portfolio context.</p></div><div class="agent-big reveal"><span class="glyph" style="background:#fc3963">▤</span><h4>News</h4><p>Company catalysts, earnings and evolving market context.</p></div></div><div class="agent-criteria"><div><strong>The useful question isn't “Which agent is bullish?”</strong><p>It's “Why are they disagreeing, what evidence changed, and what would make this setup invalid?” The goal is inspectable research—not a chorus of confident opinions.</p></div><a href="https://dashboard.tradewithao.com/" class="btn btn-dark">Open the research desk ↗</a></div></div></section>
+<section class="video-section" id="videos"><div class="container"><span class="eyebrow" style="color:#009477">See how it works</span><h2 class="section-title">Watch the research<br>come together.</h2><p class="body-lg">Three published walkthroughs show the current product, research workflow and read-only Connect to AI experience. All three open on A&amp;O's video page.</p><div class="video-cards"><article class="video reveal"><div class="video-cover"><img src="/images/alfred-v2/alfred-cbc69c641d5b.webp" width="1600" height="601" alt="A&O customer dashboard video poster" loading="lazy"/><button class="play" aria-label="Open product demo" data-modal="video">▶</button><span class="slot">EXISTING VIDEO · 1:33</span></div><div class="video-copy"><h3>Meet the Alfred desk</h3><p>Your first introduction to the existing research terminal and how to approach a setup.</p><a href="https://tradewithao.com/watch/" class="link">Watch the current demo ↗</a></div></article><article class="video reveal"><div class="video-cover"><img src="/images/alfred-v2/alfred-7c2d8db798f0.webp" width="1600" height="601" alt="Contract research walkthrough video poster" loading="lazy"/><button class="play" aria-label="Open walkthrough" data-modal="video">▶</button><span class="slot">EXISTING WALKTHROUGH · 3:27</span></div><div class="video-copy"><h3>Inside the workflow</h3><p>Walk through the research process, settings, analytics and contract comparison tools.</p><a href="https://tradewithao.com/watch/" class="link">Watch the walkthrough ↗</a></div></article><article class="video reveal"><div class="video-cover"><img src="/images/alfred-v2/alfred-7b3e5a9a6232.webp" width="1536" height="1024" alt="Connect to AI video poster" loading="lazy"/><button class="play" aria-label="Open Connect to AI demo" data-modal="video">▶</button><span class="slot">EXISTING VIDEO · 0:45</span></div><div class="video-copy"><h3>Connect Alfred to AI</h3><p>See how a supported AI assistant can inspect the desk in a read-only research workflow.</p><a href="https://tradewithao.com/watch/" class="link">Watch Connect to AI ↗</a></div></article></div></div></section>
+<section class="price-section" id="pricing"><div class="container price-wrap"><div><span class="eyebrow">Straightforward pricing</span><h2 class="section-title">Try the whole<br>research desk.</h2><p>Start with your own watchlist, explore the models, compare structures and test historical ideas. No brokerage transfer. Your capital stays at your own broker.</p><a href="https://tradewithao.com/record/" class="link" style="color:#a3f7dd">Review the public paper record and methodology ↗</a></div><div class="price-box"><span class="pill" style="background:#14392f;color:#a6ffdd;border-color:#2c6452">Desk membership</span><div style="margin-top:14px"><span class="cost">$1</span><span style="color:#b9c6cc;font-size:17px"> for 30 days</span></div><div style="color:#bcc9d0;font-size:15px;margin-top:7px">Then $50/month · Cancel through Whop</div><ul><li>Personal watchlist and research preferences</li><li>Options chain, Greeks, flow and dealer context</li><li>Rule Lab and paper-strategy research</li><li>Morning Brief and portfolio research tools</li><li>Ask Alfred / Connect to AI (beta)</li></ul><a class="btn btn-primary" href="https://whop.com/checkout/plan_GJwXJwksB3D0F/">Start the $1 desk trial ↗</a><p class="fineprint">Verified against the live Whop checkout on October 27, 2026. Initial fee is $1 plus applicable taxes; after 30 days, the subscription renews at $50 per month until canceled.</p></div></div></section>
+<section class="faq-section" id="faq"><div class="container faq-wrap"><span class="eyebrow" style="color:#008970;text-align:center;display:block">Questions worth asking</span><h2 class="section-title">The details matter.</h2><details><summary>Is Alfred an automated trading bot?</summary><p>No. The customer-facing Alfred desk is built around research and human decisions. It does not place brokerage orders for retail customers. Internal Omega paper research is separate from this product and should not be confused with customer execution.</p></details><details><summary>What does a contract-fit score mean?</summary><p>It organizes how the displayed contract compares with the stated research and filtering criteria. It does not mean an 88% chance of profit and is not a prediction of an investment outcome. Always review liquidity, IV, underlying price movement and potential loss.</p></details><details><summary>Can I use Alfred to research stocks and longer-term strategies?</summary><p>Yes. The existing desk includes stock and options research, and A&amp;O is developing a more integrated Investing &amp; Income workflow. Feature availability depends on the released build; illustrations on this page are clearly identified as concepts.</p></details><details><summary>Does a large options print tell us what a trader expects?</summary><p>Not necessarily. A trade may be an opening or closing transaction, a hedge, or one leg of a spread. Print-side estimates and open-interest figures have important limitations. Alfred aims to make these visible rather than present every large call print as a bullish bet.</p></details><details><summary>What is the difference between Simple and Pro?</summary><p>Simple emphasizes the familiar setup tiles, watchlists and quick summaries. Pro is designed to expose deeper contract research, charts, flow, dealer levels and evidence. The two experiences should rely on the same authoritative research data.</p></details><details><summary>How much does it cost?</summary><p>The current checkout lists a $1 initial fee plus applicable taxes for 30 days, followed by $50 per month plus applicable taxes. Final subscription terms are shown in the linked Whop checkout. See the current <a href="https://tradewithao.com/" style="text-decoration:underline">public site</a> for updates.</p></details></div>
+<div class="end-cta"><div><h2>Your markets.<br>Your questions.<br>Your call.</h2><p>Build the research process around the trader you are.</p></div><a class="btn btn-dark" href="https://whop.com/checkout/plan_GJwXJwksB3D0F/">Try Alfred for $1 ↗</a></div></section>
 </main>
-
-<footer>
-  <div class="wrap">
-    <div class="fgrid">
-      <a class="brand" href="/"><img src="/ao-logo-wide.jpg" alt="Alpha &amp; Omega Analytics" width="1500" height="500" style="height:34px;width:auto"></a>
-      <div class="flinks">
-        <a href="#how">How it works</a><a href="#tour">Product</a><a href="/ao-vs-paying-for-signals.html">AO vs signals</a>
-        <a href="/how-to-read-spy-positive-vs-negative-gamma.html">How to read gamma</a><a href="/how-to-read-unusual-options-flow.html">How to read flow</a><a href="/how-to-read-call-and-put-walls.html">Call wall vs put wall</a><a href="/how-to-mark-spx-0dte-levels.html">SPX 0DTE levels</a><a href="/how-to-pick-an-options-strike.html">Picking a strike</a>
-        <a href="/record/">Track record</a><a href="/watch/">Videos</a><a href="/guide/AO-Terminal-Member-Guide.pdf">Member guide</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/risk.html">Risk disclosure</a>
-      </div>
-    </div>
-    <div class="social">
-      <a href="https://x.com/AO_Analytics" target="_blank" rel="noreferrer">X · @AO_Analytics</a>
-      <a href="https://www.tiktok.com/@ao_analytics" target="_blank" rel="noreferrer">TikTok · @AO_Analytics</a>
-      <a href="https://www.linkedin.com/company/alpha-omega-analytics-llc" target="_blank" rel="noreferrer">LinkedIn</a>
-    <a href="https://www.youtube.com/@AlphaOmegaAnalytics" target="_blank" rel="noreferrer">YouTube</a>
-    </div>
-    <p>Alpha &amp; Omega Analytics provides educational tools and market analysis. Nothing on this site is financial advice or a recommendation to buy or sell any security. Options involve substantial risk and are not suitable for every investor. Backtests, paper results and past positioning do not guarantee future results. Sitting out is a decision too.</p>
-    <div class="sources">Keep learning: <a href="/how-to-pick-an-options-strike.html">Choosing an options strike</a> · <a href="/how-to-read-unusual-options-flow.html">Understanding options flow</a> · <a href="/how-to-read-call-and-put-walls.html">Reading dealer levels</a> · <a href="/how-to-use-ai-for-options-trading-research.html">Using AI for research</a> · <a href="/how-to-research-a-stock-before-buying.html">Researching a stock before buying</a></div>
-    <p style="margin-top:18px">© 2026 Alpha &amp; Omega Analytics. All rights reserved.</p>
-  </div>
-</footer>
-
+<footer class="footer"><div class="container"><div class="footer-top"><a href="#top" class="wordmark">alfred<b>.</b><small>BY A&amp;O ANALYTICS</small></a><nav class="footer-links" aria-label="Footer"><a href="https://tradewithao.com/">Home</a><a href="https://tradewithao.com/watch/">Videos</a><a href="https://tradewithao.com/record/">Track record</a><a href="https://tradewithao.com/guide/AO-Terminal-Member-Guide.pdf">Member guide</a><a href="https://tradewithao.com/terms.html">Terms</a><a href="https://tradewithao.com/privacy.html">Privacy</a><a href="https://tradewithao.com/risk.html">Risk disclosure</a><a href="https://dashboard.tradewithao.com/">Member login</a></nav></div><div class="footer-bottom"><p>Alpha &amp; Omega Analytics provides educational research tools and market analysis. Options involve substantial risk, including loss of the entire premium paid. Neither historical research nor paper results guarantee future performance. Research-fit scores are not probabilities. Information here is not an instruction to buy or sell a security. Product examples may be historical or illustrative; check timestamps, source notes and current subscription terms.</p><span>© 2026 Alpha &amp; Omega Analytics. All rights reserved.</span></div></div></footer>
+<div class="modal-overlay" id="overlay" role="presentation" aria-hidden="true"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-head"><h2 id="modal-title">Explore Alfred</h2><button class="modal-close" id="modal-close" aria-label="Close dialog">×</button></div><div class="modal-body" id="modal-content"></div></div></div>
 <script>
-(function () {
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* scroll reveal + count-up */
-  function countUp(el) {
-    var end = Number(el.getAttribute("data-count")), pre = el.getAttribute("data-prefix") || "", suf = el.getAttribute("data-suffix") || "";
-    if (reduce || !isFinite(end)) return;
-    var t0 = null, dur = 1200;
-    function step(t) {
-      if (!t0) t0 = t;
-      var p = Math.min(1, (t - t0) / dur), v = Math.round(end * (1 - Math.pow(1 - p, 3)));
-      el.textContent = pre + v + suf;
-      if (p < 1) requestAnimationFrame(step);
-    }
-    el.textContent = pre + "0" + suf;
-    requestAnimationFrame(step);
-  }
-  var els = document.querySelectorAll(".reveal");
-  if (!("IntersectionObserver" in window) || reduce) {
-    els.forEach(function (e) { e.classList.add("in"); });
-  } else {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        en.target.classList.add("in");
-        en.target.querySelectorAll("[data-count]").forEach(countUp);
-        io.unobserve(en.target);
-      });
-    }, { threshold: 0.18 });
-    els.forEach(function (e) { io.observe(e); });
-  }
-
-  /* hero demo: typed question, tool chips, streamed answer (captured from the terminal) */
-  var DEMOS = [
-    { q: "What's the SPY game plan for today?",
-      tools: ["get_game_plan", "get_dealer_levels"],
-      a: [["b", "SPY dealer game plan"], ["t", " · positive gamma, calmer tape"], ["br"],
-          ["bull", "Bull: "], ["t", "reclaim 780 and hold, then 781, 783, 784."], ["br"],
-          ["base", "Base: "], ["t", "779 to 780 is the switch zone. Expect chop inside it."], ["br"],
-          ["bear", "Bear: "], ["t", "lose 779 on a close, then 775, 767, 760."], ["br"],
-          ["t", "Call walls 774, 775, 780 · put walls 767, 760, 755."]],
-      cap: "Captured from the Dealers screen, Oct 4, 2026 (Friday's close). Education, not advice." },
-    { q: "Backtest NVDA closing above its 200-day.",
-      tools: ["rule_lab"],
-      a: [["b", "NVDA · closes above the 200-day"], ["br"],
-          ["t", "Fired 7 times in 5 years. 10 sessions later it was higher "], ["bull", "86%"], ["t", " of the time,"], ["br"],
-          ["t", "with a median move of "], ["bull", "+11.2%"], ["t", ". Median best rise inside 10 sessions +11.4%, worst drop "], ["bear", "-0.8%"], ["t", "."], ["br"],
-          ["t", "That is a small sample, so read it as a rough guide."]],
-      cap: "Captured from Rule Lab, Oct 4, 2026. Past results do not predict future ones." },
-    { q: "Set my plan: weeklies and spreads, $5 to $10 a contract.",
-      tools: ["your_plan", "scan"],
-      a: [["b", "Your plan is saved."], ["br"],
-          ["t", "Styles: Weekly, Spreads · Price range: $5 to $10 a contract."], ["br"],
-          ["t", "Tabs outside your plan are dimmed on every ticker. Contracts outside your range or too big for your account are flagged."], ["br"],
-          ["t", "If nothing fits today, the desk says wait."]],
-      cap: "How Your Plan filters the desk. You write every rule. Education, not advice." },
-    { q: "Community: these TSLA weeklies look interesting, anyone watching?",
-      tools: ["community", "check_fit"],
-      a: [["b", "A member tagged a TSLA weekly call."], ["br"],
-          ["t", "Tap the tag and TSLA opens on your desk: the zones, the levels and the contracts for your plan."], ["br"],
-          ["t", "Every card says "], ["bull", "Fits your plan"], ["t", " or "], ["bear", "Too big for your account"], ["t", ", checked against your own rules and synced account."], ["br"],
-          ["t", "No one's call becomes your trade. You see the fit first."]],
-      cap: "Sample conversation to show how tags work. Not a real member's post. Education, not advice." }
-  ];
-  var qt = document.getElementById("dqt"), tools = document.getElementById("dtools"), ans = document.getElementById("da"), cap = document.getElementById("dcap");
-  var tabs = document.querySelectorAll("[data-demo]");
-  var run = 0, idx = 0, timer = null;
-  function wait(ms, id) { return new Promise(function (r) { timer = setTimeout(function () { r(id === run); }, ms); }); }
-  function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
-  function render(parts, upto) {
-    var html = "", left = upto;
-    for (var i = 0; i < parts.length; i++) {
-      var p = parts[i];
-      if (p[0] === "br") { html += "<br>"; continue; }
-      if (left <= 0) break;
-      var txt = p[1].slice(0, left); left -= p[1].length;
-      html += p[0] === "t" ? esc(txt) : p[0] === "b" ? "<b>" + esc(txt) + "</b>" : '<span class="' + p[0] + '">' + esc(txt) + "</span>";
-    }
-    return html;
-  }
-  function total(parts) { return parts.reduce(function (n, p) { return n + (p[1] ? p[1].length : 0); }, 0); }
-  function setTab(i) { tabs.forEach(function (b) { b.classList.toggle("on", Number(b.getAttribute("data-demo")) === i); }); }
-  async function play(i) {
-    var id = ++run; clearTimeout(timer); idx = i; setTab(i);
-    var d = DEMOS[i];
-    cap.textContent = d.cap; qt.textContent = ""; tools.innerHTML = ""; ans.innerHTML = "";
-    if (reduce) {
-      qt.textContent = d.q;
-      tools.innerHTML = d.tools.map(function (t) { return '<span class="chip in">' + t + "</span>"; }).join("");
-      ans.innerHTML = render(d.a, 1e9);
-      return;
-    }
-    for (var c = 1; c <= d.q.length; c++) { qt.textContent = d.q.slice(0, c); if (!(await wait(28 + Math.random() * 40, id))) return; }
-    if (!(await wait(350, id))) return;
-    tools.innerHTML = '<span class="status">Checking the live desk…</span>' + d.tools.map(function (t) { return '<span class="chip">' + t + "</span>"; }).join("");
-    var chips = tools.querySelectorAll(".chip");
-    for (var k = 0; k < chips.length; k++) { if (!(await wait(260, id))) return; chips[k].classList.add("in"); }
-    if (!(await wait(450, id))) return;
-    var n = total(d.a);
-    for (var j = 0; j <= n; j += 3) { ans.innerHTML = render(d.a, j); if (!(await wait(14, id))) return; }
-    ans.innerHTML = render(d.a, n) + "<small>Data as of the timestamp shown in the terminal · read-only · education only</small>";
-    if (!(await wait(5200, id))) return;
-    play((idx + 1) % DEMOS.length);
-  }
-  tabs.forEach(function (b) { b.addEventListener("click", function () { play(Number(b.getAttribute("data-demo"))); }); });
-  var demoEl = document.getElementById("demo"), started = false;
-  function start() { if (!started) { started = true; play(0); } }
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (en, obs) { if (en[0].isIntersecting) { start(); obs.disconnect(); } }, { threshold: 0.3 }).observe(demoEl);
-  } else { start(); }
-})();
-</script>
-<script>
-(function () {
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  /* stagger items that reveal together */
-  document.querySelectorAll(".stats, .steps, .compare, .tour").forEach(function (g) {
-    g.querySelectorAll(".reveal").forEach(function (el, i) { el.style.setProperty("--d", (i % 4) * 90 + "ms"); });
-  });
-  /* nav shadow once the page scrolls */
-  var nav = document.querySelector(".nav");
-  function onScroll() { if (nav) nav.classList.toggle("scrolled", window.scrollY > 8); }
-  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
-  /* gentle parallax on screenshots */
-  if (!reduce) {
-    var shots = Array.prototype.slice.call(document.querySelectorAll(".feat .shot img"));
-    var ticking = false;
-    function para() {
-      ticking = false;
-      var vh = window.innerHeight;
-      shots.forEach(function (img) {
-        var r = img.parentNode.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > vh) return;
-        var p = (r.top + r.height / 2 - vh / 2) / vh;
-        img.style.transform = "translateY(" + (p * -14).toFixed(1) + "px) scale(1.03)";
-      });
-    }
-    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(para); } }, { passive: true });
-    para();
-  }
-  /* video player: tabs crossfade, click to play with sound */
-  var VIDS = [
-    { src: "/videos/ao-demo.mp4", poster: "/videos/ao-demo-poster.jpg", label: "A&O product demo", cap: "Follow the research workflow: your plan, the Dashboard, ticker research, Greeks in plain English, Rule Lab and Alfred." },
-    { src: "/videos/ao-how-to-use.mp4", poster: "/videos/ao-how-to-use-poster.jpg", label: "How to use the A&O desk", cap: "The full walkthrough, screen by screen: your profile, Morning Brief, Dashboard, Top Setups, Levels and Session, every desk, Rule Lab and Alfred." },
-    { src: "/videos/ao-connect-to-ai.mp4", poster: "/videos/ao-connect-to-ai-poster.jpg", label: "Connect A&O to your AI", cap: "Plug the desk into Claude, ChatGPT or Grok with one sign-in. Read-only, and every answer carries its data and timestamp." }
-  ];
-  var root = document.querySelector("[data-player]");
-  if (!root) return;
-  var frame = root.querySelector(".player-frame"), video = root.querySelector("[data-player-video]"), cap = root.querySelector("[data-player-cap]");
-  var tabs = root.querySelectorAll("[data-vid]"), cur = 0;
-  function load(i, autoplay) {
-    cur = i;
-    tabs.forEach(function (b) { var on = Number(b.getAttribute("data-vid")) === i; b.classList.toggle("on", on); b.setAttribute("aria-selected", on ? "true" : "false"); });
-    frame.classList.add("swap"); frame.classList.remove("playing"); cap.style.opacity = 0;
-    setTimeout(function () {
-      video.pause(); video.removeAttribute("controls");
-      video.poster = VIDS[i].poster; video.setAttribute("aria-label", VIDS[i].label);
-      video.querySelector("source").src = VIDS[i].src; video.load();
-      cap.textContent = VIDS[i].cap; cap.style.opacity = 1;
-      frame.classList.remove("swap");
-      if (autoplay) play();
-    }, reduce ? 0 : 280);
-  }
-  function play() { video.setAttribute("controls", ""); frame.classList.add("playing"); var p = video.play(); if (p && p.catch) p.catch(function () {}); }
-  tabs.forEach(function (b) { b.addEventListener("click", function () { var i = Number(b.getAttribute("data-vid")); if (i !== cur) load(i, false); }); });
-  root.querySelector("[data-player-play]").addEventListener("click", play);
-  video.addEventListener("ended", function () { frame.classList.remove("playing"); video.removeAttribute("controls"); });
-})();
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const views={simple:{src:'/images/alfred-v2/alfred-cbc69c641d5b.webp',label:'Actual captured Simple dashboard · October 26, 2026',overline:'Simple Mode',heading:'Familiar, colorful, immediate.',desc:'The vivid tiles and Top 10 cards your current users already know. Scan market context and setup statuses at a glance, then open the supporting research.',note:'Supplied screenshot of the live customer dashboard; market values are historical and may have changed.'},pro:{src:'/images/alfred-v2/alfred-7c2d8db798f0.webp',label:'Actual captured contract comparison · October 26, 2026',overline:'Pro contract research',heading:'Three alternatives. One evidence trail.',desc:'Study moneyness, bid/ask, reference mark, IV versus historical volatility and the Greeks. The options are research alternatives, not a ranked instruction to buy.',note:'Supplied screenshot from the logged-in A&O dashboard. Pricing, snapshots and model reads are not live here.'},flow:{src:'/images/alfred-v2/alfred-4975396eaa73.webp',label:'Alfred Pro · Options Flow · sample data render',overline:'Flow Intelligence',heading:'A print. Its candle. Its context.',desc:'Click a print in the tape and the chart shows where it landed. The inspector separates what was observed from what is inferred, and says plainly that volume over open interest is a clue, not proof.',note:'Rendered from the shipped Pro Flow page with sample data, not a live market snapshot. The full tape and filters sit below the chart on the desk.'}};
+$$('[data-showcase]').forEach(btn=>btn.addEventListener('click',()=>{const v=views[btn.dataset.showcase];$$('[data-showcase]').forEach(x=>{const active=x===btn;x.classList.toggle('active',active);x.setAttribute('aria-selected',String(active));x.tabIndex=active?0:-1;});$('#showcase-img').src=v.src;$('#showcase-img').alt=v.heading;$('#showcase-label').textContent=v.label;$('#showcase-overline').textContent=v.overline;$('#showcase-heading').textContent=v.heading;$('#showcase-desc').textContent=v.desc;$('#showcase-note').textContent=v.note;}));
+const setup={SPY:['2/5','REVIEW'],SPX:['2/5','WAIT'],QQQ:['3/5','REVIEW'],NVDA:['4/5','REVIEW'],IWM:['3/5','WAIT']};
+$$('[data-ticker]').forEach(btn=>btn.addEventListener('click',()=>{$$('[data-ticker]').forEach(x=>x.classList.toggle('active',x===btn));let k=btn.dataset.ticker;$('#stage-title').textContent=k+' · Research read';$('#stage-grade').textContent=setup[k][0];$('#stage-status').textContent=setup[k][1];}));
+const bodies={video:{title:'Watch the current A&O product demos',content:`<p>A&O's existing videos include a <strong>1:33 product demo</strong>, a <strong>3:27 walkthrough</strong>, and a <strong>0:45 Connect to AI clip</strong>. All three clips are published and available now.</p><div class="demo-question"><label>Video library</label><p>These buttons open the current published A&amp;O video page rather than pretending a new video has been recorded.</p></div><div class="modal-actions"><a class="btn btn-primary" href="https://tradewithao.com/watch/" target="_blank" rel="noopener">Open existing videos ↗</a><button class="btn btn-outline" data-close>Continue exploring</button></div>`},'launch-film':{title:'Proposed three-minute demo storyboard',content:`<p><strong>0:00–0:25</strong> — The problem: retail options traders switch between charting, flow, dealers and news.</p><p><strong>0:25–0:55</strong> — A user selects their markets and criteria. Alfred organizes the research.</p><p><strong>0:55–1:40</strong> — Open a setup. Show supporting and conflicting evidence, volume and the three contract profiles.</p><p><strong>1:40–2:20</strong> — Dig into the real options chain, dealer levels, synchronized Flow and Ask Alfred.</p><p><strong>2:20–2:50</strong> — Compare a longer-term share or income strategy and show Rule Lab.</p><p><strong>2:50–3:00</strong> — End on the actual decision workflow and the message: “Your markets. Your research. Your call.”</p><p><span class="tag">PRODUCTION SLOT</span> No video file is attached to this preview.</p>`},contracts:{title:'Three options. Three sets of trade-offs.',content:`<p>The ITM, ATM and OTM profiles are not ranked instructions to purchase a particular security. They show different exposures to price, time and volatility.</p><div class="contract-modal-grid"><div><span>ITM · MSFT 520C</span><strong>Delta 0.64</strong><small>Higher premium / more intrinsic value</small></div><div><span>ATM · MSFT 530C</span><strong>Delta 0.52</strong><small>Greater price sensitivity near the strike</small></div><div><span>OTM · MSFT 535C</span><strong>Delta 0.46</strong><small>Less premium / requires more favorable movement</small></div></div><div class="demo-question"><label>What Alfred should answer</label><p>“Which alternative has the tightest spread? How do the IV, volume, and time-to-expiry differences change the risk?”</p></div><p>The values in the visible comparison were transcribed from the user's Oct 26 MSFT screenshot and should never be treated as current market quotes.</p>`},itm:{title:'ITM contract research · MSFT 520C',content:`<p><strong>Research question:</strong> Is the additional premium justified by the higher delta and intrinsic-value profile?</p><p>Check the bid/ask spread, IV, relative liquidity, and what happens if MSFT stalls. Paying more per contract raises the maximum possible loss of a long call.</p><div class="demo-question"><label>Playbook</label><p>Compare how much of the premium is intrinsic, how much is time value, and whether the observed spread fits your own filter.</p></div>`},atm:{title:'ATM contract research · MSFT 530C',content:`<p><strong>Research question:</strong> How responsive is this option to a price move, and how quickly could time decay offset that benefit?</p><p>An at-the-money contract often balances directional sensitivity and cost differently from ITM or OTM options. Validate IV against historical movement and check liquidity at the actual quote time.</p><div class="demo-question"><label>Playbook</label><p>Ask what underlying movement would be needed for the hypothetical option scenario to overcome premium and costs.</p></div>`},otm:{title:'OTM contract research · MSFT 535C',content:`<p><strong>Research question:</strong> Is the lower premium enough to justify the greater dependence on a favorable underlying move?</p><p>Long out-of-the-money calls can expire worthless. Compare the move required to reach breakeven and check the spread and volume rather than treating the cheaper quoted price as safer.</p><div class="demo-question"><label>Playbook</label><p>Compare the reference mark, time to expiration, implied volatility and the total premium at risk.</p></div>`},flow:{title:'Flow is activity, not confirmed intent',content:`<p>Flow records can indicate unusual option activity, but a call bought near the ask does not establish why the trader transacted. It could be a hedge, a spread leg or a closing position.</p><p>The design goal is one synchronized research page: a flow tape on the left, candlestick chart in the middle, and print intelligence on the right, each linked to timestamped evidence.</p><div class="demo-question"><label>Research integrity</label><p>Classify statements as Observed, Inferred or Unknown. Show prior open interest clearly, and avoid looking ahead during market replay.</p></div>`},investing:{title:'Investing & Income research',content:`<p>This page extends Alfred beyond directional short-term contracts. It compares holding shares, longer-dated calls, covered calls and collars as different approaches with different risks.</p><p><strong>Example research question:</strong> “What options-income approaches should I investigate for shares I already own without giving up too much upside?”</p><div class="demo-question"><label>Human-controlled workflow</label><p>Study eligibility, coverage, assignment risk, earnings, taxes and downside exposure. Passing on the trade is always an available outcome.</p></div><p>Some workflows are under development and must not be presented publicly as fully launched until verified.</p>`}};
+let modalReturnFocus;
+function openModal(which){const v=bodies[which]||bodies.video;modalReturnFocus=document.activeElement;$('#modal-title').textContent=v.title;$('#modal-content').innerHTML=v.content;$('#overlay').classList.add('open');$('#overlay').setAttribute('aria-hidden','false');document.body.style.overflow='hidden';$('#modal-close').focus();$$('[data-close]').forEach(x=>x.addEventListener('click',closeModal));}
+function closeModal(){$('#overlay').classList.remove('open');$('#overlay').setAttribute('aria-hidden','true');document.body.style.overflow='';if(modalReturnFocus?.focus)modalReturnFocus.focus();}
+$$('[data-modal]').forEach(x=>x.addEventListener('click',()=>openModal(x.dataset.modal)));$('#modal-close').addEventListener('click',closeModal);$('#overlay').addEventListener('click',e=>{if(e.target===$('#overlay'))closeModal();});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+const savedTheme=localStorage.getItem('alfred-preview-theme');if(savedTheme==='dark')document.body.dataset.theme='dark';function updateTheme(){$('#theme-switch').textContent=document.body.dataset.theme==='dark'?'☀':'☾';$('#theme-switch').title=document.body.dataset.theme==='dark'?'Switch to light mode':'Switch to dark mode';}updateTheme();$('#theme-switch').addEventListener('click',()=>{document.body.dataset.theme=document.body.dataset.theme==='dark'?'light':'dark';localStorage.setItem('alfred-preview-theme',document.body.dataset.theme);updateTheme();});
+$('#mobile-menu').addEventListener('click',()=>{const m=$('#site-nav');m.classList.toggle('open');const open=m.classList.contains('open');$('#mobile-menu').setAttribute('aria-expanded',String(open));$('#mobile-menu').setAttribute('aria-label',open?'Close navigation':'Open navigation');});$$('.nav-links a').forEach(x=>x.addEventListener('click',()=>{$('#site-nav').classList.remove('open');$('#mobile-menu').setAttribute('aria-expanded','false');$('#mobile-menu').setAttribute('aria-label','Open navigation');}));
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}})},{threshold:.13});$$('.reveal').forEach(x=>observer.observe(x));
 </script>
 </body>
 </html>
