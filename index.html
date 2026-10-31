@@ -49,7 +49,7 @@ body[data-theme="dark"]{--ink:#f7fafc;--muted:#a5b4c0;--rule:#354047;--white:#11
 <body>
 <header class="site-header" id="top"><div class="container header-inner">
 <a href="#top" class="wordmark" aria-label="Alfred by A&O Analytics home">alfred<b>.</b><small>BY A&amp;O ANALYTICS</small></a>
-<nav id="site-nav" class="nav-links" aria-label="Primary navigation"><a href="#how">How it works</a><a href="#discipline">Why Alfred</a><a href="#platform">The product</a><a href="#personalization">Personalization</a><a href="#watchtower">Watchtower</a><a href="#record">Track record</a><a href="#pricing">Pricing</a></nav>
+<nav id="site-nav" class="nav-links" aria-label="Primary navigation"><a href="#how">How it works</a><a href="#discipline">Why Alfred</a><a href="#platform">The product</a><a href="#agents">Agents</a><a href="#personalization">Personalization</a><a href="#watchtower">Watchtower</a><a href="#record">Track record</a><a href="#pricing">Pricing</a></nav>
 <div class="header-actions"><button class="icon-btn" id="theme-switch" title="Switch to dark mode" aria-label="Toggle dark mode">☾</button><a class="btn btn-outline" href="https://dashboard.tradewithao.com/">Log in</a><a class="btn btn-primary" href="https://whop.com/checkout/plan_GJwXJwksB3D0F/">Try Alfred for $1 <span aria-hidden="true">↗</span></a><button class="icon-btn mobile-menu" id="mobile-menu" aria-label="Open navigation" aria-expanded="false">☰</button></div>
 </div></header>
 <main>
@@ -82,7 +82,149 @@ body[data-theme="dark"]{--ink:#f7fafc;--muted:#a5b4c0;--rule:#354047;--white:#11
 <article class="feature-card reveal"><div class="feature-visual"><img src="/images/alfred-v2/alfred-afc294ea4d73.webp" width="1600" height="900" alt="Flow research design study showing a print feed and synchronized chart" loading="lazy" /></div><div class="feature-copy"><span class="eyebrow">Flow &amp; dealer intelligence</span><h3>Read the tape in context.</h3><p>Investigate significant prints, bid/ask location, prior open interest, dealer walls and what the print cannot establish.</p><button class="link" data-modal="flow" style="border:0;background:none;padding:0;align-self:flex-start">How Alfred reads flow ↗</button></div></article>
 <article class="feature-card reveal"><div class="feature-visual"><img src="/images/alfred-v2/alfred-3cd0420cd03f.webp" width="1536" height="1024" alt="Illustrative light-first Alfred design board showing product layouts" loading="lazy" /></div><div class="feature-copy"><span class="eyebrow">Investing &amp; Income</span><h3>More than today's trade.</h3><p>Research stocks, longer-dated calls, portfolio context and option-income structures with the same risk-first thinking.</p><button class="link" data-modal="investing" style="border:0;background:none;padding:0;align-self:flex-start">Explore investing workflows ↗</button></div></article>
 </div></div></section>
-<section class="agent-section" id="agents"><div class="container"><div class="agent-intro"><div><span class="eyebrow" style="color:#009477">AI-assisted research, grounded in data</span><h2 class="section-title">A research team.<br>One clear read.</h2></div><p>Think of Alfred as a coordinated research workflow: gather different viewpoints, identify conflicts, compare them against your criteria and surface the evidence. The agent labels describe research functions, not five independent guarantees.</p></div><div class="agent-grid"><div class="agent-big reveal"><span class="glyph" style="background:#00b88c">◎</span><h4>Macro</h4><p>Market regime, breadth, rates and important upcoming events.</p></div><div class="agent-big reveal"><span class="glyph" style="background:#177fff">▥</span><h4>Quant</h4><p>Statistical setup evaluation, historical patterns and validation.</p></div><div class="agent-big reveal"><span class="glyph" style="background:#994fff">⌁</span><h4>Options Flow</h4><p>Prints, trading-side estimates, liquidity and unusual activity.</p></div><div class="agent-big reveal"><span class="glyph" style="background:#f6bd29">⬡</span><h4>Risk</h4><p>Eligibility, thesis invalidation, events and portfolio context.</p></div><div class="agent-big reveal"><span class="glyph" style="background:#fc3963">▤</span><h4>News</h4><p>Company catalysts, earnings and evolving market context.</p></div></div><div class="agent-criteria"><div><strong>The useful question isn't “Which agent is bullish?”</strong><p>It's “Why are they disagreeing, what evidence changed, and what would make this setup invalid?” The goal is inspectable research—not a chorus of confident opinions.</p></div><a href="https://dashboard.tradewithao.com/" class="btn btn-dark">Open the research desk ↗</a></div></div></section>
+<!-- Oct 31 (Pavan): the agents, presented as a desk you can meet: who they are, when they work, what they show, with live paper accounts. -->
+<style>
+.agx{padding:104px 0;border-top:1px solid var(--rule)}
+.agx .head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:30px}
+.agx .section-title{font-size:clamp(36px,4.6vw,64px);margin:10px 0 10px}
+.agx .lede{max-width:660px;color:var(--muted);font-size:17px;line-height:1.55;margin:0}
+.agx-top{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;margin-bottom:56px}
+.agx-card{background:var(--white);border:1px solid var(--rule);border-radius:24px;padding:22px;box-shadow:var(--shadow);min-width:0}
+.agx-card h3{margin:0 0 4px;font-size:15px;font-weight:800}
+.agx-card .k{font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.agx-av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;flex:none;color:#fff;box-shadow:inset 0 -3px 0 rgba(0,0,0,.12)}
+.agx-av svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.agx-av.lg{width:56px;height:56px}.agx-av.lg svg{width:28px;height:28px}
+.agx-roster{list-style:none;margin:14px 0 0;padding:0}
+.agx-roster li{display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--rule)}
+.agx-roster li:first-child{border-top:0}
+.agx-roster .nm{flex:1;min-width:0}.agx-roster .nm b{display:block;font-size:16px}.agx-roster .nm span{font-size:13px;color:var(--muted)}
+.agx-roster .val{text-align:right;font-weight:850;font-size:18px;letter-spacing:-.01em}
+.agx-roster .val small{display:block;font-size:12px;font-weight:700;color:var(--muted)}
+.agx-roster .val .up{color:var(--mintdeep)}[data-theme="dark"] .agx-roster .val .up{color:var(--mint)}.agx-roster .val .dn{color:var(--rose)}
+.agx-note{display:flex;flex-direction:column;gap:14px}
+.agx-note .who{display:flex;align-items:center;gap:12px}
+.agx-note .who small{display:block;color:var(--muted);font-size:12px;font-weight:700}
+.agx-note blockquote{margin:0;font-size:22px;line-height:1.3;font-weight:800;letter-spacing:-.015em}
+.agx-note p{margin:0;color:var(--muted);font-size:15px;line-height:1.55}
+.agx-note .trade{display:flex;justify-content:space-between;gap:12px;border:1px solid var(--rule);border-radius:14px;padding:12px 14px;font-weight:800;font-size:14px}
+.agx-note .trade .up{color:var(--mintdeep)}[data-theme="dark"] .agx-note .trade .up{color:var(--mint)}.agx-note .trade .dn{color:var(--rose)}
+.agx-group{margin-top:34px}
+.agx-group>h4{margin:0 0 4px;font-size:22px;font-weight:850;letter-spacing:-.01em}
+.agx-group>p{margin:0 0 16px;color:var(--muted);font-size:15px;max-width:760px}
+.agx-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.agx-grid.g4{grid-template-columns:repeat(3,minmax(0,1fr))}
+.agx-agent{background:var(--white);border:1px solid var(--rule);border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:10px;min-width:0;transition:transform .2s ease,box-shadow .2s ease}
+.agx-agent:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.agx-agent .top{display:flex;align-items:center;gap:12px}
+.agx-agent .top b{display:block;font-size:18px}.agx-agent .top i{font-style:normal;font-size:13px;color:var(--muted);font-weight:700}
+.agx-agent p{margin:0;font-size:14.5px;line-height:1.5}
+.agx-agent .when{margin-top:auto;display:flex;flex-wrap:wrap;gap:6px}
+.agx-agent .when span{font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;background:var(--paper);border:1px solid var(--rule)}
+.agx-agent .live{font-size:13px;font-weight:800;color:var(--mintdeep)}[data-theme="dark"] .agx-agent .live{color:var(--mint)}
+.agx-vote{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:56px;align-items:start}
+.agx-vote h4{margin:0 0 6px;font-size:28px;font-weight:850;letter-spacing:-.02em}
+.agx-vote .intro p{color:var(--muted);font-size:16px;line-height:1.55;margin:0 0 12px}
+.agx-setup .row1{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.agx-setup .row1 b{font-size:22px}.agx-setup .grade{font-weight:850;padding:6px 12px;border-radius:12px;background:rgba(20,184,166,.14);color:#0b8f80}
+.agx-votes{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.agx-votes li{display:flex;gap:12px;align-items:center;border:1px solid var(--rule);border-radius:14px;padding:10px 12px;font-size:14px;line-height:1.35}
+.agx-votes li .agx-av{width:32px;height:32px}.agx-votes li .agx-av svg{width:16px;height:16px}
+.agx-votes li em{margin-left:auto;font-style:normal;font-size:11px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:999px;white-space:nowrap}
+.agx-votes .s{background:rgba(20,184,166,.14);color:#0b8f80}.agx-votes .a{background:rgba(244,63,94,.12);color:#c81e4a}.agx-votes .n{background:var(--paper);color:var(--muted)}
+.agx .fine{margin-top:22px;font-size:13px;color:var(--muted);max-width:920px}
+@media (max-width:980px){.agx-top,.agx-vote{grid-template-columns:1fr}.agx-grid,.agx-grid.g4{grid-template-columns:1fr 1fr}}
+.agx-wide{grid-column:span 2}
+@media (max-width:620px){.agx-wide{grid-column:auto}.agx-grid,.agx-grid.g4{grid-template-columns:1fr}.agx-note blockquote{font-size:19px}}
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="ag-omega" viewBox="0 0 24 24"><path d="M5 19h4v-2.2A6.5 6.5 0 1 1 15 16.8V19h4"/></symbol>
+<symbol id="ag-earn" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M8 3v4M16 3v4M4 10h16M12.5 12.5l-2 3h3l-2 3"/></symbol>
+<symbol id="ag-engine" viewBox="0 0 24 24"><path d="M13 2 5 13h6l-1 9 8-11h-6z"/></symbol>
+<symbol id="ag-rev" viewBox="0 0 24 24"><path d="M3 5l6 11 4-6 3 4M14 6h5v5"/><path d="M19 6l-6 8"/></symbol>
+<symbol id="ag-macro" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 3.8 5.2 3.8 8.5s-1.2 6.1-3.8 8.5c-2.6-2.4-3.8-5.2-3.8-8.5S9.4 5.9 12 3.5z"/></symbol>
+<symbol id="ag-quant" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+<symbol id="ag-flow" viewBox="0 0 24 24"><path d="M2 8c3 0 3-3 6-3s3 3 6 3 3-3 6-3M2 14c3 0 3-3 6-3s3 3 6 3 3-3 6-3M2 20c3 0 3-3 6-3s3 3 6 3 3-3 6-3"/></symbol>
+<symbol id="ag-risk" viewBox="0 0 24 24"><path d="M12 2.5 4 6v6c0 5 3.4 8.6 8 9.5 4.6-.9 8-4.5 8-9.5V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="ag-news" viewBox="0 0 24 24"><rect x="3" y="4" width="15" height="16" rx="2"/><path d="M18 8h3v10a2 2 0 0 1-2 2M7 8h7M7 12h7M7 16h4"/></symbol>
+<symbol id="ag-watch" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9zM10 20a2 2 0 0 0 4 0"/></symbol>
+</defs></svg>
+<section class="agx" id="agents"><div class="container">
+  <div class="head"><div><span class="eyebrow" style="color:#009477">The agents</span><h2 class="section-title">Meet the desk.</h2>
+    <p class="lede">Ten specialists read the market while you trade. Each one has a single job and a schedule, explains every call in plain English, and keeps its record in public. You stay in charge: Alfred never places a trade for you.</p></div>
+    <a class="btn btn-dark" href="https://dashboard.tradewithao.com/">Open the desk ↗</a></div>
+
+  <div class="agx-top">
+    <div class="agx-card"><span class="k">Paper accounts · live from the public record</span><h3 style="margin-top:6px">Every agent starts at $10,000</h3>
+      <ul class="agx-roster">
+        <li><span class="agx-av" style="background:#0f9f8f"><svg><use href="#ag-omega"/></svg></span><div class="nm"><b>Omega</b><span>Picks the day's best setups</span></div><div class="val" id="agx-v-omega">…<small>&nbsp;</small></div></li>
+        <li><span class="agx-av" style="background:#7c4dff"><svg><use href="#ag-earn"/></svg></span><div class="nm"><b>Earnings</b><span>Trades the report, out by morning</span></div><div class="val" id="agx-v-earn">…<small>&nbsp;</small></div></li>
+        <li><span class="agx-av" style="background:#f59e0b"><svg><use href="#ag-engine"/></svg></span><div class="nm"><b>Engine</b><span>Every 5/5 and 1/5 signal, all day</span></div><div class="val" id="agx-v-engine">…<small>&nbsp;</small></div></li>
+      </ul></div>
+    <div class="agx-card agx-note" id="agx-note">
+      <div class="who"><span class="agx-av" style="background:#0f9f8f"><svg><use href="#ag-omega"/></svg></span><div><b>Omega's latest note</b><small id="agx-note-day">Loading the last closed pick…</small></div></div>
+      <blockquote id="agx-note-head">Every pick, win or lose, is written up.</blockquote>
+      <p id="agx-note-body">When a pick closes, Omega says what happened, how long it took and what the stock did. Nothing is removed after the fact.</p>
+      <div class="trade" id="agx-note-trade" hidden><span></span><span></span></div>
+    </div>
+  </div>
+
+  <div class="agx-group"><h4>The traders (paper, public record)</h4><p>They take positions on paper by fixed, published rules, and every result is kept on tradewithao.com/record.</p>
+    <div class="agx-grid">
+      <div class="agx-agent"><div class="top"><span class="agx-av lg" style="background:#0f9f8f"><svg><use href="#ag-omega"/></svg></span><div><b>Omega</b><i>The patient picker</i></div></div><p>Looks across the desk each morning and takes only the names that clear the bar. Rules were frozen and published before the trades.</p><div class="when"><span>10:05 AM ET</span><span>+30% / −50%</span></div></div>
+      <div class="agx-agent"><div class="top"><span class="agx-av lg" style="background:#7c4dff"><svg><use href="#ag-earn"/></svg></span><div><b>Earnings</b><i>The report-night specialist</i></div></div><p>Before the bell it checks every name reporting tonight or tomorrow morning, skips the ones it can't read, and tells you why it passed.</p><div class="when"><span>3:25 to 3:50 PM ET</span><span>Out next morning</span></div></div>
+      <div class="agx-agent"><div class="top"><span class="agx-av lg" style="background:#f59e0b"><svg><use href="#ag-engine"/></svg></span><div><b>Engine</b><i>The always-on signal</i></div></div><p>Takes every 5/5 and 1/5 signal the moment it fires, all session, so you can see what the raw signal does with no filter.</p><div class="when"><span>All session</span><span>Every signal</span></div></div>
+    </div></div>
+
+  <div class="agx-group"><h4>The research desk</h4><p>Six analysts read every setup on your watchlist. They vote, they disagree out loud, and each vote says whether it's observed, inferred or missing data.</p>
+    <div class="agx-grid g4">
+      <div class="agx-agent"><div class="top"><span class="agx-av lg" style="background:#00b88c"><svg><use href="#ag-macro"/></svg></span><div><b>Macro</b><i>Reads the room</i></div></div><p>Market regime, breadth, rates and the events on the calendar that can move everything at once.</p><div class="when"><span>All session</span></div></div>
+      <div class="agx-agent"><div class="top"><span class="agx-av lg" style="background:#177fff"><svg><use href="#ag-quant"/></svg></span><div><b>Quant</b><i>Checks the math</i></div></div><p>Setup quality, trend and how similar setups have played out before.</p><div class="when"><span>All session</span></div></div>
+      <div class="agx-agent"><div class="top"><span class="agx-av lg" style="background:#994fff"><svg><use href="#ag-flow"/></svg></span><div><b>Options Flow</b><i>Follows the money</i></div></div><p>Big prints, which side they hit and whether the premium agrees with the chart.</p><div class="when"><span>All session</span></div></div>
+      <div class="agx-agent"><div class="top"><span class="agx-av lg" style="background:#e5a50a"><svg><use href="#ag-risk"/></svg></span><div><b>Risk</b><i>Asks what breaks it</i></div></div><p>Dealer levels, invalidation and anything that would make the setup wrong.</p><div class="when"><span>All session</span></div></div>
+      <div class="agx-agent"><div class="top"><span class="agx-av lg" style="background:#fc3963"><svg><use href="#ag-news"/></svg></span><div><b>News</b><i>Watches the headlines</i></div></div><p>Earnings dates, catalysts and stories that change the picture mid-day.</p><div class="when"><span>All session</span></div></div>
+      <div class="agx-agent"><div class="top"><span class="agx-av lg" style="background:#0ea5e9"><svg><use href="#ag-rev"/></svg></span><div><b>Reversal</b><i>Snipes the turn</i></div></div><p>Spots a stock that trended all day into a key level, then sees the options money and the chart flip. Calls the bottom or the top, with the line that proves it wrong.</p><div class="when"><span>9:45 AM to 3:55 PM ET</span></div></div>
+    </div></div>
+
+  <div class="agx-group"><h4>Yours</h4><p>One agent that works only for you.</p>
+    <div class="agx-grid"><div class="agx-agent agx-wide"><div class="top"><span class="agx-av lg" style="background:#14b8a6"><svg><use href="#ag-watch"/></svg></span><div><b>Watchtower</b><i>Your lookout</i></div></div><p>Tell it in plain English, like "hey, when NVDA hits 5/5 alert me". It shows you exactly what it will watch, waits for your OK, and pings you with the why when it happens.</p><div class="when"><span>Your hours</span><span>Phone and in-app</span><a class="live" href="#watchtower" style="margin-left:6px">See how it works ↓</a></div></div></div></div>
+
+  <div class="agx-vote">
+    <div class="intro"><h4>Every call, explained.</h4><p>Open any ticker and the desk shows its work: who's for it, who's against it, and what would change their minds. When they disagree, you see the disagreement instead of a single confident answer.</p><p>Then it's your call.</p></div>
+    <div class="agx-card agx-setup"><div class="row1"><b>NVDA</b><span class="grade">4/5 · building</span></div>
+      <ul class="agx-votes">
+        <li><span class="agx-av" style="background:#00b88c"><svg><use href="#ag-macro"/></svg></span>SPY and QQQ above VWAP, breadth improving<em class="s">For</em></li>
+        <li><span class="agx-av" style="background:#177fff"><svg><use href="#ag-quant"/></svg></span>Higher lows since the open, trend intact<em class="s">For</em></li>
+        <li><span class="agx-av" style="background:#994fff"><svg><use href="#ag-flow"/></svg></span>Call buyers lifting the offer for the last hour<em class="s">For</em></li>
+        <li><span class="agx-av" style="background:#e5a50a"><svg><use href="#ag-risk"/></svg></span>Call wall overhead caps the move for now<em class="n">Neutral</em></li>
+        <li><span class="agx-av" style="background:#fc3963"><svg><use href="#ag-news"/></svg></span>Reports in 9 days, implied move rising<em class="a">Against</em></li>
+      </ul></div>
+  </div>
+  <p class="fine">The NVDA card is an illustration of the desk's layout, not a live read. Paper accounts are hypothetical and use published rules; past results do not predict future results. Options carry substantial risk, including the loss of the entire premium. Research and education only, not financial advice.</p>
+</div></section>
+<script>
+(function(){
+  var API="https://dashboard.tradewithao.com/api/public/";
+  function J(u){return fetch(API+u,{cache:"no-store"}).then(function(r){return r.json()})}
+  function usd(v){return "$"+Math.round(v).toLocaleString("en-US")}
+  function setV(id,bal,start){var e=document.getElementById(id);if(!e)return;var r=(bal/start-1)*100;e.innerHTML=usd(bal)+'<small><span class="'+(r>=0?"up":"dn")+'">'+(r>=0?"+":"−")+Math.abs(r).toFixed(1)+"%</span></small>"}
+  function miss(id){var e=document.getElementById(id);if(e)e.innerHTML='<small><a href="https://tradewithao.com/record/">See the record ↗</a></small>'}
+  J("track-record").then(function(d){
+    var rows=(d.trades||[]).filter(function(x){return x&&!x.shadow&&!x.unpriced&&x.status==="closed"&&isFinite(Number(x.resultPct))&&x.exitAt}).map(function(x){return{x:x,o:Date.parse(x.openedAt)||Date.parse(x.exitAt),e:Date.parse(x.exitAt)}}).sort(function(a,b){return a.o-b.o||a.e-b.e});
+    var done=[];rows.forEach(function(r){var bal=10000;done.forEach(function(c){if(c.e<=r.o)bal+=c.pnl});r.pnl=bal*0.10*Number(r.x.resultPct)/100;done.push(r)});
+    var bal=10000;rows.forEach(function(r){bal+=r.pnl});setV("agx-v-omega",bal,10000);
+    var last=rows.slice().sort(function(a,b){return b.e-a.e})[0];
+    if(last&&last.x){var x=last.x,up=Number(x.resultPct)>=0;
+      document.getElementById("agx-note-day").textContent=new Date(x.exitAt).toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})+(x.exitedAt?" · closed "+x.exitedAt+" ET":"");
+      document.getElementById("agx-note-head").textContent=(x.contract||x.ticker)+(up?": target hit.":": stopped out, kept on the record.");
+      if(x.story)document.getElementById("agx-note-body").textContent=String(x.story).replace(/\s*Market read at entry:.*$/,"");
+      var t=document.getElementById("agx-note-trade");t.hidden=false;t.children[0].textContent=(x.read==="Bearish"?"Put":"Call")+" · "+(x.enteredAt?"in "+x.enteredAt:"")+(x.heldFor?" · held "+x.heldFor:"");t.children[1].innerHTML='<span class="'+(up?"up":"dn")+'">'+(up?"+":"−")+Math.abs(Number(x.resultPct)).toFixed(1)+"%</span>"}
+  }).catch(function(){miss("agx-v-omega")});
+  J("earnings-lane").then(function(e){if(!e||!e.ok||!e.account)throw 0;setV("agx-v-earn",e.account.balance,e.account.start||10000)}).catch(function(){miss("agx-v-earn")});
+  J("signal-record?days=10").then(function(s){var p=s.portfolio||{};if(!p.balance)throw 0;setV("agx-v-engine",p.balance,p.start||10000)}).catch(function(){miss("agx-v-engine")});
+})();
+</script>
+
 <section class="video-section" id="videos"><div class="container"><span class="eyebrow" style="color:#009477">See how it works</span><h2 class="section-title">Watch the research<br>come together.</h2><p class="body-lg">Three published walkthroughs show the current product, research workflow and read-only Connect to AI experience. All three open on A&amp;O's video page.</p><div class="video-cards"><article class="video reveal"><div class="video-cover"><img src="/images/alfred-v2/alfred-cbc69c641d5b.webp" width="1600" height="601" alt="A&O customer dashboard video poster" loading="lazy"/><button class="play" aria-label="Open product demo" data-modal="video">▶</button><span class="slot">EXISTING VIDEO · 1:33</span></div><div class="video-copy"><h3>Meet the Alfred desk</h3><p>Your first introduction to the existing research terminal and how to approach a setup.</p><a href="https://tradewithao.com/watch/" class="link">Watch the current demo ↗</a></div></article><article class="video reveal"><div class="video-cover"><img src="/images/alfred-v2/alfred-7c2d8db798f0.webp" width="1600" height="601" alt="Contract research walkthrough video poster" loading="lazy"/><button class="play" aria-label="Open walkthrough" data-modal="video">▶</button><span class="slot">EXISTING WALKTHROUGH · 3:27</span></div><div class="video-copy"><h3>Inside the workflow</h3><p>Walk through the research process, settings, analytics and contract comparison tools.</p><a href="https://tradewithao.com/watch/" class="link">Watch the walkthrough ↗</a></div></article><article class="video reveal"><div class="video-cover"><img src="/images/alfred-v2/alfred-7b3e5a9a6232.webp" width="1536" height="1024" alt="Connect to AI video poster" loading="lazy"/><button class="play" aria-label="Open Connect to AI demo" data-modal="video">▶</button><span class="slot">EXISTING VIDEO · 0:45</span></div><div class="video-copy"><h3>Connect Alfred to AI</h3><p>See how a supported AI assistant can inspect the desk in a read-only research workflow.</p><a href="https://tradewithao.com/watch/" class="link">Watch Connect to AI ↗</a></div></article></div></div></section>
 <!-- Oct 31 (Pavan): the track record is back on the home page, live from the public API, plus a Watchtower illustration. -->
 <style>
@@ -90,7 +232,9 @@ body[data-theme="dark"]{--ink:#f7fafc;--muted:#a5b4c0;--rule:#354047;--white:#11
 .ao-rec .head,.ao-wt .head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
 .ao-rec .section-title,.ao-wt .section-title{font-size:clamp(34px,4.2vw,58px);margin:10px 0 10px}
 .ao-rec .lede,.ao-wt .lede{max-width:640px;color:var(--muted);font-size:17px;line-height:1.55;margin:0}
-.ao-books{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.ao-books{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:1240px){.ao-books{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media (max-width:640px){.ao-books{grid-template-columns:1fr!important}}
 .ao-book{background:var(--white);border:1px solid var(--rule);border-radius:22px;padding:22px 22px 18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;min-width:0}
 .ao-book h3{margin:0;font-size:15px;font-weight:800;letter-spacing:.01em}
 .ao-book .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -127,11 +271,12 @@ body[data-theme="dark"]{--ink:#f7fafc;--muted:#a5b4c0;--rule:#354047;--white:#11
 </style>
 <section class="ao-rec" id="record"><div class="container">
   <div class="head"><div><span class="eyebrow">Track record · every result kept</span><h2 class="section-title">The receipts, live.</h2>
-    <p class="lede">Every pick Omega took, our own desk trades and the engine's signals. Wins and losses, straight from the public record. Nothing removed after the fact.</p></div>
+    <p class="lede">Every pick Omega took, its earnings trades, our own desk trades and the engine's signals. Wins and losses, straight from the public record. Nothing removed after the fact.</p></div>
     <a class="btn btn-primary" href="https://tradewithao.com/record/">See every trade <span aria-hidden="true">↗</span></a></div>
   <div class="ao-books">
     <article class="ao-book" id="ao-book-omega"><span class="tag">Omega · paper picks</span><h3>$10,000 paper account</h3><div class="big">…</div><div class="sub">Loading the live record…</div><svg aria-hidden="true"></svg><div class="stats"></div><p class="note">10% of the balance per pick, rules frozen and published before the trades. Paper results.</p></article>
     <article class="ao-book" id="ao-book-desk"><span class="tag">Our desk trades · real fills</span><h3>Founder's own account, by hand</h3><div class="big">…</div><div class="sub">Loading…</div><svg aria-hidden="true"></svg><div class="stats"></div><p class="note">Real buy and sell prices from our brokerage export. Account numbers and balances are not shown.</p></article>
+    <article class="ao-book" id="ao-book-earn"><span class="tag">Earnings · paper</span><h3>Trades the report, out by morning</h3><div class="big">…</div><div class="sub">Loading…</div><svg aria-hidden="true"></svg><div class="stats"></div><p class="note">A $10,000 account putting 5% into each earnings trade, out the next morning at +50% / −50% or 10:00 AM. Paper results.</p></article>
     <article class="ao-book" id="ao-book-engine"><span class="tag">Engine signals · paper</span><h3>Every 5/5 and 1/5, all day</h3><div class="big">…</div><div class="sub">Loading…</div><svg aria-hidden="true"></svg><div class="stats"></div><p class="note">A hypothetical $10,000 account taking every engine signal at +30% / −30%. Paper results.</p></article>
   </div>
   <p class="foot">Past results, paper and real, do not predict future results. Options carry substantial risk, including the loss of the entire premium. Education only, not financial advice.</p>
@@ -171,6 +316,11 @@ body[data-theme="dark"]{--ink:#f7fafc;--muted:#a5b4c0;--rule:#354047;--white:#11
     var t=(v.trades||[]).slice(),a=v.all||{},run=0,curve=[0];t.forEach(function(x){run+=Number(x.pnl)||0;curve.push(run)});
     fill("ao-book-desk",(a.pnl>=0?"+":"")+usd(a.pnl||0),(a.pnl||0)>=0?"up":"down",(a.trades||0)+" trades over "+(a.days||0)+" days · real fills",[["Win rate",a.winRate!=null?Math.round(a.winRate)+"%":"—"],["Profit factor",a.profitFactor!=null?a.profitFactor.toFixed(2):"—"],["Days",String(a.days||0)]],curve);
   }).catch(function(){fail("ao-book-desk")});
+  J("earnings-lane").then(function(e){
+    if(!e||!e.ok||!e.account)throw 0;var ac=e.account,st=e.stats||{},cl=(e.trades||[]).filter(function(x){return x.status==="closed"&&isFinite(Number(x.resultPct))}).sort(function(a,b){return String(a.day).localeCompare(String(b.day))});
+    var bal=ac.start||10000,curve=[bal];cl.forEach(function(x){bal+=bal*(ac.size||0.05)*Number(x.resultPct)/100;curve.push(bal)});
+    fill("ao-book-earn",usd(ac.balance),ac.balance>=(ac.start||10000)?"up":"down",sgn(ac.returnPct||0)+" · "+(st.closed||0)+" earnings trades",[["Win rate",st.winRate!=null?st.winRate+"%":"—"],["Beat implied",st.beatImpliedRate!=null?st.beatImpliedRate+"%":"—"],["Closed",String(st.closed||0)]],curve);
+  }).catch(function(){var b=el("ao-book-earn");if(b)b.hidden=true;var g=document.querySelector(".ao-books");if(g)g.style.gridTemplateColumns="repeat(3,minmax(0,1fr))"});
   J("signal-record?days=10").then(function(s){
     var p=s.portfolio||{},h=(p.history||[]).slice().reverse(),curve=[p.start||10000];h.forEach(function(x){curve.push(x.balance)});
     fill("ao-book-engine",usd(p.balance||0),(p.balance||0)>=(p.start||10000)?"up":"down",sgn(p.returnPct||0)+" · "+(p.trades||0)+" closed signals",[["Win rate",p.trades?Math.round((p.wins||0)/p.trades*100)+"%":"—"],["Worst drawdown",p.maxDrawdownPct!=null?"−"+p.maxDrawdownPct+"%":"—"],["Closed",String(p.trades||0)]],curve);
