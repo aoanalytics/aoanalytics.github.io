@@ -49,7 +49,7 @@ body[data-theme="dark"]{--ink:#f7fafc;--muted:#a5b4c0;--rule:#354047;--white:#11
 <body>
 <header class="site-header" id="top"><div class="container header-inner">
 <a href="#top" class="wordmark" aria-label="Alfred by A&O Analytics home">alfred<b>.</b><small>BY A&amp;O ANALYTICS</small></a>
-<nav id="site-nav" class="nav-links" aria-label="Primary navigation"><a href="#how">How it works</a><a href="#discipline">Why Alfred</a><a href="#platform">The product</a><a href="#personalization">Personalization</a><a href="#pricing">Pricing</a></nav>
+<nav id="site-nav" class="nav-links" aria-label="Primary navigation"><a href="#how">How it works</a><a href="#discipline">Why Alfred</a><a href="#platform">The product</a><a href="#personalization">Personalization</a><a href="#watchtower">Watchtower</a><a href="#record">Track record</a><a href="#pricing">Pricing</a></nav>
 <div class="header-actions"><button class="icon-btn" id="theme-switch" title="Switch to dark mode" aria-label="Toggle dark mode">☾</button><a class="btn btn-outline" href="https://dashboard.tradewithao.com/">Log in</a><a class="btn btn-primary" href="https://whop.com/checkout/plan_GJwXJwksB3D0F/">Try Alfred for $1 <span aria-hidden="true">↗</span></a><button class="icon-btn mobile-menu" id="mobile-menu" aria-label="Open navigation" aria-expanded="false">☰</button></div>
 </div></header>
 <main>
@@ -84,6 +84,99 @@ body[data-theme="dark"]{--ink:#f7fafc;--muted:#a5b4c0;--rule:#354047;--white:#11
 </div></div></section>
 <section class="agent-section" id="agents"><div class="container"><div class="agent-intro"><div><span class="eyebrow" style="color:#009477">AI-assisted research, grounded in data</span><h2 class="section-title">A research team.<br>One clear read.</h2></div><p>Think of Alfred as a coordinated research workflow: gather different viewpoints, identify conflicts, compare them against your criteria and surface the evidence. The agent labels describe research functions, not five independent guarantees.</p></div><div class="agent-grid"><div class="agent-big reveal"><span class="glyph" style="background:#00b88c">◎</span><h4>Macro</h4><p>Market regime, breadth, rates and important upcoming events.</p></div><div class="agent-big reveal"><span class="glyph" style="background:#177fff">▥</span><h4>Quant</h4><p>Statistical setup evaluation, historical patterns and validation.</p></div><div class="agent-big reveal"><span class="glyph" style="background:#994fff">⌁</span><h4>Options Flow</h4><p>Prints, trading-side estimates, liquidity and unusual activity.</p></div><div class="agent-big reveal"><span class="glyph" style="background:#f6bd29">⬡</span><h4>Risk</h4><p>Eligibility, thesis invalidation, events and portfolio context.</p></div><div class="agent-big reveal"><span class="glyph" style="background:#fc3963">▤</span><h4>News</h4><p>Company catalysts, earnings and evolving market context.</p></div></div><div class="agent-criteria"><div><strong>The useful question isn't “Which agent is bullish?”</strong><p>It's “Why are they disagreeing, what evidence changed, and what would make this setup invalid?” The goal is inspectable research—not a chorus of confident opinions.</p></div><a href="https://dashboard.tradewithao.com/" class="btn btn-dark">Open the research desk ↗</a></div></div></section>
 <section class="video-section" id="videos"><div class="container"><span class="eyebrow" style="color:#009477">See how it works</span><h2 class="section-title">Watch the research<br>come together.</h2><p class="body-lg">Three published walkthroughs show the current product, research workflow and read-only Connect to AI experience. All three open on A&amp;O's video page.</p><div class="video-cards"><article class="video reveal"><div class="video-cover"><img src="/images/alfred-v2/alfred-cbc69c641d5b.webp" width="1600" height="601" alt="A&O customer dashboard video poster" loading="lazy"/><button class="play" aria-label="Open product demo" data-modal="video">▶</button><span class="slot">EXISTING VIDEO · 1:33</span></div><div class="video-copy"><h3>Meet the Alfred desk</h3><p>Your first introduction to the existing research terminal and how to approach a setup.</p><a href="https://tradewithao.com/watch/" class="link">Watch the current demo ↗</a></div></article><article class="video reveal"><div class="video-cover"><img src="/images/alfred-v2/alfred-7c2d8db798f0.webp" width="1600" height="601" alt="Contract research walkthrough video poster" loading="lazy"/><button class="play" aria-label="Open walkthrough" data-modal="video">▶</button><span class="slot">EXISTING WALKTHROUGH · 3:27</span></div><div class="video-copy"><h3>Inside the workflow</h3><p>Walk through the research process, settings, analytics and contract comparison tools.</p><a href="https://tradewithao.com/watch/" class="link">Watch the walkthrough ↗</a></div></article><article class="video reveal"><div class="video-cover"><img src="/images/alfred-v2/alfred-7b3e5a9a6232.webp" width="1536" height="1024" alt="Connect to AI video poster" loading="lazy"/><button class="play" aria-label="Open Connect to AI demo" data-modal="video">▶</button><span class="slot">EXISTING VIDEO · 0:45</span></div><div class="video-copy"><h3>Connect Alfred to AI</h3><p>See how a supported AI assistant can inspect the desk in a read-only research workflow.</p><a href="https://tradewithao.com/watch/" class="link">Watch Connect to AI ↗</a></div></article></div></div></section>
+<!-- Oct 31 (Pavan): the track record is back on the home page, live from the public API, plus a Watchtower illustration. -->
+<style>
+.ao-rec,.ao-wt{padding:96px 0;border-top:1px solid var(--rule)}
+.ao-rec .head,.ao-wt .head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.ao-rec .section-title,.ao-wt .section-title{font-size:clamp(34px,4.2vw,58px);margin:10px 0 10px}
+.ao-rec .lede,.ao-wt .lede{max-width:640px;color:var(--muted);font-size:17px;line-height:1.55;margin:0}
+.ao-books{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.ao-book{background:var(--white);border:1px solid var(--rule);border-radius:22px;padding:22px 22px 18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;min-width:0}
+.ao-book h3{margin:0;font-size:15px;font-weight:800;letter-spacing:.01em}
+.ao-book .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ao-book .big{font-size:40px;font-weight:850;letter-spacing:-.04em;line-height:1}
+.ao-book .big.up{color:var(--mintdeep)}.ao-book .big.down{color:var(--rose)}
+[data-theme="dark"] .ao-book .big.up{color:var(--mint)}
+.ao-book .sub{color:var(--muted);font-size:14px;font-weight:600}
+.ao-book .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border-top:1px solid var(--rule);padding-top:12px}
+.ao-book .stats div{display:flex;flex-direction:column;gap:2px}.ao-book .stats em{font-style:normal;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ao-book .stats b{font-size:18px;font-weight:800}
+.ao-book svg{width:100%;height:84px;display:block}
+.ao-book .note{font-size:12px;color:var(--muted);line-height:1.45;margin:0}
+.ao-rec .foot{margin-top:18px;font-size:13px;color:var(--muted);max-width:900px}
+.wtx-grid{display:grid;grid-template-columns:1.05fr 1fr 0.8fr;gap:18px;align-items:start}
+.wtx-card{background:var(--white);border:1px solid var(--rule);border-radius:22px;padding:20px;box-shadow:var(--shadow)}
+.wtx-card .wtx-step{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#007e6b;margin-bottom:12px}
+[data-theme="dark"] .wtx-card .wtx-step{color:var(--mint)}
+.wtx-ask{display:flex;align-items:center;gap:10px;border:1.5px solid var(--mint);border-radius:999px;padding:12px 16px;font-weight:600;font-size:15px}
+.wtx-ask i{font-style:normal;color:var(--mintdeep)}
+.wtx-bubble{margin-top:14px;background:var(--paper);border-radius:16px;padding:14px;font-size:14px;line-height:1.5}
+.wtx-sum{list-style:none;margin:12px 0;padding:0;display:grid;gap:8px}
+.wtx-sum li{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.4;border:1px solid var(--rule);border-radius:12px;padding:10px 12px}
+.wtx-sum li b{min-width:86px;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.wtx-act{display:flex;gap:8px;margin-top:6px}.wtx-act span{padding:10px 16px;border-radius:12px;font-weight:800;font-size:14px;border:1px solid var(--rule)}
+.wtx-act span.pri{background:var(--mint);border-color:var(--mint);color:#06231c}
+.wtx-phone{border-radius:34px;border:8px solid #0d1014;background:linear-gradient(160deg,#16303a,#0d1014 60%);padding:18px 12px 26px;color:#fff;min-height:360px}
+.wtx-phone .time{text-align:center;font-size:44px;font-weight:300;margin:6px 0 14px;letter-spacing:-.02em}
+.wtx-note{background:rgba(255,255,255,.14);backdrop-filter:blur(8px);border-radius:16px;padding:12px;font-size:13px;line-height:1.4}
+.wtx-note .app{display:flex;justify-content:space-between;font-size:11px;font-weight:700;opacity:.8;margin-bottom:6px}
+.wtx-note b{display:block;font-size:14px;margin-bottom:2px}
+.ao-wt .pts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:22px}
+.ao-wt .pts div{font-size:14px;line-height:1.5;color:var(--muted)}.ao-wt .pts b{display:block;color:var(--ink);font-size:15px;margin-bottom:4px}
+@media (max-width:980px){.ao-books,.wtx-grid,.ao-wt .pts{grid-template-columns:1fr}}
+</style>
+<section class="ao-rec" id="record"><div class="container">
+  <div class="head"><div><span class="eyebrow">Track record · every result kept</span><h2 class="section-title">The receipts, live.</h2>
+    <p class="lede">Every pick Omega took, our own desk trades and the engine's signals. Wins and losses, straight from the public record. Nothing removed after the fact.</p></div>
+    <a class="btn btn-primary" href="https://tradewithao.com/record/">See every trade <span aria-hidden="true">↗</span></a></div>
+  <div class="ao-books">
+    <article class="ao-book" id="ao-book-omega"><span class="tag">Omega · paper picks</span><h3>$10,000 paper account</h3><div class="big">…</div><div class="sub">Loading the live record…</div><svg aria-hidden="true"></svg><div class="stats"></div><p class="note">10% of the balance per pick, rules frozen and published before the trades. Paper results.</p></article>
+    <article class="ao-book" id="ao-book-desk"><span class="tag">Our desk trades · real fills</span><h3>Founder's own account, by hand</h3><div class="big">…</div><div class="sub">Loading…</div><svg aria-hidden="true"></svg><div class="stats"></div><p class="note">Real buy and sell prices from our brokerage export. Account numbers and balances are not shown.</p></article>
+    <article class="ao-book" id="ao-book-engine"><span class="tag">Engine signals · paper</span><h3>Every 5/5 and 1/5, all day</h3><div class="big">…</div><div class="sub">Loading…</div><svg aria-hidden="true"></svg><div class="stats"></div><p class="note">A hypothetical $10,000 account taking every engine signal at +30% / −30%. Paper results.</p></article>
+  </div>
+  <p class="foot">Past results, paper and real, do not predict future results. Options carry substantial risk, including the loss of the entire premium. Education only, not financial advice.</p>
+</div></section>
+<section class="ao-wt" id="watchtower"><div class="container">
+  <div class="head"><div><span class="eyebrow">Alfred Watchtower</span><h2 class="section-title">Just tell Alfred what to watch.</h2>
+    <p class="lede">Say it the way you'd text a friend. Alfred turns it into a rule, shows you exactly what it will watch, and tells you when your conditions are met, with the why behind it.</p></div></div>
+  <div class="wtx-grid">
+    <div class="wtx-card"><div class="wtx-step">1 · Ask</div><div class="wtx-ask"><i>✦</i> hey, when NVDA hits 5/5 alert me</div>
+      <div class="wtx-bubble">Got it. I'll watch <b>NVDA</b> and tell you when its setup reaches <b>5/5 bullish</b>. Check the conditions, then turn it on.</div></div>
+    <div class="wtx-card"><div class="wtx-step">2 · Confirm</div><ul class="wtx-sum"><li><b>Ticker</b>NVDA</li><li><b>When</b>Setup grade reaches 5/5 (bullish)</li><li><b>Hours</b>Regular session</li><li><b>Notify</b>Phone and in-app</li></ul>
+      <div class="wtx-act"><span class="pri">Turn on</span><span>Edit</span></div></div>
+    <div class="wtx-phone" aria-label="Illustration of a phone notification"><div class="time">10:42</div>
+      <div class="wtx-note"><div class="app"><span>alfred. Watchtower</span><span>now</span></div><b>NVDA reached 5/5</b>Price held above VWAP and the options money is on the call side. What would change it: a 5-minute close back under $207.</div></div>
+  </div>
+  <div class="pts"><div><b>Plain English in, exact rule out</b>"Text me if SPY breaks down", "lmk when AMD gets to a 5", "what am I watching".</div><div><b>Nothing turns on by itself</b>Every request shows a confirmation card first. Pause, resume or delete any time.</div><div><b>The why, not just the ping</b>Each alert carries the evidence and what would change the read. You decide what to do with it.</div></div>
+  <p class="foot" style="margin-top:18px;font-size:13px;color:var(--muted)">Illustration of the product. Not a live alert, not a recommendation. Research and education only.</p>
+</div></section>
+<script>
+(function(){
+  var API="https://dashboard.tradewithao.com/api/public/";
+  function el(id){return document.getElementById(id)}
+  function usd(v){return (v<0?"−$":"$")+Math.abs(Math.round(v)).toLocaleString("en-US")}
+  function sgn(v){return (v>0?"+":v<0?"−":"")+Math.abs(v).toFixed(1)+"%"}
+  function spark(svg,vals){if(!svg||vals.length<2)return;var lo=Math.min.apply(null,vals),hi=Math.max.apply(null,vals);if(hi-lo<1e-9)hi=lo+1;var W=300,H=84,p=vals.map(function(v,i){return (i/(vals.length-1)*W).toFixed(1)+","+(4+(hi-v)/(hi-lo)*(H-8)).toFixed(1)});var up=vals[vals.length-1]>=vals[0],c=up?"var(--mint)":"var(--rose)";svg.setAttribute("viewBox","0 0 "+W+" "+H);svg.setAttribute("preserveAspectRatio","none");svg.innerHTML='<polyline points="'+p.join(" ")+'" fill="none" stroke="'+c+'" stroke-width="2.5" vector-effect="non-scaling-stroke"/>'}
+  function fill(id,big,cls,sub,stats,curve){var b=el(id);if(!b)return;var g=b.querySelector(".big");g.textContent=big;g.className="big "+cls;b.querySelector(".sub").textContent=sub;b.querySelector(".stats").innerHTML=stats.map(function(s){return "<div><em>"+s[0]+"</em><b>"+s[1]+"</b></div>"}).join("");spark(b.querySelector("svg"),curve)}
+  function fail(id){var b=el(id);if(b)b.querySelector(".sub").textContent="The live record could not load. See every trade on the record page."}
+  function J(u){return fetch(API+u,{cache:"no-store"}).then(function(r){return r.json()})}
+  J("track-record").then(function(d){
+    var rows=(d.trades||[]).filter(function(x){return x&&!x.shadow&&!x.unpriced&&x.status==="closed"&&isFinite(Number(x.resultPct))&&x.exitAt}).map(function(x){return{x:x,o:Date.parse(x.openedAt)||Date.parse(x.exitAt),e:Date.parse(x.exitAt)}}).sort(function(a,b){return a.o-b.o||a.e-b.e});
+    var done=[];rows.forEach(function(r){var bal=10000;done.forEach(function(c){if(c.e<=r.o)bal+=c.pnl});r.pnl=bal*0.10*Number(r.x.resultPct)/100;done.push(r)});
+    var byE=rows.slice().sort(function(a,b){return a.e-b.e}),bal=10000,curve=[10000];byE.forEach(function(r){bal+=r.pnl;curve.push(bal)});
+    var w=rows.filter(function(r){return r.pnl>0}),gw=w.reduce(function(a,r){return a+r.pnl},0),gl=-rows.filter(function(r){return r.pnl<0}).reduce(function(a,r){return a+r.pnl},0);
+    fill("ao-book-omega",usd(bal),bal>=10000?"up":"down",sgn((bal/10000-1)*100)+" since "+(d.startedAt?new Date(d.startedAt).toLocaleDateString("en-US",{month:"short",day:"numeric"}):"the start")+" · "+rows.length+" closed picks",[["Win rate",rows.length?Math.round(w.length/rows.length*100)+"%":"—"],["Profit factor",gl>0?(gw/gl).toFixed(2):"—"],["Closed",String(rows.length)]],curve);
+  }).catch(function(){fail("ao-book-omega")});
+  J("desk-trades").then(function(v){
+    var t=(v.trades||[]).slice(),a=v.all||{},run=0,curve=[0];t.forEach(function(x){run+=Number(x.pnl)||0;curve.push(run)});
+    fill("ao-book-desk",(a.pnl>=0?"+":"")+usd(a.pnl||0),(a.pnl||0)>=0?"up":"down",(a.trades||0)+" trades over "+(a.days||0)+" days · real fills",[["Win rate",a.winRate!=null?Math.round(a.winRate)+"%":"—"],["Profit factor",a.profitFactor!=null?a.profitFactor.toFixed(2):"—"],["Days",String(a.days||0)]],curve);
+  }).catch(function(){fail("ao-book-desk")});
+  J("signal-record?days=10").then(function(s){
+    var p=s.portfolio||{},h=(p.history||[]).slice().reverse(),curve=[p.start||10000];h.forEach(function(x){curve.push(x.balance)});
+    fill("ao-book-engine",usd(p.balance||0),(p.balance||0)>=(p.start||10000)?"up":"down",sgn(p.returnPct||0)+" · "+(p.trades||0)+" closed signals",[["Win rate",p.trades?Math.round((p.wins||0)/p.trades*100)+"%":"—"],["Worst drawdown",p.maxDrawdownPct!=null?"−"+p.maxDrawdownPct+"%":"—"],["Closed",String(p.trades||0)]],curve);
+  }).catch(function(){fail("ao-book-engine")});
+})();
+</script>
 <section class="price-section" id="pricing"><div class="container price-wrap"><div><span class="eyebrow">Straightforward pricing</span><h2 class="section-title">Try the whole<br>research desk.</h2><p>Start with your own watchlist, explore the models, compare structures and test historical ideas. No brokerage transfer. Your capital stays at your own broker.</p><a href="https://tradewithao.com/record/" class="link" style="color:#a3f7dd">Review the public paper record and methodology ↗</a></div><div class="price-box"><span class="pill" style="background:#14392f;color:#a6ffdd;border-color:#2c6452">Desk membership</span><div style="margin-top:14px"><span class="cost">$1</span><span style="color:#b9c6cc;font-size:17px"> for 30 days</span></div><div style="color:#bcc9d0;font-size:15px;margin-top:7px">Then $50/month · Cancel through Whop</div><ul><li>Personal watchlist and research preferences</li><li>Options chain, Greeks, flow and dealer context</li><li>Rule Lab and paper-strategy research</li><li>Morning Brief and portfolio research tools</li><li>Ask Alfred / Connect to AI (beta)</li></ul><a class="btn btn-primary" href="https://whop.com/checkout/plan_GJwXJwksB3D0F/">Start the $1 desk trial ↗</a><p class="fineprint">Verified against the live Whop checkout on October 29, 2026. Initial fee is $1 plus applicable taxes; after 30 days, the subscription renews at $50 per month until canceled.</p></div></div></section>
 <section class="faq-section" id="faq"><div class="container faq-wrap"><span class="eyebrow" style="color:#008970;text-align:center;display:block">Questions worth asking</span><h2 class="section-title">The details matter.</h2><details><summary>Is Alfred an automated trading bot?</summary><p>No. The customer-facing Alfred desk is built around research and human decisions. It does not place brokerage orders for retail customers. Internal Omega paper research is separate from this product and should not be confused with customer execution.</p></details><details><summary>What does a contract-fit score mean?</summary><p>It organizes how the displayed contract compares with the stated research and filtering criteria. It does not mean an 88% chance of profit and is not a prediction of an investment outcome. Always review liquidity, IV, underlying price movement and potential loss.</p></details><details><summary>Can I use Alfred to research stocks and longer-term strategies?</summary><p>Yes. The existing desk includes stock and options research, and A&amp;O is developing a more integrated Investing &amp; Income workflow. Feature availability depends on the released build; illustrations on this page are clearly identified as concepts.</p></details><details><summary>Does a large options print tell us what a trader expects?</summary><p>Not necessarily. A trade may be an opening or closing transaction, a hedge, or one leg of a spread. Print-side estimates and open-interest figures have important limitations. Alfred aims to make these visible rather than present every large call print as a bullish bet.</p></details><details><summary>What is the difference between Simple and Pro?</summary><p>Simple emphasizes the familiar setup tiles, watchlists and quick summaries. Pro is designed to expose deeper contract research, charts, flow, dealer levels and evidence. The two experiences should rely on the same authoritative research data.</p></details><details><summary>How much does it cost?</summary><p>The current checkout lists a $1 initial fee plus applicable taxes for 30 days, followed by $50 per month plus applicable taxes. Final subscription terms are shown in the linked Whop checkout. See the current <a href="https://tradewithao.com/" style="text-decoration:underline">public site</a> for updates.</p></details></div>
 <div class="end-cta"><div><h2>Your markets.<br>Your questions.<br>Your call.</h2><p>Build the research process around the trader you are.</p></div><a class="btn btn-dark" href="https://whop.com/checkout/plan_GJwXJwksB3D0F/">Try Alfred for $1 ↗</a></div></section>
