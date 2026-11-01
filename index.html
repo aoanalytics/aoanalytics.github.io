@@ -49,7 +49,7 @@ body[data-theme="dark"]{--ink:#f7fafc;--muted:#a5b4c0;--rule:#354047;--white:#11
 <body>
 <header class="site-header" id="top"><div class="container header-inner">
 <a href="#top" class="wordmark" aria-label="Alfred by A&O Analytics home">alfred<b>.</b><small>BY A&amp;O ANALYTICS</small></a>
-<nav id="site-nav" class="nav-links" aria-label="Primary navigation"><a href="#how">How it works</a><a href="#discipline">Why Alfred</a><a href="#platform">The product</a><a href="#agents">Agents</a><a href="#personalization">Personalization</a><a href="#watchtower">Watchtower</a><a href="#record">Track record</a><a href="#pricing">Pricing</a></nav>
+<nav id="site-nav" class="nav-links" aria-label="Primary navigation"><a href="#how">How it works</a><a href="#discipline">Why Alfred</a><a href="#platform">The product</a><a href="#your-morning">Your desk</a><a href="#agents">Agents</a><a href="#watchtower">Watchtower</a><a href="#record">Track record</a><a href="#pricing">Pricing</a></nav>
 <div class="header-actions"><button class="icon-btn" id="theme-switch" title="Switch to dark mode" aria-label="Toggle dark mode">☾</button><a class="btn btn-outline" href="https://dashboard.tradewithao.com/">Log in</a><a class="btn btn-primary" href="https://whop.com/checkout/plan_GJwXJwksB3D0F/">Try Alfred for $1 <span aria-hidden="true">↗</span></a><button class="icon-btn mobile-menu" id="mobile-menu" aria-label="Open navigation" aria-expanded="false">☰</button></div>
 </div></header>
 <main>
@@ -82,6 +82,37 @@ body[data-theme="dark"]{--ink:#f7fafc;--muted:#a5b4c0;--rule:#354047;--white:#11
 <article class="feature-card reveal"><div class="feature-visual"><img src="/images/alfred-v2/alfred-afc294ea4d73.webp" width="1600" height="900" alt="Flow research design study showing a print feed and synchronized chart" loading="lazy" /></div><div class="feature-copy"><span class="eyebrow">Flow &amp; dealer intelligence</span><h3>Read the tape in context.</h3><p>Investigate significant prints, bid/ask location, prior open interest, dealer walls and what the print cannot establish.</p><button class="link" data-modal="flow" style="border:0;background:none;padding:0;align-self:flex-start">How Alfred reads flow ↗</button></div></article>
 <article class="feature-card reveal"><div class="feature-visual"><img src="/images/alfred-v2/alfred-3cd0420cd03f.webp" width="1536" height="1024" alt="Illustrative light-first Alfred design board showing product layouts" loading="lazy" /></div><div class="feature-copy"><span class="eyebrow">Investing &amp; Income</span><h3>More than today's trade.</h3><p>Research stocks, longer-dated calls, portfolio context and option-income structures with the same risk-first thinking.</p><button class="link" data-modal="investing" style="border:0;background:none;padding:0;align-self:flex-start">Explore investing workflows ↗</button></div></article>
 </div></div></section>
+<!-- Nov 1 (Pavan): the desk starts with you. Real "Your morning" render with sample data. -->
+<style>
+.ymx{padding:104px 0;border-top:1px solid var(--rule)}
+.ymx .head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.ymx .section-title{font-size:clamp(36px,4.6vw,64px);margin:10px 0 10px}
+.ymx .lede{max-width:680px;color:var(--muted);font-size:17px;line-height:1.55;margin:0}
+.ymx-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:26px;align-items:start}
+.ymx-shot{border-radius:22px;overflow:hidden;border:1px solid var(--rule);box-shadow:var(--shadow);background:var(--white)}
+.ymx-shot img{display:block;width:100%;height:auto}
+.ymx-shot .dk{display:none}[data-theme="dark"] .ymx-shot .dk{display:block}[data-theme="dark"] .ymx-shot .lt{display:none}
+.ymx-pts{display:grid;gap:14px}
+.ymx-pt{background:var(--white);border:1px solid var(--rule);border-radius:18px;padding:18px 20px}
+.ymx-pt b{display:block;font-size:17px;margin-bottom:4px}.ymx-pt p{margin:0;color:var(--muted);font-size:15px;line-height:1.5}
+.ymx-pt .q{display:inline-block;margin-top:10px;padding:8px 14px;border-radius:999px;border:1.5px solid var(--mint);font-weight:600;font-size:14px}
+.ymx .fine{margin-top:18px;font-size:13px;color:var(--muted);max-width:920px}
+@media (max-width:980px){.ymx-grid{grid-template-columns:1fr}}
+</style>
+<section class="ymx" id="your-morning"><div class="container">
+  <div class="head"><div><span class="eyebrow" style="color:#009477">Your morning</span><h2 class="section-title">It starts with you,<br>not the market.</h2>
+    <p class="lede">Every sign-in opens on your Morning Brief, and the first thing on it is you: your plan for today, your names, your open trades, what Watchtower caught overnight, and what the agents think about the tickers you actually trade. Then the market.</p></div></div>
+  <div class="ymx-grid">
+    <div class="ymx-shot"><img class="lt" src="/images/alfred-v2/your-morning-light.webp" width="1980" height="1779" alt="Alfred's Your morning section: today's plan, your names, your open trades, Watchtower, the agents on your names, and a plan check" loading="lazy"/><img class="dk" src="/images/alfred-v2/your-morning-dark.webp" width="1980" height="1779" alt="Alfred's Your morning section in dark mode" loading="lazy"/></div>
+    <div class="ymx-pts">
+      <div class="ymx-pt"><b>Ask before you click buy</b><p>Alfred checks a trade against the plan you wrote: your budget, your max loss at your stop, trades left today, your styles, earnings and your own history with that ticker.</p><span class="q">✦ can I take NVDA 210C 11/7 at 3.40, 10 contracts?</span></div>
+      <div class="ymx-pt"><b>See how you do with Alfred's read, and against it</b><p>Bring in your trades and Alfred lines each entry up with what its read was at that moment. Your win rate with the read and against it, side by side.</p></div>
+      <div class="ymx-pt"><b>Your plan, kept for you</b><p>Today's trades used, your daily loss room, and a heads-up on your phone at your last trade of the day and at 75% of your limit.</p></div>
+      <div class="ymx-pt"><b>Your journal, your patterns</b><p>Import a broker CSV or log a trade. Your best hour, how long you hold losers, your green and red days, and where you break your plan.</p></div>
+    </div>
+  </div>
+  <p class="fine">Shown with sample data. Your trades stay private to your account and are never used for A&amp;O's research. Alfred is research and education, not financial advice, and never places trades.</p>
+</div></section>
 <!-- Oct 31 (Pavan): the agents, presented as a desk you can meet: who they are, when they work, what they show, with live paper accounts. -->
 <style>
 .agx{padding:104px 0;border-top:1px solid var(--rule)}
