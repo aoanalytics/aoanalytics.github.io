@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Alfred track record · every result kept</title>
+<meta name="description" content="Alfred's paper track record in plain numbers: every pick kept, losers included, what went wrong and what we changed.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/next/next.css">
+<link rel="icon" href="/ao-logo-small.jpg">
+</head>
+<body>
+<header class="hd"><div class="wrap">
+  <a class="logo" href="/next/">alfred<b>.</b><small>BY A&amp;O ANALYTICS</small></a>
+  <nav class="nav" aria-label="Main"><a href="/next/#how">How it works</a><a href="/next/#different">Why Alfred</a><a href="/next/record.html" aria-current="page">Track record</a><a href="/next/#pricing">Pricing</a><a href="/about/">About</a></nav>
+  <div class="acts"><a class="btn btn-ghost" href="https://dashboard.tradewithao.com/">Log in</a><a class="btn btn-primary" href="https://whop.com/checkout/plan_GJwXJwksB3D0F/">Start for $1</a></div>
+</div></header>
+
+<main>
+<section class="hero" style="padding-bottom:56px"><div class="wrap">
+  <span class="eyebrow">Track record · paper trading on live quotes</span>
+  <h1 style="font-size:clamp(36px,5vw,56px)">Every pick. Every loss.<br>What we changed.</h1>
+  <p class="lead">These are our own model's official picks, recorded the moment they were made and never edited. It is paper trading on live option quotes, not live trading, and past results don't predict future ones.</p>
+  <div class="score" id="score"><div class="stat"><small>Loading</small><b>…</b></div></div>
+  <p class="fine" id="score-note"></p>
+</div></section>
+
+<section><div class="wrap">
+  <span class="eyebrow">How to read it</span>
+  <h2>Three numbers that explain the record.</h2>
+  <div class="grid g3" style="margin-top:28px">
+    <div class="card"><span class="k">Reached +30% vs closed green</span><h3 id="x-reach">Most picks went up first.</h3><p id="x-reach-p">Many picks reached +30% at some point but closed red: the old exit waited for +30% and allowed −50%, so a gain could turn into a loss. That is why the exit changed on Nov 9.</p></div>
+    <div class="card"><span class="k">At the mid vs after costs</span><h3>Real fills cost money.</h3><p id="x-cost">The mid is halfway between the bid and the ask. A real trade buys at the ask and sells at the bid. On wide contracts that gap alone can turn a small edge into a loss, so we show both.</p></div>
+    <div class="card"><span class="k">The signal log vs the picks</span><h3>Two different questions.</h3><p>The signal log asks “did the stock move the way the read said?” The picks ask “did the option trade make money after its exit rules?” A read can be right on direction while the option still loses, which is why the signal log can look better.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <span class="eyebrow">What went wrong · what we changed</span>
+  <h2>We change the rules in public, with dates.</h2>
+  <p class="lead">Each rule set is published with a fingerprint before it runs, so nobody can quietly rewrite it. Every change below was dated, approved and applied only to new picks.</p>
+  <div class="timeline">
+    <div><time>Oct 24</time><h3>Rules frozen and published</h3><p>Version 1 was locked with its fingerprint before the first session. Same day, version 2: the strongest reads with no valid price location now wait.</p></div>
+    <div class="bad"><time>Nov 2 · problem</time><h3>Chasing stretched moves</h3><p>Picks were taken on moves the desk itself had flagged as stretched. Version 3: no pick on a stretched read, and none against a reversal call on the same name in the last 45 minutes.</p></div>
+    <div class="bad"><time>Nov 5 · problem</time><h3>Index picks against the day's direction</h3><p>Version 4: an index pick waits when the day has already reached the other side's first target and not its own.</p></div>
+    <div><time>Nov 5</time><h3>One read for everyone</h3><p>Version 5: Omega uses exactly the read members see on the board, with the same first-target guard on every ticker.</p></div>
+    <div class="bad"><time>Nov 6 · problem</time><h3>Losers bigger than winners</h3><p>Winners were capped at +30% while losers ran to −50%, so winning half the time still lost money. Version 6, from Nov 9: stop at −30%, sell half at +30%, let the rest run with +15% locked in, and sell anything red at 3:50 PM.</p></div>
+    <div><time>Nov 8</time><h3>Every setup measured on its own option</h3><p>Every signal is now saved with what it looked like and whether its own contract reached +30% before −30%. That data decides the next change, not a hunch.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <span class="eyebrow">Questions people ask</span>
+  <h2>Straight answers.</h2>
+  <details><summary>Why do other exit plans look better than the official one?</summary><p id="x-whatif">Because they are measured after the fact on the same trades. The official exit was frozen in advance. Plans that let winners run did better on these trades, which is why the official exit moved to a runner-style plan on Nov 9. We keep measuring every plan beside the official one, so a better one has to prove itself on new trades first.</p></details>
+  <details><summary>What is Omega, and why can an account show as “locked”?</summary><p>Omega is our internal paper-trading agent: it trades the model's picks in paper accounts to test them. Each account has a safety switch: if it falls too far from its peak, it stops opening new trades until we review it. The official picks above keep being recorded either way, because they are the model's picks, not one account's orders.</p></details>
+  <details><summary>Is this live money?</summary><p>No. It is paper trading on live option quotes. We show the mid and the after-costs version so you can see what real fills would have done.</p></details>
+  <details><summary>Where is every detail?</summary><p>The full record, with every trade, every lane we test and every correction, is on the <a href="/record/">full record page</a>.</p></details>
+</div></section>
+</main>
+
+<footer class="ft"><div class="wrap"><a class="logo" href="/next/">alfred<b>.</b></a><nav><a href="/record/">Full record</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/risk.html">Risk</a><a href="/disclaimer.html">Disclaimer</a></nav><span class="fine">Paper trading on live quotes. Education and research only, not financial advice.</span></div></footer>
+<script>
+window.aoRecordExtras = function (d) {
+  var o = d.overall || {}, w = d.whatIf || {};
+  if (o.reached30Rate != null) {
+    document.getElementById("x-reach").textContent = o.reached30Rate + "% reached +30%. " + o.winRate + "% closed green.";
+  }
+  var a = (d.allocator || {}).account || {};
+  if (a.mid && a.afterCosts) document.getElementById("x-cost").textContent = "The same picks: " + (a.mid.returnPct > 0 ? "+" : "") + a.mid.returnPct + "% on the $10K account at the mid, " + (a.afterCosts.returnPct > 0 ? "+" : "") + a.afterCosts.returnPct + "% after estimated costs. A real trade buys at the ask and sells at the bid; on wide contracts that gap alone turns a small edge into a loss. That is why tight bid-ask spreads now matter in our research.";
+  if (w.official != null && w.trail != null) document.getElementById("x-whatif").textContent = "On the same " + w.trades + " trades the frozen exit averaged " + w.official + "% a trade; a plan that trails the high averaged " + w.trail + "% and the blend " + w.blend + "%. These are measured after the fact, so the official exit moved to the blend on Nov 9 and every plan keeps being measured beside it on new trades.";
+};
+</script>
+<script src="/next/score.js"></script>
+</body>
+</html>
