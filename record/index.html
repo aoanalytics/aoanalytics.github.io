@@ -216,7 +216,7 @@
   <div class="actions"><a class="btn btn-text" href="https://dashboard.tradewithao.com/">Log in</a><a class="btn btn-light" href="https://whop.com/checkout/plan_GJwXJwksB3D0F" target="_blank" rel="noreferrer">Start for $1</a></div>
 </div></div>
 <nav class="subnav" aria-label="On this page"><div class="wrap">
-  <a href="#record">The record</a><a href="#chapter">From Oct 26</a><a href="#strategies">Strategies</a><a href="#versions">Model versions</a><a href="#own">Our own trades</a><a href="#receipts">Every pick</a><a href="#engine">Engine signals</a><a href="#built">How it is built</a>
+  <a href="#record">The record</a><a href="#c2Card">Challenge 2</a><a href="#chapter">From Oct 26</a><a href="#strategies">Strategies</a><a href="#versions">Model versions</a><a href="#own">Our own trades</a><a href="#receipts">Every pick</a><a href="#engine">Engine signals</a><a href="#built">How it is built</a>
 </div></nav>
 
 <main>
@@ -251,6 +251,16 @@
       <div class="legend" id="acctLegend"></div>
       <div id="acctChart"></div>
       <p class="rules" id="acctNote"></p>
+    </div>
+  </section>
+
+  <!-- Nov 5: $10K Challenge 2. Announced the night before its first look; forward only. -->
+  <section class="blk" id="c2Card" hidden>
+    <div class="blk-h"><span class="eyebrow" id="c2Eyebrow">$10K Challenge 2</span><h2 id="c2Title">A fresh $10,000, from the first look of Nov 6.</h2><p id="c2Sub"></p></div>
+    <div class="card">
+      <section class="stats" id="c2Stats" aria-live="polite"></section>
+      <div class="scroll"><table id="c2Table"></table></div>
+      <p class="rules" id="c2Note"></p>
     </div>
   </section>
 
@@ -444,6 +454,32 @@
     document.getElementById("acctLegend").innerHTML = series.map(function (x) { return '<span><i style="background:' + x[2] + '"></i>' + esc(x[0]) + "</span>"; }).join("");
     var pkI = 0; (cur.mid || []).forEach(function (v, i) { if (v > cur.mid[pkI]) pkI = i; });
     document.getElementById("acctNote").textContent = "Early days: " + (m.days || "") + " trading days, during which the exit rules were rebuilt three times. The account peaked at " + money(cur.mid[pkI]) + (cur.days[pkI] && cur.days[pkI] !== "start" ? " on " + day(cur.days[pkI] + "T16:00:00Z") : "") + " and stands at " + pct(m.returnPct) + " overall. Replayed on the same trades, trailing exits would have averaged +6% to +16% a trade instead of fixed targets (see below); Rule 4 puts that into practice from Oct 22. Each trade stays under the rule it was recorded with.";
+  }
+  /* Nov 5: $10K Challenge 2, a second account from Nov 6. Announced before any of its trades existed; nothing earlier is in it. */
+  function renderChallenge(list) {
+    var c = (list || []).filter(function (x) { return x && x.key === "challenge2"; })[0];
+    if (!c) return;
+    function money(v) { var x = n(v); return x === null ? "\u2014" : "$" + Math.round(x).toLocaleString("en-US"); }
+    function sp(v) { var x = n(v); return x === null ? "\u2014" : (x > 0 ? "+" : "") + x.toFixed(1) + "%"; }
+    var mid = (c.account && c.account.mid) || {}, net = (c.account && c.account.afterCosts) || {};
+    document.getElementById("c2Card").hidden = false;
+    var when = c.announcedAt ? new Date(c.announcedAt).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) + " ET" : "";
+    document.getElementById("c2Sub").textContent = "Started " + md(c.from) + ", 2026 with " + money(c.start) + ". Announced " + when + ", before any of its trades existed. " +
+      (c.started ? "" : "No trades yet: the first look is at the open. ") + "The first $10K account above continues unchanged; nothing from it is moved into this one.";
+    var stat = function (label, val, sub, k) { return '<div class="stat"><em>' + label + '</em><b class="' + (k || "") + '">' + val + "</b><small>" + sub + "</small></div>"; };
+    var rmid = n(mid.balance) !== null ? (mid.balance / c.start - 1) * 100 : null, rnet = n(net.balance) !== null ? (net.balance / c.start - 1) * 100 : null;
+    document.getElementById("c2Stats").innerHTML =
+      stat("At mid price", money(mid.balance), sp(rmid), cls(rmid)) +
+      stat("After estimated costs", money(net.balance), sp(rnet), cls(rnet)) +
+      stat("Closed trades", esc(c.closed) + (c.open ? " <small>+" + esc(c.open) + " open</small>" : ""), esc(c.wins) + " won, " + esc(c.losses) + " lost") +
+      stat("Win rate", c.winRate == null ? "\u2014" : esc(c.winRate) + "%", c.winRate == null ? "shown from 5 closed trades" : "of closed trades") +
+      stat("Average winner / loser", sp(c.avgWinnerPct) + " / " + sp(c.avgLoserPct), "at mid") +
+      stat("Profit factor", c.profitFactor && c.profitFactor.mid != null ? esc(c.profitFactor.mid) : "\u2014", "after costs " + (c.profitFactor && c.profitFactor.afterCosts != null ? esc(c.profitFactor.afterCosts) : "\u2014"));
+    var rows = (c.trades || []).map(function (t) {
+      return "<tr><td>" + esc(md(t.day)) + "</td><td><b>" + esc(t.ticker) + "</b></td><td>" + esc(t.side) + "</td><td>" + esc(t.horizon || "") + "</td><td>" + (t.status === "closed" ? '<span class="' + cls(t.resultPct) + '">' + sp(t.resultPct) + "</span>" : "open") + "</td><td>" + esc(t.exitReason || "") + "</td></tr>";
+    }).join("");
+    document.getElementById("c2Table").innerHTML = rows ? "<thead><tr><th>Day</th><th>Ticker</th><th>Side</th><th>Horizon</th><th>Result</th><th>Exit</th></tr></thead><tbody>" + rows + "</tbody>" : "";
+    document.getElementById("c2Note").textContent = (c.terms || "") + " Paper trading, for education. Not investment advice; past results do not predict future results.";
   }
   function renderChanges(d) {
     var g = d.governance || {}, ch = (g.engineChanges || []).slice().reverse();
@@ -749,6 +785,7 @@
     try { renderAccount(d.allocator); } catch (e) {}
     try { renderChanges(d); } catch (e) {}
     try { renderChapter(d.chapter); } catch (e) { if (window.console) console.error(e); }
+    try { renderChallenge(d.challenges); } catch (e) { if (window.console) console.error(e); }
     document.getElementById("rules").textContent = d.rules || "";
     if (d.corrections && d.corrections.length) {
       document.getElementById("corrCard").hidden = false;
