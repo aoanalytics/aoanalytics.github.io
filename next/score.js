@@ -1,7 +1,7 @@
 /* Alfred site scorecard (Nov 8, 2026): live numbers from the public paper record, two views: at the mid and after
    estimated costs. Nothing is hand-typed: if the record can't be reached, the card says so. */
 (function () {
-  var API = "https://dashboard.tradewithao.com/api/public/track-record";
+  var API = "https://dashboard.tradewithao.com/api/public/track-record?view=summary";
   var box = document.getElementById("score"), note = document.getElementById("score-note");
   if (!box) return;
   function pct(v, d) { if (v == null || !isFinite(v)) return "—"; var n = Number(v); return (n > 0 ? "+" : n < 0 ? "−" : "") + Math.abs(n).toFixed(d == null ? 0 : d) + "%"; }
